@@ -52,8 +52,7 @@ class Alarm extends utils.Adapter {
      */
     async onReady() {
         // Initialize your adapter here
-        adapter = this;
-         await main();
+        this.main();
         /*
         For every state in the system there has to be also an object of type state
         Here a simple template for a boolean variable named "testVariable"
