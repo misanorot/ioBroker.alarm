@@ -1,0 +1,401 @@
+<html>
+
+<head>
+
+    <!-- Load ioBroker scripts and styles-->
+    <link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
+    <link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+    <link rel="stylesheet" type="text/css" href="../../lib/css/fancytree/ui.fancytree.min.css"/>
+
+    <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="../../lib/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../../lib/js/jquery.fancytree-all.min.js"></script>
+    <script type="text/javascript" src="../../lib/js/selectID.js"></script>
+    <script type="text/javascript" src="../../js/translate.js"></script>
+    <script type="text/javascript" src="../../lib/js/materialize.js"></script>
+    <script type="text/javascript" src="../../js/adapter-settings.js"></script>
+
+    <!-- Load our own files -->
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script type="text/javascript" src="words.js"></script>
+
+    <script type="text/javascript">
+        // This will be called by the admin adapter when the settings page loads
+        function load(settings, onChange) {
+            // example: select elements with id=key and class=value and insert value
+            if (!settings) return;
+            if (settings.sayit === undefined) settings.sayit = '';
+
+            $('.value').each(function () {
+                var $key = $(this);
+                var id = $key.attr('id');
+                if ($key.attr('type') === 'checkbox') {
+                    // do not call onChange direct, because onChange could expect some arguments
+                    $key.prop('checked', settings[id])
+                        .on('change', () => onChange())
+                        ;
+                } else {
+                    // do not call onChange direct, because onChange could expect some arguments
+                    $key.val(settings[id])
+                        .on('change', () => onChange())
+                        .on('keyup', () => onChange())
+                        ;
+                }
+            });
+            $('.sendTo_Chips').chips({
+                              placeholder: 'Add adapter',
+                              secondaryPlaceholder: '+instance'
+                            });
+            $('.alarm_Chips').chips({
+                              placeholder: 'alarm circuit',
+                              secondaryPlaceholder: '+state'
+                            });
+            $('.warning_Chips').chips({
+                              placeholder: 'warn circuit',
+                              secondaryPlaceholder: '+state'
+                            });
+            $('.night_Chips').chips({
+                              placeholder: 'sleep monitoring',
+                              secondaryPlaceholder: '+state'
+                            });
+
+                  // sendTo Chips
+            $('#add_sendTo').on('click', () => {
+                       initSelectId( (sid) => {
+                           sid.selectId('show', (newId) => {
+                               if (newId) {
+                                   $('.sendTo_Chips').chips('addChip', {tag: newId});
+                                   onChange();
+                               }
+                           });
+                       });
+                   })
+            list2chips('.sendTo_Chips', settings.sendTo || '', onChange);
+
+                  // Alarm Chips
+            $('#add_alarm').on('click', () => {
+                       initSelectId( (sid) => {
+                           sid.selectId('show', (newId) => {
+                               if (newId) {
+                                   $('.alarm_Chips').chips('addChip', {tag: newId});
+                                   onChange();
+                               }
+                           });
+                       });
+                   })
+            list2chips('.alarm_Chips', settings.alarm || '', onChange);
+
+                  // warning Chips
+            $('#add_warning').on('click', () => {
+                       initSelectId( (sid) => {
+                           sid.selectId('show', (newId) => {
+                               if (newId) {
+                                   $('.warning_Chips').chips('addChip', {tag: newId});
+                                   onChange();
+                               }
+                           });
+                       });
+                   })
+            list2chips('.warning_Chips', settings.warning || '', onChange);
+
+            // night Chips
+            $('#add_night').on('click', () => {
+                       initSelectId( (sid) => {
+                           sid.selectId('show', (newId) => {
+                               if (newId) {
+                                   $('.night_Chips').chips('addChip', {tag: newId});
+                                   onChange();
+                               }
+                           });
+                       });
+                   })
+            list2chips('.night_Chips', settings.night || '', onChange);
+            $('.timepicker').timepicker({
+              "twelveHour": false
+            });
+
+            getAdapterInstances('sayit', function (res) {
+                var $sayit = $('#sayit');
+                if (res) {
+                    for (let t = 0; t < res.length; t++) {
+                        $sayit.append('<option value="' + res[t]._id.replace('system.adapter.sayit.', '') + '">' + res[t].common.name + ' [' + res[t]._id.replace('system.adapter.sayit.', '') + ']</option>');
+                    }
+                }
+                $sayit.val(settings.sayit);
+                $sayit.select({
+                    dropdownOptions: {
+                        constrainWidth: false
+                    }
+                });
+            });
+
+            onChange(false);
+            // reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
+            if (M) M.updateTextFields();
+        }
+        //######  END LOAD  #######
+
+        function list2chips(selector,list, onChange) {
+        const chips = list.split(/[,;\s]+/);
+        let data = [];
+        for (let c = 0; c < chips.length; c++) {
+            if (chips[c] && chips[c].trim()) {
+                data.push({tag: chips[c].trim()});
+            }
+        }
+        $(selector).chips({
+            data: data,
+            //placeholder: _('Send Instanz'),
+            //secondaryPlaceholder: _('Add Instanz'),
+            onChipAdd: onChange,
+            onChipDelete: onChange
+        });
+        }
+        function chips2list(selector) {
+            const data = $(selector).chips('getData');
+            let text = [];
+            for (let lib = 0; lib < data.length; lib++) {
+                text.push(data[lib].tag);
+            }
+            return text.join(' ');
+        }
+
+        // This will be called by the admin adapter when the user presses the save button
+        function save(callback) {
+            // example: select elements with class=value and build settings object
+            let obj = {};
+            $('.value').each(function () {
+                let $this = $(this);
+                if ($this.attr('type') === 'checkbox') {
+                    obj[$this.attr('id')] = $this.prop('checked');
+                } else {
+                    obj[$this.attr('id')] = $this.val();
+                }
+            });
+            obj.sendTo = chips2list('.sendTo_Chips');
+            obj.alarm = chips2list('.alarm_Chips');
+            obj.warning = chips2list('.warning_Chips');
+            obj.night = chips2list('.night_Chips');
+            callback(obj);
+        }
+
+        let selectId;
+
+        function initSelectId(callback) {
+            if (selectId) {
+                return callback(selectId);
+            }
+            socket.emit('getObjects', (err, objs) => {
+                selectId = $('#dialog-select-member').selectId('init',  {
+                    noMultiselect: true,
+                    objects: objs,
+                    imgPath:       '../../lib/css/fancytree/',
+                    filter:        {type: 'state'},
+                    name:          'scenes-select-state',
+                    texts: {
+                        select:          _('Select'),
+                        cancel:          _('Cancel'),
+                        all:             _('All'),
+                        id:              _('ID'),
+                        name:            _('Name'),
+                        role:            _('Role'),
+                        room:            _('Room'),
+                        value:           _('Value'),
+                        selectid:        _('Select ID'),
+                        from:            _('From'),
+                        lc:              _('Last changed'),
+                        ts:              _('Time stamp'),
+                        wait:            _('Processing...'),
+                        ack:             _('Acknowledged'),
+                        selectAll:       _('Select all'),
+                        unselectAll:     _('Deselect all'),
+                        invertSelection: _('Invert selection')
+                    },
+                    columns: ['image', 'name', 'role', 'room']
+                });
+                callback(selectId);
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+
+    <div class="m adapter-container">
+
+        <!-- For example two columns with settings: -->
+
+        <div class="row">
+          <div class="col s12">
+            <ul class="tabs">
+              <li class="tab col s4"><a href="#tab_settings" class="translate">general</a></li>
+              <li class="tab col s4"><a href="#tab_states" class="translate">states</a></li>
+              <li class="tab col s4"><a href="#tab_sayit" class="translate">sayit</a></li>
+            </ul>
+          </div>
+
+        	<div id="tab_settings" class="col s12 page">
+            <div class="row">
+              <div class="col s6">
+                  <img src="alarm.png" class="logo">
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s2">
+                  <i class="material-icons prefix">alarm_on</i>
+                  <input id="time_activate" type="text" class="validate value">
+                  <label for="time_activate" class="translate">time_activate</label>
+              </div>
+              <div class="input-field col s2">
+                  <i class="material-icons prefix">alarm</i>
+                  <input id="time_alarm" type="text" class="validate value">
+                  <label for="time_alarm" class="translate">time_alarm</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s2">
+                <input id="night_from" type="text" class="timepicker value">
+                <label for="night_from" class="translate">night_from</label>
+              </div>
+              <div class="col s2 ">
+                <input id="night_to" type="text" class="timepicker value">
+                <label for="night_to" class="translate">night_to</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <input type="checkbox" id="opt_night" class="value" /><label  for="opt_night" class="translate">opt_night</label>
+              </div>
+              <div class="col s12">
+                <input type="checkbox" id="opt_log" class="value" /><label  for="opt_log" class="translate">opt_log</label>
+              </div>
+              <div class="col s12">
+                <input type="checkbox" id="opt_warning" class="value" /><label  for="opt_warning" class="translate">opt_warning</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s2">
+                <a id="add_sendTo" class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <label class="translate">sendTo_Chips</label>
+                <div class="chips sendTo_Chips"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s3">
+                <input type="checkbox" id="send_alarm" class="value" /><label  for="send_alarm" class="translate">send_alarm</label>
+              </div>
+              <div class="col s3">
+                <input type="checkbox" id="send_warning" class="value" /><label  for="send_warning" class="translate">send_warning</label>
+              </div>
+              <div class="col s3">
+                <input type="checkbox" id="send_night" class="value" /><label  for="send_night" class="translate">send_night</label>
+              </div>
+            </div>
+          </div>
+          <div id="tab_states" class="col s12 page">
+            <div class="row">
+              <div class="col s2">
+                <a id="add_alarm" class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <label class="translate">alarm_Chips</label>
+                <div class="chips alarm_Chips"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s2">
+                <a id="add_warning" class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <label class="translate">warning_Chips</label>
+                <div class="chips warning_Chips"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s2">
+                <a id="add_night" class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <label class="translate">night_Chips</label>
+                <div class="chips night_Chips"></div>
+              </div>
+            </div>
+          </div>
+          <div id="tab_sayit" class="col s12 page">
+            <div class="row">
+              <div class="input-field col s2 offset-s5">
+                <select class="value" id="sayit">
+                 <option value="" class="translate">disabled</option>
+                </select>
+                <label for="sayit" class="translate">sayit_instance</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="row">
+                <div class="input-field col s6">
+                  <i class="material-icons prefix">mode_edit</i>
+                  <textarea id="text_activated" class="materialize-textarea value"></textarea>
+                  <label for="text_activated" class="translate">text_activated</label>
+                </div>
+                <div class="input-field col s6">
+                  <i class="material-icons prefix">mode_edit</i>
+                  <textarea id="text_deactivated" class="materialize-textarea value"></textarea>
+                  <label for="text_deactivated" class="translate">text_deactivated</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s6">
+                  <i class="material-icons prefix">mode_edit</i>
+                  <textarea id="text_failed" class="materialize-textarea value"></textarea>
+                  <label for="text_failed" class="translate">text_failed</label>
+                </div>
+                <div class="input-field col s6">
+                  <i class="material-icons prefix">mode_edit</i>
+                  <textarea id="text_warning" class="materialize-textarea value"></textarea>
+                  <label for="text_warning" class="translate">text_warning</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">mode_edit</i>
+                  <textarea id="text_alarm" class="materialize-textarea value"></textarea>
+                  <label for="text_alarm" class="translate">text_alarm</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="m material-dialogs">
+            <div id="dialog-select-member" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                  <div class="row">
+                    <div class="col s12 title"></div>
+                  </div>
+                  <div class="row">
+                    <div class="col s12 dialog-content"></div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <a class="modal-action modal-close waves-effect waves-green btn btn-set"><i class="large material-icons left">check</i><span class="translate">Select</span></a>
+                  <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i class="large material-icons left ">close</i><span class="translate">Cancel</span></a>
+                </div>
+          </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

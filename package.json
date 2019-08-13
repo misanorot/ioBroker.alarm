@@ -1,0 +1,56 @@
+{
+  "name": "iobroker.alarm",
+  "version": "0.0.1",
+  "description": "Create your own little alarm system. Configure different alarm circuits with your own states.",
+  "author": {
+    "name": "misanorot",
+    "email": "audi16v@gmx.de"
+  },
+  "homepage": "https://github.com/misanorot/ioBroker.alarm",
+  "license": "MIT",
+  "keywords": [
+    "alarm",
+    "security",
+    "burgular"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/misanorot/ioBroker.alarm"
+  },
+  "dependencies": {
+    "@iobroker/adapter-core": "^1.0.3"
+  },
+  "devDependencies": {
+    "@iobroker/testing": "^1.2.5",
+    "@types/chai": "^4.2.0",
+    "@types/chai-as-promised": "^7.1.2",
+    "@types/gulp": "^4.0.6",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^10.14.15",
+    "@types/proxyquire": "^1.3.28",
+    "@types/sinon": "^7.0.13",
+    "@types/sinon-chai": "^3.2.3",
+    "axios": "^0.19.0",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^6.1.0",
+    "gulp": "^4.0.2",
+    "mocha": "^6.2.0",
+    "proxyquire": "^2.1.3",
+    "sinon": "^7.4.1",
+    "sinon-chai": "^3.3.0"
+  },
+  "main": "main.js",
+  "scripts": {
+    "test:js": "mocha --opts test/mocha.custom.opts",
+    "test:package": "mocha test/package --exit",
+    "test:unit": "mocha test/unit --exit",
+    "test:integration": "mocha test/integration --exit",
+    "test": "npm run test:js && npm run test:package",
+    "lint": "eslint"
+  },
+  "bugs": {
+    "url": "https://github.com/misanorot/ioBroker.alarm/issues"
+  },
+  "readmeFilename": "README.md"
+}
