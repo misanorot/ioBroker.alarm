@@ -10,7 +10,7 @@ const utils = require('@iobroker/adapter-core');
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
-
+let adapter;
 let clean_ids = [];
 let alarm = [],
     warning = [],
@@ -52,6 +52,7 @@ class Alarm extends utils.Adapter {
      */
     async onReady() {
         // Initialize your adapter here
+        adapter = this;
          main();
         /*
         For every state in the system there has to be also an object of type state
