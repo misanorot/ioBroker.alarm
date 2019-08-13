@@ -125,7 +125,7 @@ class Alarm extends utils.Adapter {
 
 }
 
-function main() {
+async main() {
   log = this.config.opt_log;
   alarm_message = this.config.send_alarm;
   night_message = this.config.send_night;
