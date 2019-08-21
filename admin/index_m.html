@@ -18,206 +18,228 @@
 
     <!-- Load our own files -->
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script type="text/javascript" src="words.js"></script>
 
     <script type="text/javascript">
-        // This will be called by the admin adapter when the settings page loads
-        function load(settings, onChange) {
-            // example: select elements with id=key and class=value and insert value
-            if (!settings) return;
-            if (settings.sayit === undefined) settings.sayit = '';
 
-            $('.value').each(function () {
-                var $key = $(this);
-                var id = $key.attr('id');
-                if ($key.attr('type') === 'checkbox') {
-                    // do not call onChange direct, because onChange could expect some arguments
-                    $key.prop('checked', settings[id])
-                        .on('change', () => onChange())
-                        ;
-                } else {
-                    // do not call onChange direct, because onChange could expect some arguments
-                    $key.val(settings[id])
-                        .on('change', () => onChange())
-                        .on('keyup', () => onChange())
-                        ;
-                }
-            });
-            $('.sendTo_Chips').chips({
-                              placeholder: 'Add adapter',
-                              secondaryPlaceholder: '+instance'
-                            });
-            $('.alarm_Chips').chips({
-                              placeholder: 'alarm circuit',
-                              secondaryPlaceholder: '+state'
-                            });
-            $('.warning_Chips').chips({
-                              placeholder: 'warn circuit',
-                              secondaryPlaceholder: '+state'
-                            });
-            $('.night_Chips').chips({
-                              placeholder: 'sleep monitoring',
-                              secondaryPlaceholder: '+state'
-                            });
+    const states = {};
+    let selectId;
 
-                  // sendTo Chips
-            $('#add_sendTo').on('click', () => {
-                       initSelectId( (sid) => {
-                           sid.selectId('show', (newId) => {
-                               if (newId) {
-                                   $('.sendTo_Chips').chips('addChip', {tag: newId});
-                                   onChange();
-                               }
-                           });
-                       });
-                   })
-            list2chips('.sendTo_Chips', settings.sendTo || '', onChange);
+    // This will be called by the admin adapter when the settings page loads
+    function load(settings, onChange) {
+        // example: select elements with id=key and class=value and insert value
+        if (!settings) return;
+        if (settings.sayit === undefined) settings.sayit = '';
+        events = settings.events    || [];
 
-                  // Alarm Chips
-            $('#add_alarm').on('click', () => {
-                       initSelectId( (sid) => {
-                           sid.selectId('show', (newId) => {
-                               if (newId) {
-                                   $('.alarm_Chips').chips('addChip', {tag: newId});
-                                   onChange();
-                               }
-                           });
-                       });
-                   })
-            list2chips('.alarm_Chips', settings.alarm || '', onChange);
-
-                  // warning Chips
-            $('#add_warning').on('click', () => {
-                       initSelectId( (sid) => {
-                           sid.selectId('show', (newId) => {
-                               if (newId) {
-                                   $('.warning_Chips').chips('addChip', {tag: newId});
-                                   onChange();
-                               }
-                           });
-                       });
-                   })
-            list2chips('.warning_Chips', settings.warning || '', onChange);
-
-            // night Chips
-            $('#add_night').on('click', () => {
-                       initSelectId( (sid) => {
-                           sid.selectId('show', (newId) => {
-                               if (newId) {
-                                   $('.night_Chips').chips('addChip', {tag: newId});
-                                   onChange();
-                               }
-                           });
-                       });
-                   })
-            list2chips('.night_Chips', settings.night || '', onChange);
-            $('.timepicker').timepicker({
-              "twelveHour": false
-            });
-
-            getAdapterInstances('sayit', function (res) {
-                var $sayit = $('#sayit');
-                if (res) {
-                    for (let t = 0; t < res.length; t++) {
-                        $sayit.append('<option value="' + res[t]._id.replace('system.adapter.sayit.', '') + '">' + res[t].common.name + ' [' + res[t]._id.replace('system.adapter.sayit.', '') + ']</option>');
-                    }
-                }
-                $sayit.val(settings.sayit);
-                $sayit.select({
-                    dropdownOptions: {
-                        constrainWidth: false
-                    }
-                });
-            });
-
-            onChange(false);
-            // reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
-            if (M) M.updateTextFields();
-        }
-        //######  END LOAD  #######
-
-        function list2chips(selector,list, onChange) {
-        const chips = list.split(/[,;\s]+/);
-        let data = [];
-        for (let c = 0; c < chips.length; c++) {
-            if (chips[c] && chips[c].trim()) {
-                data.push({tag: chips[c].trim()});
+        $('.value').each(function () {
+            const $key = $(this);
+            const id = $key.attr('id');
+            if ($key.attr('type') === 'checkbox') {
+                // do not call onChange direct, because onChange could expect some arguments
+                $key.prop('checked', settings[id])
+                    .on('change', () => onChange())
+                ;
+            } else {
+                // do not call onChange direct, because onChange could expect some arguments
+                $key.val(settings[id])
+                    .on('change', () => onChange())
+                    .on('keyup', () => onChange())
+                ;
             }
-        }
-        $(selector).chips({
-            data: data,
-            //placeholder: _('Send Instanz'),
-            //secondaryPlaceholder: _('Add Instanz'),
-            onChipAdd: onChange,
-            onChipDelete: onChange
         });
-        }
-        function chips2list(selector) {
-            const data = $(selector).chips('getData');
-            let text = [];
-            for (let lib = 0; lib < data.length; lib++) {
-                text.push(data[lib].tag);
-            }
-            return text.join(' ');
-        }
 
-        // This will be called by the admin adapter when the user presses the save button
-        function save(callback) {
-            // example: select elements with class=value and build settings object
-            let obj = {};
-            $('.value').each(function () {
-                let $this = $(this);
-                if ($this.attr('type') === 'checkbox') {
-                    obj[$this.attr('id')] = $this.prop('checked');
-                } else {
-                    obj[$this.attr('id')] = $this.val();
+        onChange(false);
+        // reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
+        if (M) M.updateTextFields();
+        $('.timepicker').timepicker({
+          "twelveHour":false
+        });
+
+        values2table('events', events, onChange, tableOnReady);
+
+        $('.sendTo_Chips').chips({
+            placeholder: 'Add adapter',
+            secondaryPlaceholder: '+instance'
+        });
+        // sendTo Chips
+        $('#add_sendTo').on('click', () => {
+            initSelectId( (sid) => {
+                sid.selectId('show', (newId) => {
+                    if (newId) {
+                        $('.sendTo_Chips').chips('addChip', {tag: newId});
+                        onChange();
+                    }
+                });
+            });
+        });
+        list2chips('.sendTo_Chips', settings.sendTo || '', onChange);
+
+
+        $('#add_state').on('click', () => {
+            initSelectId( (sid) => {
+                sid.selectId('show', (newId) => {
+                    if (newId) {
+                        socket.emit('getObject', newId, function (err, obj) {
+                            if(err)return;
+                            else{
+                                add_newState(newId, obj);
+                                onChange();
+                            }
+                        });
+
+                    }
+                });
+            });
+        });
+
+        getAdapterInstances('sayit', function (res) {
+            const $sayit = $('#sayit');
+            if (res) {
+                for (let t = 0; t < res.length; t++) {
+                    $sayit.append('<option value="' + res[t]._id.replace('system.adapter.sayit.', '') + '">' + res[t].common.name + ' [' + res[t]._id.replace('system.adapter.sayit.', '') + ']</option>');
+                }
+            }
+            $sayit.val(settings.sayit);
+            $sayit.select({
+                dropdownOptions: {
+                    constrainWidth: false
                 }
             });
-            obj.sendTo = chips2list('.sendTo_Chips');
-            obj.alarm = chips2list('.alarm_Chips');
-            obj.warning = chips2list('.warning_Chips');
-            obj.night = chips2list('.night_Chips');
-            callback(obj);
-        }
+        });
+    }
+    //######  END LOAD  #######
 
-        let selectId;
+    //###########  SAVE  #########
 
-        function initSelectId(callback) {
-            if (selectId) {
-                return callback(selectId);
+    // This will be called by the admin adapter when the user presses the save button
+    function save(callback) {
+        // example: select elements with class=value and build settings object
+        const obj = {};
+        $('.value').each(function () {
+            const $this = $(this);
+            if ($this.attr('type') === 'checkbox') {
+                obj[$this.attr('id')] = $this.prop('checked');
+            } else {
+                obj[$this.attr('id')] = $this.val();
             }
-            socket.emit('getObjects', (err, objs) => {
-                selectId = $('#dialog-select-member').selectId('init',  {
-                    noMultiselect: true,
-                    objects: objs,
-                    imgPath:       '../../lib/css/fancytree/',
-                    filter:        {type: 'state'},
-                    name:          'scenes-select-state',
-                    texts: {
-                        select:          _('Select'),
-                        cancel:          _('Cancel'),
-                        all:             _('All'),
-                        id:              _('ID'),
-                        name:            _('Name'),
-                        role:            _('Role'),
-                        room:            _('Room'),
-                        value:           _('Value'),
-                        selectid:        _('Select ID'),
-                        from:            _('From'),
-                        lc:              _('Last changed'),
-                        ts:              _('Time stamp'),
-                        wait:            _('Processing...'),
-                        ack:             _('Acknowledged'),
-                        selectAll:       _('Select all'),
-                        unselectAll:     _('Deselect all'),
-                        invertSelection: _('Invert selection')
-                    },
-                    columns: ['image', 'name', 'role', 'room']
-                });
-                callback(selectId);
-            });
+        });
+        obj.sendTo = chips2list('.sendTo_Chips');
+        obj.events    = table2values('events');
+        console.log(obj.events);
+        obj.states = states;
+        callback(obj);
+    }
+//##############################################
+
+//###########  HELPERS  ###########
+
+function tableOnReady() {
+    $('.table-button-add').on('click', function () {
+        const devices = table2values('events');
+        console.log(devices);
+        let id = 0;
+        for (let i = 0; i < devices.length; i++) {
+            id = id +1;
         }
-    </script>
+        initSelectId(function (sid) {
+            sid.selectId('show', $('#events .values-input[data-name="name"][data-index="' + id + '"]').val(), function (newId) {
+                if (newId) {
+                    console.log(newId);
+                    $('#events .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+                    socket.emit('getObject', newId, function (err, obj) {
+                        const name = getName(obj);
+                        $('#events .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+                    });
+                }
+            });
+        });
+    });
+}
+
+function list2chips(selector,list, onChange) {
+    const chips = list.split(/[,;\s]+/);
+    const data = [];
+    for (let c = 0; c < chips.length; c++) {
+        if (chips[c] && chips[c].trim()) {
+            data.push({tag: chips[c].trim()});
+        }
+    }
+    $(selector).chips({
+        data: data,
+        //placeholder: _('Send Instanz'),
+        //secondaryPlaceholder: _('Add Instanz'),
+        onChipAdd: onChange,
+        onChipDelete: onChange
+    });
+}
+function chips2list(selector) {
+    const data = $(selector).chips('getData');
+    const text = [];
+    for (let lib = 0; lib < data.length; lib++) {
+        text.push(data[lib].tag);
+    }
+    return text.join(' ');
+}
+
+function initSelectId(callback) {
+    if (selectId) {
+        return callback(selectId);
+    }
+    socket.emit('getObjects', (err, objs) => {
+        selectId = $('#dialog-select-member').selectId('init',  {
+            noMultiselect: true,
+            objects: objs,
+            imgPath:       '../../lib/css/fancytree/',
+            filter:        {type: 'state'},
+            name:          'scenes-select-state',
+            texts: {
+                select:          _('Select'),
+                cancel:          _('Cancel'),
+                all:             _('All'),
+                id:              _('ID'),
+                name:            _('Name'),
+                role:            _('Role'),
+                room:            _('Room'),
+                value:           _('Value'),
+                selectid:        _('Select ID'),
+                from:            _('From'),
+                lc:              _('Last changed'),
+                ts:              _('Time stamp'),
+                wait:            _('Processing...'),
+                ack:             _('Acknowledged'),
+                selectAll:       _('Select all'),
+                unselectAll:     _('Deselect all'),
+                invertSelection: _('Invert selection')
+            },
+            columns: ['image', 'name', 'role', 'room']
+        });
+        callback(selectId);
+    });
+}
+
+function getName(obj) {
+    if (obj && obj.common && obj.common.name) {
+        let name = obj.common.name;
+        if (typeof name === 'object') {
+            name = name[systemLang] || name.en;
+        }
+        return name;
+    } else if (obj && obj.name) {
+        let name = obj.name;
+        if (typeof name === 'object') {
+            name = name[systemLang] || name.en;
+        }
+        return name;
+    } else {
+        const parts = obj.id.split('.');
+        const last = parts.pop();
+        return last[0].toUpperCase() + last.substring(1).toLowerCase();
+    }
+}
+//#####################################################
+  </script>
 
 </head>
 
@@ -300,37 +322,30 @@
           </div>
           <div id="tab_states" class="col s12 page">
             <div class="row">
-              <div class="col s2">
-                <a id="add_alarm" class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></a>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12">
-                <label class="translate">alarm_Chips</label>
-                <div class="chips alarm_Chips"></div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s2">
-                <a id="add_warning" class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></a>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12">
-                <label class="translate">warning_Chips</label>
-                <div class="chips warning_Chips"></div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s2">
-                <a id="add_night" class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></a>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12">
-                <label class="translate">night_Chips</label>
-                <div class="chips night_Chips"></div>
-              </div>
+                <div class="col s12" id="events">
+                    <div class="row">
+                        <div class="col s2 m1 l1 left">
+                            <a   class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>
+                        </div>
+                    </div>
+                    <div class="table-values-div">
+                        <table class="table-values">
+                            <thead>
+                            <tr>
+                                <th data-name="_index" style="width: 80px; background: #64b5f6; text-align: center" data-style="text-align: center">Nr</th>
+                                <th data-name="enabled"  style="width: 70px; background: #64b5f6" data-style="width: 70px" data-type="checkbox" class="translate">active</th>
+                                <th data-name="name" data-type="text" style="width: 40%; background: #64b5f6" class="translate">Name</th>
+                                <th data-name="name_id" data-type="text" style="width: 40%; background: #64b5f6" class="translate">Object-ID</th>
+                                <th data-name="alarm"  style="width: 70px; background: #64b5f6" data-style="width: 70px" data-type="checkbox" class="translate">alarm</th>
+                                <th data-name="warning"  style="width: 70px; background: #64b5f6" data-style="width: 70px" data-type="checkbox" class="translate">warning</th>
+                                <th data-name="night"  style="width: 70px; background: #64b5f6" data-style="width: 70px" data-type="checkbox" class="translate">night</th>
+                                <th data-name="negativ"  style="width: 70px; background: #64b5f6" data-style="width: 70px" data-type="checkbox" class="translate">negativ</th>
+                                <th data-buttons="delete" style="width: 100px; background: #64b5f6"></th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
             </div>
           </div>
           <div id="tab_sayit" class="col s12 page">
