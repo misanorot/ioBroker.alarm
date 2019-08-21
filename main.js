@@ -114,7 +114,8 @@ function main() {
             return;
         }else night_rest = state.val;
     });
-    split_states(adapter.config.events);
+    if(adapter.config.events)split_states(adapter.config.events);
+    else adapter.log.info('no states configured!');
     send_instances = split_arr(adapter.config.sendTo);
     get_ids();
     get_states();
