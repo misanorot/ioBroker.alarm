@@ -97,10 +97,10 @@
                   "type": "state",
                   "common": {
                       "role": "",
-                      "def": false,
                       "name": "Activated",
                       "desc": "Alarm system is activated",
                       "type": "boolean",
+                      "def": false,
                       "read": true,
                       "write": false
                   },
@@ -176,10 +176,10 @@
                   "type": "state",
                   "common": {
                       "role": "",
-                      "def": false,
                       "name": "Sleep",
                       "desc": "Night rest is activated",
                       "type": "boolean",
+                      "def": false,
                       "read": true,
                       "write": false
                   },
