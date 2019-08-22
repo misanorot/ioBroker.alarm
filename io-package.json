@@ -102,7 +102,7 @@
                       "type": "boolean",
                       "def": false,
                       "read": true,
-                      "write": false
+                      "write": true
                   },
                   "native": {}
               },
@@ -181,7 +181,7 @@
                       "type": "boolean",
                       "def": false,
                       "read": true,
-                      "write": false
+                      "write": true
                   },
                   "native": {}
               },
