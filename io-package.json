@@ -99,7 +99,7 @@
                       "role": "",
                       "name": "Activated",
                       "desc": "Alarm system is activated",
-                      "type": "boolean",
+                      "type": "state",
                       "def": false,
                       "read": true,
                       "write": false
@@ -113,7 +113,7 @@
                       "role": "",
                       "name": "Gets activated",
                       "desc": "Alarm system gets activated",
-                      "type": "boolean",
+                      "type": "state",
                       "read": true,
                       "write": false
                   },
@@ -126,7 +126,7 @@
                       "role": "",
                       "name": "Deactivated",
                       "desc": "Alarm system is deactivated",
-                      "type": "boolean",
+                      "type": "state",
                       "read": true,
                       "write": false
                   },
@@ -139,7 +139,7 @@
                       "role": "",
                       "name": "Burgle",
                       "desc": "Alarm system signalled burgle",
-                      "type": "boolean",
+                      "type": "state",
                       "read": true,
                       "write": false
                   },
@@ -152,7 +152,7 @@
                       "role": "",
                       "name": "Alarm siren",
                       "desc": "Alarm system has triggered the siren",
-                      "type": "boolean",
+                      "type": "state",
                       "read": true,
                       "write": false
                   },
@@ -165,7 +165,7 @@
                       "role": "",
                       "name": "Activation failed",
                       "desc": "Alarm system report activation failed",
-                      "type": "boolean",
+                      "type": "state",
                       "read": true,
                       "write": false
                   },
@@ -178,7 +178,7 @@
                       "role": "",
                       "name": "Sleep",
                       "desc": "Night rest is activated",
-                      "type": "boolean",
+                      "type": "state",
                       "def": false,
                       "read": true,
                       "write": false
@@ -192,7 +192,7 @@
                       "role": "",
                       "name": "Warnings",
                       "desc": "Alarm system activated with warnings",
-                      "type": "boolean",
+                      "type": "state",
                       "read": true,
                       "write": false
                   },
@@ -231,7 +231,7 @@
                       "role": "",
                       "name": "Enable",
                       "desc": "Enable the alarm system",
-                      "type": "boolean",
+                      "type": "state",
                       "read": true,
                       "write": true
                   },
@@ -244,7 +244,7 @@
                       "role": "",
                       "name": "Disable",
                       "desc": "Disable the alarm system",
-                      "type": "boolean",
+                      "type": "state",
                       "read": true,
                       "write": true
                   },
@@ -257,7 +257,7 @@
                       "role": "",
                       "name": "Disable/Enable",
                       "desc": "Disable or enable the alarm system",
-                      "type": "boolean",
+                      "type": "state",
                       "read": true,
                       "write": true
                   },
@@ -270,7 +270,7 @@
                       "role": "",
                       "name": "Disable/Enable with delay",
                       "desc": "Disable or enable the alarm system with delay time",
-                      "type": "boolean",
+                      "type": "state",
                       "read": true,
                       "write": true
                   },
@@ -283,7 +283,7 @@
                       "role": "",
                       "name": "Enable with delay",
                       "desc": "Enable the alarm system with delay time",
-                      "type": "boolean",
+                      "type": "state",
                       "read": true,
                       "write": true
                   },
