@@ -106,8 +106,10 @@ function main() {
             adapter.setState('info.connection', false);
             return;
         }else{
-      	    if(state === null)activated = false;
-      			else activated = state.val;
+      	    if(state === null){
+                activated = false;
+                adapter.setState('status.activated', false);
+            }else activated = state.val;
 		    }
     });
     adapter.getState('status.sleep', (err, state)=>{
@@ -116,8 +118,10 @@ function main() {
             adapter.setState('info.connection', false);
             return;
         }else{
-			       if(state === null) night_rest = false;
-			       else night_rest = state.val;
+          if(state === null){
+              night_rest = false;
+              adapter.setState('status.sleep', false);
+          }else night_rest = state.val;
         }
     });
     if(adapter.config.events)split_states(adapter.config.events);
