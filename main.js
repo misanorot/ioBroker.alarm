@@ -102,15 +102,15 @@ function main() {
     warning_message = adapter.config.send_warning;
     adapter.getState('status.activated', (err, state)=>{
         if(err){
-            adapter.log.error(err);
-            adapter.setState('info.connection', false);
+            adapter.setState('status.activated', false);
+			activated = false;
             return;
         }else activated = state.val;
     });
     adapter.getState('status.sleep', (err, state)=>{
         if(err){
-            adapter.log.error(err);
-            adapter.setState('info.connection', false);
+            adapter.setState('status.sleep', false);
+			night_rest = false;
             return;
         }else night_rest = state.val;
     });
