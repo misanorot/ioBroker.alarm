@@ -106,7 +106,7 @@ function main() {
             adapter.setState('info.connection', false);
             return;
         }else{
-      	    if(!state.val)activated = false;
+      	    if(state.val === null)activated = false;
       			else activated = state.val;
 		    }
     });
@@ -116,7 +116,7 @@ function main() {
             adapter.setState('info.connection', false);
             return;
         }else{
-			       if(!state.val) night_rest = false;
+			       if(state.val === null) night_rest = false;
 			       else night_rest = state.val;
         }
     });
