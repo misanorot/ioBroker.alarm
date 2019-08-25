@@ -102,7 +102,7 @@ function main() {
     warning_message = adapter.config.send_warning;
     adapter.getState('status.activated', (err, state)=>{
         if(err){
-            adapter.log.error(err);
+            adapter.log.error('kjfdhlk'+err);
             adapter.setState('info.connection', false);
             return;
         }else{
@@ -112,7 +112,7 @@ function main() {
     });
     adapter.getState('status.sleep', (err, state)=>{
         if(err){
-            adapter.log.error(err);
+            adapter.log.error('kjfdhlk'+err);
             adapter.setState('info.connection', false);
             return;
         }else{
