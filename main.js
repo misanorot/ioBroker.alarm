@@ -102,17 +102,23 @@ function main() {
     warning_message = adapter.config.send_warning;
     adapter.getState('status.activated', (err, state)=>{
         if(err){
-            adapter.setState('status.activated', false);
-			activated = false;
+            adapter.log.error(err);
+            adapter.setState('info.connection', false);
             return;
-        }else activated = state.val;
+        }else{
+			if(!state.val) activated = false;
+			else activated = state.val;
+		}
     });
     adapter.getState('status.sleep', (err, state)=>{
         if(err){
-            adapter.setState('status.sleep', false);
-			night_rest = false;
+            adapter.log.error(err);
+            adapter.setState('info.connection', false);
             return;
-        }else night_rest = state.val;
+        }else night_rest = state.val;}else{
+			if(!state.val) night_rest = false;
+			else night_rest = state.val;
+		}
     });
     if(adapter.config.events)split_states(adapter.config.events);
     else adapter.log.info('no states configured!');
@@ -121,7 +127,6 @@ function main() {
     get_states();
     setTimeout(set_subs, 2000);
     set_schedules();
-    //adapter.setState('status.activated', false);
 }
 //################# ENABLE ####################################################
 
