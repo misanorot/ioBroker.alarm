@@ -102,20 +102,22 @@ function main() {
     warning_message = adapter.config.send_warning;
     adapter.getState('status.activated', (err, state)=>{
         if(err){
-            adapter.log.error('kjfdhlk'+err);
+            adapter.log.error(err);
             adapter.setState('info.connection', false);
             return;
         }else{
+          adapter.log.info(JSON.stringify(state))
       	    if(state.val === null)activated = false;
       			else activated = state.val;
 		    }
     });
     adapter.getState('status.sleep', (err, state)=>{
         if(err){
-            adapter.log.error('kjfdhlk'+err);
+            adapter.log.error(err);
             adapter.setState('info.connection', false);
             return;
         }else{
+          adapter.log.info(JSON.stringify(state))
 			       if(state.val === null) night_rest = false;
 			       else night_rest = state.val;
         }
