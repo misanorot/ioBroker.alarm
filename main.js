@@ -290,7 +290,7 @@ function messages(content){
     if(send_instances.length){
         send_instances.forEach((ele)=>{
             adapter.log.debug(`Send message to ${ele}, message: ${content}`);
-            sendTo(ele, content);
+            adapter.sendTo(ele, content);
         });
     }
 }
