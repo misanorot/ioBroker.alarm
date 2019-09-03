@@ -351,16 +351,16 @@ function check(arr, callback){
     }
 }
 
-function get_name(id, callback){
-    const name = [];
-    try {
-        id.forEach((ele)=>{
-            name.push(adapter.config.events[ele].name);
+function get_name(ids, callback){
+    const name =[];
+    ids.forEach((id)=>{
+        const temp = adapter.config.events.findIndex((obj)=>{
+            const reg = new RegExp(id);
+            return reg.test(obj.name_id);
         });
-        const back = name.join();
-    } catch (e) {
-        adapter.log.warn(`Cannot get name ${e}`)
-    }
+        name.push(adapter.config.events[temp].name) ;
+    });
+    return name.join();
 }
 
 function get_state_async(id){
