@@ -353,7 +353,7 @@ function check(arr, callback){
 
 function get_name(ids, callback){
     const name =[];
-    if(ids.isArray()){
+    if(Array.isArray(ids)){
         ids.forEach((id)=>{
             const temp = adapter.config.events.findIndex((obj)=>{
                 const reg = new RegExp(id);
