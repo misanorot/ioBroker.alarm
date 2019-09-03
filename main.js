@@ -355,7 +355,7 @@ function get_name(id, callback){
     const name = [];
     try {
         id.forEach((ele)=>{
-            name.push(adapter.config.events[ele]);
+            name.push(adapter.config.events[ele].name);
         });
         const back = name.join();
     } catch (e) {
