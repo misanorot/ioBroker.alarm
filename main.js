@@ -351,6 +351,18 @@ function check(arr, callback){
     }
 }
 
+function get_name(id, callback){
+    const name = [];
+    try {
+        id.forEach((ele)=>{
+            name.push(adapter.config.events[ele]);
+        });
+        const back = name.join();
+    } catch (e) {
+        adapter.log.warn(`Cannot get name ${e}`)
+    }
+}
+
 function get_state_async(id){
     return new Promise((resolve, reject)=>{
         adapter.getForeignState(id,(err, state)=>{
@@ -413,8 +425,8 @@ function set_schedules(){
             adapter.setState('status.sleep', true);
             check(night, (val, ids)=>{
                 if(val){
-                    if(night_message) messages(`Night rest begins with warnings: ${JSON.stringify(ids)}`);
-                    if(log)adapter.log.info(`Night rest begins with warnings: ${JSON.stringify(ids)}`);
+                    if(night_message) messages(`Night rest begins with warnings: ${get_name(ids)}`);
+                    if(log)adapter.log.info(`Night rest begins with warnings: ${get_name(ids)}`);
                 }
             });
         });
