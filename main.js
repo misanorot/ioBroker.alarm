@@ -150,12 +150,12 @@ function enable(id, state){
         ids_alarm = ids;
     });
     if(is_alarm){
-        if(log)adapter.log.info(`Cannot activate the alarm system, please check: ${JSON.stringify(ids_alarm)}`);
+        if(log)adapter.log.info(`Cannot activate the alarm system, please check: ${get_name(ids_alarm)}`);
         adapter.setState('status.activation_failed', true);
         return;
     }
     if(!adapter.config.opt_warning && is_warning){
-        if(log)adapter.log.info(`Cannot activate the alarm system, please check: ${JSON.stringify(ids_warning)}`);
+        if(log)adapter.log.info(`Cannot activate the alarm system, please check: ${get_name(ids_warning)}`);
         adapter.setState('status.activation_failed', true);
         return;
     }
@@ -165,8 +165,8 @@ function enable(id, state){
     adapter.setState('status.activation_failed', false);
     if(warning.includes(id)){
         adapter.setState('status.activated_with_warnings', true);
-        if(log)adapter.log.info(`Alarm system activated with warnings: ${id}`);
-        if(warning_message) messages(`Alarm system activated with warnings: ${id}`);
+        if(log)adapter.log.info(`Alarm system activated with warnings: ${get_name(id)}`);
+        if(warning_message) messages(`Alarm system activated with warnings: ${get_name(id)}`);
     }
 }
 //##############################################################################
@@ -246,8 +246,8 @@ function change(id, state){
         }
     }
     if(alarm.includes(id) && activated){
-        if(log)adapter.log.info(`Alarm system signalled burgle in: ${id}`);
-        if(alarm_message) messages(`Alarm system signalled burgle in: ${id}`);
+        if(log)adapter.log.info(`Alarm system signalled burgle in: ${get_name(id)}`);
+        if(alarm_message) messages(`Alarm system signalled burgle in: ${get_name(id)}`);
         adapter.setState('status.burglar_alarm', true);
         adapter.setState('status.siren', true);
         setTimeout(()=>{
@@ -256,13 +256,13 @@ function change(id, state){
         return;
     }
     if(warning.includes(id) && activated){
-        if(log)adapter.log.info(`Alarm system signalled warning--> motion in: ${id}`);
-        if(warning_message) messages(`Alarm system signalled warning--> motion in: ${id}`);
+        if(log)adapter.log.info(`Alarm system signalled warning--> motion in: ${get_name(id)}`);
+        if(warning_message) messages(`Alarm system signalled warning--> motion in: ${get_name(id)}`);
         return;
     }
     if(night.includes(id) && night_rest){
-        if(log)adapter.log.info(`Alarm system signalled changes while night rest is active: ${id}`);
-        if(night_message) messages(`Alarm system signalled changes while night rest is active: ${id}`);
+        if(log)adapter.log.info(`Alarm system signalled changes while night rest is active: ${get_name(id)}`);
+        if(night_message) messages(`Alarm system signalled changes while night rest is active: ${get_name(id)}`);
         return;
     }
 }
