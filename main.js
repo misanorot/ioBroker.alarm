@@ -353,14 +353,22 @@ function check(arr, callback){
 
 function get_name(ids, callback){
     const name =[];
-    ids.forEach((id)=>{
+    if(ids.isArray()){
+        ids.forEach((id)=>{
+            const temp = adapter.config.events.findIndex((obj)=>{
+                const reg = new RegExp(id);
+                return reg.test(obj.name_id);
+            });
+            name.push(adapter.config.events[temp].name) ;
+        });
+        return name.join();
+    }else{
         const temp = adapter.config.events.findIndex((obj)=>{
-            const reg = new RegExp(id);
+            const reg = new RegExp(ids);
             return reg.test(obj.name_id);
         });
-        name.push(adapter.config.events[temp].name) ;
-    });
-    return name.join();
+        return adapter.config.events[temp].name;
+    }
 }
 
 function get_state_async(id){
