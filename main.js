@@ -98,7 +98,6 @@ function startAdapter(options) {
 }
 
 function main() {
-    adapter.log.info(T.Translate.de.first);
     log = adapter.config.opt_log;
     alarm_message = adapter.config.send_alarm;
     night_message = adapter.config.send_night;
