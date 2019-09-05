@@ -12,6 +12,7 @@ const T = require('./lib/Logs.js');
  * @type {ioBroker.Adapter}
  */
 let adapter;
+const L = T.Transation.de;
 let clean_ids = [];
 const alarm = [],
     warning = [],
@@ -152,23 +153,23 @@ function enable(id, state){
         ids_alarm = ids;
     });
     if(is_alarm){
-        if(log)adapter.log.info(`Cannot activate the alarm system, please check: ${get_name(ids_alarm)}`);
+        if(log)adapter.log.info(`${L.act_not} ${get_name(ids_alarm)}`);
         adapter.setState('status.activation_failed', true);
         return;
     }
     if(!adapter.config.opt_warning && is_warning){
-        if(log)adapter.log.info(`Cannot activate the alarm system, please check: ${get_name(ids_warning)}`);
+        if(log)adapter.log.info(`${L.act_not} ${get_name(ids_warning)}`);
         adapter.setState('status.activation_failed', true);
         return;
     }
-    if(log)adapter.log.info('Alarm system is activated');
+    if(log)adapter.log.info(`${L.act}`);
     adapter.setState('status.activated', true);
     adapter.setState('status.deactivated', false);
     adapter.setState('status.activation_failed', false);
     if(warning.includes(id)){
         adapter.setState('status.activated_with_warnings', true);
-        if(log)adapter.log.info(`Alarm system activated with warnings: ${get_name(id)}`);
-        if(warning_message) messages(`Alarm system activated with warnings: ${get_name(id)}`);
+        if(log)adapter.log.info(`${L.act_warn} ${get_name(id)}`);
+        if(warning_message) messages(`${L.act_warn} ${get_name(id)}`);
     }
 }
 //##############################################################################
@@ -182,7 +183,7 @@ function disable(){
         adapter.setState('status.activation_countdown', null);
     }
     if(activated){
-        if(log)adapter.log.info('Alarm system is deactivated');
+        if(log)adapter.log.info(`${L.deact}`);
         adapter.setState('status.siren', false);
         adapter.setState('status.activated', false);
         adapter.setState('status.deactivated', true);
@@ -248,8 +249,8 @@ function change(id, state){
         }
     }
     if(alarm.includes(id) && activated){
-        if(log)adapter.log.info(`Alarm system signalled burgle in: ${get_name(id)}`);
-        if(alarm_message) messages(`Alarm system signalled burgle in: ${get_name(id)}`);
+        if(log)adapter.log.info(`${L.burgle} ${get_name(id)}`);
+        if(alarm_message) messages(`${L.burgle} ${get_name(id)}`);
         adapter.setState('status.burglar_alarm', true);
         adapter.setState('status.siren', true);
         setTimeout(()=>{
@@ -258,13 +259,13 @@ function change(id, state){
         return;
     }
     if(warning.includes(id) && activated){
-        if(log)adapter.log.info(`Alarm system signalled warning--> motion in: ${get_name(id)}`);
-        if(warning_message) messages(`Alarm system signalled warning--> motion in: ${get_name(id)}`);
+        if(log)adapter.log.info(`${L.warn} ${get_name(id)}`);
+        if(warning_message) messages(`${L.warn} ${get_name(id)}`);
         return;
     }
     if(night.includes(id) && night_rest){
-        if(log)adapter.log.info(`Alarm system signalled changes while night rest is active: ${get_name(id)}`);
-        if(night_message) messages(`Alarm system signalled changes while night rest is active: ${get_name(id)}`);
+        if(log)adapter.log.info(`${L.night} ${get_name(id)}`);
+        if(night_message) messages(`${L.night} ${get_name(id)}`);
         return;
     }
 }
@@ -432,17 +433,17 @@ function set_schedules(){
             return;
         }
         schedule_from = schedule.scheduleJob({hour: parseInt(from[0]), minute: parseInt(from[1])}, ()=>{
-            if(log)adapter.log.info('Sleep begins');
+            if(log)adapter.log.info(`${L.nights_b}`);
             adapter.setState('status.sleep', true);
             check(night, (val, ids)=>{
                 if(val){
-                    if(night_message) messages(`Night rest begins with warnings: ${get_name(ids)}`);
-                    if(log)adapter.log.info(`Night rest begins with warnings: ${get_name(ids)}`);
+                    if(night_message) messages(`${L.nights_b_w} ${get_name(ids)}`);
+                    if(log)adapter.log.info(`${L.nights_b_w} ${get_name(ids)}`);
                 }
             });
         });
         schedule_to = schedule.scheduleJob({hour: parseInt(to[0]), minute: parseInt(to[1])}, ()=>{
-            if(log)adapter.log.info('Sleep ends');
+            if(log)adapter.log.info(`${L.nights_e}`);
             adapter.setState('status.sleep', false);
         });
     }else{
