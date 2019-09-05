@@ -5,6 +5,7 @@ const utils = require('@iobroker/adapter-core');
 // Load your modules here, e.g.:
 // const fs = require("fs");
 const schedule = require('node-schedule');
+import {Translate} from './lib/Logs';
 
 /**
  * The adapter instance
@@ -96,6 +97,7 @@ function startAdapter(options) {
 }
 
 function main() {
+  adapter.log.info(Translate.de.first);
     log = adapter.config.opt_log;
     alarm_message = adapter.config.send_alarm;
     night_message = adapter.config.send_night;
