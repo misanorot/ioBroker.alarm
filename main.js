@@ -5,7 +5,7 @@ const utils = require('@iobroker/adapter-core');
 // Load your modules here, e.g.:
 // const fs = require("fs");
 const schedule = require('node-schedule');
-import {Translate} from './lib/Logs';
+import Translate from './lib/Logs.js';
 
 /**
  * The adapter instance
