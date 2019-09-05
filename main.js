@@ -12,7 +12,7 @@ const T = require('./lib/Logs.js');
  * @type {ioBroker.Adapter}
  */
 let adapter;
-const L = T.Transation.de;
+const L = T.Translate.de;
 let clean_ids = [];
 const alarm = [],
     warning = [],
