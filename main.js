@@ -198,7 +198,6 @@ function disable(){
 //################# CHANGES ####################################################
 
 function change(id, state){
-  adapter.log.debug(`Night rest: ${night_rest}`);
     for(const i in states){
         if(i === id){
             states[id] = state.val;
@@ -282,6 +281,7 @@ function set_subs(){
     });
     adapter.subscribeStates('use.*');
     adapter.subscribeStates('status.activated');
+    adapter.subscribeStates('status.sleep');
 }
 //##############################################################################
 
