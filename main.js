@@ -152,23 +152,23 @@ function enable(id, state){
         ids_alarm = ids;
     });
     if(is_alarm){
-        if(log)adapter.log.info(`${L + 'act_not'} ${get_name(ids_alarm)}`);
+        if(log)adapter.log.info(`${L.act_not} ${get_name(ids_alarm)}`);
         adapter.setState('status.activation_failed', true);
         return;
     }
     if(!adapter.config.opt_warning && is_warning){
-        if(log)adapter.log.info(`${L + 'act_not'} ${get_name(ids_warning)}`);
+        if(log)adapter.log.info(`${L.act_not} ${get_name(ids_warning)}`);
         adapter.setState('status.activation_failed', true);
         return;
     }
-    if(log)adapter.log.info(`${L + 'act'}`);
+    if(log)adapter.log.info(`${L.act}`);
     adapter.setState('status.activated', true);
     adapter.setState('status.deactivated', false);
     adapter.setState('status.activation_failed', false);
     if(warning.includes(id)){
         adapter.setState('status.activated_with_warnings', true);
-        if(log)adapter.log.info(`${L + 'act_warn'} ${get_name(id)}`);
-        if(warning_message) messages(`${L + 'act_warn'} ${get_name(id)}`);
+        if(log)adapter.log.info(`${L.act_warn} ${get_name(id)}`);
+        if(warning_message) messages(`${L.act_warn} ${get_name(id)}`);
     }
 }
 //##############################################################################
@@ -248,8 +248,8 @@ function change(id, state){
         }
     }
     if(alarm.includes(id) && activated){
-        if(log)adapter.log.info(`${L + 'burgle'} ${get_name(id)}`);
-        if(alarm_message) messages(`${L + 'burgle'} ${get_name(id)}`);
+        if(log)adapter.log.info(`${L.burgle} ${get_name(id)}`);
+        if(alarm_message) messages(`${L.burgle} ${get_name(id)}`);
         adapter.setState('status.burglar_alarm', true);
         adapter.setState('status.siren', true);
         setTimeout(()=>{
@@ -258,13 +258,13 @@ function change(id, state){
         return;
     }
     if(warning.includes(id) && activated){
-        if(log)adapter.log.info(`${L + warn} ${get_name(id)}`);
-        if(warning_message) messages(`${L + warn} ${get_name(id)}`);
+        if(log)adapter.log.info(`${L.warn} ${get_name(id)}`);
+        if(warning_message) messages(`${L.warn} ${get_name(id)}`);
         return;
     }
     if(night.includes(id) && night_rest){
-        if(log)adapter.log.info(`${L + night} ${get_name(id)}`);
-        if(night_message) messages(`${L + night} ${get_name(id)}`);
+        if(log)adapter.log.info(`${L.night} ${get_name(id)}`);
+        if(night_message) messages(`${L.night} ${get_name(id)}`);
         return;
     }
 }
@@ -436,13 +436,13 @@ function set_schedules(){
             adapter.setState('status.sleep', true);
             check(night, (val, ids)=>{
                 if(val){
-                    if(night_message) messages(`${L + 'nights_b_w'} ${get_name(ids)}`);
-                    if(log)adapter.log.info(`${L + 'nights_b_w'} ${get_name(ids)}`);
+                    if(night_message) messages(`${L.nights_b_w} ${get_name(ids)}`);
+                    if(log)adapter.log.info(`${L.nights_b_w} ${get_name(ids)}`);
                 }
             });
         });
         schedule_to = schedule.scheduleJob({hour: parseInt(to[0]), minute: parseInt(to[1])}, ()=>{
-            if(log)adapter.log.info(`${L + 'nights_e'}`);
+            if(log)adapter.log.info(`${L.nights_e}`);
             adapter.setState('status.sleep', false);
         });
     }else{
