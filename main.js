@@ -432,7 +432,7 @@ function set_schedules(){
             return;
         }
         schedule_from = schedule.scheduleJob({hour: parseInt(from[0]), minute: parseInt(from[1])}, ()=>{
-            if(log)adapter.log.info(`${L + 'nights_b'}`);
+            if(log)adapter.log.info(`${L.sleep_b}`);
             adapter.setState('status.sleep', true);
             check(night, (val, ids)=>{
                 if(val){
@@ -442,7 +442,7 @@ function set_schedules(){
             });
         });
         schedule_to = schedule.scheduleJob({hour: parseInt(to[0]), minute: parseInt(to[1])}, ()=>{
-            if(log)adapter.log.info(`${L.nights_e}`);
+            if(log)adapter.log.info(`${L.sleep_e}`);
             adapter.setState('status.sleep', false);
         });
     }else{
