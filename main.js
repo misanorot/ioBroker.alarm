@@ -73,7 +73,6 @@ function startAdapter(options) {
         stateChange: (id, state) => {
             if (state) {
                 // The state was changed
-                adapter.log.debug(`State ${JSON.stringify(state)}`);
                 adapter.log.debug(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
                 change(id, state);
             } else {
@@ -201,13 +200,19 @@ function disable(){
 //################# CHANGES ####################################################
 
 function change(id, state){
+    let is_not_change = false;
     for(const i in states){
         if(i === id){
+            if(states[id] === state.val){
+                is_not_change = true;
+                break;
+            }
             states[id] = state.val;
             adapter.log.debug(`Inside state change: ${id} val: ${state.val}`);
         }
     }
-    if(id === adapter.namespace + '.status.activated'){
+    if(is_not_change) return;
+    else if(id === adapter.namespace + '.status.activated'){
         activated = state.val;
         return;
     }
