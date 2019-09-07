@@ -73,6 +73,7 @@ function startAdapter(options) {
         stateChange: (id, state) => {
             if (state) {
                 // The state was changed
+                adapter.log.debug(`State ${JSON.stringify(state)}`);
                 adapter.log.debug(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
                 change(id, state);
             } else {
@@ -319,7 +320,7 @@ function split_states(arr){
             if(ele.warning)warning.push(ele.name_id);
             if(ele.night)night.push(ele.name_id);
         }else{
-            adapter.log.debug(`State not used but configured: ${ele.id}`);
+            adapter.log.debug(`State not used but configured: ${ele.name_id}`);
         }
     });
 }
