@@ -129,6 +129,7 @@ function main() {
     if(adapter.config.events)split_states(adapter.config.events);
     else adapter.log.info('no states configured!');
     send_instances = split_arr(adapter.config.sendTo);
+    adapter.log.debug(`Messages to: ${JSON.stringify(send_instances)}`);
     get_ids();
     get_states();
     setTimeout(set_subs, 2000);
