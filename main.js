@@ -202,6 +202,7 @@ function disable(){
 
 function change(id, state){
     let is_not_change = false;
+    let isTrue = false;
     for(const i in states){
         if(i === id){
             if(states[id] === state.val){
@@ -213,7 +214,12 @@ function change(id, state){
         }
     }
     if(is_not_change) return;
-    else if(id === adapter.namespace + '.status.activated'){
+    else{
+        if(!search(id) && state.val) isTrue = true;
+        else if(search(id) && !state.val) isTrue = true;
+    }
+
+    if(id === adapter.namespace + '.status.activated'){
         activated = state.val;
         return;
     }
@@ -254,7 +260,7 @@ function change(id, state){
             return;
         }
     }
-    if(alarm.includes(id) && activated){
+    if(alarm.includes(id) && activated && isTrue){
         if(log)adapter.log.info(`${L.burgle} ${get_name(id)}`);
         if(alarm_message) messages(`${L.burgle} ${get_name(id)}`);
         adapter.setState('status.burglar_alarm', true);
@@ -264,12 +270,12 @@ function change(id, state){
         }, 1000*adapter.config.time_alarm);
         return;
     }
-    if(warning.includes(id) && activated){
+    if(warning.includes(id) && activated && isTrue){
         if(log)adapter.log.info(`${L.warn} ${get_name(id)}`);
         if(warning_message) messages(`${L.warn} ${get_name(id)}`);
         return;
     }
-    if(night.includes(id) && night_rest){
+    if(night.includes(id) && night_rest && isTrue){
         if(log)adapter.log.info(`${L.night} ${get_name(id)}`);
         if(night_message) messages(`${L.night} ${get_name(id)}`);
         return;
