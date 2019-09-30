@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "alarm",
-        "version": "0.0.1",
+        "version": "0.0.2",
         "news": {
+          "0.0.2": {
+            "en": "fixed little issue at countdown",
+            "de": "kleines Problem beim Countdown behoben",
+            "ru": "исправлена небольшая проблема при обратном отсчете",
+            "pt": "pequeno problema corrigido na contagem regressiva",
+            "nl": "probleem opgelost bij het aftellen",
+            "fr": "correction d'un petit problème au compte à rebours",
+            "it": "risolto piccolo problema al conto alla rovescia",
+            "es": "pequeño problema solucionado en la cuenta regresiva",
+            "pl": "naprawiono mały problem przy odliczaniu",
+            "zh-cn": "固定倒计时的小问题"
+          },
             "0.0.1": {
                 "en": "initial release",
                 "de": "Erstveröffentlichung",

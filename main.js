@@ -177,11 +177,6 @@ function enable(id, state){
 //################# DISABLE ####################################################
 
 function disable(){
-    if(timer){
-        clearInterval(timer);
-        timer = null;
-        adapter.setState('status.activation_countdown', null);
-    }
     if(activated){
         if(log)adapter.log.info(`${L + 'deact'}`);
         adapter.setState('status.siren', false);
@@ -427,6 +422,12 @@ function countdown(action){
             }
         }, 1000);
     }else{
+        if(timer){
+            clearInterval(timer);
+            timer = null;
+            adapter.setState('status.activation_countdown', null);
+            adapter.setState('status.gets_activated', false);
+        }
         disable();
     }
 }
