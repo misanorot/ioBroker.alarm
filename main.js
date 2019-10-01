@@ -178,7 +178,7 @@ function enable(id, state){
 
 function disable(){
     if(activated){
-        if(log)adapter.log.info(`${L + 'deact'}`);
+        if(log)adapter.log.info(`${L.deact}`);
         adapter.setState('status.siren', false);
         adapter.setState('status.activated', false);
         adapter.setState('status.deactivated', true);
