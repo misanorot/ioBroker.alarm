@@ -149,8 +149,8 @@ function enable(id, state){
         ids_alarm = ids;
     });
     check(warning, (val, ids)=>{
-        is_alarm = val;
-        ids_alarm = ids;
+        is_warning = val;
+        ids_warning = ids;
     });
     if(is_alarm){
         if(log)adapter.log.info(`${L.act_not} ${get_name(ids_alarm)}`);
