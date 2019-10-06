@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "alarm",
-        "version": "0.0.4",
+        "version": "0.0.5",
         "news": {
+          "0.0.5": {
+          "en": "add log state",
+          "de": "Protokollstatus hinzufügen",
+          "ru": "добавить состояние журнала",
+          "pt": "adicionar estado de log",
+          "nl": "logboekstatus toevoegen",
+          "fr": "ajouter l'état du journal",
+          "it": "aggiungi stato log",
+          "es": "agregar estado de registro",
+          "pl": "dodaj stan dziennika",
+          "zh-cn": "添加日志状态"
+          },
           "0.0.2": {
             "en": "fixed little issue at countdown",
             "de": "kleines Problem beim Countdown behoben",
@@ -302,7 +314,7 @@
                   "native": {}
               },
               {
-                  "_id": "list.activation_failed",
+                  "_id": "info.activation_failed",
                   "type": "state",
                   "common": {
                       "role": "",
@@ -315,7 +327,7 @@
                   "native": {}
               },
               {
-                  "_id": "list.activated_with_warnings",
+                  "_id": "info.activated_with_warnings",
                   "type": "state",
                   "common": {
                       "role": "",
@@ -328,12 +340,25 @@
                   "native": {}
               },
               {
-                  "_id": "list.sleep_warning",
+                  "_id": "info.sleep_warning",
                   "type": "state",
                   "common": {
                       "role": "",
                       "name": "Sleep list",
                       "desc": "Warning list at night",
+                      "type": "string",
+                      "read": true,
+                      "write": false
+                  },
+                  "native": {}
+              },
+              {
+                  "_id": "info.log",
+                  "type": "state",
+                  "common": {
+                      "role": "",
+                      "name": "last log",
+                      "desc": "the last log that was fired",
                       "type": "string",
                       "read": true,
                       "write": false
