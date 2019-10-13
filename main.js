@@ -108,7 +108,7 @@ function main() {
             adapter.setState('info.connection', false);
             return;
         }else{
-      	    if(state === null){
+      	    if(state == null){
                 activated = false;
                 adapter.setState('status.activated', false);
             }else activated = state.val;
@@ -120,7 +120,7 @@ function main() {
             adapter.setState('info.connection', false);
             return;
         }else{
-            if(state === null){
+            if(state == null){
                 night_rest = false;
                 adapter.setState('status.sleep', false);
             }else night_rest = state.val;
