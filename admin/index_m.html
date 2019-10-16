@@ -166,7 +166,7 @@ function tableOnReady() {
             id = id +1;
         }
         initSelectId(function (sid) {
-            sid.selectId('show', $('#cuts .values-input[data-name="name"][data-index="' + id + '"]').val(), function (newId) {
+            sid.selectId('show', $('#cuts .values-input[data-name="name_id"][data-index="' + id + '"]').val(), function (newId) {
                 if (newId) {
                     console.log(newId);
                     $('#cuts .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
