@@ -93,6 +93,7 @@
     },
     "native": {
         "events":[],
+        "cuts":[],
         "time_activate": 10,
         "time_alarm": 60,
         "opt_night": true,
