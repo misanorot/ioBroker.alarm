@@ -31,7 +31,7 @@
         // example: select elements with id=key and class=value and insert value
         if (!settings) return;
         if (settings.sayit === undefined) settings.sayit = '';
-        events = settings.events    || [];
+        circuits = settings.circuits    || [];
         cuts = settings.cuts    || [];
 
         $('.value').each(function () {
@@ -58,8 +58,11 @@
           "twelveHour":false
         });
 
-        values2table('events', events, onChange, tableOnReady);
-        values2table('events', cuts, onChange, tableOnReady);
+        values2table('circuits', circuits, onChange, tableOnReady);
+        setTimeout(()=>{
+          values2table('cuts', cuts, onChange, tableOnReady);
+        }, 500);
+
 
         $('.sendTo_Chips').chips({
             placeholder: 'Add adapter',
@@ -128,7 +131,7 @@
             }
         });
         obj.sendTo = chips2list('.sendTo_Chips');
-        obj.events = table2values('events');
+        obj.circuits = table2values('circuits');
         obj.cuts = table2values('cuts');
         obj.states = states;
         callback(obj);
@@ -139,20 +142,20 @@
 
 function tableOnReady() {
     $('.table-button-add').on('click', function () {
-        const devices = table2values('events');
+        const devices = table2values('circuits');
         console.log(devices);
         let id = 0;
         for (let i = 0; i < devices.length; i++) {
             id = id +1;
         }
         initSelectId(function (sid) {
-            sid.selectId('show', $('#events .values-input[data-name="name"][data-index="' + id + '"]').val(), function (newId) {
+            sid.selectId('show', $('#circuits .values-input[data-name="name"][data-index="' + id + '"]').val(), function (newId) {
                 if (newId) {
                     console.log(newId);
-                    $('#events .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+                    $('#circuits .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
                     socket.emit('getObject', newId, function (err, obj) {
                         const name = getName(obj);
-                        $('#events .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+                        $('#circuits .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
                     });
                 }
             });
@@ -346,7 +349,7 @@ function getName(obj) {
           </div>
           <div id="tab_states" class="col s12 page">
             <div class="row">
-                <div class="col s12" id="events">
+                <div class="col s12" id="circuits">
                     <div class="row">
                         <div class="col s2 m1 l1 left">
                             <a   class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>

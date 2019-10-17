@@ -92,7 +92,7 @@
         ]
     },
     "native": {
-        "events":[],
+        "circuits":[],
         "cuts":[],
         "time_activate": 10,
         "time_alarm": 60,
