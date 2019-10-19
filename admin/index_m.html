@@ -136,6 +136,10 @@
 
 //###########  HELPERS  ###########
 
+function table_click(ele){
+  console.log(ele)
+}
+
 function tableOnReady() {
     $('.table-button-add').on('click', function () {
         const devices = table2values('circuits');
@@ -400,46 +404,46 @@ function getName(obj) {
                   <table class="centered">
                     <thead>
                       <tr>
-                          <th class="translate">name_id</th>
-                          <th class="translate">name_id</th>
+                          <th class="translate">Object-ID</th>
+                          <th class="translate">Object-ID</th>
                           <th class="translate">value</th>
                       </tr>
                     </thead>
                       <tbody>
                         <tr>
                           <td>activated</td>
-                          <td></td>
-                          <td></td>
+                          <td onclick="table_click(this);" class="value" id="shortcuts_id_activated"></td>
+                          <td class="value" id="shortcuts_value_activated"></td>
                         </tr>
                         <tr>
                           <td>activated_with_warnings</td>
-                          <td></td>
-                          <td></td>
+                          <td onclick="table_click(this);" class="value" id="shortcuts_id_activated_with_warnings"></td>
+                          <td class="value" id="shortcuts_value_activated_with_warnings"></td>
                         </tr>
                         <tr>
                           <td>activation_failed</td>
-                          <td></td>
-                          <td></td>
+                          <td onclick="table_click(this);" class="value" id="shortcuts_id_activation_failed"></td>
+                          <td class="value" id="shortcuts_value_activation_failed"></td>
                         </tr>
                         <tr>
                           <td>burglar_alarm</td>
-                          <td></td>
-                          <td></td>
+                          <td onclick="table_click(this);" class="value" id="shortcuts_id_burglar_alarm"></td>
+                          <td class="value" id="shortcuts_value_burglar_alarm"></td>
                         </tr>
                         <tr>
                           <td>deactivated</td>
-                          <td></td>
-                          <td></td>
+                          <td onclick="table_click(this);" class="value" id="shortcuts_id_deactivated"></td>
+                          <td class="value" id="shortcuts_value_deactivated"></td>
                         </tr>
                         <tr>
                           <td>siren</td>
-                          <td></td>
-                          <td></td>
+                          <td onclick="table_click(this);" class="value" id="shortcuts_id_siren"></td>
+                          <td class="value" id="shortcuts_value_siren"></td>
                         </tr>
                         <tr>
                           <td>sleep</td>
-                          <td></td>
-                          <td></td>
+                          <td onclick="table_click(this);" class="value" id="shortcuts_id_sleep"></td>
+                          <td class="value" id="shortcuts_value_sleep"></td>
                         </tr>
                       </tbody>
                   </table>
