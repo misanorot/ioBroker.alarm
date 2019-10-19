@@ -31,8 +31,8 @@
         // example: select elements with id=key and class=value and insert value
         if (!settings) return;
         if (settings.sayit === undefined) settings.sayit = '';
+
         circuits = settings.circuits    || [];
-        cuts = settings.cuts    || [];
 
         $('.value').each(function () {
             const $key = $(this);
@@ -59,10 +59,6 @@
         });
 
         values2table('circuits', circuits, onChange, tableOnReady);
-        setTimeout(()=>{
-          values2table('cuts', cuts, onChange, tableOnReady);
-        }, 500);
-
 
         $('.sendTo_Chips').chips({
             placeholder: 'Add adapter',
@@ -157,26 +153,6 @@ function tableOnReady() {
                         const name = getName(obj);
                         $('#circuits .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
                     });
-                }
-            });
-        });
-    });
-    $('.table-button-add_cuts').on('click', function () {
-        const devices = table2values('cuts');
-        console.log(devices);
-        let id = 0;
-        for (let i = 0; i < devices.length; i++) {
-            id = id +1;
-        }
-        initSelectId(function (sid) {
-            sid.selectId('show', $('#cuts .values-input[data-name="name"][data-index="' + id + '"]').val(), function (newId) {
-                if (newId) {
-                    console.log(newId);
-                    $('#cuts .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
-                    /*socket.emit('getObject', newId, function (err, obj) {
-                        const name = getName(obj);
-                        $('#cuts .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
-                    });*/
                 }
             });
         });
@@ -420,29 +396,53 @@ function getName(obj) {
           </div>
           <div id="tab_shortcuts" class="col s12 page">
             <div class="row">
-                <div class="col s12" id="cuts">
-                    <div class="row">
-                        <div class="col s2 m1 l1 left">
-                            <a   class="btn-floating waves-effect waves-light blue table-button-add_cuts"><i class="material-icons">add</i></a>
-                        </div>
-                    </div>
-                    <div class="table-values-div">
-                        <table class="table-values">
-                            <thead>
-                              <tr>
-                                  <th data-name="_index" style="width: 80px; background: #64b5f6; text-align: center" data-style="text-align: center">Nr</th>
-                                  <th data-name="enabled"  style="width: 70px; background: #64b5f6" data-style="width: 70px" data-type="checkbox" class="translate">active</th>
-                                  <th data-name="name" data-type="text" style="width: 40%; background: #64b5f6" class="translate">Name</th>
-                                  <th data-name="name_id" data-type="text" style="width: 40%; background: #64b5f6" class="translate">Object-ID</th>
-                                  <th data-name="alarm"  style="width: 70px; background: #64b5f6" data-style="width: 70px" data-type="checkbox" class="translate">alarm</th>
-                                  <th data-name="warning"  style="width: 70px; background: #64b5f6" data-style="width: 70px" data-type="checkbox" class="translate">warning</th>
-                                  <th data-name="night"  style="width: 70px; background: #64b5f6" data-style="width: 70px" data-type="checkbox" class="translate">night</th>
-                                  <th data-name="negativ"  style="width: 70px; background: #64b5f6" data-style="width: 70px" data-type="checkbox" class="translate">negativ</th>
-                                  <th data-buttons="delete" style="width: 100px; background: #64b5f6"></th>
-                              </tr>
-                            </thead>
-                        </table>
-                    </div>
+                <div class="col s12">
+                  <table class="centered">
+                    <thead>
+                      <tr>
+                          <th class="translate">name_id</th>
+                          <th class="translate">name_id</th>
+                          <th class="translate">value</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+                        <tr>
+                          <td>activated</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>activated_with_warnings</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>activation_failed</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>burglar_alarm</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>deactivated</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>siren</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>sleep</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                  </table>
                 </div>
             </div>
           </div>
