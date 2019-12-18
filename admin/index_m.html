@@ -33,6 +33,7 @@
         if (settings.sayit === undefined) settings.sayit = '';
 
         circuits = settings.circuits    || [];
+        shorts = settings.shorts    || [];
 
         $('.value').each(function () {
             const $key = $(this);
@@ -59,6 +60,7 @@
         });
 
         values2table('circuits', circuits, onChange, tableOnReady);
+        values2table('shorts', shorts, onChange, tableOnReady);
 
         $('.sendTo_Chips').chips({
             placeholder: 'Add adapter',
@@ -128,7 +130,7 @@
         });
         obj.sendTo = chips2list('.sendTo_Chips');
         obj.circuits = table2values('circuits');
-        obj.cuts = table2values('cuts');
+        obj.shorts = table2values('shorts');
         obj.states = states;
         callback(obj);
     }
@@ -136,30 +138,46 @@
 
 //###########  HELPERS  ###########
 
-function table_click(ele){
-  console.log(ele)
-}
-
 function tableOnReady() {
     $('.table-button-add').on('click', function () {
+      if($(this).attr('id') === 'circuits_table'){
         const devices = table2values('circuits');
-        console.log(devices);
-        let id = 0;
+        let id_c = 0;
         for (let i = 0; i < devices.length; i++) {
-            id = id +1;
+            id_c = id_c +1;
         }
         initSelectId(function (sid) {
-            sid.selectId('show', $('#circuits .values-input[data-name="name"][data-index="' + id + '"]').val(), function (newId) {
+            sid.selectId('show', $('#circuits .values-input[data-name="name"][data-index="' + id_c + '"]').val(), function (newId) {
                 if (newId) {
                     console.log(newId);
-                    $('#circuits .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+                    $('#circuits .values-input[data-name="name_id"][data-index="' + id_c + '"]').val(newId).trigger('change');
                     socket.emit('getObject', newId, function (err, obj) {
                         const name = getName(obj);
-                        $('#circuits .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+                        $('#circuits .values-input[data-name="name"][data-index="' + id_c + '"]').val(name).trigger('change');
                     });
                 }
             });
         });
+      }else{
+            const shorts = table2values('shorts');
+            let id_s = 0;
+            for (let i = 0; i < shorts.length; i++) {
+                id_s = id_s +1;
+            }
+            initSelectId(function (sid) {
+                sid.selectId('show', $('#shorts .values-input[data-name="name"][data-index="' + id_s + '"]').val(), function (newId) {
+                    if (newId) {
+                        console.log(newId);
+                        $('#shorts .values-input[data-name="name_id"][data-index="' + id_s + '"]').val(newId).trigger('change');
+                        socket.emit('getObject', newId, function (err, obj) {
+                            const name = getName(obj);
+                            $('#shorts .values-input[data-name="name"][data-index="' + id_s + '"]').val(name).trigger('change');
+                        });
+                    }
+                });
+            });
+      }
+
     });
 }
 
@@ -332,7 +350,7 @@ function getName(obj) {
                 <div class="col s12" id="circuits">
                     <div class="row">
                         <div class="col s2 m1 l1 left">
-                            <a   class="btn-floating waves-effect waves-light blue table-button-add"><i class="material-icons">add</i></a>
+                            <a   class="btn-floating waves-effect waves-light blue table-button-add" id="circuits_table"><i class="material-icons">add</i></a>
                         </div>
                     </div>
                     <div class="table-values-div">
@@ -400,53 +418,27 @@ function getName(obj) {
           </div>
           <div id="tab_shortcuts" class="col s12 page">
             <div class="row">
-                <div class="col s12">
-                  <table class="centered">
-                    <thead>
-                      <tr>
-                          <th class="translate">Object-ID</th>
-                          <th class="translate">Object-ID</th>
-                          <th class="translate">value</th>
-                      </tr>
-                    </thead>
-                      <tbody>
-                        <tr>
-                          <td>activated</td>
-                          <td onclick="table_click(this.id);" class="value" id="shortcuts_id_activated"></td>
-                          <td contenteditable='true' class="value" id="shortcuts_value_activated"></td>
-                        </tr>
-                        <tr>
-                          <td>activated_with_warnings</td>
-                          <td onclick="table_click(this.id);" class="value" id="shortcuts_id_activated_with_warnings"></td>
-                          <td contenteditable='true' class="value" id="shortcuts_value_activated_with_warnings"></td>
-                        </tr>
-                        <tr>
-                          <td>activation_failed</td>
-                          <td onclick="table_click(this.id);" class="value" id="shortcuts_id_activation_failed"></td>
-                          <td contenteditable='true' class="value" id="shortcuts_value_activation_failed"></td>
-                        </tr>
-                        <tr>
-                          <td>burglar_alarm</td>
-                          <td onclick="table_click(this.id);" class="value" id="shortcuts_id_burglar_alarm"></td>
-                          <td contenteditable='true' class="value" id="shortcuts_value_burglar_alarm"></td>
-                        </tr>
-                        <tr>
-                          <td>deactivated</td>
-                          <td onclick="table_click(this.id);" class="value" id="shortcuts_id_deactivated"></td>
-                          <td contenteditable='true' class="value" id="shortcuts_value_deactivated"></td>
-                        </tr>
-                        <tr>
-                          <td>siren</td>
-                          <td onclick="table_click(this.id);" class="value" id="shortcuts_id_siren"></td>
-                          <td contenteditable='true' class="value" id="shortcuts_value_siren"></td>
-                        </tr>
-                        <tr>
-                          <td>sleep</td>
-                          <td onclick="table_click(this.id);" class="value" id="shortcuts_id_sleep"></td>
-                          <td contenteditable='true' class="value" id="shortcuts_value_sleep"></td>
-                        </tr>
-                      </tbody>
-                  </table>
+                <div class="col s12" id="shorts">
+                    <div class="row">
+                        <div class="col s2 m1 l1 left">
+                            <a   class="btn-floating waves-effect waves-light blue table-button-add" id="shorts_table"><i class="material-icons">add</i></a>
+                        </div>
+                    </div>
+                    <div class="table-values-div">
+                        <table class="table-values">
+                            <thead>
+                            <tr>
+                              <th data-name="_index" style="width: 80px; background: #64b5f6; text-align: center" data-style="text-align: center">Nr</th>
+                              <th data-name="enabled"  style="width: 70px; background: #64b5f6" data-style="width: 70px" data-type="checkbox" class="translate">active</th>
+                              <th data-name="select_id" data-type="text" style="width: 20%; background: #64b5f6" data-type="select" class="translate">Name</th>
+                              <th data-name="name" data-type="text" style="width: 20%; background: #64b5f6" class="translate">Name</th>
+                              <th data-name="name_id" data-type="text" style="width: 20%; background: #64b5f6" class="translate">Object-ID</th>
+                              <th data-name="value"  style="width: 20%; background: #64b5f6" class="translate">values</th>
+                              <th data-buttons="delete" style="width: 100px; background: #64b5f6"></th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
           </div>

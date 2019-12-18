@@ -126,7 +126,7 @@ function main() {
             }else night_rest = state.val;
         }
     });
-    if(adapter.config.events)split_states(adapter.config.events);
+    if(adapter.config.circuits)split_states(adapter.config.circuits);
     else adapter.log.info('no states configured!');
     send_instances = split_arr(adapter.config.sendTo);
     adapter.log.debug(`Messages to: ${JSON.stringify(send_instances)}`);
@@ -348,11 +348,11 @@ function get_ids(){
 }
 
 function search(id){
-    const temp = adapter.config.events.findIndex((obj)=>{
+    const temp = adapter.config.circuits.findIndex((obj)=>{
         const reg = new RegExp(id);
         return reg.test(obj.name_id);
     });
-    return adapter.config.events[temp].negativ;
+    return adapter.config.circuits[temp].negativ;
 }
 
 function check(arr, callback){
@@ -375,19 +375,19 @@ function get_name(ids, callback){
     const name =[];
     if(Array.isArray(ids)){
         ids.forEach((id)=>{
-            const temp = adapter.config.events.findIndex((obj)=>{
+            const temp = adapter.config.circuits.findIndex((obj)=>{
                 const reg = new RegExp(id);
                 return reg.test(obj.name_id);
             });
-            name.push(adapter.config.events[temp].name) ;
+            name.push(adapter.config.circuits[temp].name) ;
         });
         return name.join();
     }else{
-        const temp = adapter.config.events.findIndex((obj)=>{
+        const temp = adapter.config.circuits.findIndex((obj)=>{
             const reg = new RegExp(ids);
             return reg.test(obj.name_id);
         });
-        return adapter.config.events[temp].name;
+        return adapter.config.circuits[temp].name;
     }
 }
 

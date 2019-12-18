@@ -1,370 +1,371 @@
 {
-    "common": {
-        "name": "alarm",
-        "version": "0.0.6",
-        "news": {
-          "0.0.5": {
-          "en": "add log state",
-          "de": "Protokollstatus hinzufügen",
-          "ru": "добавить состояние журнала",
-          "pt": "adicionar estado de log",
-          "nl": "logboekstatus toevoegen",
-          "fr": "ajouter l'état du journal",
-          "it": "aggiungi stato log",
-          "es": "agregar estado de registro",
-          "pl": "dodaj stan dziennika",
-          "zh-cn": "添加日志状态"
-          },
-          "0.0.2": {
-            "en": "fixed little issue at countdown",
-            "de": "kleines Problem beim Countdown behoben",
-            "ru": "исправлена небольшая проблема при обратном отсчете",
-            "pt": "pequeno problema corrigido na contagem regressiva",
-            "nl": "probleem opgelost bij het aftellen",
-            "fr": "correction d'un petit problème au compte à rebours",
-            "it": "risolto piccolo problema al conto alla rovescia",
-            "es": "pequeño problema solucionado en la cuenta regresiva",
-            "pl": "naprawiono mały problem przy odliczaniu",
-            "zh-cn": "固定倒计时的小问题"
-          },
-            "0.0.1": {
-                "en": "initial release",
-                "de": "Erstveröffentlichung",
-                "ru": "Начальная версия",
-                "pt": "lançamento inicial",
-                "nl": "Eerste uitgave",
-                "fr": "Première version",
-                "it": "Versione iniziale",
-                "es": "Versión inicial",
-                "pl": "Pierwsze wydanie",
-                "zh-cn": "首次出版"
-            }
-        },
-        "title": "alarm system",
-        "titleLang": {
-            "en": "my own little alarm system",
-            "de": "meine eigene kleine Alarmanlage",
-            "ru": "моя собственная маленькая сигнализация",
-            "pt": "meu próprio pequeno sistema de alarme",
-            "nl": "mijn eigen kleine alarmsysteem",
-            "fr": "mon propre petit système d'alarme",
-            "it": "il mio piccolo sistema di allarme",
-            "es": "mi propio pequeño sistema de alarma",
-            "pl": "mój własny mały system alarmowy",
-            "zh-cn": "我自己的小报警系统"
-        },
-        "desc": {
-            "en": "Create your own little alarm system. Configure different alarm circuits with your own states.",
-            "de": "Erstellen Sie Ihr eigenes kleines Alarmsystem. ",
-            "ru": "Создайте свою собственную маленькую сигнализацию. ",
-            "pt": "Crie o seu próprio pequeno sistema de alarme. ",
-            "nl": "Maak je eigen kleine alarmsysteem. ",
-            "fr": "Créez votre propre petit système d'alarme. ",
-            "it": "Crea il tuo piccolo sistema di allarme. ",
-            "es": "Crea tu propio pequeño sistema de alarma. ",
-            "pl": "Stwórz swój własny mały system alarmowy. ",
-            "zh-cn": "创建自己的小型报警系统。"
-        },
-        "authors": [
-            "misanorot <audi16v@gmx.de>"
-        ],
-        "keywords": [
-            "alarm",
-            "security",
-            "burgular"
-        ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "main": "main.js",
-        "icon": "alarm.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/misanorot/ioBroker.alarm/master/admin/alarm.png",
-        "readme": "https://github.com/misanorot/ioBroker.alarm/blob/master/README.md",
-        "loglevel": "info",
-        "mode": "daemon",
-        "type": "alarm",
-        "compact": false,
-        "materialize": true,
-        "dependencies": [
-            {
-                "js-controller": ">=1.4.2"
-            }
-        ]
+  "common": {
+    "name": "alarm",
+    "version": "0.0.7",
+    "news": {
+      "0.0.5": {
+        "en": "add log state",
+        "de": "Protokollstatus hinzufügen",
+        "ru": "добавить состояние журнала",
+        "pt": "adicionar estado de log",
+        "nl": "logboekstatus toevoegen",
+        "fr": "ajouter l'état du journal",
+        "it": "aggiungi stato log",
+        "es": "agregar estado de registro",
+        "pl": "dodaj stan dziennika",
+        "zh-cn": "添加日志状态"
+      },
+      "0.0.2": {
+        "en": "fixed little issue at countdown",
+        "de": "kleines Problem beim Countdown behoben",
+        "ru": "исправлена небольшая проблема при обратном отсчете",
+        "pt": "pequeno problema corrigido na contagem regressiva",
+        "nl": "probleem opgelost bij het aftellen",
+        "fr": "correction d'un petit problème au compte à rebours",
+        "it": "risolto piccolo problema al conto alla rovescia",
+        "es": "pequeño problema solucionado en la cuenta regresiva",
+        "pl": "naprawiono mały problem przy odliczaniu",
+        "zh-cn": "固定倒计时的小问题"
+      },
+      "0.0.1": {
+        "en": "initial release",
+        "de": "Erstveröffentlichung",
+        "ru": "Начальная версия",
+        "pt": "lançamento inicial",
+        "nl": "Eerste uitgave",
+        "fr": "Première version",
+        "it": "Versione iniziale",
+        "es": "Versión inicial",
+        "pl": "Pierwsze wydanie",
+        "zh-cn": "首次出版"
+      }
     },
-    "native": {
-        "circuits":[],
-        "cuts":[],
-        "time_activate": 10,
-        "time_alarm": 60,
-        "opt_night": true,
-        "opt_log": true,
-        "opt_warning": false,
-        "night_from": "",
-        "night_to": "",
-        "send_alarm": true,
-        "send_warning": true,
-        "send_night": true,
-        "sayit": "0",
-        "text_activated": "Alarmanlage aktiviert",
-        "text_deactivated": "Alarmanlage deaktiviert",
-        "text_failed": "Aktivierung fehlgeschlagen",
-        "text_warning": "Es sind noch Sachen offen",
-        "text_alarm": "Verlassen Sie sofort das Haus",
-        "sendTo": "",
-        "alarm": "",
-        "warning": "",
-        "night": ""
+    "title": "alarm system",
+    "titleLang": {
+      "en": "my own little alarm system",
+      "de": "meine eigene kleine Alarmanlage",
+      "ru": "моя собственная маленькая сигнализация",
+      "pt": "meu próprio pequeno sistema de alarme",
+      "nl": "mijn eigen kleine alarmsysteem",
+      "fr": "mon propre petit système d'alarme",
+      "it": "il mio piccolo sistema di allarme",
+      "es": "mi propio pequeño sistema de alarma",
+      "pl": "mój własny mały system alarmowy",
+      "zh-cn": "我自己的小报警系统"
     },
-    "objects": [],
-    "instanceObjects": [
-              {
-                  "_id": "status.activated",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Activated",
-                      "desc": "Alarm system is activated",
-                      "type": "boolean",
-                      "def": false,
-                      "read": true,
-                      "write": true
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "status.gets_activated",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Gets activated",
-                      "desc": "Alarm system gets activated",
-                      "type": "boolean",
-                      "read": true,
-                      "write": false
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "status.deactivated",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Deactivated",
-                      "desc": "Alarm system is deactivated",
-                      "type": "boolean",
-                      "read": true,
-                      "write": false
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "status.burglar_alarm",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Burgle",
-                      "desc": "Alarm system signalled burgle",
-                      "type": "boolean",
-                      "read": true,
-                      "write": false
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "status.siren",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Alarm siren",
-                      "desc": "Alarm system has triggered the siren",
-                      "type": "boolean",
-                      "read": true,
-                      "write": false
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "status.activation_failed",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Activation failed",
-                      "desc": "Alarm system report activation failed",
-                      "type": "boolean",
-                      "read": true,
-                      "write": false
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "status.sleep",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Sleep",
-                      "desc": "Night rest is activated",
-                      "type": "boolean",
-                      "def": false,
-                      "read": true,
-                      "write": true
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "status.activated_with_warnings",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Warnings",
-                      "desc": "Alarm system activated with warnings",
-                      "type": "boolean",
-                      "read": true,
-                      "write": false
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "status.state",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "State",
-                      "desc": "State of alarm system",
-                      "type": "string",
-                      "read": true,
-                      "write": false
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "status.activation_countdown",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Countdown",
-                      "desc": "Time to activate the alarm system",
-                      "type": "number",
-                      "read": true,
-                      "write": false
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "use.enable",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Enable",
-                      "desc": "Enable the alarm system",
-                      "type": "boolean",
-                      "read": true,
-                      "write": true
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "use.disable",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Disable",
-                      "desc": "Disable the alarm system",
-                      "type": "boolean",
-                      "read": true,
-                      "write": true
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "use.toggle",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Disable/Enable",
-                      "desc": "Disable or enable the alarm system",
-                      "type": "boolean",
-                      "read": true,
-                      "write": true
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "use.toggle_with_delay",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Disable/Enable with delay",
-                      "desc": "Disable or enable the alarm system with delay time",
-                      "type": "boolean",
-                      "read": true,
-                      "write": true
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "use.enable_with_delay",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Enable with delay",
-                      "desc": "Enable the alarm system with delay time",
-                      "type": "boolean",
-                      "read": true,
-                      "write": true
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "info.activation_failed",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Error list",
-                      "desc": "Error list of failed activations",
-                      "type": "string",
-                      "read": true,
-                      "write": false
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "info.activated_with_warnings",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Warning list",
-                      "desc": "Warning list of warning activations",
-                      "type": "string",
-                      "read": true,
-                      "write": false
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "info.sleep_warning",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "Sleep list",
-                      "desc": "Warning list at night",
-                      "type": "string",
-                      "read": true,
-                      "write": false
-                  },
-                  "native": {}
-              },
-              {
-                  "_id": "info.log",
-                  "type": "state",
-                  "common": {
-                      "role": "",
-                      "name": "last log",
-                      "desc": "the last log that was fired",
-                      "type": "string",
-                      "read": true,
-                      "write": false
-                  },
-                  "native": {}
-              }
-    ]
-  }
+    "desc": {
+      "en": "Create your own little alarm system. Configure different alarm circuits with your own states.",
+      "de": "Erstellen Sie Ihr eigenes kleines Alarmsystem. ",
+      "ru": "Создайте свою собственную маленькую сигнализацию. ",
+      "pt": "Crie o seu próprio pequeno sistema de alarme. ",
+      "nl": "Maak je eigen kleine alarmsysteem. ",
+      "fr": "Créez votre propre petit système d'alarme. ",
+      "it": "Crea il tuo piccolo sistema di allarme. ",
+      "es": "Crea tu propio pequeño sistema de alarma. ",
+      "pl": "Stwórz swój własny mały system alarmowy. ",
+      "zh-cn": "创建自己的小型报警系统。"
+    },
+    "authors": [
+      "misanorot <audi16v@gmx.de>"
+    ],
+    "keywords": [
+      "alarm",
+      "security",
+      "burgular"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "alarm.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/misanorot/ioBroker.alarm/master/admin/alarm.png",
+    "readme": "https://github.com/misanorot/ioBroker.alarm/blob/master/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "alarm",
+    "compact": false,
+    "materialize": true,
+    "dependencies": [
+      {
+        "js-controller": ">=1.4.2"
+      }
+    ],
+    "installedFrom": "https://github.com/misanorot/ioBroker.alarm/tarball/e946eb2c99a3095de6dfb2275643ebc0fd798c20"
+  },
+  "native": {
+    "circuits": [],
+    "shorts": [],
+    "time_activate": 10,
+    "time_alarm": 60,
+    "opt_night": true,
+    "opt_log": true,
+    "opt_warning": false,
+    "night_from": "",
+    "night_to": "",
+    "send_alarm": true,
+    "send_warning": true,
+    "send_night": true,
+    "sayit": "0",
+    "text_activated": "Alarmanlage aktiviert",
+    "text_deactivated": "Alarmanlage deaktiviert",
+    "text_failed": "Aktivierung fehlgeschlagen",
+    "text_warning": "Es sind noch Sachen offen",
+    "text_alarm": "Verlassen Sie sofort das Haus",
+    "sendTo": "",
+    "alarm": "",
+    "warning": "",
+    "night": ""
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "status.activated",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Activated",
+        "desc": "Alarm system is activated",
+        "type": "boolean",
+        "def": false,
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "status.gets_activated",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Gets activated",
+        "desc": "Alarm system gets activated",
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "status.deactivated",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Deactivated",
+        "desc": "Alarm system is deactivated",
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "status.burglar_alarm",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Burgle",
+        "desc": "Alarm system signalled burgle",
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "status.siren",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Alarm siren",
+        "desc": "Alarm system has triggered the siren",
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "status.activation_failed",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Activation failed",
+        "desc": "Alarm system report activation failed",
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "status.sleep",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Sleep",
+        "desc": "Night rest is activated",
+        "type": "boolean",
+        "def": false,
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "status.activated_with_warnings",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Warnings",
+        "desc": "Alarm system activated with warnings",
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "status.state",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "State",
+        "desc": "State of alarm system",
+        "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "status.activation_countdown",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Countdown",
+        "desc": "Time to activate the alarm system",
+        "type": "number",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.enable",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Enable",
+        "desc": "Enable the alarm system",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.disable",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Disable",
+        "desc": "Disable the alarm system",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.toggle",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Disable/Enable",
+        "desc": "Disable or enable the alarm system",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.toggle_with_delay",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Disable/Enable with delay",
+        "desc": "Disable or enable the alarm system with delay time",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.enable_with_delay",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Enable with delay",
+        "desc": "Enable the alarm system with delay time",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.activation_failed",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Error list",
+        "desc": "Error list of failed activations",
+        "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.activated_with_warnings",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Warning list",
+        "desc": "Warning list of warning activations",
+        "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.sleep_warning",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Sleep list",
+        "desc": "Warning list at night",
+        "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.log",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "last log",
+        "desc": "the last log that was fired",
+        "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    }
+  ]
+}
