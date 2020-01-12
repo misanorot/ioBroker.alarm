@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "news": {
+      "0.0.8": {
+        "en": "add shortcuts",
+        "de": "Verknüpfungen hinzufügen",
+        "ru": "добавить ярлыки",
+        "pt": "adicionar atalhos",
+        "nl": "snelkoppelingen toevoegen",
+        "fr": "ajouter des raccourcis",
+        "it": "aggiungi scorciatoie",
+        "es": "agregar atajos",
+        "pl": "dodaj skróty",
+        "zh-cn": "添加快捷方式"
+      },
       "0.0.5": {
         "en": "add log state",
         "de": "Protokollstatus hinzufügen",
