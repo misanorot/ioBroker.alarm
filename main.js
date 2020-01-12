@@ -29,7 +29,8 @@ let timer = null;
 let log,
     alarm_message,
     night_message,
-    warning_message;
+    warning_message,
+    shorts;
 
 let schedule_from,
     schedule_to;
@@ -102,6 +103,7 @@ function main() {
     alarm_message = adapter.config.send_alarm;
     night_message = adapter.config.send_night;
     warning_message = adapter.config.send_warning;
+    shorts = adapter.config.shorts;
     adapter.getState('status.activated', (err, state)=>{
         if(err){
             adapter.log.error(err);
@@ -215,10 +217,44 @@ function change(id, state){
     if(is_not_change) return;
     else if(id === adapter.namespace + '.status.activated'){
         activated = state.val;
+        shortcuts('status.activated', state.val);
         return;
     }
     else if(id === adapter.namespace + '.status.sleep'){
         night_rest = state.val;
+        shortcuts('status.sleep', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.status.gets_activated'){
+        shortcuts('status.gets_activated', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.status.deactivated'){
+        shortcuts('status.deactivated', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.status.burglar_alarm'){
+        shortcuts('status.burglar_alarm', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.status.siren'){
+        shortcuts('status.siren', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.status.activation_failed'){
+        shortcuts('status.activation_failed', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.status.activated_with_warnings'){
+        shortcuts('status.activated_with_warnings', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.status.activation_countdown'){
+        shortcuts('status.activation_countdown', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.status.state'){
+        shortcuts('status.state', state.val);
         return;
     }
     else if(id === adapter.namespace + '.use.enable' && state.val){
@@ -227,7 +263,7 @@ function change(id, state){
     }
     else if(id === adapter.namespace + '.use.disable' && state.val){
         countdown(false);
-        disable();
+        //disable();
         return;
     }
     else if(id === adapter.namespace + '.use.toggle'){
@@ -292,8 +328,7 @@ function set_subs(){
         }
     });
     adapter.subscribeStates('use.*');
-    adapter.subscribeStates('status.activated');
-    adapter.subscribeStates('status.sleep');
+    adapter.subscribeStates('status.*');
 }
 //##############################################################################
 
@@ -437,6 +472,18 @@ function countdown(action){
             adapter.setState('status.gets_activated', false);
         }
         disable();
+    }
+}
+
+function shortcuts(id, val){
+    if(shorts){
+        shorts.forEach((ele) => {
+            if(ele.select_id == id && /true/.test(ele.trigger_val) === val){
+                adapter.setForeignState(ele.name_id, ele.value, (err)=>{
+                    if(err) adapter.log.warn(`Cannot set state: ${err}`);
+                });
+            }
+        });
     }
 }
 
