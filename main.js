@@ -475,11 +475,22 @@ function countdown(action){
     }
 }
 
+function bools(val){
+    switch (val) {
+        case 'true':
+            return true;
+        case 'false':
+            return false;
+        default:
+            return val;
+    }
+}
+
 function shortcuts(id, val){
     if(shorts){
         shorts.forEach((ele) => {
             if(ele.select_id == id && /true/.test(ele.trigger_val) === val){
-                adapter.setForeignState(ele.name_id, ele.value, (err)=>{
+                adapter.setForeignState(ele.name_id, bools(ele.value), (err)=>{
                     if(err) adapter.log.warn(`Cannot set state: ${err}`);
                 });
             }
