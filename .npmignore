@@ -5,6 +5,7 @@ nbproject/
 .vs*/
 Thumbs.db
 gulpfile.js
+tsconfig.json
 
 test/
 travis/
@@ -19,6 +20,7 @@ appveyor.yaml
 # npm package files
 iobroker.*.tgz
 package-lock.json
+iob_npm.done
 
 # i18n intermediate files
 admin/i18n
