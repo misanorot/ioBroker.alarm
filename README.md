@@ -15,9 +15,9 @@
 
 **[English description](https://github.com/misanorot/ioBroker.alarm/blob/master/lib/Readme_en.md)**
 
-####ioBroker Alarm
+### ioBroker Alarm
 
-**DER ADAPTER IST NOCH ALPHA**
+#### DER ADAPTER IST NOCH ALPHA
 
 Dies ist ein Adapter, mit dem sich eine kleine Alarmanlage ohne programmiertechnische Vorkenntnisse realisieren lässt.
 Er bietet die Möglichkeit 3 Sicherheitskreise zu konfigurieren und diese z.B. bei Nachtruhe oder De- und Aktivierung zu überwachen. Des Weiteren ist
@@ -27,13 +27,13 @@ Neben den Haupteinstellungen, wie die Zeiten der Nachtruhe, Benachrichtigungen �
 
 Die Kreise sind folgendermaßen überwacht:
 
-####Alarmkreis:
+#### Alarmkreis:
 Alarmanlage lässt sich nicht aktivieren wenn ein konfigurierter state aktiv ist. Bei aktivierter Alarmanlage führt eine Veränderung sofort zur Auslösung der Anlage.
 
-####Warnkreis:
+#### Warnkreis:
 Hier können Dinge überwacht werden die nicht die Priorität "hoch" haben, z.B. Fenster im OG. In den Haupteinstellungen kann man die Überwachung bei der Aktivierung einstellen. Ist die Alarmanlage aktiviert, wird hier bei Veränderung kein Alarm ausgelöst.
 
-####Nachtkreis:
+#### Nachtkreis:
 Wenn man die Option konfiguriert, werden Veränderungen während der Nachtruhe erkannt und ggf. gemeldet.
 
 *Sollten Alarm- und Warnkreis pro state aktiviert sein, zählt der Alarmkreis*
@@ -47,6 +47,7 @@ Wählt man in den Optionen die Log Ausgabe an, werden gewisse Änderungen im Log
 
 
 
-####Wichtig, die Benutzung dieses Adapters geschieht auf eigene Gefahr, für etwaige Fehlfunktionen wird keine Haftung übernommen!
+#### Wichtig, die Benutzung dieses Adapters geschieht auf eigene Gefahr, für etwaige Fehlfunktionen wird keine Haftung übernommen!
+
 
 **[CHANGELOG](https://github.com/misanorot/ioBroker.alarm/blob/master/changelog.md)**
