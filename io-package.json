@@ -101,8 +101,7 @@
       {
         "js-controller": ">=1.4.2"
       }
-    ],
-    "installedFrom": "https://github.com/misanorot/ioBroker.alarm/tarball/e946eb2c99a3095de6dfb2275643ebc0fd798c20"
+    ]
   },
   "native": {
     "circuits": [],
