@@ -349,6 +349,7 @@ function messages(content){
 }
 
 function sayit(message){
+    if(message === '' || message === null) return;
     if(Number.isInteger(adapter.config.sayit)) adapter.setForeignState('sayit' + adapter.config.sayit + '.tts.text', message, (err)=>{
         if(err) adapter.log.warn(err);
     });
