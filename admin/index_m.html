@@ -111,6 +111,12 @@
                 }
             });
         });
+
+        $('#test_sayit').on('click', ()=>{
+            socket.emit('setState','sayit.' + $('#sayit').val() + '.tts.text', 'Test', (err)=>{
+              if(err)console.log(err);
+            });
+        });
     }
     //######  END LOAD  #######
 
@@ -375,7 +381,10 @@ function getName(obj) {
           </div>
           <div id="tab_sayit" class="col s12 page">
             <div class="row">
-              <div class="input-field col s2 offset-s5">
+              <div class="col s2">
+              <a class="waves-effect waves-light btn" id="test_sayit">Test</a>
+            </div>
+              <div class="input-field col s2 offset-s3">
                 <select class="value" id="sayit">
                  <option value="" class="translate">disabled</option>
                 </select>

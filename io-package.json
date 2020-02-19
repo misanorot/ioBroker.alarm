@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.0.8",
+    "version": "0.0.9",
     "news": {
+      "0.0.9": {
+        "en": "add sayit",
+        "de": "füge sayit hinzu",
+        "ru": "добавить сайит",
+        "pt": "adicionar dizer",
+        "nl": "voeg sayit toe",
+        "fr": "ajouter sayit",
+        "it": "aggiungi sayit",
+        "es": "agregar sayit",
+        "pl": "dodaj sayit",
+        "zh-cn": "添加sayit"
+      },
       "0.0.8": {
         "en": "add shortcuts",
         "de": "Verknüpfungen hinzufügen",

@@ -158,16 +158,19 @@ function enable(id, state){
         adapter.setState('info.log', `${L.act_not} ${get_name(ids_alarm)}`);
         if(log)adapter.log.info(`${L.act_not} ${get_name(ids_alarm)}`);
         adapter.setState('status.activation_failed', true);
+        sayit(adapter.config.text_failed);
         return;
     }
     if(!adapter.config.opt_warning && is_warning){
         adapter.setState('info.log', `${L.act_not} ${get_name(ids_warning)}`);
         if(log)adapter.log.info(`${L.act_not} ${get_name(ids_warning)}`);
         adapter.setState('status.activation_failed', true);
+        sayit(adapter.config.text_failed);
         return;
     }
     adapter.setState('info.log', `${L.act}`);
     if(log)adapter.log.info(`${L.act}`);
+    sayit(adapter.config.text_activated);
     adapter.setState('status.activated', true);
     adapter.setState('status.deactivated', false);
     adapter.setState('status.activation_failed', false);
@@ -185,6 +188,7 @@ function enable(id, state){
 function disable(){
     if(activated){
         adapter.setState('info.log', `${L.deact}`);
+        sayit(adapter.config.text_deactivated);
         if(log)adapter.log.info(`${L.deact}`);
         adapter.setState('status.siren', false);
         adapter.setState('status.activated', false);
@@ -292,6 +296,7 @@ function change(id, state){
     }
     if(alarm.includes(id) && activated && isTrue(id, state)){
         adapter.setState('info.log', `${L.burgle} ${get_name(id)}`);
+        sayit(adapter.config.text_alarm);
         if(log)adapter.log.info(`${L.burgle} ${get_name(id)}`);
         if(alarm_message) messages(`${L.burgle} ${get_name(id)}`);
         adapter.setState('status.burglar_alarm', true);
@@ -343,6 +348,13 @@ function messages(content){
     }
 }
 
+function sayit(message){
+    if(Number.isInteger(adapter.config.sayit)) adapter.setForeignState('sayit' + adapter.config.sayit + '.tts.text', message, (err)=>{
+        if(err) adapter.log.warn(err);
+    });
+    else if(adapter.config.sayit === 'disabled' || adapter.config.sayit === '' || adapter.config.sayit === null) return;
+    else adapter.log.warn('please check your sayit configuration');
+}
 //##############################################################################
 
 
