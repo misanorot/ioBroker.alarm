@@ -349,8 +349,9 @@ function messages(content){
 }
 
 function sayit(message){
+    const sayit_instance = parseInt(adapter.config.sayit);
     if(message === '' || message === null) return;
-    if(Number.isInteger(adapter.config.sayit)) adapter.setForeignState('sayit' + adapter.config.sayit + '.tts.text', message, (err)=>{
+    if(!isNaN(sayit_instance)) adapter.setForeignState('sayit' + sayit_instance + '.tts.text', message, (err)=>{
         if(err) adapter.log.warn(err);
     });
     else if(adapter.config.sayit === 'disabled' || adapter.config.sayit === '' || adapter.config.sayit === null) return;
