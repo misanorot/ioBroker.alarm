@@ -322,9 +322,6 @@ function change(id, state){
             return;
         }
     }
-    else if(id === adapter.namespace + '.info.log'){
-        log_list = state.val;
-    }
     if(alarm.includes(id) && activated && isTrue(id, state)){
         adapter.setState('info.log', `${L.burgle} ${get_name(id)}`);
         sayit(adapter.config.text_alarm);
@@ -374,7 +371,6 @@ function set_subs(){
     });
     adapter.subscribeStates('use.*');
     adapter.subscribeStates('status.*');
-    adapter.subscribeStates('info.log');
 }
 //##############################################################################
 
