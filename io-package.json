@@ -389,7 +389,7 @@
         "write": false
       },
       "native": {}
-    }
+    },
     {
       "_id": "info.log",
       "type": "state",
