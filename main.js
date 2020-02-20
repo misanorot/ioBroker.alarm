@@ -350,11 +350,20 @@ function messages(content){
 
 function sayit(message){
     const sayit_instance = parseInt(adapter.config.sayit);
-    if(message === '' || message === null) return;
-    if(!isNaN(sayit_instance)) adapter.setForeignState('sayit' + sayit_instance + '.tts.text', message, (err)=>{
-        if(err) adapter.log.warn(err);
-    });
-    else if(adapter.config.sayit === 'disabled' || adapter.config.sayit === '' || adapter.config.sayit === null) return;
+    if(adapter.config.sayit === 'disabled' || adapter.config.sayit === '' || adapter.config.sayit === null){
+        adapter.log.debug(`Sayit disabled or empty`);
+        return;
+    }
+    else if(message === '' || message === null){
+        adapter.log.debug(`No message for sayit configured`);
+        return;
+    }
+    else if(!isNaN(sayit_instance)){
+        adapter.log.debug(`Message for sayit instance ${sayit_instance}: ${message}`);
+        adapter.setForeignState('sayit' + sayit_instance + '.tts.text', message, (err)=>{
+            if(err) adapter.log.warn(err);
+        });
+    }
     else adapter.log.warn('please check your sayit configuration');
 }
 //##############################################################################
