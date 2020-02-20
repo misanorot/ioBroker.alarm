@@ -230,7 +230,7 @@
         "type": "boolean",
         "def": false,
         "read": true,
-        "write": true
+        "write": false
       },
       "native": {}
     },
@@ -345,7 +345,7 @@
         "role": "",
         "name": "Error list",
         "desc": "Error list of failed activations",
-        "type": "string",
+        "type": "array",
         "read": true,
         "write": false
       },
@@ -358,7 +358,7 @@
         "role": "",
         "name": "Warning list",
         "desc": "Warning list of warning activations",
-        "type": "string",
+        "type": "array",
         "read": true,
         "write": false
       },
@@ -371,7 +371,7 @@
         "role": "",
         "name": "Sleep list",
         "desc": "Warning list at night",
-        "type": "string",
+        "type": "array",
         "read": true,
         "write": false
       },
@@ -384,7 +384,7 @@
         "role": "",
         "name": "last log",
         "desc": "the last log that was fired",
-        "type": "string",
+        "type": "array",
         "read": true,
         "write": false
       },
