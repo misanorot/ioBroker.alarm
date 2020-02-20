@@ -378,13 +378,26 @@
       "native": {}
     },
     {
+      "_id": "info.log_today",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "logs today",
+        "desc": "all logs for today",
+        "type": "array",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    }
+    {
       "_id": "info.log",
       "type": "state",
       "common": {
         "role": "",
         "name": "last log",
         "desc": "the last log that was fired",
-        "type": "array",
+        "type": "string",
         "read": true,
         "write": false
       },

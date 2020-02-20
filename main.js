@@ -569,7 +569,7 @@ function timeStamp(){
 
 function logging(content){
     log_list.push(timeStamp() + ' ' + content);
-    adapter.setState('info.log', log_list);
+    adapter.setState('info.log_today', log_list);
 }
 
 //##############################################################################
