@@ -360,7 +360,7 @@ function sayit(message){
     }
     else if(!isNaN(sayit_instance)){
         adapter.log.debug(`Message for sayit instance ${sayit_instance}: ${message}`);
-        adapter.setForeignState('sayit' + sayit_instance + '.tts.text', message, (err)=>{
+        adapter.setForeignState('sayit.' + sayit_instance + '.tts.text', message, (err)=>{
             if(err) adapter.log.warn(err);
         });
     }
