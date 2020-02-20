@@ -13,8 +13,7 @@ const T = require('./lib/Logs.js');
  */
 let adapter;
 const L = T.Translate['de'];
-let clean_ids = [],
-    log_list = [];
+let clean_ids = [];
 const alarm = [],
     warning = [],
     night = [];
@@ -28,6 +27,7 @@ let activated = false,
 let timer = null;
 
 let log,
+    log_list,
     alarm_message,
     night_message,
     warning_message,
@@ -136,8 +136,8 @@ function main() {
             adapter.log.error(err);
         }else{
             if(state == null){
-                log_list = [];
-                adapter.setState('info.log', []);
+                log_list = '';
+                adapter.setState('info.log', '');
             }else log_list = state.val;
         }
     });
@@ -568,8 +568,10 @@ function timeStamp(){
 }
 
 function logging(content){
-    log_list.push(timeStamp() + ' ' + content);
-    adapter.setState('info.log_today', log_list);
+    log_list = log_list.split('<br>');
+    log_list.unshift(timeStamp() + ': ' + content);
+    //if (log_list.length > 25) log_list.splice(0,1);
+    adapter.setState('info.log_today', log_list.join('<br>'));
 }
 
 //##############################################################################

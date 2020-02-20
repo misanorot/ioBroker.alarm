@@ -384,7 +384,7 @@
         "role": "",
         "name": "logs today",
         "desc": "all logs for today",
-        "type": "array",
+        "type": "string",
         "read": true,
         "write": false
       },
