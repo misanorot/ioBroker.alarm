@@ -561,10 +561,22 @@ function timeStamp(){
 }
 
 function logging(content){
-    log_list = log_list.split('<br>');
-    log_list.unshift(timeStamp() + ': ' + content);
-    //if (log_list.length > 25) log_list.splice(0,1);
-    adapter.setState('info.log_today', log_list.join('<br>'));
+    adapter.getState('info.log_today', (err, state)=>{
+        if(err){
+            adapter.log.error(err);
+            return;
+        }else{
+            if(state == null){
+                log_list ='';
+            }else{
+                log_list = state.val;
+                log_list = log_list.split('<br>');
+                log_list.unshift(timeStamp() + ': ' + content);
+                //if (log_list.length > 25) log_list.splice(0,1);
+                adapter.setState('info.log_today', log_list.join('<br>'));
+            }
+        }
+    });
 }
 
 //##############################################################################
