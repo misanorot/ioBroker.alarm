@@ -196,10 +196,12 @@ function enable(id, state){
 //################# DISABLE ####################################################
 
 function disable(){
+    burgle = false;
+    clearTimeout(silent_timer);
+    clearTimeout(siren_timer);
+    silent_timer = null;
+    siren_timer = null;
     if(activated){
-        burgle = false;
-        clearTimeout(silent_timer);
-        clearTimeout(siren_timer);
         adapter.setState('info.log', `${L.deact}`);
         sayit(adapter.config.text_deactivated);
         if(log)adapter.log.info(`${L.deact}`);
@@ -365,7 +367,7 @@ function set_subs(){
             adapter.log.debug(`NO SUBSCRIBTION`);
         }
     });
-    adapter.subscribeStates('info.log_today');
+    adapter.subscribeStates('info.log');
     adapter.subscribeStates('use.*');
     adapter.subscribeStates('status.*');
 }
