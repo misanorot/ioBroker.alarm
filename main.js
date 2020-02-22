@@ -136,16 +136,6 @@ function main() {
             }else night_rest = state.val;
         }
     });
-    adapter.getState('info.log', (err, state)=>{
-        if(err){
-            adapter.log.error(err);
-        }else{
-            if(state == null){
-                log_list = '';
-                adapter.setState('info.log', '');
-            }else log_list = state.val;
-        }
-    });
     if(adapter.config.circuits)split_states(adapter.config.circuits);
     else adapter.log.info('no states configured!');
     send_instances = split_arr(adapter.config.sendTo);
@@ -174,29 +164,20 @@ function enable(id, state){
     });
     if(is_alarm){
         adapter.setState('info.log', `${L.act_not} ${get_name(ids_alarm)}`);
-        if(log){
-            adapter.log.info(`${L.act_not} ${get_name(ids_alarm)}`);
-            logging(`${L.act_not} ${get_name(ids_alarm)}`);
-        }
+        if(log)adapter.log.info(`${L.act_not} ${get_name(ids_alarm)}`);
         adapter.setState('status.activation_failed', true);
         sayit(adapter.config.text_failed);
         return;
     }
     if(!adapter.config.opt_warning && is_warning){
         adapter.setState('info.log', `${L.act_not} ${get_name(ids_warning)}`);
-        if(log){
-            adapter.log.info(`${L.act_not} ${get_name(ids_warning)}`);
-            logging(`${L.act_not} ${get_name(ids_warning)}`);
-        }
+        if(log)adapter.log.info(`${L.act_not} ${get_name(ids_warning)}`);
         adapter.setState('status.activation_failed', true);
         sayit(adapter.config.text_failed);
         return;
     }
     adapter.setState('info.log', `${L.act}`);
-    if(log){
-        adapter.log.info(`${L.act}`);
-        logging(`${L.act}`);
-    }
+    if(log)adapter.log.info(`${L.act}`);
     sayit(adapter.config.text_activated);
     adapter.setState('status.activated', true);
     adapter.setState('status.deactivated', false);
@@ -204,10 +185,7 @@ function enable(id, state){
     if(warning.includes(id)){
         adapter.setState('status.activated_with_warnings', true);
         adapter.setState('info.log', `${L.act_warn} ${get_name(id)}`);
-        if(log){
-            adapter.log.info(`${L.act_warn} ${get_name(id)}`);
-            logging(`${L.act_warn} ${get_name(id)}`);
-        }
+        if(log)adapter.log.info(`${L.act_warn} ${get_name(id)}`);
         if(warning_message) messages(`${L.act_warn} ${get_name(id)}`);
     }
 }
@@ -219,10 +197,7 @@ function disable(){
     if(activated){
         adapter.setState('info.log', `${L.deact}`);
         sayit(adapter.config.text_deactivated);
-        if(log){
-            adapter.log.info(`${L.deact}`);
-            logging(`${L.deact}`);
-        }
+        if(log)adapter.log.info(`${L.deact}`);
         adapter.setState('status.siren', false);
         adapter.setState('status.activated', false);
         adapter.setState('status.deactivated', true);
@@ -245,10 +220,7 @@ function burglary(id, state){
     silent_timer = setTimeout(()=>{
         adapter.setState('info.log', `${L.burgle} ${get_name(id)}`);
         sayit(adapter.config.text_alarm);
-        if(log){
-            adapter.log.info(`${L.burgle} ${get_name(id)}`);
-            logging(`${L.burgle} ${get_name(id)}`);
-        }
+        if(log)adapter.log.info(`${L.burgle} ${get_name(id)}`);
         if(alarm_message) messages(`${L.burgle} ${get_name(id)}`);
         adapter.setState('status.burglar_alarm', true);
         adapter.setState('status.siren', true);
@@ -349,25 +321,23 @@ function change(id, state){
             return;
         }
     }
+    else if(id === adapter.namespace + '.info.log_today'){
+        logging(state.val);
+        return;
+    }
     if(alarm.includes(id) && activated && isTrue(id, state)){
         burglary(id, state);
         return;
     }
     if(warning.includes(id) && activated && isTrue(id, state)){
         adapter.setState('info.log', `${L.warn} ${get_name(id)}`);
-        if(log){
-            adapter.log.info(`${L.warn} ${get_name(id)}`);
-            logging(`${L.warn} ${get_name(id)}`);
-        }
+        if(log) adapter.log.info(`${L.warn} ${get_name(id)}`);
         if(warning_message) messages(`${L.warn} ${get_name(id)}`);
         return;
     }
     if(night.includes(id) && night_rest && isTrue(id, state)){
         adapter.setState('info.log', `${L.night} ${get_name(id)}`);
-        if(log){
-            adapter.log.info(`${L.night} ${get_name(id)}`);
-            logging(`${L.night} ${get_name(id)}`);
-        }
+        if(log) adapter.log.info(`${L.night} ${get_name(id)}`);
         if(night_message) messages(`${L.night} ${get_name(id)}`);
         return;
     }
@@ -385,6 +355,7 @@ function set_subs(){
             adapter.log.debug(`NO SUBSCRIBTION`);
         }
     });
+    adapter.subscribeStates('info.log_today');
     adapter.subscribeStates('use.*');
     adapter.subscribeStates('status.*');
 }
@@ -592,7 +563,7 @@ function logging(content){
 
 function set_schedules(){
     schedule_reset = schedule.scheduleJob({hour: 00, minute: 00}, ()=>{
-        adapter.setState('info.log', []);
+        adapter.setState('info.log_today', '');
     });
     if(adapter.config.night_from && adapter.config.night_to){
         let from, to;
@@ -605,28 +576,19 @@ function set_schedules(){
         }
         schedule_from = schedule.scheduleJob({hour: parseInt(from[0]), minute: parseInt(from[1])}, ()=>{
             adapter.setState('info.log', `${L.sleep_b}`);
-            if(log){
-                adapter.log.info(`${L.sleep_b}`);
-                logging(`${L.sleep_b}`);
-            }
+            if(log) adapter.log.info(`${L.sleep_b}`);
             adapter.setState('status.sleep', true);
             check(night, (val, ids)=>{
                 if(val){
                     if(night_message) messages(`${L.nights_b_w} ${get_name(ids)}`);
                     adapter.setState('info.log', `${L.nights_b_w} ${get_name(ids)}`);
-                    if(log){
-                        adapter.log.info(`${L.nights_b_w} ${get_name(ids)}`);
-                        logging(`${L.nights_b_w} ${get_name(ids)}`);
-                    }
+                    if(log) adapter.log.info(`${L.nights_b_w} ${get_name(ids)}`);
                 }
             });
         });
         schedule_to = schedule.scheduleJob({hour: parseInt(to[0]), minute: parseInt(to[1])}, ()=>{
             adapter.setState('info.log', `${L.sleep_e}`);
-            if(log){
-                adapter.log.info(`${L.sleep_e}`);
-                logging(`${L.sleep_e}`);
-            }
+            if(log) adapter.log.info(`${L.sleep_e}`);
             adapter.setState('status.sleep', false);
         });
     }else{
