@@ -21,13 +21,16 @@ let send_instances = [],
     states = {},
     send_available = false;
 
+let log_list = '';
+
 let activated = false,
     night_rest = false;
 
-let timer = null;
+let timer = null,
+    silent_timer = null;
+
 
 let log,
-    log_list,
     alarm_message,
     night_message,
     warning_message,
@@ -56,6 +59,8 @@ function startAdapter(options) {
                 schedule_from.cancel();
                 schedule_to.cancel();
                 schedule_reset.cancel();
+                clearInterval(timer);
+                clearTimeout(silent_timer);
                 callback();
             } catch (e) {
                 callback();
@@ -226,9 +231,31 @@ function disable(){
         adapter.setState('status.siren', false);
         adapter.setState('status.burglar_alarm', false);
         adapter.setState('status.activation_failed', false);
+        adapter.setState('status.silent_alarm', false);
     }else{
         adapter.setState('status.activation_failed', false);
     }
+}
+//##############################################################################
+
+//################# BURGALARY ####################################################
+
+function burglary(id, state){
+    if(adapter.config.time_silent > 0) adapter.setState('status.silent_alarm', true);
+    silent_timer = setTimeout(()=>{
+        adapter.setState('info.log', `${L.burgle} ${get_name(id)}`);
+        sayit(adapter.config.text_alarm);
+        if(log){
+            adapter.log.info(`${L.burgle} ${get_name(id)}`);
+            logging(`${L.burgle} ${get_name(id)}`);
+        }
+        if(alarm_message) messages(`${L.burgle} ${get_name(id)}`);
+        adapter.setState('status.burglar_alarm', true);
+        adapter.setState('status.siren', true);
+        setTimeout(()=>{
+            adapter.setState('status.siren', false);
+        }, 1000*adapter.config.time_alarm);
+    }, adapter.config.time_silent);
 }
 //##############################################################################
 
@@ -323,18 +350,7 @@ function change(id, state){
         }
     }
     if(alarm.includes(id) && activated && isTrue(id, state)){
-        adapter.setState('info.log', `${L.burgle} ${get_name(id)}`);
-        sayit(adapter.config.text_alarm);
-        if(log){
-            adapter.log.info(`${L.burgle} ${get_name(id)}`);
-            logging(`${L.burgle} ${get_name(id)}`);
-        }
-        if(alarm_message) messages(`${L.burgle} ${get_name(id)}`);
-        adapter.setState('status.burglar_alarm', true);
-        adapter.setState('status.siren', true);
-        setTimeout(()=>{
-            adapter.setState('status.siren', false);
-        }, 1000*adapter.config.time_alarm);
+        burglary(id, state);
         return;
     }
     if(warning.includes(id) && activated && isTrue(id, state)){

@@ -120,6 +120,7 @@
     "shorts": [],
     "time_activate": 10,
     "time_alarm": 60,
+    "time_silent": 0,
     "opt_night": true,
     "opt_log": true,
     "opt_warning": false,
@@ -186,8 +187,21 @@
       "type": "state",
       "common": {
         "role": "",
-        "name": "Burgle",
-        "desc": "Alarm system signalled burgle",
+        "name": "Burglary",
+        "desc": "Alarm system signalled burglary",
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "status.silent_alarm",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Silent alarm",
+        "desc": "Alarm system signalled burglary with silent alarm",
         "type": "boolean",
         "read": true,
         "write": false
