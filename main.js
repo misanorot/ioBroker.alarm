@@ -333,6 +333,26 @@ function change(id, state){
             return;
         }
     }
+    else if(id === adapter.namespace + '.use.toggle_password'){
+        if(checkPassword(state.val) && !activated){
+            enable(id, state);
+            return;
+        }else if(checkPassword(state.val) && activated){
+            countdown(false);
+            disable();
+            return;
+        }else return;
+    }
+    else if(id === adapter.namespace + '.use.toggle_with_delay_and_password'){
+        if(checkPassword(state.val) && !activated){
+            countdown(true);
+            return;
+        }else if(checkPassword(state.val) && activated){
+            countdown(false);
+            disable();
+            return;
+        }else return;
+    }
     else if(id === adapter.namespace + '.info.log'){
         logging(state.val);
         return;
@@ -406,6 +426,12 @@ function sayit(message){
 
 
 //################# HELPERS ####################################################
+
+function checkPassword(pass) {
+    if(log && adapter.config.password === !pass) adapter.log.info(`${L.pass}`);
+    if(adapter.config.password === pass) return true;
+    else return false;
+}
 
 function isTrue(id, state){
     let test = false;

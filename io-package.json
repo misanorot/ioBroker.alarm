@@ -135,6 +135,7 @@
     "text_failed": "Aktivierung fehlgeschlagen",
     "text_warning": "Es sind noch Sachen offen",
     "text_alarm": "Verlassen Sie sofort das Haus",
+    "password": "",
     "sendTo": "",
     "alarm": "",
     "warning": "",
@@ -314,6 +315,32 @@
       "native": {}
     },
     {
+      "_id": "use.toggle_password",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Disable/Enable",
+        "desc": "Disable or enable the alarm system with password",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.toggle_with_delay_and_password",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Disable/Enable with delay",
+        "desc": "Disable or enable the alarm system with delay time and password",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
       "_id": "use.toggle",
       "type": "state",
       "common": {
@@ -349,6 +376,19 @@
         "type": "boolean",
         "read": true,
         "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.wrong_password",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Wrong password",
+        "desc": "Wrong password used",
+        "type": "boolean",
+        "read": true,
+        "write": false
       },
       "native": {}
     },
