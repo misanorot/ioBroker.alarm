@@ -429,8 +429,14 @@ function sayit(message){
 
 function checkPassword(pass) {
     if(log && adapter.config.password === !pass) adapter.log.info(`${L.pass}`);
-    if(adapter.config.password === pass) return true;
-    else return false;
+    if(adapter.config.password === pass){
+        adapter.log.debug(`Password accept`);
+        return true;
+    }
+    else{
+        adapter.log.debug(`Password denied`);
+        return false;
+    }
 }
 
 function isTrue(id, state){
