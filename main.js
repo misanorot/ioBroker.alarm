@@ -221,13 +221,13 @@ function disable(){
 //################# BURGALARY ####################################################
 
 function burglary(id, state){
-    burgle = true;
     adapter.setState('info.log', `${L.burgle} ${get_name(id)}`);
     if(log)adapter.log.info(`${L.burgle} ${get_name(id)}`);
     if(alarm_message) messages(`${L.burgle} ${get_name(id)}`);
     if(adapter.config.time_silent > 0) adapter.setState('status.silent_alarm', true);
     if(silent_timer)return;
     else if (!burgle){
+        burgle = true;
         silent_timer = setTimeout(()=>{
             sayit(adapter.config.text_alarm);
             adapter.setState('status.burglar_alarm', true);
@@ -331,7 +331,7 @@ function change(id, state){
             return;
         }
     }
-    else if(id === adapter.namespace + '.info.log_today'){
+    else if(id === adapter.namespace + '.info.log'){
         logging(state.val);
         return;
     }
