@@ -24,11 +24,12 @@ let send_instances = [],
 let log_list = '';
 
 let activated = false,
-    night_rest = false;
+    night_rest = false,
+    burgle = false;
 
 let timer = null,
-    silent_timer = null;
-
+    silent_timer = null,
+    siren_timer = null;
 
 let log,
     alarm_message,
@@ -61,6 +62,7 @@ function startAdapter(options) {
                 schedule_reset.cancel();
                 clearInterval(timer);
                 clearTimeout(silent_timer);
+                clearTimeout(siren_timer);
                 callback();
             } catch (e) {
                 callback();
@@ -195,6 +197,9 @@ function enable(id, state){
 
 function disable(){
     if(activated){
+        burgle = false;
+        clearTimeout(silent_timer);
+        clearTimeout(siren_timer);
         adapter.setState('info.log', `${L.deact}`);
         sayit(adapter.config.text_deactivated);
         if(log)adapter.log.info(`${L.deact}`);
@@ -216,18 +221,23 @@ function disable(){
 //################# BURGALARY ####################################################
 
 function burglary(id, state){
+    burgle = true;
+    adapter.setState('info.log', `${L.burgle} ${get_name(id)}`);
+    if(log)adapter.log.info(`${L.burgle} ${get_name(id)}`);
+    if(alarm_message) messages(`${L.burgle} ${get_name(id)}`);
     if(adapter.config.time_silent > 0) adapter.setState('status.silent_alarm', true);
-    silent_timer = setTimeout(()=>{
-        adapter.setState('info.log', `${L.burgle} ${get_name(id)}`);
-        sayit(adapter.config.text_alarm);
-        if(log)adapter.log.info(`${L.burgle} ${get_name(id)}`);
-        if(alarm_message) messages(`${L.burgle} ${get_name(id)}`);
-        adapter.setState('status.burglar_alarm', true);
-        adapter.setState('status.siren', true);
-        setTimeout(()=>{
-            adapter.setState('status.siren', false);
-        }, 1000*adapter.config.time_alarm);
-    }, adapter.config.time_silent);
+    if(silent_timer)return;
+    else if (!burgle){
+        silent_timer = setTimeout(()=>{
+            sayit(adapter.config.text_alarm);
+            adapter.setState('status.burglar_alarm', true);
+            adapter.setState('status.siren', true);
+            siren_timer = setTimeout(()=>{
+                adapter.setState('status.siren', false);
+            }, 1000*adapter.config.time_alarm);
+        }, adapter.config.time_silent * 1000);
+    }
+
 }
 //##############################################################################
 
