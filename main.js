@@ -335,7 +335,7 @@ function change(id, state){
     }
     else if(id === adapter.namespace + '.use.toggle_password'){
         if(state.val == '') return;
-        if(checkPassword(state.val) && !activated){
+        if(checkPassword(state.val, 'use.toggle_password') && !activated){
             enable(id, state);
             return;
         }else if(checkPassword(state.val) && activated){
@@ -346,7 +346,7 @@ function change(id, state){
     }
     else if(id === adapter.namespace + '.use.toggle_with_delay_and_password'){
         if(state.val == '') return;
-        if(checkPassword(state.val) && !activated){
+        if(checkPassword(state.val, 'use.toggle_with_delay_and_password') && !activated){
             countdown(true);
             return;
         }else if(checkPassword(state.val) && activated){
