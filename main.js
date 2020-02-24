@@ -334,6 +334,7 @@ function change(id, state){
         }
     }
     else if(id === adapter.namespace + '.use.toggle_password'){
+        if(state.val == '') return;
         if(checkPassword(state.val) && !activated){
             enable(id, state);
             return;
@@ -344,6 +345,7 @@ function change(id, state){
         }else return;
     }
     else if(id === adapter.namespace + '.use.toggle_with_delay_and_password'){
+        if(state.val == '') return;
         if(checkPassword(state.val) && !activated){
             countdown(true);
             return;
@@ -427,16 +429,22 @@ function sayit(message){
 
 //################# HELPERS ####################################################
 
-function checkPassword(pass) {
+function checkPassword(pass, id) {
     if(log && adapter.config.password == !pass) adapter.log.info(`${L.pass}`);
     if(adapter.config.password === pass){
         adapter.log.debug(`Password accept`);
-        adapter.setState('info.wrong_password', false);
+        adapter.setState('info.wrong_password', false, (err)=>{
+            if(err)adapter.log.error(err);
+            adapter.setState(id, '');
+        });
         return true;
     }
     else{
         adapter.log.debug(`Password denied`);
-        adapter.setState('info.wrong_password', true);
+        adapter.setState('info.wrong_password', true, (err)=>{
+            if(err)adapter.log.error(err);
+            adapter.setState(id, '');
+        });
         return false;
     }
 }
