@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.0.9",
+    "version": "0.1.0",
     "news": {
+      "0.1.0": {
+        "en": "add password for de/activation -- better logging",
+        "de": "Passwort für De / Aktivierung hinzufügen - bessere Protokollierung",
+        "ru": "добавить пароль для де / активации - лучше логирование",
+        "pt": "adicionar senha para desativação / ativação - melhor registro",
+        "nl": "voeg wachtwoord toe voor de / activatie - beter loggen",
+        "fr": "ajouter un mot de passe pour la désactivation / activation - meilleure journalisation",
+        "it": "aggiungi password per la disattivazione / attivazione - registrazione migliore",
+        "es": "agregar contraseña para des / activación - mejor registro",
+        "pl": "dodaj hasło do de / aktywacji - lepsze logowanie",
+        "zh-cn": "添加用于停用/激活的密码-更好的日志记录"
+      },
       "0.0.9": {
         "en": "add sayit",
         "de": "füge sayit hinzu",
@@ -321,7 +333,7 @@
         "role": "",
         "name": "Disable/Enable",
         "desc": "Disable or enable the alarm system with password",
-        "type": "boolean",
+        "type": "string",
         "read": true,
         "write": true
       },
@@ -334,7 +346,7 @@
         "role": "",
         "name": "Disable/Enable with delay",
         "desc": "Disable or enable the alarm system with delay time and password",
-        "type": "boolean",
+        "type": "string",
         "read": true,
         "write": true
       },

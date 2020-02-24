@@ -428,13 +428,15 @@ function sayit(message){
 //################# HELPERS ####################################################
 
 function checkPassword(pass) {
-    if(log && adapter.config.password === !pass) adapter.log.info(`${L.pass}`);
+    if(log && adapter.config.password == !pass) adapter.log.info(`${L.pass}`);
     if(adapter.config.password === pass){
         adapter.log.debug(`Password accept`);
+        adapter.setState('info.wrong_password', false);
         return true;
     }
     else{
         adapter.log.debug(`Password denied`);
+        adapter.setState('info.wrong_password', true);
         return false;
     }
 }
