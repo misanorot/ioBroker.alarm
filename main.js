@@ -441,7 +441,7 @@ function refreshLists(){
         if(ids.length >= 0) alarm_ids = true;
     });
     check(warning, (val, ids)=>{
-      adapter.log.debug(`Warning circuit list: ${ids}`);
+        adapter.log.debug(`Warning circuit list: ${ids}`);
         adapter.setState('info.warning_circuit_list', ids.join(', '));
         if(ids.length >= 0) warning_ids = true;
     });
