@@ -437,17 +437,23 @@ function refreshLists(){
     let warning_ids = false;
     check(alarm, (val, ids)=>{
         adapter.log.debug(`Alarm circuit list: ${ids}`);
-        adapter.setState('info.alarm_circuit_list', get_name(ids));
-        if(ids.length >= 0) alarm_ids = true;
+        if(ids.length >= 0){
+            alarm_ids = true;
+            adapter.setState('info.alarm_circuit_list', get_name(ids));
+        }else  adapter.setState('info.alarm_circuit_list', '');
     });
     check(warning, (val, ids)=>{
         adapter.log.debug(`Warning circuit list: ${ids}`);
-        adapter.setState('info.warning_circuit_list', get_name(ids));
-        if(ids.length >= 0) warning_ids = true;
+        if(ids.length >= 0){
+            warning_ids = true;
+            adapter.setState('info.warning_circuit_list', get_name(ids));
+        }else adapter.setState('info.warning_circuit_list', '');
     });
     check(night, (val, ids)=>{
         adapter.log.debug(`Sleep circuit list: ${ids}`);
-        adapter.setState('info.sleep_circuit_list', get_name(ids));
+        if(ids.length >= 0){
+            adapter.setState('info.sleep_circuit_list', get_name(ids));
+        }else adapter.setState('info.sleep_circuit_list', '');
     });
     if(alarm_ids){
         adapter.setState('status.enableable', false);

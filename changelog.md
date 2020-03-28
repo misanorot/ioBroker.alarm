@@ -1,5 +1,11 @@
 ### Changelog
 
+#### 0.1.1 (28.03.2020)
+* (misanorot) add sayit
+
+#### 0.1.0 ()
+* (misanorot) add password for de/activation -- better logging
+
 #### 0.0.9 (19.02.2020)
 * (misanorot) add sayit
 
