@@ -148,6 +148,7 @@ function main() {
     get_states();
     setTimeout(set_subs, 2000);
     set_schedules();
+    setTimeout(refreshLists, 2000);
 }
 //################# ENABLE ####################################################
 
@@ -441,7 +442,7 @@ function refreshLists(){
             alarm_ids = true;
             adapter.setState('info.alarm_circuit_list', get_name(ids));
         }else{
-            adapter.setState('info.alarm_circuit_list', '');
+            adapter.setState('info.alarm_circuit_list', null);
         }
     });
     check(warning, (val, ids)=>{
@@ -450,7 +451,7 @@ function refreshLists(){
             warning_ids = true;
             adapter.setState('info.warning_circuit_list', get_name(ids));
         }else{
-            adapter.setState('info.warning_circuit_list', '');
+            adapter.setState('info.warning_circuit_list', null);
         }
     });
     check(night, (val, ids)=>{
@@ -458,7 +459,7 @@ function refreshLists(){
         if(ids.length > 0){
             adapter.setState('info.sleep_circuit_list', get_name(ids));
         }else{
-            adapter.setState('info.sleep_circuit_list', '');
+            adapter.setState('info.sleep_circuit_list', null);
         }
     });
     if(alarm_ids){
@@ -589,7 +590,6 @@ async function get_states(){
         states[id] = state;
     }
     adapter.log.debug(JSON.stringify(states));
-    refreshLists();
 }
 
 function countdown(action){
