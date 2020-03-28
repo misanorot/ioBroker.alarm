@@ -148,7 +148,6 @@ function main() {
     get_states();
     setTimeout(set_subs, 2000);
     set_schedules();
-    refreshLists();
 }
 //################# ENABLE ####################################################
 
@@ -575,6 +574,7 @@ async function get_states(){
         states[id] = state;
     }
     adapter.log.debug(JSON.stringify(states));
+    refreshLists();
 }
 
 function countdown(action){
