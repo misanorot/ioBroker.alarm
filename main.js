@@ -32,6 +32,7 @@ let timer = null,
     siren_timer = null;
 
 let log,
+    with_warnigs,
     alarm_message,
     night_message,
     warning_message,
@@ -110,6 +111,7 @@ function startAdapter(options) {
 
 function main() {
     log = adapter.config.opt_log;
+    with_warnigs = adapter.config.opt_warning;
     alarm_message = adapter.config.send_alarm;
     night_message = adapter.config.send_night;
     warning_message = adapter.config.send_warning;
@@ -146,6 +148,7 @@ function main() {
     get_states();
     setTimeout(set_subs, 2000);
     set_schedules();
+    refreshLists();
 }
 //################# ENABLE ####################################################
 
@@ -254,6 +257,7 @@ function change(id, state){
                 break;
             }
             states[id] = state.val;
+            refreshLists();
             adapter.log.debug(`Inside state change: ${id} val: ${state.val}`);
         }
     }
@@ -315,7 +319,7 @@ function change(id, state){
             return;
         }else{
             countdown(false);
-            disable();
+            //disable();
             return;
         }
     }
@@ -329,7 +333,7 @@ function change(id, state){
             return;
         }else{
             countdown(false);
-            disable();
+            //disable();
             return;
         }
     }
@@ -340,7 +344,7 @@ function change(id, state){
             return;
         }else if(checkPassword(state.val) && activated){
             countdown(false);
-            disable();
+            //disable();
             return;
         }else return;
     }
@@ -351,7 +355,7 @@ function change(id, state){
             return;
         }else if(checkPassword(state.val) && activated){
             countdown(false);
-            disable();
+            //disable();
             return;
         }else return;
     }
@@ -428,6 +432,30 @@ function sayit(message){
 
 
 //################# HELPERS ####################################################
+
+function refreshLists(){
+    let alarm_ids = false;
+    let warning_ids = false;
+    check(alarm, (val, ids)=>{
+        adapter.setState('info.alarm_circuit_list', ids.join(', '));
+        if(ids.length >= 0) alarm_ids = true;
+    });
+    check(warning, (val, ids)=>{
+        adapter.setState('info.warning_circuit_list', ids.join(', '));
+        if(ids.length >= 0) warning_ids = true;
+    });
+    check(night, (val, ids)=>{
+        adapter.setState('info.sleep_circuit_list', ids.join(', '));
+    });
+    if(alarm_ids){
+        adapter.setState('status.enableable', false);
+        return;
+    } else if (with_warnigs && warning_ids) {
+        adapter.setState('status.enableable', false);
+    }else {
+        adapter.setState('status.enableable', true);
+    }
+}
 
 function checkPassword(pass, id) {
     if(log && adapter.config.password == !pass) adapter.log.info(`${L.pass}`);
@@ -590,7 +618,7 @@ function bools(val){
 function shortcuts(id, val){
     if(shorts){
         shorts.forEach((ele) => {
-            if(ele.select_id == id && /true/.test(ele.trigger_val) === val){
+            if(ele.enabled && ele.select_id == id && /true/.test(ele.trigger_val) === val){
                 adapter.setForeignState(ele.name_id, bools(ele.value), (err)=>{
                     if(err) adapter.log.warn(`Cannot set state: ${err}`);
                 });

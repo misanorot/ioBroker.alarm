@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "news": {
+      "0.1.1": {
+        "en": "added states and lists - fixed issues - translation",
+        "de": "State und Listen hinzufügt - Probleme behoben - Übersetzung",
+        "ru": "добавить состояния и списки - исправлены ошибки - перевод",
+        "pt": "adicionar estados e listas - problemas corrigidos - tradução",
+        "nl": "staten en lijsten toevoegen - vaste problemen - vertaling",
+        "fr": "ajouter des états et des listes - problèmes résolus - traduction",
+        "it": "aggiungere stati ed elenchi - problemi risolti - traduzione",
+        "es": "agregar estados y listas - problemas resueltos - traducción",
+        "pl": "dodaj stany i listy - naprawione problemy - tłumaczenie",
+        "zh-cn": "添加状态和列表-已解决的问题-翻译"
+      },
       "0.1.0": {
         "en": "add password for de/activation -- better logging",
         "de": "Passwort für De / Aktivierung hinzufügen - bessere Protokollierung",
@@ -288,6 +300,19 @@
       "native": {}
     },
     {
+      "_id": "status.enableable",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Enableable",
+        "desc": "Alarm system is enableable",
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
       "_id": "status.activation_countdown",
       "type": "state",
       "common": {
@@ -405,39 +430,39 @@
       "native": {}
     },
     {
-      "_id": "info.activation_failed",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": "Error list",
-        "desc": "Error list of failed activations",
-        "type": "array",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.activated_with_warnings",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": "Warning list",
-        "desc": "Warning list of warning activations",
-        "type": "array",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.sleep_warning",
+      "_id": "info.sleep_circuit_list",
       "type": "state",
       "common": {
         "role": "",
         "name": "Sleep list",
         "desc": "Warning list at night",
-        "type": "array",
+        "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.alarm_circuit_list",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Sleep list",
+        "desc": "Warning list at night",
+        "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.warning_circuit_list",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Sleep list",
+        "desc": "Warning list at night",
+        "type": "string",
         "read": true,
         "write": false
       },
