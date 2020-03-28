@@ -436,20 +436,23 @@ function refreshLists(){
     let alarm_ids = false;
     let warning_ids = false;
     check(alarm, (val, ids)=>{
+        adapter.log.debug(`Alarm circuit list: ${ids}`);
         adapter.setState('info.alarm_circuit_list', ids.join(', '));
         if(ids.length >= 0) alarm_ids = true;
     });
     check(warning, (val, ids)=>{
+      adapter.log.debug(`Warning circuit list: ${ids}`);
         adapter.setState('info.warning_circuit_list', ids.join(', '));
         if(ids.length >= 0) warning_ids = true;
     });
     check(night, (val, ids)=>{
+        adapter.log.debug(`Sleep circuit list: ${ids}`);
         adapter.setState('info.sleep_circuit_list', ids.join(', '));
     });
     if(alarm_ids){
         adapter.setState('status.enableable', false);
         return;
-    } else if (with_warnigs && warning_ids) {
+    } else if (!with_warnigs && warning_ids) {
         adapter.setState('status.enableable', false);
     }else {
         adapter.setState('status.enableable', true);
