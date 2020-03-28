@@ -442,7 +442,7 @@ function refreshLists(){
             alarm_ids = true;
             adapter.setState('info.alarm_circuit_list', get_name(ids));
         }else{
-            adapter.setState('info.alarm_circuit_list', null);
+            adapter.setState('info.alarm_circuit_list', '');
         }
     });
     check(warning, (val, ids)=>{
@@ -451,7 +451,7 @@ function refreshLists(){
             warning_ids = true;
             adapter.setState('info.warning_circuit_list', get_name(ids));
         }else{
-            adapter.setState('info.warning_circuit_list', null);
+            adapter.setState('info.warning_circuit_list', '');
         }
     });
     check(night, (val, ids)=>{
@@ -459,7 +459,7 @@ function refreshLists(){
         if(ids.length > 0){
             adapter.setState('info.sleep_circuit_list', get_name(ids));
         }else{
-            adapter.setState('info.sleep_circuit_list', null);
+            adapter.setState('info.sleep_circuit_list', '');
         }
     });
     if(alarm_ids){
@@ -546,6 +546,8 @@ function check(arr, callback){
         });
         if(temp_arr.length>0){
             callback(true, temp_arr);
+        }else{
+            callback(false, temp_arr);
         }
     }
 }
