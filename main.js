@@ -171,6 +171,7 @@ function enable(id, state){
         adapter.setState('info.log', `${L.act_not} ${get_name(ids_alarm)}`);
         if(log)adapter.log.info(`${L.act_not} ${get_name(ids_alarm)}`);
         adapter.setState('status.activation_failed', true);
+        adapter.setState('status.state', 'activation failed');
         sayit(adapter.config.text_failed);
         return;
     }
@@ -178,6 +179,7 @@ function enable(id, state){
         adapter.setState('info.log', `${L.act_not} ${get_name(ids_warning)}`);
         if(log)adapter.log.info(`${L.act_not} ${get_name(ids_warning)}`);
         adapter.setState('status.activation_failed', true);
+        adapter.setState('status.state', 'activation failed');
         sayit(adapter.config.text_failed);
         return;
     }
@@ -187,8 +189,10 @@ function enable(id, state){
     adapter.setState('status.activated', true);
     adapter.setState('status.deactivated', false);
     adapter.setState('status.activation_failed', false);
+    adapter.setState('status.state', 'activated');
     if(warning.includes(id)){
         adapter.setState('status.activated_with_warnings', true);
+        adapter.setState('status.state', 'activated with warnings');
         adapter.setState('info.log', `${L.act_warn} ${get_name(id)}`);
         if(log)adapter.log.info(`${L.act_warn} ${get_name(id)}`);
         if(warning_message) messages(`${L.act_warn} ${get_name(id)}`);
@@ -217,6 +221,7 @@ function disable(){
         adapter.setState('status.burglar_alarm', false);
         adapter.setState('status.activation_failed', false);
         adapter.setState('status.silent_alarm', false);
+        adapter.setState('status.state', 'deactivated');
     }else{
         adapter.setState('status.activation_failed', false);
     }
@@ -229,7 +234,10 @@ function burglary(id, state){
     adapter.setState('info.log', `${L.burgle} ${get_name(id)}`);
     if(log)adapter.log.info(`${L.burgle} ${get_name(id)}`);
     if(alarm_message) messages(`${L.burgle} ${get_name(id)}`);
-    if(adapter.config.time_silent > 0) adapter.setState('status.silent_alarm', true);
+    if(adapter.config.time_silent > 0){
+        adapter.setState('status.silent_alarm', true);
+        adapter.setState('status.state', 'silent alarm');
+    }
     if(silent_timer)return;
     else if (!burgle){
         burgle = true;
@@ -237,6 +245,7 @@ function burglary(id, state){
             sayit(adapter.config.text_alarm);
             adapter.setState('status.burglar_alarm', true);
             adapter.setState('status.siren', true);
+            adapter.setState('status.state', 'burgle');
             siren_timer = setTimeout(()=>{
                 adapter.setState('status.siren', false);
             }, 1000*adapter.config.time_alarm);

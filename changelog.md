@@ -1,5 +1,8 @@
 ### Changelog
 
+#### 0.1.2 (19.04.2020)
+* (misanorot) status.state  activated
+
 #### 0.1.1 (28.03.2020)
 * (misanorot) added states and lists - fixed issues - translation
 

@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "news": {
+      "0.1.2": {
+        "en": " status.state  activated",
+        "de": " status.state aktiviert",
+        "ru": " status.state активирован",
+        "pt": " status.state ativado",
+        "nl": " status.state geactiveerd",
+        "fr": " status.state activé",
+        "it": " status.state attivato",
+        "es": " status.state activado",
+        "pl": " status.state włączony",
+        "zh-cn": " 状态激活"
+      },
       "0.1.1": {
         "en": "added states and lists - fixed issues - translation",
         "de": "State und Listen hinzufügt - Probleme behoben - Übersetzung",
@@ -447,8 +459,8 @@
       "type": "state",
       "common": {
         "role": "",
-        "name": "Sleep list",
-        "desc": "Warning list at night",
+        "name": "Alarm list",
+        "desc": "Alarm circuit list.",
         "type": "string",
         "read": true,
         "write": false
@@ -460,8 +472,8 @@
       "type": "state",
       "common": {
         "role": "",
-        "name": "Sleep list",
-        "desc": "Warning list at night",
+        "name": "Warning list",
+        "desc": "Warning circuit list.",
         "type": "string",
         "read": true,
         "write": false
