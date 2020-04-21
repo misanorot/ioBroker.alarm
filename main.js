@@ -420,7 +420,10 @@ function messages(content){
 }
 
 function sayit(message){
-    const sayit_instance = parseInt(adapter.config.sayit);
+    const say = /sayit/;
+    const alexa = /alexa2/;
+    const tts_instance = adapter.config.sayit;
+    adapter.log.debug(`speech output: ${tts_instance}`);
     if(adapter.config.sayit === 'disabled' || adapter.config.sayit === '' || adapter.config.sayit === null){
         adapter.log.debug(`Sayit disabled or empty`);
         return;
@@ -429,9 +432,15 @@ function sayit(message){
         adapter.log.debug(`No message for sayit configured`);
         return;
     }
-    else if(!isNaN(sayit_instance)){
-        adapter.log.debug(`Message for sayit instance ${sayit_instance}: ${message}`);
-        adapter.setForeignState('sayit.' + sayit_instance + '.tts.text', message, (err)=>{
+    else if(say.test(tts_instance)){
+        adapter.log.debug(`Message for sayit instance ${tts_instance}: ${message}`);
+        adapter.setForeignState(tts_instance + '.tts.text', message, (err)=>{
+            if(err) adapter.log.warn(err);
+        });
+    }
+    else if(alexa.test(tts_instance)){
+        adapter.log.debug(`Message for alexa2 instance ${tts_instance}: ${message}`);
+        adapter.setForeignState(tts_instance + '.speak', message, (err)=>{
             if(err) adapter.log.warn(err);
         });
     }

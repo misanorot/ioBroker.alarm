@@ -97,25 +97,45 @@
             });
         });
 
-        getAdapterInstances('sayit', function (res) {
-            const $sayit = $('#sayit');
+const $sayit = $('#sayit');
+
+getAdapterInstances('sayit', (res)=> {
             if (res) {
                 for (let t = 0; t < res.length; t++) {
-                    $sayit.append('<option value="' + res[t]._id.replace('system.adapter.sayit.', '') + '">' + res[t].common.name + ' [' + res[t]._id.replace('system.adapter.sayit.', '') + ']</option>');
+                    $sayit.append('<option value="' + res[t]._id.replace('system.adapter.', '') + '">' + res[t].common.name + ' [' + res[t]._id.replace('system.adapter.sayit.', '') + ']</option>');
                 }
             }
-            $sayit.val(settings.sayit);
-            $sayit.select({
-                dropdownOptions: {
-                    constrainWidth: false
+            getAdapterInstances('alexa2', (res)=> {
+                if (res) {
+                    for (let t = 0; t < res.length; t++) {
+                        $sayit.append('<option value="' + res[t]._id.replace('system.adapter.', '') + '">' + res[t].common.name + ' [' + res[t]._id.replace('system.adapter.alexa2.', '') + ']</option>');
+                    }
                 }
-            });
-        });
+          			$sayit.val(settings.sayit);
+          			$sayit.select({
+                          dropdownOptions: {
+                              constrainWidth: false
+                          }
+                      });
+    			  });
+		});
 
-        $('#test_sayit').on('click', ()=>{
-            socket.emit('setState','sayit.' + $('#sayit').val() + '.tts.text', 'Test', (err)=>{
-              if(err)console.log(err);
-            });
+
+$('#test_sayit').on('click', ()=>{
+			const tts_instance = $('#sayit').val();
+			const say = /sayit/;
+			const alexa = /alexa2/;
+			if(say.test(tts_instance)){
+				socket.emit('setState', $('#sayit').val() + '.tts.text', 'dies ist eine Testnachricht vom Alarm Adapter', (err)=>{
+					if(err)console.log(err);
+				});
+			}
+			else if(alexa.test(tts_instance)){
+				socket.emit('setState', $('#sayit').val() + '.speak', 'dies ist eine Testnachricht vom Alarm Adapter', (err)=>{
+					if(err)console.log(err);
+				});
+			}
+			else alert('Nichts konfiguriert!')
         });
     }
     //######  END LOAD  #######
