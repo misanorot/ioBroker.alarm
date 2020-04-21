@@ -97,46 +97,46 @@
             });
         });
 
-const $sayit = $('#sayit');
+        const $sayit = $('#sayit');
 
-getAdapterInstances('sayit', (res)=> {
-            if (res) {
-                for (let t = 0; t < res.length; t++) {
-                    $sayit.append('<option value="' + res[t]._id.replace('system.adapter.', '') + '">' + res[t].common.name + ' [' + res[t]._id.replace('system.adapter.sayit.', '') + ']</option>');
-                }
-            }
-            getAdapterInstances('alexa2', (res)=> {
-                if (res) {
-                    for (let t = 0; t < res.length; t++) {
-                        $sayit.append('<option value="' + res[t]._id.replace('system.adapter.', '') + '">' + res[t].common.name + ' [' + res[t]._id.replace('system.adapter.alexa2.', '') + ']</option>');
+        getAdapterInstances('sayit', (res)=> {
+                    if (res) {
+                        for (let t = 0; t < res.length; t++) {
+                            $sayit.append('<option value="' + res[t]._id.replace('system.adapter.', '') + '">' + res[t].common.name + ' [' + res[t]._id.replace('system.adapter.sayit.', '') + ']</option>');
+                        }
                     }
-                }
-          			$sayit.val(settings.sayit);
-          			$sayit.select({
-                          dropdownOptions: {
-                              constrainWidth: false
-                          }
-                      });
-    			  });
-		});
+                    getAdapterInstances('alexa2', (res)=> {
+                        if (res) {
+                            for (let t = 0; t < res.length; t++) {
+                                $sayit.append('<option value="' + res[t]._id.replace('system.adapter.', '') + '">' + res[t].common.name + ' [' + res[t]._id.replace('system.adapter.alexa2.', '') + ']</option>');
+                            }
+                        }
+                  			$sayit.val(settings.sayit);
+                  			$sayit.select({
+                                  dropdownOptions: {
+                                      constrainWidth: false
+                                  }
+                              });
+            			  });
+        		});
 
 
-$('#test_sayit').on('click', ()=>{
-			const tts_instance = $('#sayit').val();
-			const say = /sayit/;
-			const alexa = /alexa2/;
-			if(say.test(tts_instance)){
-				socket.emit('setState', $('#sayit').val() + '.tts.text', 'dies ist eine Testnachricht vom Alarm Adapter', (err)=>{
-					if(err)console.log(err);
-				});
-			}
-			else if(alexa.test(tts_instance)){
-				socket.emit('setState', $('#sayit').val() + '.speak', 'dies ist eine Testnachricht vom Alarm Adapter', (err)=>{
-					if(err)console.log(err);
-				});
-			}
-			else alert('Nichts konfiguriert!')
-        });
+        $('#test_sayit').on('click', ()=>{
+        			const tts_instance = $('#sayit').val();
+        			const say = /sayit/;
+        			const alexa = /alexa2/;
+        			if(say.test(tts_instance)){
+        				socket.emit('setState', $('#sayit').val() + '.tts.text', 'dies ist eine Testnachricht vom Alarm Adapter', (err)=>{
+        					if(err)console.log(err);
+        				});
+        			}
+        			else if(alexa.test(tts_instance)){
+        				socket.emit('setState', $('#sayit').val() + '.speak', 'dies ist eine Testnachricht vom Alarm Adapter', (err)=>{
+        					if(err)console.log(err);
+        				});
+        			}
+        			else alert('Nichts konfiguriert!')
+                });
     }
     //######  END LOAD  #######
 
@@ -331,6 +331,8 @@ function getName(obj) {
                   <input id="time_silent" type="text" class="validate value">
                   <label for="time_silent" class="translate">time_silent</label>
               </div>
+            </div>
+            <div class="row">
               <div class="input-field col s12 m4 l2">
                 <input id="night_from" type="text" class="timepicker value">
                 <label for="night_from" class="translate">night_from</label>
@@ -338,6 +340,9 @@ function getName(obj) {
               <div class="input-field col s12 m4 l2">
                 <input id="night_to" type="text" class="timepicker value">
                 <label for="night_to" class="translate">night_to</label>
+              </div>
+              <div class="col s12">
+                <input type="checkbox" id="opt_without_nightrest" class="value" /><label  for="opt_without_nightrest" class="translate">opt_without_nightrest</label>
               </div>
             </div>
             <div class="row">

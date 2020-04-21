@@ -158,6 +158,7 @@
     "time_alarm": 60,
     "time_silent": 0,
     "opt_night": true,
+    "opt_without_nightrest": false,
     "opt_log": true,
     "opt_warning": false,
     "night_from": "",
@@ -371,6 +372,45 @@
         "name": "Disable/Enable",
         "desc": "Disable or enable the alarm system with password",
         "type": "string",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.activate_nightrest",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Activate nightrest",
+        "desc": "Activate nightrest",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.deactivate_nightrest",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Deactivate nightrest",
+        "desc": "Deactivate nightrest",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.toggle_nightrest",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Toggle nightrest",
+        "desc": "Disable or enable nightrest",
+        "type": "boolean",
         "read": true,
         "write": true
       },

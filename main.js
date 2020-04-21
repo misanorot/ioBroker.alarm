@@ -332,6 +332,23 @@ function change(id, state){
             return;
         }
     }
+    else if(id === adapter.namespace + '.use.activate_nightrest' && state.val){
+        sleep_begin();
+        return;
+    }
+    else if(id === adapter.namespace + '.use.deactivate_nightrest' && state.val){
+        sleep_end();
+        return;
+    }
+    else if(id === adapter.namespace + '.use.toggle_nightrest'){
+        if(state.val){
+            sleep_begin();
+            return;
+        }else{
+            sleep_end();
+            return;
+        }
+    }
     else if(id === adapter.namespace + '.use.enable_with_delay' && state.val){
         countdown(true);
         return;
@@ -450,6 +467,25 @@ function sayit(message){
 
 
 //################# HELPERS ####################################################
+
+function sleep_begin() {
+    adapter.setState('info.log', `${L.sleep_b}`);
+    if(log) adapter.log.info(`${L.sleep_b}`);
+    adapter.setState('status.sleep', true);
+    check(night, (val, ids)=>{
+        if(val){
+            if(night_message) messages(`${L.nights_b_w} ${get_name(ids)}`);
+            adapter.setState('info.log', `${L.nights_b_w} ${get_name(ids)}`);
+            if(log) adapter.log.info(`${L.nights_b_w} ${get_name(ids)}`);
+        }
+    });
+}
+
+function sleep_end() {
+    adapter.setState('info.log', `${L.sleep_e}`);
+    if(log) adapter.log.info(`${L.sleep_e}`);
+    adapter.setState('status.sleep', false);
+}
 
 function refreshLists(){
     let alarm_ids = false;
@@ -694,6 +730,7 @@ function set_schedules(){
     schedule_reset = schedule.scheduleJob({hour: 00, minute: 00}, ()=>{
         adapter.setState('info.log_today', '');
     });
+    if(adapter.settings.opt_without_nightrest) return;
     if(adapter.config.night_from && adapter.config.night_to){
         let from, to;
         try{
@@ -704,21 +741,10 @@ function set_schedules(){
             return;
         }
         schedule_from = schedule.scheduleJob({hour: parseInt(from[0]), minute: parseInt(from[1])}, ()=>{
-            adapter.setState('info.log', `${L.sleep_b}`);
-            if(log) adapter.log.info(`${L.sleep_b}`);
-            adapter.setState('status.sleep', true);
-            check(night, (val, ids)=>{
-                if(val){
-                    if(night_message) messages(`${L.nights_b_w} ${get_name(ids)}`);
-                    adapter.setState('info.log', `${L.nights_b_w} ${get_name(ids)}`);
-                    if(log) adapter.log.info(`${L.nights_b_w} ${get_name(ids)}`);
-                }
-            });
+            sleep_begin();
         });
         schedule_to = schedule.scheduleJob({hour: parseInt(to[0]), minute: parseInt(to[1])}, ()=>{
-            adapter.setState('info.log', `${L.sleep_e}`);
-            if(log) adapter.log.info(`${L.sleep_e}`);
-            adapter.setState('status.sleep', false);
+            sleep_end();
         });
     }else{
         adapter.log.debug('No night rest configured');
