@@ -400,7 +400,7 @@ function change(id, state){
         if(warning_message) messages(`${L.warn} ${get_name(id)}`);
         setTimeout(()=>{
             adapter.setState('info.warning_circuit_changes', false);
-        }, adapter.settings.time_warning * 1000);
+        }, adapter.config.time_warning * 1000);
         return;
     }
     if(night.includes(id) && night_rest && isTrue(id, state)){
@@ -410,7 +410,7 @@ function change(id, state){
         if(night_message) messages(`${L.night} ${get_name(id)}`);
         setTimeout(()=>{
             adapter.setState('info.night_circuit_changes', false);
-        }, adapter.settings.time_warning * 1000);
+        }, adapter.config.time_warning * 1000);
         return;
     }
 }
@@ -738,7 +738,7 @@ function set_schedules(){
     schedule_reset = schedule.scheduleJob({hour: 00, minute: 00}, ()=>{
         adapter.setState('info.log_today', '');
     });
-    if(adapter.settings.opt_without_nightrest) return;
+    if(adapter.config.opt_without_nightrest) return;
     if(adapter.config.night_from && adapter.config.night_to){
         let from, to;
         try{
