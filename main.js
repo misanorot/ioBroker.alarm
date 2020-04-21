@@ -395,14 +395,22 @@ function change(id, state){
     }
     if(warning.includes(id) && activated && isTrue(id, state)){
         adapter.setState('info.log', `${L.warn} ${get_name(id)}`);
+        adapter.setState('info.warning_circuit_changes', true);
         if(log) adapter.log.info(`${L.warn} ${get_name(id)}`);
         if(warning_message) messages(`${L.warn} ${get_name(id)}`);
+        setTimeout(()=>{
+            adapter.setState('info.warning_circuit_changes', false);
+        }, adapter.settings.time_warning * 1000);
         return;
     }
     if(night.includes(id) && night_rest && isTrue(id, state)){
         adapter.setState('info.log', `${L.night} ${get_name(id)}`);
+        adapter.setState('info.night_circuit_changes', true);
         if(log) adapter.log.info(`${L.night} ${get_name(id)}`);
         if(night_message) messages(`${L.night} ${get_name(id)}`);
+        setTimeout(()=>{
+            adapter.setState('info.night_circuit_changes', false);
+        }, adapter.settings.time_warning * 1000);
         return;
     }
 }

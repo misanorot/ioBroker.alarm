@@ -157,6 +157,7 @@
     "time_activate": 10,
     "time_alarm": 60,
     "time_silent": 0,
+    "time_warning": 3,
     "opt_night": true,
     "opt_without_nightrest": false,
     "opt_log": true,
@@ -475,6 +476,32 @@
         "role": "",
         "name": "Wrong password",
         "desc": "Wrong password used",
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.warning_circuit_changes",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Changes warning circuit",
+        "desc": "Changes in warning circuit detected",
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.night_circuit_changes",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Changes night circuit",
+        "desc": "Changes in night circuit detected",
         "type": "boolean",
         "read": true,
         "write": false
