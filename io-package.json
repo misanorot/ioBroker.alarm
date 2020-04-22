@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "news": {
+      "0.2.0": {
+        "en": "added more states",
+        "de": "Weitere Staaten hinzugefügt",
+        "ru": "добавлено больше штатов",
+        "pt": "adicionou mais estados",
+        "nl": "meer staten toegevoegd",
+        "fr": "ajouté plus d'états",
+        "it": "aggiunto più stati",
+        "es": "agregó más estados",
+        "pl": "dodano więcej stanów",
+        "zh-cn": "添加了更多状态"
+      },
       "0.1.2": {
         "en": " status.state  activated",
         "de": " status.state aktiviert",
