@@ -1,5 +1,8 @@
 ### Changelog
 
+#### 0.2.0 (22.04.2020)
+* (misanorot) added more states
+
 #### 0.1.2 (19.04.2020)
 * (misanorot) status.state  activated
 
