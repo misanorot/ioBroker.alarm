@@ -159,7 +159,6 @@
     "time_silent": 0,
     "time_warning": 3,
     "opt_night": true,
-    "opt_without_nightrest": false,
     "opt_log": true,
     "opt_warning": false,
     "night_from": "",

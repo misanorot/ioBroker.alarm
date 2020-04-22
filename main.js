@@ -738,7 +738,6 @@ function set_schedules(){
     schedule_reset = schedule.scheduleJob({hour: 00, minute: 00}, ()=>{
         adapter.setState('info.log_today', '');
     });
-    if(adapter.config.opt_without_nightrest) return;
     if(adapter.config.night_from && adapter.config.night_to){
         let from, to;
         try{
