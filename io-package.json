@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "news": {
       "0.2.0": {
         "en": "added more states",
@@ -474,6 +474,19 @@
         "role": "",
         "name": "Enable with delay",
         "desc": "Enable the alarm system with delay time",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.quit_changes",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Quit changes",
+        "desc": "Quit warning and night changes",
         "type": "boolean",
         "read": true,
         "write": true

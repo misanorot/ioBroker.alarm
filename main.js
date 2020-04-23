@@ -29,6 +29,8 @@ let activated = false,
 
 let timer = null,
     silent_timer = null,
+    timer_warn_changes = null,
+    timer_night_changes = null,
     siren_timer = null;
 
 let log,
@@ -285,6 +287,13 @@ function change(id, state){
         shortcuts('status.gets_activated', state.val);
         return;
     }
+    else if(id === adapter.namespace + '.use.quit_changes'){
+        clearTimeout(timer_warn_changes);
+        clearTimeout(timer_night_changes);
+        adapter.setState('info.warning_circuit_changes', false);
+        adapter.setState('info.night_circuit_changes', false);
+        return;
+    }
     else if(id === adapter.namespace + '.status.deactivated'){
         shortcuts('status.deactivated', state.val);
         return;
@@ -398,7 +407,7 @@ function change(id, state){
         adapter.setState('info.warning_circuit_changes', true);
         if(log) adapter.log.info(`${L.warn} ${get_name(id)}`);
         if(warning_message) messages(`${L.warn} ${get_name(id)}`);
-        setTimeout(()=>{
+        timer_warn_changes = setTimeout(()=>{
             adapter.setState('info.warning_circuit_changes', false);
         }, adapter.config.time_warning * 1000);
         return;
@@ -408,7 +417,7 @@ function change(id, state){
         adapter.setState('info.night_circuit_changes', true);
         if(log) adapter.log.info(`${L.night} ${get_name(id)}`);
         if(night_message) messages(`${L.night} ${get_name(id)}`);
-        setTimeout(()=>{
+        timer_night_changes = setTimeout(()=>{
             adapter.setState('info.night_circuit_changes', false);
         }, adapter.config.time_warning * 1000);
         return;
