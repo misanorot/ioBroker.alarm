@@ -99,33 +99,37 @@
 
         const $sayit = $('#sayit');
 
-        getAdapterInstances('sayit', (res)=> {
-                    if (res) {
-                        for (let t = 0; t < res.length; t++) {
-                            $sayit.append('<option value="' + res[t]._id.replace('system.adapter.', '') + '">' + res[t].common.name + ' [' + res[t]._id.replace('system.adapter.sayit.', '') + ']</option>');
-                        }
-                    }
-                    socket.emit('getObjectView', 'system', 'state', {startkey: 'alexa2.', endkey: 'alexa.\u9999'}, (err, res)=> {
-                            if (!err && res) {
-                                const alex = /ssml/;
-                                for (var i = 0; i < res.rows.length; i++) {
-                                    if(alex.test(res.rows[i].id)){
-                                      $sayit.append('<option value="' + res.rows[i].id + '">' + res.rows[i].id.replace('.Alarm.Commands.ssml', '') + '</option>');
-                                    }
-                                }
-                                //console.log(JSON.stringify(_res));
-                            } else {
-                                console.log(JSON.stringify(err));
-                            }
-                            $sayit.val(settings.sayit);
-                      			$sayit.select({
-                                      dropdownOptions: {
-                                          constrainWidth: false
-                                      }
-                                  });
-                    });
-        		});
+        socket.emit('getObjectView', 'system', 'state', {
+        				startkey: 'alexa2.0.',
+        				endkey: 'alexa2.\u9999'
+        				}, function (err, states) {
+                  //console.log(states)
+                  if (!err && states) {
+                      const alex = /ssml/;
+                      for (var i = 0; i < states.rows.length; i++) {
+                          if(alex.test(states.rows[i].id)){
+                            $sayit.append('<option value="' + states.rows[i].id + '">' + states.rows[i].id.replace('.Commands.ssml', '') + '</option>');
+                          }
+                      }
+                      //console.log(JSON.stringify(_states));
+                  } else {
+                      console.log(JSON.stringify(err));
+                  }
 
+                  getAdapterInstances('sayit', (res)=> {
+                              if (res) {
+                                  for (let t = 0; t < res.length; t++) {
+                                      $sayit.append('<option value="' + res[t]._id.replace('system.adapter.', '') + '">' + res[t].common.name + ' [' + res[t]._id.replace('system.adapter.sayit.', '') + ']</option>');
+                                  }
+                              }
+                              $sayit.val(settings.sayit);
+                              $sayit.select({
+                                        dropdownOptions: {
+                                            constrainWidth: false
+                                        }
+                                    });
+                      });
+                });
 
         $('#test_sayit').on('click', ()=>{
         			const tts_instance = $('#sayit').val();
