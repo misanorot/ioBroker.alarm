@@ -474,7 +474,7 @@ function sayit(message){
     }
     else if(alexa.test(tts_instance)){
         adapter.log.debug(`Message for alexa2 instance ${tts_instance}: ${message}`);
-        adapter.setForeignState(tts_instance + '.speak', message, (err)=>{
+        adapter.setForeignState(tts_instance, message, (err)=>{
             if(err) adapter.log.warn(err);
         });
     }
