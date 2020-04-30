@@ -105,7 +105,7 @@
         				}, function (err, states) {
                   //console.log(states)
                   if (!err && states) {
-                      const alex = /speak&/;
+                      const alex = /speak$/;
                       for (var i = 0; i < states.rows.length; i++) {
                           if(alex.test(states.rows[i].id)){
                             $sayit.append('<option value="' + states.rows[i].id + '">' + states.rows[i].id.replace('.Commands.speak', '') + '</option>');
