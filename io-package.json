@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "news": {
+      "0.2.2": {
+        "en": "added alexa2 speak output",
+        "de": "alexa2 speak output hinzugefügt",
+        "ru": "добавил alexa2 говорить вывод",
+        "pt": "adicionado saída de fala alexa2",
+        "nl": "alexa2 speak output toegevoegd",
+        "fr": "sortie alexa2 speak ajoutée",
+        "it": "aggiunto l'output di alexa2 speak",
+        "es": "salida de voz alexa2 agregada",
+        "pl": "dodano wyjście mówienia alexa2",
+        "zh-cn": "添加了Alexa2语音输出"
+      },
       "0.2.0": {
         "en": "added more states",
         "de": "Weitere Staaten hinzugefügt",

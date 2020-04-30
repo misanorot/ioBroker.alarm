@@ -1,5 +1,9 @@
 ### Changelog
 
+
+#### 0.2.2 (30.04.2020)
+* (misanorot) added alexa2 speak output
+
 #### 0.2.0 (22.04.2020)
 * (misanorot) added more states
 
