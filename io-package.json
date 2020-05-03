@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.2.3",
+    "version": "0.3.0",
     "news": {
+      "0.3.0": {
+        "en": "expaned speech output",
+        "de": "erweiterte Sprachausgabe",
+        "ru": "расширенный речевой вывод",
+        "pt": "saída de fala ampliada",
+        "nl": "uitgebreide spraakuitvoer",
+        "fr": "sortie vocale étendue",
+        "it": "uscita vocale estesa",
+        "es": "salida de voz expandida",
+        "pl": "rozszerzony przekaz mowy",
+        "zh-cn": "语音输出扩大"
+      },
       "0.2.2": {
         "en": "added alexa2 speak output",
         "de": "alexa2 speak output hinzugefügt",
@@ -182,6 +194,9 @@
     "time_alarm": 60,
     "time_silent": 0,
     "time_warning": 3,
+    "opt_say_night": true,
+    "opt_say_names": true,
+    "opt_say_changes": true,
     "opt_night": true,
     "opt_log": true,
     "opt_warning": false,
@@ -195,7 +210,10 @@
     "text_deactivated": "Alarmanlage deaktiviert",
     "text_failed": "Aktivierung fehlgeschlagen",
     "text_warning": "Es sind noch Sachen offen",
+    "text_changes": "Veränderungen erkannt",
     "text_alarm": "Verlassen Sie sofort das Haus",
+    "text_nightrest_beginn": "Nachtruhe beginnt",
+    "text_nightrest_end": "Nachtruhe beendet",
     "password": "",
     "sendTo": "",
     "alarm": "",

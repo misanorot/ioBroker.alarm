@@ -34,6 +34,9 @@ let timer = null,
     siren_timer = null;
 
 let log,
+    speak_night,
+    speak_names,
+    speak_changes,
     with_warnigs,
     alarm_message,
     night_message,
@@ -118,6 +121,9 @@ function main() {
     night_message = adapter.config.send_night;
     warning_message = adapter.config.send_warning;
     shorts = adapter.config.shorts;
+    speak_night = adapter.config.opt_say_night;
+    speak_names = adapter.config.opt_say_names;
+    speak_changes = adapter.config.opt_say_changes;
     adapter.getState('status.activated', (err, state)=>{
         if(err){
             adapter.log.error(err);
@@ -157,6 +163,7 @@ function main() {
 function enable(id, state){
     let is_alarm,
         is_warning;
+    let say = adapter.config.text_failed;
 
     let ids_alarm = [],
         ids_warning = [];
@@ -170,19 +177,27 @@ function enable(id, state){
         ids_warning = ids;
     });
     if(is_alarm){
-        adapter.setState('info.log', `${L.act_not} ${get_name(ids_alarm)}`);
-        if(log)adapter.log.info(`${L.act_not} ${get_name(ids_alarm)}`);
+        const names = get_name(ids_alarm);
+        adapter.setState('info.log', `${L.act_not} ${names}`);
+        if(log)adapter.log.info(`${L.act_not} ${names}`);
         adapter.setState('status.activation_failed', true);
         adapter.setState('status.state', 'activation failed');
-        sayit(adapter.config.text_failed);
+        if(speak_names && say.length > 0){
+            say = say + ' ' + names;
+        }
+        sayit(say);
         return;
     }
     if(!adapter.config.opt_warning && is_warning){
-        adapter.setState('info.log', `${L.act_not} ${get_name(ids_warning)}`);
-        if(log)adapter.log.info(`${L.act_not} ${get_name(ids_warning)}`);
+        const names = get_name(ids_alarm);
+        adapter.setState('info.log', `${L.act_not} ${names}`);
+        if(log)adapter.log.info(`${L.act_not} ${names}`);
         adapter.setState('status.activation_failed', true);
         adapter.setState('status.state', 'activation failed');
-        sayit(adapter.config.text_failed);
+        if(speak_names && say.length > 0){
+            say = say + ' ' + names;
+        }
+        sayit(say);
         return;
     }
     adapter.setState('info.log', `${L.act}`);
@@ -413,10 +428,18 @@ function change(id, state){
         return;
     }
     if(night.includes(id) && night_rest && isTrue(id, state)){
-        adapter.setState('info.log', `${L.night} ${get_name(id)}`);
+        const name = get_name(id);
+        let say = adapter.config.text_changes;
+        adapter.setState('info.log', `${L.night} ${name}`);
         adapter.setState('info.night_circuit_changes', true);
-        if(log) adapter.log.info(`${L.night} ${get_name(id)}`);
-        if(night_message) messages(`${L.night} ${get_name(id)}`);
+        if(log) adapter.log.info(`${L.night} ${name}`);
+        if(night_message) messages(`${L.night} ${name}`);
+        if(speak_changes){
+            if(speak_names && say.length > 0){
+                say = say + ' ' + name;
+            }
+            sayit(say);
+        }
         timer_night_changes = setTimeout(()=>{
             adapter.setState('info.night_circuit_changes', false);
         }, adapter.config.time_warning * 1000);
@@ -466,6 +489,10 @@ function sayit(message){
         adapter.log.debug(`No message for sayit configured`);
         return;
     }
+    else if (!adapter.config.opt_say_night && night_rest) {
+        adapter.log.debug(`No speech output during night rest`);
+        return;
+    }
     else if(say.test(tts_instance)){
         adapter.log.debug(`Message for sayit instance ${tts_instance}: ${message}`);
         adapter.setForeignState(tts_instance + '.tts.text', message, (err)=>{
@@ -487,19 +514,29 @@ function sayit(message){
 
 function sleep_begin() {
     adapter.setState('info.log', `${L.sleep_b}`);
+    sayit(adapter.config.text_nightrest_beginn);
     if(log) adapter.log.info(`${L.sleep_b}`);
     adapter.setState('status.sleep', true);
     check(night, (val, ids)=>{
         if(val){
-            if(night_message) messages(`${L.nights_b_w} ${get_name(ids)}`);
-            adapter.setState('info.log', `${L.nights_b_w} ${get_name(ids)}`);
-            if(log) adapter.log.info(`${L.nights_b_w} ${get_name(ids)}`);
+            const names = get_name(ids);
+            let say = adapter.config.text_warning;
+            if(night_message) messages(`${L.nights_b_w} ${names}`);
+            adapter.setState('info.log', `${L.nights_b_w} ${names}`);
+            if(log) adapter.log.info(`${L.nights_b_w} ${names}`);
+            if(speak_night){
+                if(speak_names && say.length > 0){
+                    say = say + ' ' + names;
+                }
+                sayit(say);
+            }
         }
     });
 }
 
 function sleep_end() {
     adapter.setState('info.log', `${L.sleep_e}`);
+    sayit(adapter.config.text_nightrest_end);
     if(log) adapter.log.info(`${L.sleep_e}`);
     adapter.setState('status.sleep', false);
 }

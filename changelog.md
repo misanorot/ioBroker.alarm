@@ -1,6 +1,9 @@
 ### Changelog
 
 
+#### 0.3.0 (04.05.2020)
+* (misanorot) expaned speech output
+
 #### 0.2.2 (30.04.2020)
 * (misanorot) added alexa2 speak output
 
@@ -18,7 +21,6 @@
 
 #### 0.0.9 (19.02.2020)
 * (misanorot) add sayit
-
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
