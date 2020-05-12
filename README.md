@@ -30,7 +30,7 @@ Hier werden die Einstellungen wie die Zeiten der Nachtruhe, Sirenezeit, Stiller-
 
 ----------------------------------------------------------------------------------------------------------------------
 
-### Tab überwachung
+### Tab Überwachung
 
 Hier werden die die Kreise der Anlage konfiguriert.
 *die Namen der states lassen sich ändern*
