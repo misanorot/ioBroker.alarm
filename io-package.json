@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "news": {
+      "0.4.0": {
+        "en": "added warn circuit monitoring",
+         "de": "Überwachung des Warnkreises hinzugefügt",
+         "ru": "добавлен мониторинг цепей предупреждений",
+         "pt": "adicionado monitoramento de circuito de aviso",
+         "nl": "waarschuwingscircuitbewaking toegevoegd",
+         "fr": "surveillance du circuit d'avertissement ajoutée",
+         "it": "aggiunto avvisa il monitoraggio del circuito",
+         "es": "agregado advertencia circuito de vigilancia",
+         "pl": "dodano monitorowanie obwodu ostrzegania",
+         "zh-cn": "增加了警告电路监控"
+      },
       "0.3.0": {
         "en": "expaned speech output",
         "de": "erweiterte Sprachausgabe",
@@ -195,6 +207,7 @@
     "time_silent": 0,
     "time_warning": 3,
     "opt_say_night": true,
+    "opt_say_warn": true,
     "opt_say_names": true,
     "opt_say_changes": true,
     "opt_night": true,
@@ -381,6 +394,20 @@
       "native": {}
     },
     {
+      "_id": "status.warn_circuit_activated",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Warn circuit activated",
+        "desc": "Warn circuit is activated",
+        "type": "boolean",
+        "def": false,
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
       "_id": "use.enable",
       "type": "state",
       "common": {
@@ -452,6 +479,45 @@
         "role": "",
         "name": "Toggle nightrest",
         "desc": "Disable or enable nightrest",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.activate_warn_circuit",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Activate warn circuit",
+        "desc": "Activate warn circuit",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.deactivate_warn_circuit",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Deactivate warn circuit",
+        "desc": "Deactivate warn circuit",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.toggle_warn_circuit",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Toggle warn circuit",
+        "desc": "Disable or enable warn circuit",
         "type": "boolean",
         "read": true,
         "write": true

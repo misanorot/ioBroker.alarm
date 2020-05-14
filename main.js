@@ -25,6 +25,7 @@ let log_list = '';
 
 let activated = false,
     night_rest = false,
+    warn = false,
     burgle = false;
 
 let timer = null,
@@ -35,6 +36,7 @@ let timer = null,
 
 let log,
     speak_night,
+    speak_warn,
     speak_names,
     speak_changes,
     with_warnigs,
@@ -122,6 +124,7 @@ function main() {
     warning_message = adapter.config.send_warning;
     shorts = adapter.config.shorts;
     speak_night = adapter.config.opt_say_night;
+    speak_warn = adapter.config.opt_say_warn;
     speak_names = adapter.config.opt_say_names;
     speak_changes = adapter.config.opt_say_changes;
     adapter.getState('status.activated', (err, state)=>{
@@ -146,6 +149,18 @@ function main() {
                 night_rest = false;
                 adapter.setState('status.sleep', false);
             }else night_rest = state.val;
+        }
+    });
+    adapter.getState('status.warn_circuit_activated', (err, state)=>{
+        if(err){
+            adapter.log.error(err);
+            adapter.setState('info.connection', false);
+            return;
+        }else{
+            if(state == null){
+                warn = false;
+                adapter.setState('status.warn_circuit_activated', false);
+            }else warn = state.val;
         }
     });
     if(adapter.config.circuits)split_states(adapter.config.circuits);
@@ -203,6 +218,7 @@ function enable(id, state){
     adapter.setState('info.log', `${L.act}`);
     if(log)adapter.log.info(`${L.act}`);
     sayit(adapter.config.text_activated);
+    warn_ends();
     adapter.setState('status.activated', true);
     adapter.setState('status.deactivated', false);
     adapter.setState('status.activation_failed', false);
@@ -373,6 +389,23 @@ function change(id, state){
             return;
         }
     }
+    else if(id === adapter.namespace + '.use.activate_warn_circuit' && state.val){
+        warn_begins();
+        return;
+    }
+    else if(id === adapter.namespace + '.use.deactivate_warn_circuit' && state.val){
+        warn_ends();
+        return;
+    }
+    else if(id === adapter.namespace + '.use.toggle_warn_circuit'){
+        if(state.val){
+            warn_begins();
+            return;
+        }else{
+            warn_ends();
+            return;
+        }
+    }
     else if(id === adapter.namespace + '.use.enable_with_delay' && state.val){
         countdown(true);
         return;
@@ -445,6 +478,16 @@ function change(id, state){
         }, adapter.config.time_warning * 1000);
         return;
     }
+    if(warning.includes(id) && warn && isTrue(id, state)){
+        adapter.setState('info.log', `${L.warn} ${get_name(id)}`);
+        adapter.setState('info.warning_circuit_changes', true);
+        if(log) adapter.log.info(`${L.warn} ${get_name(id)}`);
+        if(warning_message) messages(`${L.warn} ${get_name(id)}`);
+        timer_warn_changes = setTimeout(()=>{
+            adapter.setState('info.warning_circuit_changes', false);
+        }, adapter.config.time_warning * 1000);
+        return;
+    }
 }
 //##############################################################################
 
@@ -512,9 +555,35 @@ function sayit(message){
 
 //################# HELPERS ####################################################
 
+function warn_begins(){
+    warn = true;
+    check(warning, (val, ids)=>{
+        if(val){
+            const names = get_name(ids);
+            let say = adapter.config.text_warning;
+            if(warning_message) messages(`${L.warn_b_w} ${names}`);
+            adapter.setState('info.log', `${L.warb_b_w} ${names}`);
+            if(log) adapter.log.info(`${L.warn_b_w} ${names}`);
+            if(speak_warn){
+                if(speak_names && say.length > 0){
+                    say = say + ' ' + names;
+                }
+                sayit(say);
+            }
+        }
+    });
+    adapter.setState('status.warn_circuit_activated', true);
+}
+
+function warn_ends(){
+    warn = false;
+    adapter.setState('status.warn_circuit_activated', false);
+}
+
 function sleep_begin() {
     adapter.setState('info.log', `${L.sleep_b}`);
     sayit(adapter.config.text_nightrest_beginn);
+    warn_ends();
     if(log) adapter.log.info(`${L.sleep_b}`);
     adapter.setState('status.sleep', true);
     check(night, (val, ids)=>{

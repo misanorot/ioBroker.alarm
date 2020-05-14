@@ -1,5 +1,7 @@
 ### Changelog
 
+#### 0.4.0 (14.05.2020)
+* (misanorot) added warn circuit monitoring
 
 #### 0.3.0 (04.05.2020)
 * (misanorot) expaned speech output
