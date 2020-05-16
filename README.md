@@ -32,8 +32,17 @@ Hier werden die Einstellungen wie die Zeiten der Nachtruhe, Sirenezeit, Stiller-
 
 ### Tab Überwachung
 
-Hier werden die die Kreise der Anlage konfiguriert.
+Hier werden die Kreise der Anlage konfiguriert.
 *die Namen der states lassen sich ändern*
+
+Der Alarmkreis hat die Priorität „hoch" und hat bei aktivierter Anlage Vorrang vor allen anderen Keisen. Er dient zur eigentlichen Überwachung der Anlage. Dies entspricht einer einfachen Alarmanlage mit nur einem Kreis.
+
+Der Warnkreis hat zwei Funktionen, bei aktivierter Anlage werden diese States nur überwacht und geben ggf. eine Meldung ab wenn eine Änderung stattfand. Die zweite Funktion besteht darin, bei z. B. Anwesenheit und aktivierter internen Überwachung der Anlage, bei Veränderung einer der konfigurierten States ggf. eine Meldung abgesetzt wird.
+
+Der Nachtkreis hat die gleiche Funktion wie der Warnkreis, jedoch nur während der Nachtruhe.
+
+*Es ist durchaus möglich, dass man für einen State, den Haken bei allen drei Kreisen macht.*
+
 Die Kreise sind folgendermaßen überwacht:
 
 #### Alarmkreis:
