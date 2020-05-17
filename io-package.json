@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.4.0",
+    "version": "0.5.0",
     "news": {
+      "0.5.0": {
+        "en": "added use.list state",
+        "de": "use.list state hinzugefügt",
+        "ru": "добавлено состояние use.list",
+        "pt": "estado use.list adicionado",
+        "nl": "status use.list toegevoegd",
+        "fr": "état use.list ajouté",
+        "it": "stato aggiunto use.list",
+        "es": "estado agregado use.list",
+        "pl": "dodano stan use.list",
+        "zh-cn": "增加了use.list状态"
+      },
       "0.4.0": {
         "en": "added warn circuit monitoring",
          "de": "Überwachung des Warnkreises hinzugefügt",
@@ -402,6 +414,25 @@
         "desc": "Warn circuit is activated",
         "type": "boolean",
         "def": false,
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.list",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "List array",
+        "desc": "Use diffrent numbers for change",
+        "type": "number",
+        "states": {
+          0: 'disable',
+          1: 'enable',
+          2: 'sharp inside',
+          3: 'nightrest'
+        },
         "read": true,
         "write": true
       },

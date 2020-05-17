@@ -304,6 +304,29 @@ function change(id, state){
         }
     }
     if(is_not_change) return;
+    else if(id === adapter.namespace + '.use.list'){
+        switch (state.val) {
+            case 0:
+                countdown(false);
+                if(warn) warn_ends();
+                if(night_rest) sleep_end();
+                break;
+            case 1:
+                enable(id, state);
+                break;
+            case 2:
+                warn_begins();
+                break;
+            case 3:
+                sleep_begin();
+                break;
+            default:
+                adapter.log.warn('Use wrong value in use.list');
+                break;
+
+        }
+        return;
+    }
     else if(id === adapter.namespace + '.status.activated'){
         activated = state.val;
         shortcuts('status.activated', state.val);
