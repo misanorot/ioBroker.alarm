@@ -427,6 +427,12 @@
         "name": "List array",
         "desc": "Use diffrent numbers for change",
         "type": "number",
+        "states": {
+          0: "disable",
+          1: "enable",
+          2: "sharp inside",
+          3: "nightrest"
+        },
         "read": true,
         "write": true
       },
