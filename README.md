@@ -101,8 +101,36 @@ Der log_today state wird um Mitternacht geleert.
 
 #### Wichtig, die Benutzung dieses Adapters geschieht auf eigene Gefahr, für etwaige Fehlfunktionen wird keine Haftung übernommen!
 
+
+
 ## Changelog
-**[CHANGELOG](https://github.com/misanorot/ioBroker.alarm/blob/master/changelog.md)**
+
+#### 0.4.0 (14.05.2020)
+* (misanorot) added warn circuit monitoring
+
+#### 0.3.0 (04.05.2020)
+* (misanorot) expaned speech output
+
+#### 0.2.2 (30.04.2020)
+* (misanorot) added alexa2 speak output
+
+#### 0.2.0 (22.04.2020)
+* (misanorot) added more states
+
+#### 0.1.2 (19.04.2020)
+* (misanorot) status.state  activated
+
+#### 0.1.1 (28.03.2020)
+* (misanorot) added states and lists - fixed issues - translation
+
+#### 0.1.0 ()
+* (misanorot) add password for de/activation -- better logging
+
+#### 0.0.9 (19.02.2020)
+* (misanorot) add sayit
+
+#### 0.0.8 (03.02.2020)
+* (misanorot) initial release
 
 ## License
 MIT License
