@@ -37,9 +37,9 @@ Hier werden die Kreise der Anlage konfiguriert.
 
 Der Alarmkreis hat die Priorität „hoch" und hat bei aktivierter Anlage Vorrang vor allen anderen Keisen. Er dient zur eigentlichen Überwachung der Anlage. Dies entspricht einer einfachen Alarmanlage mit nur einem Kreis.
 
-Der Warnkreis hat zwei Funktionen, bei aktivierter Anlage werden diese States nur überwacht und geben ggf. eine Meldung ab wenn eine Änderung stattfand. Die zweite Funktion besteht darin, bei z. B. Anwesenheit und aktivierter internen Überwachung der Anlage, bei Veränderung einer der konfigurierten States ggf. eine Meldung abgesetzt wird.
+Der Warnkreis hat zwei Funktionen, bei aktivierter Anlage werden diese States nur überwacht und geben ggf. eine Meldung ab wenn eine Änderung stattfand. Die zweite Funktion besteht darin, bei z. B. Anwesenheit und aktivierter internen Überwachung der Anlage (sharp inside), bei Veränderung einer der konfigurierten States ggf. eine Meldung abgesetzt wird.
 
-Der Nachtkreis hat die gleiche Funktion wie der Warnkreis, jedoch nur während der Nachtruhe.
+Der Nachtkreis hat die gleiche Funktion wie der Warnkreis, jedoch nur während der Nachtruhe. Bei beginender Nachtruhe löst diese, falls aktiviert, die Überwachung des Warnkreises (sharp inside) ab.
 
 *Es ist durchaus möglich, dass man für einen State, den Haken bei allen drei Kreisen macht.*
 
@@ -104,6 +104,9 @@ Der log_today state wird um Mitternacht geleert.
 
 
 ## Changelog
+
+#### 0.5.0 (14.05.2020)
+* (misanorot) added use.list state
 
 #### 0.4.0 (14.05.2020)
 * (misanorot) added warn circuit monitoring

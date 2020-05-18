@@ -596,6 +596,7 @@ function warn_begins(){
         }
     });
     adapter.setState('status.warn_circuit_activated', true);
+    adapter.setState('status.state', 'sharp inside');
 }
 
 function warn_ends(){
