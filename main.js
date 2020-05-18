@@ -608,6 +608,7 @@ function sleep_begin() {
     adapter.setState('info.log', `${L.sleep_b}`);
     sayit(adapter.config.text_nightrest_beginn);
     warn_ends();
+    if(!activated) adapter.setState('status.state', 'nightrest');
     if(log) adapter.log.info(`${L.sleep_b}`);
     adapter.setState('status.sleep', true);
     check(night, (val, ids)=>{
@@ -632,6 +633,7 @@ function sleep_end() {
     sayit(adapter.config.text_nightrest_end);
     if(log) adapter.log.info(`${L.sleep_e}`);
     adapter.setState('status.sleep', false);
+    if(!activated) adapter.setState('status.state', 'deactivated');
 }
 
 function refreshLists(){
