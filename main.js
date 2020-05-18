@@ -308,6 +308,7 @@ function change(id, state){
         switch (state.val) {
             case 0:
                 adapter.setState('status.state', 'deactivated');
+                adapter.setState('status.state_list', 0);
                 countdown(false);
                 if(warn) warn_ends();
                 if(night_rest) sleep_end();
