@@ -255,6 +255,7 @@ function disable(){
         adapter.setState('status.activation_failed', false);
         adapter.setState('status.silent_alarm', false);
         adapter.setState('status.state', 'deactivated');
+        adapter.setState('status.state_list', 0);
     }else{
         adapter.setState('status.activation_failed', false);
     }
