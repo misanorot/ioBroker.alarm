@@ -307,6 +307,7 @@ function change(id, state){
     else if(id === adapter.namespace + '.use.list'){
         switch (state.val) {
             case 0:
+                adapter.setState('status.state', 'deactivated');
                 countdown(false);
                 if(warn) warn_ends();
                 if(night_rest) sleep_end();
@@ -330,11 +331,13 @@ function change(id, state){
     else if(id === adapter.namespace + '.status.activated'){
         activated = state.val;
         shortcuts('status.activated', state.val);
+        adapter.setState('status.state_list', 1);
         return;
     }
     else if(id === adapter.namespace + '.status.sleep'){
         night_rest = state.val;
         shortcuts('status.sleep', state.val);
+        adapter.setState('status.state_list', 3);
         return;
     }
     else if(id === adapter.namespace + '.status.gets_activated'){
@@ -350,10 +353,12 @@ function change(id, state){
     }
     else if(id === adapter.namespace + '.status.deactivated'){
         shortcuts('status.deactivated', state.val);
+        adapter.setState('status.state_list', 0);
         return;
     }
     else if(id === adapter.namespace + '.status.burglar_alarm'){
         shortcuts('status.burglar_alarm', state.val);
+        adapter.setState('status.state_list', 4);
         return;
     }
     else if(id === adapter.namespace + '.status.siren'){
@@ -597,6 +602,7 @@ function warn_begins(){
     });
     adapter.setState('status.warn_circuit_activated', true);
     adapter.setState('status.state', 'sharp inside');
+    adapter.setState('status.state_list', 2);
 }
 
 function warn_ends(){

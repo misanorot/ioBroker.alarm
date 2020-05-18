@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.5.2",
+    "version": "0.5.3",
     "news": {
       "0.5.0": {
         "en": "added use.list state",
@@ -374,6 +374,26 @@
         "name": "State",
         "desc": "State of alarm system",
         "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "status.state_list",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "State list",
+        "desc": "State of alarm system (list)",
+        "type": "number",
+        "states": {
+          "0": "deactivated",
+          "1": "activated",
+          "2": "sharp inside",
+          "3": "nightrest",
+          "4": "burgular"
+        },
         "read": true,
         "write": false
       },
