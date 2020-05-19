@@ -584,27 +584,30 @@ function sayit(message){
 //################# HELPERS ####################################################
 
 function warn_begins(){
-    warn = true;
-    check(warning, (val, ids)=>{
-        if(val){
-            const names = get_name(ids);
-            let say = adapter.config.text_warning;
-            if(warning_message) messages(`${L.warn_b_w} ${names}`);
-            adapter.setState('info.log', `${L.warb_b_w} ${names}`);
-            if(log) adapter.log.info(`${L.warn_b_w} ${names}`);
-            if(speak_warn){
-                if(speak_names && say.length > 0){
-                    say = say + ' ' + names;
+    if(!warn && !activated){
+        warn = true;
+        check(warning, (val, ids)=>{
+            if(val){
+                const names = get_name(ids);
+                let say = adapter.config.text_warning;
+                if(warning_message) messages(`${L.warn_b_w} ${names}`);
+                adapter.setState('info.log', `${L.warb_b_w} ${names}`);
+                if(log) adapter.log.info(`${L.warn_b_w} ${names}`);
+                if(speak_warn){
+                    if(speak_names && say.length > 0){
+                        say = say + ' ' + names;
+                    }
+                    sayit(say);
                 }
-                sayit(say);
             }
-        }
-    });
-    adapter.setState('info.log', `${L.warn_act}`);
-    if(log)adapter.log.info(`${L.warn_act}`);
-    adapter.setState('status.warn_circuit_activated', true);
-    adapter.setState('status.state', 'sharp inside');
-    adapter.setState('status.state_list', 2);
+        });
+        adapter.setState('info.log', `${L.warn_act}`);
+        if(log)adapter.log.info(`${L.warn_act}`);
+        adapter.setState('status.warn_circuit_activated', true);
+        adapter.setState('status.state', 'sharp inside');
+        adapter.setState('status.state_list', 2);
+    }
+
 }
 
 function warn_ends(){
