@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.5.5",
+    "version": "0.5.6",
     "news": {
       "0.5.0": {
         "en": "added use.list state",
@@ -462,7 +462,7 @@
       "_id": "use.enable",
       "type": "state",
       "common": {
-        "role": "",
+        "role": "button",
         "name": "Enable",
         "desc": "Enable the alarm system",
         "type": "boolean",
@@ -475,7 +475,7 @@
       "_id": "use.disable",
       "type": "state",
       "common": {
-        "role": "",
+        "role": "button",
         "name": "Disable",
         "desc": "Disable the alarm system",
         "type": "boolean",
@@ -488,7 +488,7 @@
       "_id": "use.toggle_password",
       "type": "state",
       "common": {
-        "role": "",
+        "role": "switch",
         "name": "Disable/Enable",
         "desc": "Disable or enable the alarm system with password",
         "type": "string",
@@ -501,7 +501,7 @@
       "_id": "use.activate_nightrest",
       "type": "state",
       "common": {
-        "role": "",
+        "role": "button",
         "name": "Activate nightrest",
         "desc": "Activate nightrest",
         "type": "boolean",
@@ -514,7 +514,7 @@
       "_id": "use.deactivate_nightrest",
       "type": "state",
       "common": {
-        "role": "",
+        "role": "button",
         "name": "Deactivate nightrest",
         "desc": "Deactivate nightrest",
         "type": "boolean",
@@ -527,7 +527,7 @@
       "_id": "use.toggle_nightrest",
       "type": "state",
       "common": {
-        "role": "",
+        "role": "switch",
         "name": "Toggle nightrest",
         "desc": "Disable or enable nightrest",
         "type": "boolean",
@@ -540,7 +540,7 @@
       "_id": "use.activate_warn_circuit",
       "type": "state",
       "common": {
-        "role": "",
+        "role": "button",
         "name": "Activate warn circuit",
         "desc": "Activate warn circuit",
         "type": "boolean",
@@ -553,7 +553,7 @@
       "_id": "use.deactivate_warn_circuit",
       "type": "state",
       "common": {
-        "role": "",
+        "role": "button",
         "name": "Deactivate warn circuit",
         "desc": "Deactivate warn circuit",
         "type": "boolean",
@@ -566,7 +566,7 @@
       "_id": "use.toggle_warn_circuit",
       "type": "state",
       "common": {
-        "role": "",
+        "role": "switch",
         "name": "Toggle warn circuit",
         "desc": "Disable or enable warn circuit",
         "type": "boolean",
@@ -579,7 +579,7 @@
       "_id": "use.toggle_with_delay_and_password",
       "type": "state",
       "common": {
-        "role": "",
+        "role": "switch",
         "name": "Disable/Enable with delay",
         "desc": "Disable or enable the alarm system with delay time and password",
         "type": "string",
@@ -592,7 +592,7 @@
       "_id": "use.toggle",
       "type": "state",
       "common": {
-        "role": "",
+        "role": "switch",
         "name": "Disable/Enable",
         "desc": "Disable or enable the alarm system",
         "type": "boolean",
@@ -605,7 +605,7 @@
       "_id": "use.toggle_with_delay",
       "type": "state",
       "common": {
-        "role": "",
+        "role": "switch",
         "name": "Disable/Enable with delay",
         "desc": "Disable or enable the alarm system with delay time",
         "type": "boolean",
@@ -618,7 +618,7 @@
       "_id": "use.enable_with_delay",
       "type": "state",
       "common": {
-        "role": "",
+        "role": "button",
         "name": "Enable with delay",
         "desc": "Enable the alarm system with delay time",
         "type": "boolean",
@@ -631,7 +631,7 @@
       "_id": "use.quit_changes",
       "type": "state",
       "common": {
-        "role": "",
+        "role": "button",
         "name": "Quit changes",
         "desc": "Quit warning and night changes",
         "type": "boolean",

@@ -346,6 +346,10 @@ function change(id, state){
         shortcuts('status.gets_activated', state.val);
         return;
     }
+    else if(id === adapter.namespace + '.status.warn_circuit_activated'){
+        shortcuts('status.warn_circuit_activated', state.val);
+        return;
+    }
     else if(id === adapter.namespace + '.use.quit_changes'){
         clearTimeout(timer_warn_changes);
         clearTimeout(timer_night_changes);
