@@ -540,10 +540,10 @@
       "_id": "use.activate_warn_circuit",
       "type": "state",
       "common": {
+        "type": "boolean",
         "role": "button.activate.warn",
         "name": "Activate warn circuit",
         "desc": "Activate warn circuit",
-        "type": "boolean",
         "read": true,
         "write": true
       },
