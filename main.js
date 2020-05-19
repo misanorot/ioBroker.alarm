@@ -313,7 +313,7 @@ function change(id, state){
                 adapter.setState('status.state', 'deactivated');
                 adapter.setState('status.state_list', 0);
                 countdown(false);
-                if(warn) warn_ends();
+                warn_ends();
                 if(night_rest) sleep_end();
                 break;
             case 1:
@@ -600,14 +600,20 @@ function warn_begins(){
             }
         }
     });
+    adapter.setState('info.log', `${L.warn_act}`);
+    if(log)adapter.log.info(`${L.warn_act}`);
     adapter.setState('status.warn_circuit_activated', true);
     adapter.setState('status.state', 'sharp inside');
     adapter.setState('status.state_list', 2);
 }
 
 function warn_ends(){
-    warn = false;
-    adapter.setState('status.warn_circuit_activated', false);
+    if(warn){
+        warn = false;
+        adapter.setState('info.log', `${L.warn_deact}`);
+        if(log)adapter.log.info(`${L.warn_deact}`);
+        adapter.setState('status.warn_circuit_activated', false);
+    }
 }
 
 function sleep_begin() {
