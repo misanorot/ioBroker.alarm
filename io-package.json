@@ -462,7 +462,7 @@
       "_id": "use.enable",
       "type": "state",
       "common": {
-        "role": "button",
+        "role": "button.enable",
         "name": "Enable",
         "desc": "Enable the alarm system",
         "type": "boolean",
@@ -475,7 +475,7 @@
       "_id": "use.disable",
       "type": "state",
       "common": {
-        "role": "button",
+        "role": "button.disable",
         "name": "Disable",
         "desc": "Disable the alarm system",
         "type": "boolean",
@@ -501,7 +501,7 @@
       "_id": "use.activate_nightrest",
       "type": "state",
       "common": {
-        "role": "button",
+        "role": "button.activate.nightrest",
         "name": "Activate nightrest",
         "desc": "Activate nightrest",
         "type": "boolean",
@@ -514,7 +514,7 @@
       "_id": "use.deactivate_nightrest",
       "type": "state",
       "common": {
-        "role": "button",
+        "role": "button.deactivate.nightrest",
         "name": "Deactivate nightrest",
         "desc": "Deactivate nightrest",
         "type": "boolean",
@@ -540,7 +540,7 @@
       "_id": "use.activate_warn_circuit",
       "type": "state",
       "common": {
-        "role": "button",
+        "role": "button.activate.warn",
         "name": "Activate warn circuit",
         "desc": "Activate warn circuit",
         "type": "boolean",
@@ -553,7 +553,7 @@
       "_id": "use.deactivate_warn_circuit",
       "type": "state",
       "common": {
-        "role": "button",
+        "role": "button.deactivate.warn",
         "name": "Deactivate warn circuit",
         "desc": "Deactivate warn circuit",
         "type": "boolean",
@@ -618,7 +618,7 @@
       "_id": "use.enable_with_delay",
       "type": "state",
       "common": {
-        "role": "button",
+        "role": "button.enable",
         "name": "Enable with delay",
         "desc": "Enable the alarm system with delay time",
         "type": "boolean",
@@ -631,7 +631,7 @@
       "_id": "use.quit_changes",
       "type": "state",
       "common": {
-        "role": "button",
+        "role": "button.quit",
         "name": "Quit changes",
         "desc": "Quit warning and night changes",
         "type": "boolean",
