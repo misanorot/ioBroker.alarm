@@ -377,6 +377,14 @@ function change(id, state){
         shortcuts('status.state', state.val);
         return;
     }
+    else if(id === adapter.namespace + '.info.warning_circuit_changes'){
+        shortcuts('info.warning_circuit_changes', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.info.night_circuit_changes'){
+        shortcuts('info.night_circuit_changes', state.val);
+        return;
+    }
     else if(id === adapter.namespace + '.use.enable' && state.val){
         enable(id, state);
         return;
