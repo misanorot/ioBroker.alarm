@@ -23,6 +23,17 @@ let send_instances = [],
 
 let log_list = '';
 
+let is_alarm = false,
+    is_warning = false,
+    is_night = false,
+    ids_alarm = [],
+    ids_warning = [],
+    ids_night = [],
+    names_alarm,
+    names_warning,
+    names_night;
+
+
 let activated = false,
     night_rest = false,
     warn = false,
@@ -176,60 +187,39 @@ function main() {
 //################# ENABLE ####################################################
 
 function enable(id, state){
-    let is_alarm,
-        is_warning;
     let say = adapter.config.text_failed;
-
-    let ids_alarm = [],
-        ids_warning = [];
-
-    check(alarm, (val, ids)=>{
-        is_alarm = val;
-        ids_alarm = ids;
-    });
-    check(warning, (val, ids)=>{
-        is_warning = val;
-        ids_warning = ids;
-    });
-    if(is_alarm){
-        const names = get_name(ids_alarm);
-        adapter.setState('info.log', `${L.act_not} ${names}`);
-        if(log)adapter.log.info(`${L.act_not} ${names}`);
+    if(!adapter.config.opt_warning && is_alarm){
+        adapter.setState('info.log', `${L.act_not} ${names_alarm}`);
+        if(log)adapter.log.info(`${L.act_not} ${names_alarm}`);
         adapter.setState('status.activation_failed', true);
         adapter.setState('status.state', 'activation failed');
         if(speak_names && say.length > 0){
-            say = say + ' ' + names;
+            say = say + ' ' + names_alarm;
         }
         sayit(say);
         return;
     }
-    if(!adapter.config.opt_warning && is_warning){
-        const names = get_name(ids_alarm);
-        adapter.setState('info.log', `${L.act_not} ${names}`);
-        if(log)adapter.log.info(`${L.act_not} ${names}`);
-        adapter.setState('status.activation_failed', true);
-        adapter.setState('status.state', 'activation failed');
-        if(speak_names && say.length > 0){
-            say = say + ' ' + names;
-        }
-        sayit(say);
+    if(warning_message && is_warning){
+        messages(`${L.act_warn_circuit} ${names_warning}`);
         return;
     }
-    adapter.setState('info.log', `${L.act}`);
-    if(log)adapter.log.info(`${L.act}`);
-    sayit(adapter.config.text_activated);
     warn_ends();
     adapter.setState('status.activated', true);
     adapter.setState('status.deactivated', false);
     adapter.setState('status.activation_failed', false);
     adapter.setState('status.state', 'activated');
     adapter.setState('status.state_list', 1);
-    if(warning.includes(id)){
+    adapter.setState('use.list', 1);
+    if(is_alarm){
         adapter.setState('status.activated_with_warnings', true);
         adapter.setState('status.state', 'activated with warnings');
-        adapter.setState('info.log', `${L.act_warn} ${get_name(id)}`);
-        if(log)adapter.log.info(`${L.act_warn} ${get_name(id)}`);
-        if(warning_message) messages(`${L.act_warn} ${get_name(id)}`);
+        adapter.setState('info.log', `${L.act_warn} ${names_alarm}`);
+        if(log)adapter.log.info(`${L.act_warn} ${names_alarm}`);
+        if(warning_message) messages(`${L.act_warn} ${names_alarm}`);
+    } else{
+        adapter.setState('info.log', `${L.act}`);
+        if(log)adapter.log.info(`${L.act}`);
+        sayit(adapter.config.text_activated);
     }
 }
 //##############################################################################
@@ -257,6 +247,7 @@ function disable(){
         adapter.setState('status.silent_alarm', false);
         adapter.setState('status.state', 'deactivated');
         adapter.setState('status.state_list',0);
+        adapter.setState('use.list',0);
     }else{
         adapter.setState('status.activation_failed', false);
     }
@@ -281,7 +272,7 @@ function burglary(id, state){
             adapter.setState('status.burglar_alarm', true);
             adapter.setState('status.siren', true);
             adapter.setState('status.state', 'burgle');
-            adapter.setState('status.state_list', 4);
+            adapter.setState('status.state_list', 3);
             siren_timer = setTimeout(()=>{
                 adapter.setState('status.siren', false);
             }, 1000*adapter.config.time_alarm);
@@ -310,20 +301,22 @@ function change(id, state){
     else if(id === adapter.namespace + '.use.list'){
         switch (state.val) {
             case 0:
-                adapter.setState('status.state', 'deactivated');
-                adapter.setState('status.state_list', 0);
-                countdown(false);
-                warn_ends();
-                if(night_rest) sleep_end();
+                if(activated || warn){
+                    adapter.setState('status.state', 'deactivated');
+                    adapter.setState('status.state_list', 0);
+                    countdown(false);
+                    warn_ends();
+                    //if(night_rest) sleep_end();
+                }
                 break;
             case 1:
-                enable(id, state);
+                if(!activated) enable(id, state);
                 break;
             case 2:
                 warn_begins();
                 break;
             case 3:
-                sleep_begin();
+                countdown(true);
                 break;
             default:
                 adapter.log.warn('Use wrong value in use.list');
@@ -588,28 +581,30 @@ function sayit(message){
 //################# HELPERS ####################################################
 
 function warn_begins(){
-    if(!warn && !activated){
+    if(!warn && !burgle){
         warn = true;
-        check(warning, (val, ids)=>{
-            if(val){
-                const names = get_name(ids);
-                let say = adapter.config.text_warning;
-                if(warning_message) messages(`${L.warn_b_w} ${names}`);
-                adapter.setState('info.log', `${L.warb_b_w} ${names}`);
-                if(log) adapter.log.info(`${L.warn_b_w} ${names}`);
-                if(speak_warn){
-                    if(speak_names && say.length > 0){
-                        say = say + ' ' + names;
-                    }
-                    sayit(say);
+        activated = false;
+        countdown(false);
+        if(is_warning){
+            let say = adapter.config.text_warning;
+            if(warning_message) messages(`${L.warn_b_w} ${names_warning}`);
+            adapter.setState('info.log', `${L.warn_b_w} ${names_warning}`);
+            if(log) adapter.log.info(`${L.warn_b_w} ${names_warning}`);
+            if(speak_warn){
+                if(speak_names && say.length > 0){
+                    say = say + ' ' + names_warning;
                 }
+                sayit(say);
             }
-        });
+        }
         adapter.setState('info.log', `${L.warn_act}`);
         if(log)adapter.log.info(`${L.warn_act}`);
         adapter.setState('status.warn_circuit_activated', true);
         adapter.setState('status.state', 'sharp inside');
         adapter.setState('status.state_list', 2);
+        adapter.setState('use.list', 2);
+        adapter.setState('status.activated', false);
+        adapter.setState('status.deactivated', true);
     }
 
 }
@@ -620,6 +615,8 @@ function warn_ends(){
         adapter.setState('info.log', `${L.warn_deact}`);
         if(log)adapter.log.info(`${L.warn_deact}`);
         adapter.setState('status.warn_circuit_activated', false);
+        if(activated) adapter.setState('use.list', 1);
+        if(!activated) adapter.setState('use.list', 0);
     }
 }
 
@@ -630,22 +627,19 @@ function sleep_begin() {
     if(!activated) adapter.setState('status.state', 'nightrest');
     if(log) adapter.log.info(`${L.sleep_b}`);
     adapter.setState('status.sleep', true);
-    adapter.setState('status.state_list', 3);
-    check(night, (val, ids)=>{
-        if(val){
-            const names = get_name(ids);
-            let say = adapter.config.text_warning;
-            if(night_message) messages(`${L.nights_b_w} ${names}`);
-            adapter.setState('info.log', `${L.nights_b_w} ${names}`);
-            if(log) adapter.log.info(`${L.nights_b_w} ${names}`);
-            if(speak_night){
-                if(speak_names && say.length > 0){
-                    say = say + ' ' + names;
-                }
-                sayit(say);
+    if(is_night){
+        let say = adapter.config.text_warning;
+        if(night_message) messages(`${L.nights_b_w} ${names_night}`);
+        adapter.setState('info.log', `${L.nights_b_w} ${names_night}`);
+        if(log) adapter.log.info(`${L.nights_b_w} ${names_night}`);
+        if(speak_night){
+            if(speak_names && say.length > 0){
+                say = say + ' ' + names_night;
             }
+            sayit(say);
         }
-    });
+    }
+
 }
 
 function sleep_end() {
@@ -657,38 +651,52 @@ function sleep_end() {
 }
 
 function refreshLists(){
-    let alarm_ids = false;
-    let warning_ids = false;
     check(alarm, (val, ids)=>{
         adapter.log.debug(`Alarm circuit list: ${ids}`);
         if(ids.length > 0){
-            alarm_ids = true;
-            adapter.setState('info.alarm_circuit_list', get_name(ids));
+            ids_alarm = ids;
+            is_alarm = true;
+            names_alarm = get_name(ids);
+            adapter.setState('info.alarm_circuit_list', names_alarm);
         }else{
+            ids_alarm = [];
+            is_alarm = false;
+            names_alarm = '';
             adapter.setState('info.alarm_circuit_list', '');
         }
     });
     check(warning, (val, ids)=>{
         adapter.log.debug(`Warning circuit list: ${ids}`);
         if(ids.length > 0){
-            warning_ids = true;
-            adapter.setState('info.warning_circuit_list', get_name(ids));
+            ids_warning = ids;
+            is_warning = true;
+            names_warning = get_name(ids);
+            adapter.setState('info.warning_circuit_list', names_warning);
         }else{
+            ids_warning = [];
+            is_warning = false;
+            names_warning = '';
             adapter.setState('info.warning_circuit_list', '');
         }
     });
     check(night, (val, ids)=>{
         adapter.log.debug(`Sleep circuit list: ${ids}`);
         if(ids.length > 0){
-            adapter.setState('info.sleep_circuit_list', get_name(ids));
+            ids_night = ids;
+            is_night = true;
+            names_alarm = get_name(ids);
+            adapter.setState('info.sleep_circuit_list', names_night);
         }else{
+            ids_night = [];
+            is_night = false;
+            names_alarm = '';
             adapter.setState('info.sleep_circuit_list', '');
         }
     });
-    if(alarm_ids){
+    if(is_alarm){
         adapter.setState('status.enableable', false);
         return;
-    } else if (!with_warnigs && warning_ids) {
+    } else if (!with_warnigs && is_alarm) {
         adapter.setState('status.enableable', false);
     }else {
         adapter.setState('status.enableable', true);
