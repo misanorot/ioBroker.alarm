@@ -201,7 +201,6 @@ function enable(id, state){
     }
     if(warning_message && is_warning){
         messages(`${L.act_warn_circuit} ${names_warning}`);
-        return;
     }
     warn_ends();
     adapter.setState('status.activated', true);
