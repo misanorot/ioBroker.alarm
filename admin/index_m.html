@@ -59,6 +59,8 @@
           "twelveHour":false
         });
 
+        $('.tooltipped').tooltip();
+
         values2table('circuits', circuits, onChange, tableOnReady);
         values2table('shorts', shorts, onChange, tableOnReady);
 
@@ -328,22 +330,38 @@ function getName(obj) {
             <div class="row">
               <div class="input-field col s6 m3 l2">
                   <i class="material-icons prefix">alarm_on</i>
-                  <input id="time_activate" type="text" class="validate value">
+                  <input id="time_activate"
+                          type="text"
+                          class="validate value tooltipped"
+                          data-position="top"
+                          data-tooltip="in sec">
                   <label for="time_activate" class="translate">time_activate</label>
               </div>
               <div class="input-field col s6 m3 l2">
                   <i class="material-icons prefix">alarm</i>
-                  <input id="time_alarm" type="text" class="validate value">
+                  <input id="time_alarm"
+                          type="text"
+                          class="validate value tooltipped"
+                          data-position="top"
+                          data-tooltip="in sec">
                   <label for="time_alarm" class="translate">time_alarm</label>
               </div>
               <div class="input-field col s6 m3 l2">
                   <i class="material-icons prefix">alarm</i>
-                  <input id="time_silent" type="text" class="validate value">
+                  <input id="time_silent"
+                          type="text"
+                          class="validate value tooltipped"
+                          data-position="top"
+                          data-tooltip="in sec">
                   <label for="time_silent" class="translate">time_silent</label>
               </div>
               <div class="input-field col s6 m3 l2">
                   <i class="material-icons prefix">alarm</i>
-                  <input id="time_warning" type="text" class="validate value">
+                  <input id="time_warning"
+                          type="text"
+                          class="validate value tooltipped"
+                          data-position="top"
+                          data-tooltip="in sec">
                   <label for="time_warning" class="translate">time_warning</label>
               </div>
               <div class="input-field col s12 m3 l2">
@@ -449,6 +467,9 @@ function getName(obj) {
               </div>
               <div class="col s12">
                 <input type="checkbox" id="opt_say_changes" class="value" /><label  for="opt_say_changes" class="translate">opt_say_changes</label>
+              </div>
+              <div class="col s12">
+                <input type="checkbox" id="opt_say_warn_changes" class="value" /><label  for="opt_say_warn_changes" class="translate">opt_say_warn_changes</label>
               </div>
             </div>
             <div class="row">

@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.5.8",
+    "version": "0.5.9",
     "news": {
       "0.5.0": {
         "en": "added use.list state",
@@ -222,6 +222,7 @@
     "opt_say_warn": true,
     "opt_say_names": true,
     "opt_say_changes": true,
+    "opt_say_warn_changes": true,
     "opt_night": true,
     "opt_log": true,
     "opt_warning": false,

@@ -50,6 +50,7 @@ let log,
     speak_warn,
     speak_names,
     speak_changes,
+    speak_warn_changes,
     with_warnigs,
     alarm_message,
     night_message,
@@ -138,6 +139,7 @@ function main() {
     speak_warn = adapter.config.opt_say_warn;
     speak_names = adapter.config.opt_say_names;
     speak_changes = adapter.config.opt_say_changes;
+    speak_warn_changes = adapter.config.opt_say_warn_changes;
     adapter.getState('status.activated', (err, state)=>{
         if(err){
             adapter.log.error(err);
@@ -511,10 +513,18 @@ function change(id, state){
         return;
     }
     if(warning.includes(id) && warn && isTrue(id, state)){
+        const name = get_name(id);
+        let say = adapter.config.text_changes;
         adapter.setState('info.log', `${L.warn} ${get_name(id)}`);
         adapter.setState('info.warning_circuit_changes', true);
         if(log) adapter.log.info(`${L.warn} ${get_name(id)}`);
         if(warning_message) messages(`${L.warn} ${get_name(id)}`);
+        if(speak_warn_changes){
+            if(speak_names && say.length > 0){
+                say = say + ' ' + name;
+            }
+            sayit(say);
+        }
         timer_warn_changes = setTimeout(()=>{
             adapter.setState('info.warning_circuit_changes', false);
         }, adapter.config.time_warning * 1000);
