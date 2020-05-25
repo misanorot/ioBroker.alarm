@@ -302,12 +302,14 @@ function change(id, state){
     else if(id === adapter.namespace + '.use.list'){
         switch (state.val) {
             case 0:
-                if(activated || warn){
+                if(warn){
                     adapter.setState('status.state', 'deactivated');
                     adapter.setState('status.state_list', 0);
                     countdown(false);
                     warn_ends();
                     //if(night_rest) sleep_end();
+                } else {
+                    countdown(false);
                 }
                 break;
             case 1:
