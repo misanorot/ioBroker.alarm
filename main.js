@@ -547,6 +547,8 @@ function set_subs(){
         }
     });
     adapter.subscribeStates('info.log');
+    adapter.subscribeStates('info.warning_circuit_changes');
+    adapter.subscribeStates('info.night_circuit_changes');
     adapter.subscribeStates('use.*');
     adapter.subscribeStates('status.*');
 }

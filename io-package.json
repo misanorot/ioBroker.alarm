@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.5.10",
+    "version": "0.5.11",
     "news": {
       "0.5.0": {
         "en": "added use.list state",
