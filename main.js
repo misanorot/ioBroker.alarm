@@ -46,15 +46,12 @@ let timer = null,
     siren_timer = null;
 
 let log,
-    speak_night,
-    speak_warn,
     speak_names,
-    speak_changes,
-    speak_warn_changes,
     with_warnigs,
     alarm_message,
     night_message,
     warning_message,
+    act_message,
     shorts;
 
 let schedule_from,
@@ -134,12 +131,9 @@ function main() {
     alarm_message = adapter.config.send_alarm;
     night_message = adapter.config.send_night;
     warning_message = adapter.config.send_warning;
+    act_message = adapter.config.send_activation;
     shorts = adapter.config.shorts;
-    speak_night = adapter.config.opt_say_night;
-    speak_warn = adapter.config.opt_say_warn;
     speak_names = adapter.config.opt_say_names;
-    speak_changes = adapter.config.opt_say_changes;
-    speak_warn_changes = adapter.config.opt_say_warn_changes;
     adapter.getState('status.activated', (err, state)=>{
         if(err){
             adapter.log.error(err);
@@ -198,7 +192,7 @@ function enable(id, state){
         if(speak_names && say.length > 0){
             say = say + ' ' + names_alarm;
         }
-        sayit(say);
+        sayit(say, 3);
         return;
     }
     if(warning_message && is_warning){
@@ -211,6 +205,7 @@ function enable(id, state){
     adapter.setState('status.state', 'activated');
     adapter.setState('status.state_list', 1);
     adapter.setState('use.list', 1);
+    if(act_message) messages(`${L.act}`);
     if(is_alarm){
         adapter.setState('status.activated_with_warnings', true);
         adapter.setState('status.state', 'activated with warnings');
@@ -220,7 +215,7 @@ function enable(id, state){
     } else{
         adapter.setState('info.log', `${L.act}`);
         if(log)adapter.log.info(`${L.act}`);
-        sayit(adapter.config.text_activated);
+        sayit(adapter.config.text_activated, 1);
     }
 }
 //##############################################################################
@@ -235,7 +230,7 @@ function disable(){
     siren_timer = null;
     if(activated){
         adapter.setState('info.log', `${L.deact}`);
-        sayit(adapter.config.text_deactivated);
+        sayit(adapter.config.text_deactivated, 2);
         if(log)adapter.log.info(`${L.deact}`);
         adapter.setState('status.siren', false);
         adapter.setState('status.activated', false);
@@ -249,6 +244,7 @@ function disable(){
         adapter.setState('status.state', 'deactivated');
         adapter.setState('status.state_list',0);
         adapter.setState('use.list',0);
+        if(act_message) messages(`${L.deact}`);
     }else{
         adapter.setState('status.activation_failed', false);
     }
@@ -269,7 +265,7 @@ function burglary(id, state){
     else if (!burgle){
         burgle = true;
         silent_timer = setTimeout(()=>{
-            sayit(adapter.config.text_alarm);
+            sayit(adapter.config.text_alarm, 6);
             adapter.setState('status.burglar_alarm', true);
             adapter.setState('status.siren', true);
             adapter.setState('status.state', 'burgle');
@@ -503,12 +499,10 @@ function change(id, state){
         adapter.setState('info.night_circuit_changes', true);
         if(log) adapter.log.info(`${L.night} ${name}`);
         if(night_message) messages(`${L.night} ${name}`);
-        if(speak_changes){
-            if(speak_names && say.length > 0){
-                say = say + ' ' + name;
-            }
-            sayit(say);
+        if(speak_names){
+            say = say + ' ' + name;
         }
+        sayit(say, 9);
         timer_night_changes = setTimeout(()=>{
             adapter.setState('info.night_circuit_changes', false);
         }, adapter.config.time_warning * 1000);
@@ -521,12 +515,11 @@ function change(id, state){
         adapter.setState('info.warning_circuit_changes', true);
         if(log) adapter.log.info(`${L.warn} ${get_name(id)}`);
         if(warning_message) messages(`${L.warn} ${get_name(id)}`);
-        if(speak_warn_changes){
-            if(speak_names && say.length > 0){
-                say = say + ' ' + name;
-            }
-            sayit(say);
+        if(speak_names){
+            say = say + ' ' + name;
         }
+        sayit(say, 5);
+
         timer_warn_changes = setTimeout(()=>{
             adapter.setState('info.warning_circuit_changes', false);
         }, adapter.config.time_warning * 1000);
@@ -565,39 +558,93 @@ function messages(content){
     }
 }
 
-function sayit(message){
-    const say = /sayit/;
-    const alexa = /alexa2/;
+function sayit(message, opt_val){
     const tts_instance = adapter.config.sayit;
-    adapter.log.debug(`speech output: ${tts_instance}`);
-    if(adapter.config.sayit === 'disabled' || adapter.config.sayit === '' || adapter.config.sayit === null){
-        adapter.log.debug(`Sayit disabled or empty`);
-        return;
-    }
-    else if(message === '' || message === null){
-        adapter.log.debug(`No message for sayit configured`);
-        return;
-    }
-    else if (!adapter.config.opt_say_night && night_rest) {
-        adapter.log.debug(`No speech output during night rest`);
-        return;
-    }
-    else if(say.test(tts_instance)){
-        adapter.log.debug(`Message for sayit instance ${tts_instance}: ${message}`);
-        adapter.setForeignState(tts_instance + '.tts.text', message, (err)=>{
-            if(err) adapter.log.warn(err);
+    if(tts_instance){
+        tts_instance.forEach((ele)=>{
+            if(ele.enabled){
+                switch (opt_val) {
+                    case 1:
+                        if(ele.opt_say_one){
+                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
+                            adapter.setForeignState(ele.name_id, message, (err)=>{
+                                if(err) adapter.log.warn(err);
+                            });
+                        }
+                        break;
+                    case 2:
+                        if(ele.opt_say_two){
+                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
+                            adapter.setForeignState(ele.name_id, message, (err)=>{
+                                if(err) adapter.log.warn(err);
+                            });
+                        }
+                        break;
+                    case 3:
+                        if(ele.opt_say_three){
+                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
+                            adapter.setForeignState(ele.name_id, message, (err)=>{
+                                if(err) adapter.log.warn(err);
+                            });
+                        }
+                        break;
+                    case 4:
+                        if(ele.opt_say_four){
+                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
+                            adapter.setForeignState(ele.name_id, message, (err)=>{
+                                if(err) adapter.log.warn(err);
+                            });
+                        }
+                        break;
+                    case 5:
+                        if(ele.opt_say_five){
+                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
+                            adapter.setForeignState(ele.name_id, message, (err)=>{
+                                if(err) adapter.log.warn(err);
+                            });
+                        }
+                        break;
+                    case 6:
+                        if(ele.opt_say_six){
+                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
+                            adapter.setForeignState(ele.name_id, message, (err)=>{
+                                if(err) adapter.log.warn(err);
+                            });
+                        }
+                        break;
+                    case 7:
+                        if(ele.opt_say_seven){
+                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
+                            adapter.setForeignState(ele.name_id, message, (err)=>{
+                                if(err) adapter.log.warn(err);
+                            });
+                        }
+                        break;
+                    case 8:
+                        if(ele.opt_say_eigth){
+                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
+                            adapter.setForeignState(ele.name_id, message, (err)=>{
+                                if(err) adapter.log.warn(err);
+                            });
+                        }
+                        break;
+                    case 9:
+                        if(ele.opt_say_nine){
+                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
+                            adapter.setForeignState(ele.name_id, message, (err)=>{
+                                if(err) adapter.log.warn(err);
+                            });
+                        }
+                        break;
+                    default:
+                        adapter.log.debug(`no speech output!`);
+                }
+            }
         });
     }
-    else if(alexa.test(tts_instance)){
-        adapter.log.debug(`Message for alexa2 instance ${tts_instance}: ${message}`);
-        adapter.setForeignState(tts_instance, message, (err)=>{
-            if(err) adapter.log.warn(err);
-        });
-    }
-    else adapter.log.warn('please check your sayit configuration');
+
 }
 //##############################################################################
-
 
 //################# HELPERS ####################################################
 
@@ -611,12 +658,10 @@ function warn_begins(){
             if(warning_message) messages(`${L.warn_b_w} ${names_warning}`);
             adapter.setState('info.log', `${L.warn_b_w} ${names_warning}`);
             if(log) adapter.log.info(`${L.warn_b_w} ${names_warning}`);
-            if(speak_warn){
-                if(speak_names && say.length > 0){
-                    say = say + ' ' + names_warning;
-                }
-                sayit(say);
+            if(speak_names){
+                say = say + ' ' + names_warning;
             }
+            sayit(say, 4);
         }
         adapter.setState('info.log', `${L.warn_act}`);
         if(log)adapter.log.info(`${L.warn_act}`);
@@ -643,7 +688,7 @@ function warn_ends(){
 
 function sleep_begin() {
     adapter.setState('info.log', `${L.sleep_b}`);
-    sayit(adapter.config.text_nightrest_beginn);
+    sayit(adapter.config.text_nightrest_beginn, 7);
     warn_ends();
     if(!activated) adapter.setState('status.state', 'nightrest');
     if(log) adapter.log.info(`${L.sleep_b}`);
@@ -653,19 +698,17 @@ function sleep_begin() {
         if(night_message) messages(`${L.nights_b_w} ${names_night}`);
         adapter.setState('info.log', `${L.nights_b_w} ${names_night}`);
         if(log) adapter.log.info(`${L.nights_b_w} ${names_night}`);
-        if(speak_night){
-            if(speak_names && say.length > 0){
-                say = say + ' ' + names_night;
-            }
-            sayit(say);
+        if(speak_names){
+            say = say + ' ' + names_night;
         }
+        sayit(say, 4);
     }
 
 }
 
 function sleep_end() {
     adapter.setState('info.log', `${L.sleep_e}`);
-    sayit(adapter.config.text_nightrest_end);
+    sayit(adapter.config.text_nightrest_end, 8);
     if(log) adapter.log.info(`${L.sleep_e}`);
     adapter.setState('status.sleep', false);
     if(!activated) adapter.setState('status.state', 'deactivated');
@@ -943,6 +986,7 @@ function set_schedules(){
         schedule_to = schedule.scheduleJob({hour: parseInt(to[0]), minute: parseInt(to[1])}, ()=>{
             sleep_end();
         });
+        adapter.log.debug(`Night rest configured from ${parseInt(from[0])}:${parseInt(from[1])} to ${parseInt(to[0])}:${parseInt(to[1])}`);
     }else{
         adapter.log.debug('No night rest configured');
     }

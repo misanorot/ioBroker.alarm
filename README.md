@@ -134,6 +134,9 @@ Der log_today state wird um Mitternacht geleert.
 
 ## Changelog
 
+#### 0.5.0 (31.05.2020)
+* (misanorot) changed speech output
+
 #### 0.5.0 (14.05.2020)
 * (misanorot) added use.list state
 

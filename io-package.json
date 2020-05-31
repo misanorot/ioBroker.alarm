@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.5.11",
+    "version": "0.6.0",
     "news": {
+      "0.6.0": {
+        "en": "changed speech output",
+           "de": "Sprachausgabe geändert",
+           "ru": "изменен речевой вывод",
+           "pt": "saída de fala alterada",
+           "nl": "veranderde spraakuitvoer",
+           "fr": "sortie vocale modifiée",
+           "it": "uscita vocale modificata",
+           "es": "salida de voz modificada",
+           "pl": "zmieniono wyjście mowy",
+           "zh-cn": "语音输出已更改"
+      },
       "0.5.0": {
         "en": "added use.list state",
         "de": "use.list state hinzugefügt",
@@ -231,12 +243,14 @@
     "send_alarm": true,
     "send_warning": true,
     "send_night": true,
-    "sayit": "0",
+    "send_activation": false,
+    "sayit": [],
     "text_activated": "Alarmanlage aktiviert",
     "text_deactivated": "Alarmanlage deaktiviert",
     "text_failed": "Aktivierung fehlgeschlagen",
     "text_warning": "Es sind noch Sachen offen",
     "text_changes": "Veränderungen erkannt",
+    "text_changes_night": "Veränderungen erkannt",
     "text_alarm": "Verlassen Sie sofort das Haus",
     "text_nightrest_beginn": "Nachtruhe beginnt",
     "text_nightrest_end": "Nachtruhe beendet",
@@ -244,7 +258,22 @@
     "sendTo": "",
     "alarm": "",
     "warning": "",
-    "night": ""
+    "night": "",
+    "log_pass":" Falsches Passwort benutzt!",
+    "log_act_not": "Alarmanlage kann nicht aktiviert werden, kontrolliere: ",
+    "log_act":"Alarmanlage aktiviert",
+    "log_warn_act":"Scharf innen aktiviert",
+    "log_act_warn_circuit": "Warnkreis meldet bei Aktivierung: ",
+    "log_act_warn":"Alarmanlage mit Warnungen aktiviert: ",
+    "log_deact":"Alarmanlage deaktiviert",
+    "log_warn_deact":"Scharf innen deaktiviert",
+    "log_burgle":"Alarmanlage meldet Einbruch in: ",
+    "log_warn":"Alarmanlage meldet eine Warnung, Veränderung bei: ",
+    "log_night":"Alarmanlage meldet Veränderung während der Nachtruhe bei: ",
+    "log_sleep_b":"Nachtruhe beginnt",
+    "log_sleep_e":"Nachtruhe endet",
+    "log_warn_b_w":"Überwachung des Warnkreises beginnt mit Warnungen: ",
+    "log_nights_b_w":"Nachtruhe beginnt mit Warnungen: "
   },
   "objects": [],
   "instanceObjects": [

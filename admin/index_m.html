@@ -30,10 +30,11 @@
     function load(settings, onChange) {
         // example: select elements with id=key and class=value and insert value
         if (!settings) return;
-        if (settings.sayit === undefined) settings.sayit = '';
+        //if (settings.sayit === undefined) settings.sayit = '';
 
         circuits = settings.circuits    || [];
         shorts = settings.shorts    || [];
+        sayit = settings.sayit    || [];
 
         $('.value').each(function () {
             const $key = $(this);
@@ -63,6 +64,7 @@
 
         values2table('circuits', circuits, onChange, tableOnReady);
         values2table('shorts', shorts, onChange, tableOnReady);
+        values2table('sayit', sayit, onChange, tableOnReady);
 
         $('.sendTo_Chips').chips({
             placeholder: 'Add adapter',
@@ -81,75 +83,24 @@
         });
         list2chips('.sendTo_Chips', settings.sendTo || '', onChange);
 
-
-        $('#add_state').on('click', () => {
-            initSelectId( (sid) => {
-                sid.selectId('show', (newId) => {
-                    if (newId) {
-                        socket.emit('getObject', newId, function (err, obj) {
-                            if(err)return;
-                            else{
-                                add_newState(newId, obj);
-                                onChange();
-                            }
+        $('#sayit_help').on('click', ()=> {
+          showMessage('Bitte einen state auswählen, wo Sie sicher sind, dass dieser mit einem Text zur Sprachausgabe beschrieben werden kann!');
+        });
+        $('#test_sayit').on('click', ()=>{
+                			const tts_instance = table2values('sayit');
+                			if(tts_instance){
+                        tts_instance.forEach((ele) => {
+                          socket.emit('setState', ele.name_id, 'dies ist eine Testnachricht vom Alarm Adapter', (err)=>{
+        					                     if(err)console.log(err);
+        				                      });
                         });
 
-                    }
-                });
-            });
+                			}
+                			else showMessage('Nichts konfiguriert!')
         });
-
-        const $sayit = $('#sayit');
-
-        socket.emit('getObjectView', 'system', 'state', {
-        				startkey: 'alexa2.0.',
-        				endkey: 'alexa2.\u9999'
-        				}, function (err, states) {
-                  //console.log(states)
-                  if (!err && states) {
-                      const alex = /speak$/;
-                      for (var i = 0; i < states.rows.length; i++) {
-                          if(alex.test(states.rows[i].id)){
-                            $sayit.append('<option value="' + states.rows[i].id + '">' + states.rows[i].id.replace('.Commands.speak', '') + '</option>');
-                          }
-                      }
-                      //console.log(JSON.stringify(_states));
-                  } else {
-                      console.log(JSON.stringify(err));
-                  }
-
-                  getAdapterInstances('sayit', (res)=> {
-                              if (res) {
-                                  for (let t = 0; t < res.length; t++) {
-                                      $sayit.append('<option value="' + res[t]._id.replace('system.adapter.', '') + '">' + res[t].common.name + ' [' + res[t]._id.replace('system.adapter.sayit.', '') + ']</option>');
-                                  }
-                              }
-                              $sayit.val(settings.sayit);
-                              $sayit.select({
-                                        dropdownOptions: {
-                                            constrainWidth: false
-                                        }
-                                    });
-                      });
-                });
-
-        $('#test_sayit').on('click', ()=>{
-        			const tts_instance = $('#sayit').val();
-        			const say = /sayit/;
-        			const alexa = /alexa2/;
-        			if(say.test(tts_instance)){
-        				socket.emit('setState', $('#sayit').val() + '.tts.text', 'dies ist eine Testnachricht vom Alarm Adapter', (err)=>{
-        					if(err)console.log(err);
-        				});
-        			}
-        			else if(alexa.test(tts_instance)){
-        				socket.emit('setState', $('#sayit').val(), 'dies ist eine Testnachricht vom Alarm Adapter', (err)=>{
-        					if(err)console.log(err);
-        				});
-        			}
-        			else showMessage('Nichts konfiguriert!')
-                });
     }
+
+
     //######  END LOAD  #######
 
     //###########  SAVE  #########
@@ -169,6 +120,7 @@
         obj.sendTo = chips2list('.sendTo_Chips');
         obj.circuits = table2values('circuits');
         obj.shorts = table2values('shorts');
+        obj.sayit = table2values('sayit');
         obj.states = states;
         callback(obj);
     }
@@ -196,7 +148,7 @@ function tableOnReady() {
                 }
             });
         });
-      }else{
+      }else if($(this).attr('id') === 'shorts_table'){
             const shorts = table2values('shorts');
             let id_s = 0;
             for (let i = 0; i < shorts.length; i++) {
@@ -214,6 +166,35 @@ function tableOnReady() {
                     }
                 });
             });
+      }else if($(this).attr('id') === 'sayit_table'){
+            const sayit = table2values('sayit');
+            let id_say = 0;
+            for (let i = 0; i < sayit.length; i++) {
+                id_say = id_say +1;
+            }
+            initSelectId(function (sid) {
+                sid.selectId('show', $('#sayit .values-input[data-name="name"][data-index="' + id_say + '"]').val(), function (newId) {
+                    if (newId) {
+                        console.log(newId);
+                        $('#sayit .values-input[data-name="name_id"][data-index="' + id_say + '"]').val(newId).trigger('change');
+                        socket.emit('getObject', newId, function (err, obj) {
+                            const name = getName(obj);
+                            $('#sayit .values-input[data-name="name"][data-index="' + id_say + '"]').val(name).trigger('change');
+                        });
+                        $('#sayit .values-input[data-name="opt_say_one"][data-index="' + id_say + '"]').prop( "checked", true).trigger('change');
+                        $('#sayit .values-input[data-name="opt_say_two"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
+                        $('#sayit .values-input[data-name="opt_say_three"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
+                        $('#sayit .values-input[data-name="opt_say_four"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
+                        $('#sayit .values-input[data-name="opt_say_five"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
+                        $('#sayit .values-input[data-name="opt_say_six"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
+                        $('#sayit .values-input[data-name="opt_say_seven"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
+                        $('#sayit .values-input[data-name="opt_say_eigth"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
+                        $('#sayit .values-input[data-name="opt_say_nine"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
+                    }
+                });
+            });
+      } else{
+        console.log('wrong table!');
       }
 
     });
@@ -308,15 +289,14 @@ function getName(obj) {
 
     <div class="m adapter-container">
 
-        <!-- For example two columns with settings: -->
-
         <div class="row">
           <div class="col s12">
             <ul class="tabs">
-              <li class="tab col s3"><a href="#tab_settings" class="translate">general</a></li>
-              <li class="tab col s3"><a href="#tab_states" class="translate">states</a></li>
-              <li class="tab col s3"><a href="#tab_sayit" class="translate">sayit</a></li>
-              <li class="tab col s3"><a href="#tab_shortcuts" class="translate">shortcuts</a></li>
+              <li class="tab col s2"><a href="#tab_settings" class="translate">general</a></li>
+              <li class="tab col s2"><a href="#tab_notifications" class="translate">notifications</a></li>
+              <li class="tab col s2"><a href="#tab_states" class="translate">states</a></li>
+              <li class="tab col s2"><a href="#tab_sayit" class="translate">sayit</a></li>
+              <li class="tab col s2"><a href="#tab_shortcuts" class="translate">shortcuts</a></li>
             </ul>
           </div>
         </div>
@@ -328,51 +308,56 @@ function getName(obj) {
               </div>
             </div>
             <div class="row">
-              <div class="input-field col s6 m3 l2">
-                  <i class="material-icons prefix">alarm_on</i>
-                  <input id="time_activate"
-                          type="text"
-                          class="validate value tooltipped"
-                          data-position="top"
-                          data-tooltip="in sec">
-                  <label for="time_activate" class="translate">time_activate</label>
-              </div>
-              <div class="input-field col s6 m3 l2">
-                  <i class="material-icons prefix">alarm</i>
-                  <input id="time_alarm"
-                          type="text"
-                          class="validate value tooltipped"
-                          data-position="top"
-                          data-tooltip="in sec">
-                  <label for="time_alarm" class="translate">time_alarm</label>
-              </div>
-              <div class="input-field col s6 m3 l2">
-                  <i class="material-icons prefix">alarm</i>
-                  <input id="time_silent"
-                          type="text"
-                          class="validate value tooltipped"
-                          data-position="top"
-                          data-tooltip="in sec">
-                  <label for="time_silent" class="translate">time_silent</label>
-              </div>
-              <div class="input-field col s6 m3 l2">
-                  <i class="material-icons prefix">alarm</i>
-                  <input id="time_warning"
-                          type="text"
-                          class="validate value tooltipped"
-                          data-position="top"
-                          data-tooltip="in sec">
-                  <label for="time_warning" class="translate">time_warning</label>
-              </div>
-              <div class="input-field col s12 m3 l2">
-                <input id="night_from" type="text" class="timepicker value">
-                <label for="night_from" class="translate">night_from</label>
-              </div>
-              <div class="input-field col s12 m3 l2">
-                <input id="night_to" type="text" class="timepicker value">
-                <label for="night_to" class="translate">night_to</label>
+              <div class="col s12">
+                <p class=" left translate">second</p>
               </div>
             </div>
+              <div class="row">
+                <div class="input-field col s6 m3 l2">
+                    <i class="material-icons prefix">alarm_on</i>
+                    <input id="time_activate"
+                            type="text"
+                            class="validate value tooltipped"
+                            data-position="top"
+                            data-tooltip="in sec">
+                    <label for="time_activate" class="translate">time_activate</label>
+                </div>
+                <div class="input-field col s6 m3 l2">
+                    <i class="material-icons prefix">alarm</i>
+                    <input id="time_alarm"
+                            type="text"
+                            class="validate value tooltipped"
+                            data-position="top"
+                            data-tooltip="in sec">
+                    <label for="time_alarm" class="translate">time_alarm</label>
+                </div>
+                <div class="input-field col s6 m3 l2">
+                    <i class="material-icons prefix">alarm</i>
+                    <input id="time_silent"
+                            type="text"
+                            class="validate value tooltipped"
+                            data-position="top"
+                            data-tooltip="in sec">
+                    <label for="time_silent" class="translate">time_silent</label>
+                </div>
+                <div class="input-field col s6 m3 l2">
+                    <i class="material-icons prefix">alarm</i>
+                    <input id="time_warning"
+                            type="text"
+                            class="validate value tooltipped"
+                            data-position="top"
+                            data-tooltip="in sec">
+                    <label for="time_warning" class="translate">time_warning</label>
+                </div>
+                <div class="input-field col s12 m3 l2">
+                  <input id="night_from" type="text" class="timepicker value">
+                  <label for="night_from" class="translate">night_from</label>
+                </div>
+                <div class="input-field col s12 m3 l2">
+                  <input id="night_to" type="text" class="timepicker value">
+                  <label for="night_to" class="translate">night_to</label>
+                </div>
+              </div>
             <div class="row">
               <div class="input-field col s3 m4 l2">
                 <input id="password" type="password" class="validate value">
@@ -392,6 +377,8 @@ function getName(obj) {
                 <input type="checkbox" id="opt_warning" class="value" /><label  for="opt_warning" class="translate">opt_warning</label>
               </div>
             </div>
+          </div>
+          <div id="tab_notifications" class="col s12 page">
             <div class="row">
               <div class="col s2">
                 <a id="add_sendTo" class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></a>
@@ -412,6 +399,9 @@ function getName(obj) {
               </div>
               <div class="col s3">
                 <input type="checkbox" id="send_night" class="value" /><label  for="send_night" class="translate">send_night</label>
+              </div>
+              <div class="col s3">
+                <input type="checkbox" id="send_activation" class="value" /><label  for="send_activation" class="translate">send_activation</label>
               </div>
             </div>
           </div>
@@ -447,71 +437,92 @@ function getName(obj) {
             <div class="row">
               <div class="col s2">
               <a class="waves-effect waves-light btn" id="test_sayit">Test</a>
-            </div>
-              <div class="input-field col s4 offset-s2">
-                <select class="value" id="sayit">
-                 <option value="" class="translate">disabled</option>
-                </select>
-                <label for="sayit" class="translate">sayit_instance</label>
-              </div>
-            </div>
-			<div class="row">
-              <div class="col s12">
-                <input type="checkbox" id="opt_say_night" class="value" /><label  for="opt_say_night" class="translate">opt_say_night</label>
-              </div>
-              <div class="col s12">
-                <input type="checkbox" id="opt_say_warn" class="value" /><label  for="opt_say_warn" class="translate">opt_say_warn</label>
-              </div>
-              <div class="col s12">
-                <input type="checkbox" id="opt_say_names" class="value" /><label  for="opt_say_names" class="translate">opt_say_names</label>
-              </div>
-              <div class="col s12">
-                <input type="checkbox" id="opt_say_changes" class="value" /><label  for="opt_say_changes" class="translate">opt_say_changes</label>
-              </div>
-              <div class="col s12">
-                <input type="checkbox" id="opt_say_warn_changes" class="value" /><label  for="opt_say_warn_changes" class="translate">opt_say_warn_changes</label>
               </div>
             </div>
             <div class="row">
+              <div class="col s4">
+                <input type="checkbox" id="opt_say_names" class="value" /><label  for="opt_say_names" class="translate">opt_say_names</label>
+              </div>
+            </div>
+              <div class="row">
+                  <div class="col s12" id="sayit">
+                      <div class="row">
+                          <div class="col s2 m1 l1 left">
+                              <a   class="btn-floating waves-effect waves-light blue table-button-add" id="sayit_table"><i class="material-icons">add</i></a>
+                          </div>
+                          <div class="col s2 m1 l1 right">
+                              <a   class="btn-floating waves-effect waves-light blue" id="sayit_help"><i class="material-icons">help_center</i></a>
+                          </div>
+                      </div>
+                      <div class="table-values-div">
+                          <table class="table-values">
+                              <thead>
+                              <tr>
+                                <th data-name="_index" style="width: 40px; background: #64b5f6; text-align: center" data-style="text-align: center">Nr</th>
+                                <th data-name="enabled"  style="width: 20px; background: #64b5f6" data-style="width: 70px" data-type="checkbox" class="translate">active</th>
+                                <th data-name="name" data-type="text" style="width: 10%; background: #64b5f6" class="translate">Name</th>
+                                <th data-name="name_id" data-type="text" style="width: 20%; background: #64b5f6" class="translate">Object-ID</th>
+                                <th data-name="opt_say_one"  style="width: 10px; background: #64b5f6" data-style="width: 10px" data-type="checkbox">1</th>
+                                <th data-name="opt_say_two"  style="width: 10px; background: #64b5f6" data-style="width: 10px" data-type="checkbox">2</th>
+                                <th data-name="opt_say_three"  style="width: 10px; background: #64b5f6" data-style="width: 10px" data-type="checkbox">3</th>
+                                <th data-name="opt_say_four"  style="width: 10px; background: #64b5f6" data-style="width: 10px" data-type="checkbox">4</th>
+                                <th data-name="opt_say_five"  style="width: 10px; background: #64b5f6" data-style="width: 10px" data-type="checkbox">5</th>
+                                <th data-name="opt_say_six"  style="width: 10px; background: #64b5f6" data-style="width: 10px" data-type="checkbox">6</th>
+                                <th data-name="opt_say_seven"  style="width: 10px; background: #64b5f6" data-style="width: 10px" data-type="checkbox">7</th>
+                                <th data-name="opt_say_eigth"  style="width: 10px; background: #64b5f6" data-style="width: 10px" data-type="checkbox">8</th>
+                                <th data-name="opt_say_nine"  style="width: 10px; background: #64b5f6" data-style="width: 10px" data-type="checkbox">9</th>
+                                <th data-buttons="delete" style="width: 100px; background: #64b5f6"></th>
+                              </tr>
+                              </thead>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+            <div class="row">
                 <div class="input-field col s12 m6 l4">
-                  <i class="material-icons prefix">mode_edit</i>
+                  <i class="material-icons prefix">filter_1</i>
                   <textarea id="text_activated" class="materialize-textarea value"></textarea>
                   <label for="text_activated" class="translate">text_activated</label>
                 </div>
                 <div class="input-field col s12 m6 l4">
-                  <i class="material-icons prefix">mode_edit</i>
+                  <i class="material-icons prefix">filter_2</i>
                   <textarea id="text_deactivated" class="materialize-textarea value"></textarea>
                   <label for="text_deactivated" class="translate">text_deactivated</label>
                 </div>
                 <div class="input-field col s12 m6 l4">
-                  <i class="material-icons prefix">mode_edit</i>
+                  <i class="material-icons prefix">filter_3</i>
                   <textarea id="text_failed" class="materialize-textarea value"></textarea>
                   <label for="text_failed" class="translate">text_failed</label>
                 </div>
                 <div class="input-field col s12 m6 l4">
-                  <i class="material-icons prefix">mode_edit</i>
+                  <i class="material-icons prefix">filter_4</i>
                   <textarea id="text_warning" class="materialize-textarea value"></textarea>
                   <label for="text_warning" class="translate">text_warning</label>
                 </div>
                 <div class="input-field col s12 m6 l4">
-                  <i class="material-icons prefix">mode_edit</i>
+                  <i class="material-icons prefix">filter_5</i>
                   <textarea id="text_changes" class="materialize-textarea value"></textarea>
                   <label for="text_changes" class="translate">text_changes</label>
                 </div>
                 <div class="input-field col s12 m6 l4">
-                  <i class="material-icons prefix">mode_edit</i>
+                  <i class="material-icons prefix">filter_6</i>
                   <textarea id="text_alarm" class="materialize-textarea value"></textarea>
                   <label for="text_alarm" class="translate">text_alarm</label>
                 </div>
                 <div class="input-field col s12 m6 l4">
-                  <i class="material-icons prefix">mode_edit</i>
+                  <i class="material-icons prefix">filter_7</i>
                   <textarea id="text_nightrest_beginn" class="materialize-textarea value"></textarea>
                   <label for="text_nightrest_beginn" class="translate">text_nightrest_beginn</label>
                 </div>
                 <div class="input-field col s12 m6 l4">
-                  <i class="material-icons prefix">mode_edit</i>
+                  <i class="material-icons prefix">filter_8</i>
                   <textarea id="text_nightrest_end" class="materialize-textarea value"></textarea>
                   <label for="text_nightrest_end" class="translate">text_nightrest_end</label>
+                </div>
+                <div class="input-field col s12 m6 l4">
+                  <i class="material-icons prefix">filter_9</i>
+                  <textarea id="text_changes_night" class="materialize-textarea value"></textarea>
+                  <label for="text_changes_night" class="translate">text_changes_night</label>
                 </div>
             </div>
           </div>
