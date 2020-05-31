@@ -36,6 +36,8 @@
         shorts = settings.shorts    || [];
         sayit = settings.sayit    || [];
 
+        if(typeof settings.sayit !== 'object') sayit = [];
+
         $('.value').each(function () {
             const $key = $(this);
             const id = $key.attr('id');
