@@ -26,6 +26,7 @@ let log_list = '';
 let is_alarm = false,
     is_warning = false,
     is_night = false,
+    is_panic = false,
     ids_alarm = [],
     ids_warning = [],
     ids_night = [],
@@ -230,7 +231,8 @@ function disable(){
     clearTimeout(siren_timer);
     silent_timer = null;
     siren_timer = null;
-    if(activated){
+    if(activated || is_panic){
+      is_panic = false;
         adapter.setState('info.log', `${L.deact}`);
         sayit(adapter.config.text_deactivated, 2);
         if(log)adapter.log.info(`${L.deact}`);
@@ -284,6 +286,7 @@ function burglary(id, state){
 //################# PANIC ####################################################
 
 function panic(){
+    is_panic = true;
     adapter.setState('info.log', `${L.panic}`);
     if(log)adapter.log.info(`${L.panic}`);
     if(alarm_message) messages(`${L.panic}`);
