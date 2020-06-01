@@ -205,7 +205,7 @@ function enable(id, state){
     adapter.setState('status.state', 'activated');
     adapter.setState('status.state_list', 1);
     adapter.setState('use.list', 1);
-    if(act_message) messages(`${L.act}`);
+
     if(is_alarm){
         adapter.setState('status.activated_with_warnings', true);
         adapter.setState('status.state', 'activated with warnings');
@@ -216,6 +216,7 @@ function enable(id, state){
         adapter.setState('info.log', `${L.act}`);
         if(log)adapter.log.info(`${L.act}`);
         sayit(adapter.config.text_activated, 1);
+        if(act_message) messages(`${L.act}`);
     }
 }
 //##############################################################################
