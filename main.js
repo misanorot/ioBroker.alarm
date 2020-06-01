@@ -232,7 +232,7 @@ function disable(){
     silent_timer = null;
     siren_timer = null;
     if(activated || is_panic){
-      is_panic = false;
+        is_panic = false;
         adapter.setState('info.log', `${L.deact}`);
         sayit(adapter.config.text_deactivated, 2);
         if(log)adapter.log.info(`${L.deact}`);
