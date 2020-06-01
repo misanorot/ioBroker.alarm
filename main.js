@@ -187,6 +187,7 @@ function enable(id, state){
     if(!adapter.config.opt_warning && is_alarm){
         adapter.setState('info.log', `${L.act_not} ${names_alarm}`);
         if(log)adapter.log.info(`${L.act_not} ${names_alarm}`);
+        if(act_message) messages(`${L.act_not} ${names_alarm}`);
         adapter.setState('status.activation_failed', true);
         adapter.setState('status.state', 'activation failed');
         if(speak_names && say.length > 0){
