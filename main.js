@@ -281,6 +281,24 @@ function burglary(id, state){
 }
 //##############################################################################
 
+//################# PANIC ####################################################
+
+function panic(){
+    adapter.setState('info.log', `${L.panic}`);
+    if(log)adapter.log.info(`${L.panic}`);
+    if(alarm_message) messages(`${L.panic}`);
+    sayit(adapter.config.text_alarm, 6);
+    adapter.setState('status.burglar_alarm', true);
+    adapter.setState('status.siren', true);
+    adapter.setState('status.state', 'burgle');
+    adapter.setState('status.state_list', 3);
+    siren_timer = setTimeout(()=>{
+        adapter.setState('status.siren', false);
+    }, 1000*adapter.config.time_alarm);
+}
+
+//##############################################################################
+
 //################# CHANGES ####################################################
 
 function change(id, state){
@@ -394,6 +412,10 @@ function change(id, state){
     else if(id === adapter.namespace + '.use.disable' && state.val){
         countdown(false);
         //disable();
+        return;
+    }
+    else if(id === adapter.namespace + '.use.panic' && state.val){
+        panic();
         return;
     }
     else if(id === adapter.namespace + '.use.toggle'){
@@ -931,11 +953,14 @@ function bools(val){
 
 function shortcuts(id, val){
     if(shorts){
-        shorts.forEach((ele) => {
+        shorts.forEach((ele, i) => {
             if(ele.enabled && ele.select_id == id && /true/.test(ele.trigger_val) === val){
-                adapter.setForeignState(ele.name_id, bools(ele.value), (err)=>{
-                    if(err) adapter.log.warn(`Cannot set state: ${err}`);
-                });
+                setTimeout(()=>{
+                    adapter.setForeignState(ele.name_id, bools(ele.value), (err)=>{
+                        if(err) adapter.log.warn(`Cannot set state: ${err}`);
+                    });
+                }, i*250);
+
             }
         });
     }

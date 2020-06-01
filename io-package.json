@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.6.2",
+    "version": "0.6.3",
     "news": {
       "0.6.0": {
         "en": "changed speech output",
@@ -663,6 +663,19 @@
         "role": "button.quit",
         "name": "Quit changes",
         "desc": "Quit warning and night changes",
+        "type": "boolean",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "use.panic",
+      "type": "state",
+      "common": {
+        "role": "button.panic",
+        "name": "Panic",
+        "desc": "Panic button to burgle the alarm system",
         "type": "boolean",
         "read": true,
         "write": true
