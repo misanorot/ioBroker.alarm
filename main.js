@@ -207,7 +207,10 @@ function enable(id, state){
     adapter.setState('status.state', 'activated');
     adapter.setState('status.state_list', 1);
     adapter.setState('use.list', 1);
-
+    adapter.setState('use.toggle_password', true);
+    adapter.setState('use.toggle', true);
+    adapter.setState('use.toggle_with_delay', true);
+    adapter.setState('use.toggle_with_delay_and_password', true);
     if(is_alarm){
         adapter.setState('status.activated_with_warnings', true);
         adapter.setState('status.state', 'activated with warnings');
@@ -248,6 +251,10 @@ function disable(){
         adapter.setState('status.state', 'deactivated');
         adapter.setState('status.state_list',0);
         adapter.setState('use.list',0);
+        adapter.setState('use.toggle_password', false);
+        adapter.setState('use.toggle', false);
+        adapter.setState('use.toggle_with_delay', false);
+        adapter.setState('use.toggle_with_delay_and_password', false);
         if(act_message) messages(`${L.deact}`);
     }else{
         adapter.setState('status.activation_failed', false);
@@ -423,10 +430,10 @@ function change(id, state){
     }
     else if(id === adapter.namespace + '.use.toggle'){
         if(state.val){
-            enable(id, state);
+            if(!activated) enable(id, state);
             return;
         }else{
-            countdown(false);
+            if(activated) countdown(false);
             //disable();
             return;
         }
@@ -441,10 +448,10 @@ function change(id, state){
     }
     else if(id === adapter.namespace + '.use.toggle_nightrest'){
         if(state.val){
-            sleep_begin();
+            if(!night_rest) sleep_begin();
             return;
         }else{
-            sleep_end();
+            if(night_rest) sleep_end();
             return;
         }
     }
@@ -458,10 +465,10 @@ function change(id, state){
     }
     else if(id === adapter.namespace + '.use.toggle_warn_circuit'){
         if(state.val){
-            warn_begins();
+            if(!warn) warn_begins();
             return;
         }else{
-            warn_ends();
+            if(warn) warn_ends();
             return;
         }
     }
@@ -471,10 +478,10 @@ function change(id, state){
     }
     else if(id === adapter.namespace + '.use.toggle_with_delay'){
         if(state.val){
-            countdown(true);
+            if(!activated) countdown(true);
             return;
         }else{
-            countdown(false);
+            if(activated) countdown(false);
             //disable();
             return;
         }
@@ -698,6 +705,7 @@ function warn_begins(){
         adapter.setState('use.list', 2);
         adapter.setState('status.activated', false);
         adapter.setState('status.deactivated', true);
+        adapter.setState('use.toggle_warn_circuit', true);
     }
 
 }
@@ -710,6 +718,7 @@ function warn_ends(){
         adapter.setState('status.warn_circuit_activated', false);
         if(activated) adapter.setState('use.list', 1);
         if(!activated) adapter.setState('use.list', 0);
+        adapter.setState('use.toggle_warn_circuit', false);
     }
 }
 
@@ -720,6 +729,7 @@ function sleep_begin() {
     if(!activated) adapter.setState('status.state', 'nightrest');
     if(log) adapter.log.info(`${L.sleep_b}`);
     adapter.setState('status.sleep', true);
+    adapter.setState('use.toggle_nightrest', true);
     if(is_night){
         let say = adapter.config.text_warning;
         if(night_message) messages(`${L.nights_b_w} ${names_night}`);
@@ -738,6 +748,7 @@ function sleep_end() {
     sayit(adapter.config.text_nightrest_end, 8);
     if(log) adapter.log.info(`${L.sleep_e}`);
     adapter.setState('status.sleep', false);
+    adapter.setState('use.toggle_nightrest', true);
     if(!activated) adapter.setState('status.state', 'deactivated');
 }
 
