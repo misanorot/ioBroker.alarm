@@ -921,7 +921,7 @@ function countdown(action){
     if(action && !timer){
         let say = adapter.config.text_warning;
         if(speak_names){
-            say = say + ' ' + names_warning;
+            say = say + ' ' + names_alarm;
         }
         sayit(say, 4);
         timer = setInterval(()=>{
