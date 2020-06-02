@@ -748,7 +748,7 @@ function sleep_end() {
     sayit(adapter.config.text_nightrest_end, 8);
     if(log) adapter.log.info(`${L.sleep_e}`);
     adapter.setState('status.sleep', false);
-    adapter.setState('use.toggle_nightrest', true);
+    adapter.setState('use.toggle_nightrest', false);
     if(!activated) adapter.setState('status.state', 'deactivated');
 }
 
