@@ -919,6 +919,11 @@ async function get_states(){
 function countdown(action){
     let counter = adapter.config.time_activate;
     if(action && !timer){
+        let say = adapter.config.text_warning;
+        if(speak_names){
+            say = say + ' ' + names_warning;
+        }
+        sayit(say, 4);
         timer = setInterval(()=>{
             if(counter > 0){
                 counter--;
