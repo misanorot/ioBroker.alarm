@@ -430,10 +430,14 @@ function change(id, state){
     }
     else if(id === adapter.namespace + '.use.toggle'){
         if(state.val){
-            if(!activated) enable(id, state);
+            if(!activated) {
+                enable(id, state);
+            }
             return;
         }else{
-            if(activated) countdown(false);
+            if(activated) {
+                countdown(false);
+            }
             //disable();
             return;
         }
@@ -448,10 +452,14 @@ function change(id, state){
     }
     else if(id === adapter.namespace + '.use.toggle_nightrest'){
         if(state.val){
-            if(!night_rest) sleep_begin();
+            if(!night_rest) {
+                sleep_begin();
+            }
             return;
         }else{
-            if(night_rest) sleep_end();
+            if(night_rest) {
+                sleep_end();
+            }
             return;
         }
     }
@@ -465,10 +473,14 @@ function change(id, state){
     }
     else if(id === adapter.namespace + '.use.toggle_warn_circuit'){
         if(state.val){
-            if(!warn) warn_begins();
+            if(!warn) {
+                warn_begins();
+            }
             return;
         }else{
-            if(warn) warn_ends();
+            if(warn) {
+                warn_ends();
+            }
             return;
         }
     }
@@ -478,10 +490,14 @@ function change(id, state){
     }
     else if(id === adapter.namespace + '.use.toggle_with_delay'){
         if(state.val){
-            if(!activated) countdown(true);
+            if(!activated) {
+                countdown(true);
+            }
             return;
         }else{
-            if(activated) countdown(false);
+            if(activated) {
+                countdown(false);
+            }
             //disable();
             return;
         }
