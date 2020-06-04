@@ -265,6 +265,7 @@ function disable(){
 //################# BURGALARY ####################################################
 
 function burglary(id, state){
+    if(burgle) return;
     adapter.setState('info.log', `${L.burgle} ${get_name(id)}`);
     if(log)adapter.log.info(`${L.burgle} ${get_name(id)}`);
     if(alarm_message) messages(`${L.burgle} ${get_name(id)}`);
@@ -272,7 +273,7 @@ function burglary(id, state){
         adapter.setState('status.silent_alarm', true);
         adapter.setState('status.state', 'silent alarm');
     }
-    if(silent_timer)return;
+    if(silent_timer) return;
     else if (!burgle){
         burgle = true;
         silent_timer = setTimeout(()=>{
@@ -802,12 +803,12 @@ function refreshLists(){
         if(ids.length > 0){
             ids_night = ids;
             is_night = true;
-            names_alarm = get_name(ids);
+            names_night = get_name(ids);
             adapter.setState('info.sleep_circuit_list', names_night);
         }else{
             ids_night = [];
             is_night = false;
-            names_alarm = '';
+            names_night = '';
             adapter.setState('info.sleep_circuit_list', '');
         }
     });
@@ -924,7 +925,11 @@ function get_name(ids, callback){
 function get_state_async(id){
     return new Promise((resolve, reject)=>{
         adapter.getForeignState(id,(err, state)=>{
-            if(err || state.val == null)reject(err);
+            if(err) reject(err);
+            else if(state == null || state.val == null) {
+                adapter.log.error(`state is null: ${id}`);
+                resolve(null);
+            }
             else resolve(state.val);
         });
     });
