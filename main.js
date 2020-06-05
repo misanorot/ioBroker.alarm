@@ -508,7 +508,11 @@ function change(id, state){
             countdown(false);
             //disable();
             return;
-        }else return;
+        }else{
+            if(log) adapter.log.info(`${L.pass}`);
+            adapter.log.debug(`Password denied ${pass}`);
+            return;
+        }
     }
     else if(id === adapter.namespace + '.use.toggle_with_delay_and_password'){
         if(state.val == '') return;
@@ -519,7 +523,11 @@ function change(id, state){
             countdown(false);
             //disable();
             return;
-        }else return;
+        }else{
+            if(log) adapter.log.info(`${L.pass}`);
+            adapter.log.debug(`Password denied ${pass}`);
+            return;
+        } 
     }
     else if(id === adapter.namespace + '.info.log'){
         logging(state.val);
@@ -819,7 +827,6 @@ function refreshLists(){
 }
 
 function checkPassword(pass, id) {
-    if(pass === '') return false;
     if(adapter.config.password === pass){
         adapter.log.debug(`Password accept`);
         adapter.setState('info.wrong_password', false, (err)=>{
@@ -829,8 +836,6 @@ function checkPassword(pass, id) {
         return true;
     }
     else{
-        if(log) adapter.log.info(`${L.pass}`);
-        adapter.log.debug(`Password denied ${pass}`);
         adapter.setState('info.wrong_password', true, (err)=>{
             if(err)adapter.log.error(err);
             adapter.setState(id, '');
