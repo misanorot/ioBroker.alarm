@@ -207,10 +207,8 @@ function enable(id, state){
     adapter.setState('status.state', 'activated');
     adapter.setState('status.state_list', 1);
     adapter.setState('use.list', 1);
-    adapter.setState('use.toggle_password', true);
     adapter.setState('use.toggle', true);
     adapter.setState('use.toggle_with_delay', true);
-    adapter.setState('use.toggle_with_delay_and_password', true);
     if(is_alarm){
         adapter.setState('status.activated_with_warnings', true);
         adapter.setState('status.state', 'activated with warnings');
@@ -251,10 +249,8 @@ function disable(){
         adapter.setState('status.state', 'deactivated');
         adapter.setState('status.state_list',0);
         adapter.setState('use.list',0);
-        adapter.setState('use.toggle_password', false);
         adapter.setState('use.toggle', false);
         adapter.setState('use.toggle_with_delay', false);
-        adapter.setState('use.toggle_with_delay_and_password', false);
         if(act_message) messages(`${L.deact}`);
     }else{
         adapter.setState('status.activation_failed', false);
