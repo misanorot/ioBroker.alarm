@@ -510,7 +510,7 @@ function change(id, state){
             return;
         }else{
             if(log) adapter.log.info(`${L.pass}`);
-            adapter.log.debug(`Password denied ${pass}`);
+            adapter.log.debug(`Password denied ${state.val}`);
             return;
         }
     }
@@ -525,9 +525,9 @@ function change(id, state){
             return;
         }else{
             if(log) adapter.log.info(`${L.pass}`);
-            adapter.log.debug(`Password denied ${pass}`);
+            adapter.log.debug(`Password denied ${state.val}`);
             return;
-        } 
+        }
     }
     else if(id === adapter.namespace + '.info.log'){
         logging(state.val);
