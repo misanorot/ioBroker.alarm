@@ -819,7 +819,6 @@ function refreshLists(){
 }
 
 function checkPassword(pass, id) {
-    if(log && adapter.config.password == !pass) adapter.log.info(`${L.pass}`);
     if(adapter.config.password === pass){
         adapter.log.debug(`Password accept`);
         adapter.setState('info.wrong_password', false, (err)=>{
@@ -829,7 +828,8 @@ function checkPassword(pass, id) {
         return true;
     }
     else{
-        adapter.log.debug(`Password denied`);
+        if(log) adapter.log.info(`${L.pass}`);
+        adapter.log.debug(`Password denied ${pass}`);
         adapter.setState('info.wrong_password', true, (err)=>{
             if(err)adapter.log.error(err);
             adapter.setState(id, '');
