@@ -275,6 +275,7 @@ function burglary(id, state){
         silent_timer = setTimeout(()=>{
             sayit(adapter.config.text_alarm, 6);
             adapter.setState('status.burglar_alarm', true);
+            adapter.setState('status.silent_alarm', false);
             adapter.setState('status.siren', true);
             adapter.setState('status.state', 'burgle');
             adapter.setState('status.state_list', 3);
