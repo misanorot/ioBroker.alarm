@@ -819,6 +819,7 @@ function refreshLists(){
 }
 
 function checkPassword(pass, id) {
+    if(pass === '') return false;
     if(adapter.config.password === pass){
         adapter.log.debug(`Password accept`);
         adapter.setState('info.wrong_password', false, (err)=>{
