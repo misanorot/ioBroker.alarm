@@ -78,7 +78,7 @@ Bei aktiver Nachtruhe werden Veränderungen während der erkannt und ggf. gemeld
 
 ### Tab Sprachausgabe
 
-Ist eine gewünschte Sprachausgabe z.B. bei bei Änderung des Zustandes gewünscht, lässt sich das hier mit den gewünschten Sätzen konfigurieren. 
+Ist eine gewünschte Sprachausgabe z.B. bei bei Änderung des Zustandes gewünscht, lässt sich das hier mit den gewünschten Sätzen konfigurieren.
 *Man muss sich sicher sein, das der ausgewählte Datenpunkt, mit einem Text beschrieben werden kann! Z.B. "sayit.0.tts"*
 
 Möchte man sich die Ausgabe von Namen mit Ansagen lassen, kann man diese Option anwählen.
@@ -105,8 +105,8 @@ Es ist möglich die Alarmanlage direkt von aktiviert auf "intern scharf" umzusch
 - use.activate_warn_circuit -> Aktivierung der Überwachung des Warnkreises (intern scharf)
 - use.deactivate_warn_circuit -> Deaktivierung der Überwachung des Warnkreises (intern scharf)
 - use.toggle_warn_circuit -> Deaktivierung/Aktivierung der Überwachung des Warnkreises (intern scharf)
-- use.disable -> Aktivierung der Anlage (Alarmkreis)
-- use.enable -> Deaktivierung der Anlage (Alarmkreis)
+- use.disable -> Deaktivierung der Anlage (Alarmkreis)
+- use.enable -> Aktivierung der Anlage (Alarmkreis)
 - use.enable_with_delay -> Aktivierung der Anlage (Alarmkreis) mit Verzögerungszeit
 - use.list -> Deaktivierung/Aktivierung/Warnkreis/Aktivierung mit Verzögerungszeit
 - use.quit_changes -> Rücksetzen der beiden states *info.warn/night_circuit_changes*
