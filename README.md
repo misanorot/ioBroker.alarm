@@ -130,17 +130,15 @@ Der log_today state wird um Mitternacht geleert.
 ## Probleme
 	- wenn man eine Telegram oder ähnliches über das + hinzufügt, kann man nur ein state der Instanz auswählen und  man muss bis auf *telegram.0* alles löschen.
 
-#### erfahrene ioBroker Nutzer
-*Wählt man in den Optionen die Log Ausgabe an, werden gewisse Änderungen im Log des ioBroker geschrieben. Ist man mit diesen Texten nicht zufrieden, besteht die Möglichkeit, sich die Datei "/lib/Logs.js" zu editieren.*
-
-
-
 
 #### Wichtig, die Benutzung dieses Adapters geschieht auf eigene Gefahr, für etwaige Fehlfunktionen wird keine Haftung übernommen!
 
 
 
 ## Changelog
+
+#### 0.7.0 (07.06.2020)
+* (misanorot) edit notification sentences in admin
 
 #### 0.6.0 (31.05.2020)
 * (misanorot) changed speech output

@@ -5,14 +5,13 @@ const utils = require('@iobroker/adapter-core');
 // Load your modules here, e.g.:
 // const fs = require("fs");
 const schedule = require('node-schedule');
-const T = require('./lib/Logs.js');
 
 /**
  * The adapter instance
  * @type {ioBroker.Adapter}
  */
 let adapter;
-const L = T.Translate['de'];
+
 let clean_ids = [];
 const alarm = [],
     warning = [],
@@ -186,9 +185,9 @@ function main() {
 function enable(id, state){
     let say = adapter.config.text_failed;
     if(!adapter.config.opt_warning && is_alarm){
-        adapter.setState('info.log', `${L.act_not} ${names_alarm}`);
-        if(log)adapter.log.info(`${L.act_not} ${names_alarm}`);
-        if(act_message) messages(`${L.act_not} ${names_alarm}`);
+        adapter.setState('info.log', `${adapter.config.log_act_not} ${names_alarm}`);
+        if(log)adapter.log.info(`${adapter.config.log_act_not} ${names_alarm}`);
+        if(act_message) messages(`${adapter.config.log_act_not} ${names_alarm}`);
         adapter.setState('status.activation_failed', true);
         adapter.setState('status.state', 'activation failed');
         if(speak_names && say.length > 0){
@@ -198,7 +197,7 @@ function enable(id, state){
         return;
     }
     if(warning_message && is_warning){
-        messages(`${L.act_warn_circuit} ${names_warning}`);
+        messages(`${adapter.config.log_act_warn_circuit} ${names_warning}`);
     }
     warn_ends();
     adapter.setState('status.activated', true);
@@ -212,14 +211,14 @@ function enable(id, state){
     if(is_alarm){
         adapter.setState('status.activated_with_warnings', true);
         adapter.setState('status.state', 'activated with warnings');
-        adapter.setState('info.log', `${L.act_warn} ${names_alarm}`);
-        if(log)adapter.log.info(`${L.act_warn} ${names_alarm}`);
-        if(warning_message) messages(`${L.act_warn} ${names_alarm}`);
+        adapter.setState('info.log', `${adapter.config.log_act_warn} ${names_alarm}`);
+        if(log)adapter.log.info(`${adapter.config.log_act_warn} ${names_alarm}`);
+        if(warning_message) messages(`${adapter.config.log_act_warn} ${names_alarm}`);
     } else{
-        adapter.setState('info.log', `${L.act}`);
-        if(log)adapter.log.info(`${L.act}`);
+        adapter.setState('info.log', `${adapter.config.log_act}`);
+        if(log)adapter.log.info(`${adapter.config.log_act}`);
         sayit(adapter.config.text_activated, 1);
-        if(act_message) messages(`${L.act}`);
+        if(act_message) messages(`${adapter.config.log_act}`);
     }
 }
 //##############################################################################
@@ -234,9 +233,9 @@ function disable(){
     siren_timer = null;
     if(activated || is_panic){
         is_panic = false;
-        adapter.setState('info.log', `${L.deact}`);
+        adapter.setState('info.log', `${adapter.config.log_deact}`);
         sayit(adapter.config.text_deactivated, 2);
-        if(log)adapter.log.info(`${L.deact}`);
+        if(log)adapter.log.info(`${adapter.config.log_deact}`);
         adapter.setState('status.siren', false);
         adapter.setState('status.activated', false);
         adapter.setState('status.deactivated', true);
@@ -251,7 +250,7 @@ function disable(){
         adapter.setState('use.list',0);
         adapter.setState('use.toggle', false);
         adapter.setState('use.toggle_with_delay', false);
-        if(act_message) messages(`${L.deact}`);
+        if(act_message) messages(`${adapter.config.log_deact}`);
     }else{
         adapter.setState('status.activation_failed', false);
     }
@@ -262,9 +261,9 @@ function disable(){
 
 function burglary(id, state){
     if(burgle) return;
-    adapter.setState('info.log', `${L.burgle} ${get_name(id)}`);
-    if(log)adapter.log.info(`${L.burgle} ${get_name(id)}`);
-    if(alarm_message) messages(`${L.burgle} ${get_name(id)}`);
+    adapter.setState('info.log', `${adapter.config.log_burgle} ${get_name(id)}`);
+    if(log)adapter.log.info(`${adapter.config.log_burgle} ${get_name(id)}`);
+    if(alarm_message) messages(`${adapter.config.log_burgle} ${get_name(id)}`);
     if(adapter.config.time_silent > 0){
         adapter.setState('status.silent_alarm', true);
         adapter.setState('status.state', 'silent alarm');
@@ -292,9 +291,9 @@ function burglary(id, state){
 
 function panic(){
     is_panic = true;
-    adapter.setState('info.log', `${L.panic}`);
-    if(log)adapter.log.info(`${L.panic}`);
-    if(alarm_message) messages(`${L.panic}`);
+    adapter.setState('info.log', `${adapter.config.log_panic}`);
+    if(log)adapter.log.info(`${adapter.config.log_panic}`);
+    if(alarm_message) messages(`${adapter.config.log_panic}`);
     sayit(adapter.config.text_alarm, 6);
     adapter.setState('status.burglar_alarm', true);
     adapter.setState('status.siren', true);
@@ -510,7 +509,7 @@ function change(id, state){
             //disable();
             return;
         }else{
-            if(log) adapter.log.info(`${L.pass}`);
+            if(log) adapter.log.info(`${adapter.config.log_pass}`);
             adapter.log.debug(`Password denied ${state.val}`);
             return;
         }
@@ -525,7 +524,7 @@ function change(id, state){
             //disable();
             return;
         }else{
-            if(log) adapter.log.info(`${L.pass}`);
+            if(log) adapter.log.info(`${adapter.config.log_pass}`);
             adapter.log.debug(`Password denied ${state.val}`);
             return;
         }
@@ -539,10 +538,10 @@ function change(id, state){
         return;
     }
     if(warning.includes(id) && activated && isTrue(id, state)){
-        adapter.setState('info.log', `${L.warn} ${get_name(id)}`);
+        adapter.setState('info.log', `${adapter.config.log_warn} ${get_name(id)}`);
         adapter.setState('info.warning_circuit_changes', true);
-        if(log) adapter.log.info(`${L.warn} ${get_name(id)}`);
-        if(warning_message) messages(`${L.warn} ${get_name(id)}`);
+        if(log) adapter.log.info(`${adapter.config.log_warn} ${get_name(id)}`);
+        if(warning_message) messages(`${adapter.config.log_warn} ${get_name(id)}`);
         timer_warn_changes = setTimeout(()=>{
             adapter.setState('info.warning_circuit_changes', false);
         }, adapter.config.time_warning * 1000);
@@ -551,10 +550,10 @@ function change(id, state){
     if(night.includes(id) && night_rest && isTrue(id, state)){
         const name = get_name(id);
         let say = adapter.config.text_changes;
-        adapter.setState('info.log', `${L.night} ${name}`);
+        adapter.setState('info.log', `${adapter.config.log_night} ${name}`);
         adapter.setState('info.night_circuit_changes', true);
-        if(log) adapter.log.info(`${L.night} ${name}`);
-        if(night_message) messages(`${L.night} ${name}`);
+        if(log) adapter.log.info(`${adapter.config.log_night} ${name}`);
+        if(night_message) messages(`${adapter.config.log_night} ${name}`);
         if(speak_names){
             say = say + ' ' + name;
         }
@@ -567,10 +566,10 @@ function change(id, state){
     if(warning.includes(id) && warn && isTrue(id, state)){
         const name = get_name(id);
         let say = adapter.config.text_changes;
-        adapter.setState('info.log', `${L.warn} ${get_name(id)}`);
+        adapter.setState('info.log', `${adapter.config.log_warn} ${get_name(id)}`);
         adapter.setState('info.warning_circuit_changes', true);
-        if(log) adapter.log.info(`${L.warn} ${get_name(id)}`);
-        if(warning_message) messages(`${L.warn} ${get_name(id)}`);
+        if(log) adapter.log.info(`${adapter.config.log_warn} ${get_name(id)}`);
+        if(warning_message) messages(`${adapter.config.log_warn} ${get_name(id)}`);
         if(speak_names){
             say = say + ' ' + name;
         }
@@ -711,16 +710,16 @@ function warn_begins(){
         countdown(false);
         if(is_warning){
             let say = adapter.config.text_warning;
-            if(warning_message) messages(`${L.warn_b_w} ${names_warning}`);
-            adapter.setState('info.log', `${L.warn_b_w} ${names_warning}`);
-            if(log) adapter.log.info(`${L.warn_b_w} ${names_warning}`);
+            if(warning_message) messages(`${adapter.config.log_warn_b_w} ${names_warning}`);
+            adapter.setState('info.log', `${adapter.config.log_warn_b_w} ${names_warning}`);
+            if(log) adapter.log.info(`${adapter.config.log_warn_b_w} ${names_warning}`);
             if(speak_names){
                 say = say + ' ' + names_warning;
             }
             sayit(say, 4);
         }
-        adapter.setState('info.log', `${L.warn_act}`);
-        if(log)adapter.log.info(`${L.warn_act}`);
+        adapter.setState('info.log', `${adapter.config.log_warn_act}`);
+        if(log)adapter.log.info(`${adapter.config.log_warn_act}`);
         adapter.setState('status.warn_circuit_activated', true);
         adapter.setState('status.state', 'sharp inside');
         adapter.setState('status.state_list', 2);
@@ -735,8 +734,8 @@ function warn_begins(){
 function warn_ends(){
     if(warn){
         warn = false;
-        adapter.setState('info.log', `${L.warn_deact}`);
-        if(log)adapter.log.info(`${L.warn_deact}`);
+        adapter.setState('info.log', `${adapter.config.log_warn_deact}`);
+        if(log)adapter.log.info(`${adapter.config.log_warn_deact}`);
         adapter.setState('status.warn_circuit_activated', false);
         if(activated) adapter.setState('use.list', 1);
         if(!activated) adapter.setState('use.list', 0);
@@ -745,18 +744,18 @@ function warn_ends(){
 }
 
 function sleep_begin() {
-    adapter.setState('info.log', `${L.sleep_b}`);
+    adapter.setState('info.log', `${adapter.config.log_sleep_b}`);
     sayit(adapter.config.text_nightrest_beginn, 7);
     warn_ends();
     if(!activated) adapter.setState('status.state', 'nightrest');
-    if(log) adapter.log.info(`${L.sleep_b}`);
+    if(log) adapter.log.info(`${adapter.config.log_sleep_b}`);
     adapter.setState('status.sleep', true);
     adapter.setState('use.toggle_nightrest', true);
     if(is_night){
         let say = adapter.config.text_warning;
-        if(night_message) messages(`${L.nights_b_w} ${names_night}`);
-        adapter.setState('info.log', `${L.nights_b_w} ${names_night}`);
-        if(log) adapter.log.info(`${L.nights_b_w} ${names_night}`);
+        if(night_message) messages(`${adapter.config.log_nights_b_w} ${names_night}`);
+        adapter.setState('info.log', `${adapter.config.log_nights_b_w} ${names_night}`);
+        if(log) adapter.log.info(`${adapter.config.log_nights_b_w} ${names_night}`);
         if(speak_names){
             say = say + ' ' + names_night;
         }
@@ -766,9 +765,9 @@ function sleep_begin() {
 }
 
 function sleep_end() {
-    adapter.setState('info.log', `${L.sleep_e}`);
+    adapter.setState('info.log', `${adapter.config.log_sleep_e}`);
     sayit(adapter.config.text_nightrest_end, 8);
-    if(log) adapter.log.info(`${L.sleep_e}`);
+    if(log) adapter.log.info(`${adapter.config.log_sleep_e}`);
     adapter.setState('status.sleep', false);
     adapter.setState('use.toggle_nightrest', false);
     if(!activated) adapter.setState('status.state', 'deactivated');
