@@ -190,7 +190,7 @@ function enable(id, state){
         if(act_message) messages(`${adapter.config.log_act_not} ${names_alarm}`);
         adapter.setState('status.activation_failed', true);
         adapter.setState('status.state', 'activation failed');
-        adapter.setState('status.state_list', 0);
+        adapter.setState('use.list', 0);
         if(speak_names){
             say = say + ' ' + names_alarm;
         }
