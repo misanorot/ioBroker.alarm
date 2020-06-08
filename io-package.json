@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.7.2",
+    "version": "0.7.4",
     "news": {
       "0.7.0": {
         "en": "edit notification sentences in admin",
@@ -266,6 +266,8 @@
     "text_alarm": "Verlassen Sie sofort das Haus",
     "text_nightrest_beginn": "Nachtruhe beginnt",
     "text_nightrest_end": "Nachtruhe beendet",
+    "text_warn_begin": "Scharf intern aktiviert",
+    "text_warn_end": "Scharf intern deaktiviert",
     "password": "",
     "sendTo": "",
     "alarm": "",

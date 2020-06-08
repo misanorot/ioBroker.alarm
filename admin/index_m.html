@@ -192,6 +192,8 @@ function tableOnReady() {
                         $('#sayit .values-input[data-name="opt_say_seven"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
                         $('#sayit .values-input[data-name="opt_say_eigth"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
                         $('#sayit .values-input[data-name="opt_say_nine"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
+                        $('#sayit .values-input[data-name="opt_say_nine_plus"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
+                        $('#sayit .values-input[data-name="opt_say_zero"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
                     }
                 });
             });
@@ -479,6 +481,8 @@ function getName(obj) {
                                 <th data-name="opt_say_seven"  style="width: 10px; background: #64b5f6" data-style="width: 10px" data-type="checkbox">7</th>
                                 <th data-name="opt_say_eigth"  style="width: 10px; background: #64b5f6" data-style="width: 10px" data-type="checkbox">8</th>
                                 <th data-name="opt_say_nine"  style="width: 10px; background: #64b5f6" data-style="width: 10px" data-type="checkbox">9</th>
+                                <th data-name="opt_say_nine_plus"  style="width: 10px; background: #64b5f6" data-style="width: 10px" data-type="checkbox">9+</th>
+                                <th data-name="opt_say_zero"  style="width: 10px; background: #64b5f6" data-style="width: 10px" data-type="checkbox">0</th>
                                 <th data-buttons="delete" style="width: 100px; background: #64b5f6"></th>
                               </tr>
                               </thead>
@@ -531,6 +535,16 @@ function getName(obj) {
                   <i class="material-icons prefix">filter_9</i>
                   <textarea id="text_changes_night" class="materialize-textarea value"></textarea>
                   <label for="text_changes_night" class="translate">text_changes_night</label>
+                </div>
+                <div class="input-field col s12 m6 l4">
+                  <i class="material-icons prefix">filter_9_plus</i>
+                  <textarea id="text_warn_begin" class="materialize-textarea value"></textarea>
+                  <label for="text_warn_begin" class="translate">text_warn_begin</label>
+                </div>
+                <div class="input-field col s12 m6 l4">
+                  <i class="material-icons prefix">exposure_zero</i>
+                  <textarea id="text_warn_end" class="materialize-textarea value"></textarea>
+                  <label for="text_warn_end" class="translate">text_warn_end</label>
                 </div>
             </div>
           </div>

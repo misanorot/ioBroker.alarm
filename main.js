@@ -692,6 +692,22 @@ function sayit(message, opt_val){
                             });
                         }
                         break;
+                    case 10:
+                        if(ele.opt_say_nine_plus){
+                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
+                            adapter.setForeignState(ele.name_id, message, (err)=>{
+                                if(err) adapter.log.warn(err);
+                            });
+                        }
+                        break;
+                    case 0:
+                        if(ele.opt_say_zero){
+                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
+                            adapter.setForeignState(ele.name_id, message, (err)=>{
+                                if(err) adapter.log.warn(err);
+                            });
+                        }
+                        break;
                     default:
                         adapter.log.debug(`no speech output!`);
                 }
@@ -721,6 +737,7 @@ function warn_begins(){
         }
         adapter.setState('info.log', `${adapter.config.log_warn_act}`);
         if(log)adapter.log.info(`${adapter.config.log_warn_act}`);
+        sayit(adapter.config.text_warn_begin, 10);
         adapter.setState('status.warn_circuit_activated', true);
         adapter.setState('status.state', 'sharp inside');
         adapter.setState('status.state_list', 2);
@@ -737,6 +754,7 @@ function warn_ends(){
         warn = false;
         adapter.setState('info.log', `${adapter.config.log_warn_deact}`);
         if(log)adapter.log.info(`${adapter.config.log_warn_deact}`);
+        sayit(adapter.config.text_warn_end, 0);
         adapter.setState('status.warn_circuit_activated', false);
         if(activated) adapter.setState('use.list', 1);
         if(!activated) adapter.setState('use.list', 0);
