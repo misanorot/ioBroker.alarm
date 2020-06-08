@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.7.0",
+    "version": "0.7.1",
     "news": {
       "0.7.0": {
         "en": "edit notification sentences in admin",
