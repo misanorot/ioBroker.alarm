@@ -246,9 +246,15 @@ function disable(){
         adapter.setState('status.burglar_alarm', false);
         adapter.setState('status.activation_failed', false);
         adapter.setState('status.silent_alarm', false);
-        adapter.setState('status.state', 'deactivated');
-        adapter.setState('status.state_list',0);
-        adapter.setState('use.list',0);
+        if (night_rest) {
+            adapter.setState('status.state', 'night rest');
+            adapter.setState('status.state_list', 4);
+            adapter.setState('use.list',4);
+        } else {
+            adapter.setState('status.state', 'deactivated');
+            adapter.setState('status.state_list',0);
+            adapter.setState('use.list',0);
+        }
         adapter.setState('use.toggle', false);
         adapter.setState('use.toggle_with_delay', false);
         if(act_message) messages(`${adapter.config.log_deact}`);
@@ -344,6 +350,13 @@ function change(id, state){
                 break;
             case 3:
                 countdown(true);
+                break;
+            case 4:
+                if(!activated){
+                    sleep_begin();
+                }else {
+                    adapter.setState('use.list', 1);
+                }
                 break;
             default:
                 adapter.log.warn('Use wrong value in use.list');
@@ -756,40 +769,59 @@ function warn_ends(){
         if(log)adapter.log.info(`${adapter.config.log_warn_deact}`);
         sayit(adapter.config.text_warn_end, 0);
         adapter.setState('status.warn_circuit_activated', false);
-        if(activated) adapter.setState('use.list', 1);
-        if(!activated) adapter.setState('use.list', 0);
+        if (activated) {
+            adapter.setState('status.state', 'activated');
+            adapter.setState('status.state_list', 1);
+            adapter.setState('use.list',1);
+        } else if(!night_rest) {
+            adapter.setState('status.state', 'deactivated');
+            adapter.setState('status.state_list',0);
+            adapter.setState('use.list',0);
+        }
         adapter.setState('use.toggle_warn_circuit', false);
     }
 }
 
 function sleep_begin() {
-    adapter.setState('info.log', `${adapter.config.log_sleep_b}`);
-    sayit(adapter.config.text_nightrest_beginn, 7);
-    warn_ends();
-    if(!activated) adapter.setState('status.state', 'nightrest');
-    if(log) adapter.log.info(`${adapter.config.log_sleep_b}`);
-    adapter.setState('status.sleep', true);
-    adapter.setState('use.toggle_nightrest', true);
-    if(is_night){
-        let say = adapter.config.text_warning;
-        if(night_message) messages(`${adapter.config.log_nights_b_w} ${names_night}`);
-        adapter.setState('info.log', `${adapter.config.log_nights_b_w} ${names_night}`);
-        if(log) adapter.log.info(`${adapter.config.log_nights_b_w} ${names_night}`);
-        if(speak_names){
-            say = say + ' ' + names_night;
+    if (!night_rest) {
+        night_rest = true;
+        adapter.setState('info.log', `${adapter.config.log_sleep_b}`);
+        sayit(adapter.config.text_nightrest_beginn, 7);
+        warn_ends();
+        if(!activated){
+            adapter.setState('status.state', 'night rest');
+            adapter.setState('status.state_list', 4);
+            adapter.setState('use.list', 4);
         }
-        sayit(say, 4);
+        if(log) adapter.log.info(`${adapter.config.log_sleep_b}`);
+        adapter.setState('status.sleep', true);
+        adapter.setState('use.toggle_nightrest', true);
+        if(is_night){
+            let say = adapter.config.text_warning;
+            if(night_message) messages(`${adapter.config.log_nights_b_w} ${names_night}`);
+            adapter.setState('info.log', `${adapter.config.log_nights_b_w} ${names_night}`);
+            if(log) adapter.log.info(`${adapter.config.log_nights_b_w} ${names_night}`);
+            if(speak_names){
+                say = say + ' ' + names_night;
+            }
+            sayit(say, 4);
+        }
     }
-
 }
 
 function sleep_end() {
-    adapter.setState('info.log', `${adapter.config.log_sleep_e}`);
-    sayit(adapter.config.text_nightrest_end, 8);
-    if(log) adapter.log.info(`${adapter.config.log_sleep_e}`);
-    adapter.setState('status.sleep', false);
-    adapter.setState('use.toggle_nightrest', false);
-    if(!activated) adapter.setState('status.state', 'deactivated');
+    if (night_rest) {
+        adapter.setState('info.log', `${adapter.config.log_sleep_e}`);
+        sayit(adapter.config.text_nightrest_end, 8);
+        if(log) adapter.log.info(`${adapter.config.log_sleep_e}`);
+        adapter.setState('status.sleep', false);
+        adapter.setState('use.toggle_nightrest', false);
+        if(!activated){
+            adapter.setState('status.state', 'deactivated');
+            adapter.setState('status.state_list', 0);
+            adapter.setState('use.list', 0);
+        }
+    }
 }
 
 function refreshLists(){

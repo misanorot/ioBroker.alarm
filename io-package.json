@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.7.4",
+    "version": "0.7.5",
     "news": {
+      "0.7.5": {
+        "en": "fixed a few little issues ",
+        "de": "Einige kleine Probleme wurden behoben",
+        "ru": "исправлено несколько небольших проблем",
+        "pt": "corrigimos alguns pequenos problemas",
+        "nl": "een paar kleine problemen opgelost",
+        "fr": "correction de quelques petits problèmes",
+        "it": "risolti alcuni piccoli problemi",
+        "es": "solucioné algunos pequeños problemas",
+        "pl": "naprawiono kilka drobnych problemów",
+        "zh-cn": "修复了一些小问题"
+      },
       "0.7.0": {
         "en": "edit notification sentences in admin",
          "de": "Benachrichtigungssätze in admin bearbeiten",
@@ -436,7 +448,8 @@
           "0": "deactivated",
           "1": "activated",
           "2": "sharp inside",
-          "3": "burgular"
+          "3": "burgular",
+          "4": "night rest"
         },
         "read": true,
         "write": false
@@ -495,7 +508,8 @@
           "0": "disable",
           "1": "enable",
           "2": "sharp inside",
-          "3": "enable with delay"
+          "3": "enable with delay",
+          "4": "night rest"
         },
         "read": true,
         "write": true
