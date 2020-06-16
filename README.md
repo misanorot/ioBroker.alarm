@@ -138,6 +138,9 @@ Der log_today state wird um Mitternacht geleert.
 
 ## Changelog
 
+#### 0.8.0 (18.06.2020)
+* (misanorot) !!! Changed circuits dramatacly !!!
+
 #### 0.7.5 (14.06.2020)
 * (misanorot) fixed a few little issues
 

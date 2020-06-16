@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.7.5",
+    "version": "0.8.0",
     "news": {
+      "0.8.0": {
+        "en": "!!! Changed circuits dramatacly !!!",
+        "de": "!!! Schaltkreise dramatisch verändert !!!",
+        "ru": "!!! Измененные схемы драматично !!!",
+        "pt": "!!! Circuitos alterados dramaticamente !!!",
+        "nl": "!!! Schakelingen dramatisch veranderd !!!",
+        "fr": "!!! Circuits modifiés de façon spectaculaire !!!",
+        "it": "!!! Circuiti modificati drammaticamente !!!",
+        "es": "!!! ¡Circuitos cambiados dramáticamente!",
+        "pl": "!!! Dramatycznie zmienione obwody !!!",
+        "zh-cn": "!!!戏剧性地改变了电路！"
+      },
       "0.7.5": {
         "en": "fixed a few little issues ",
         "de": "Einige kleine Probleme wurden behoben",
@@ -416,7 +428,7 @@
       "common": {
         "role": "",
         "name": "Warnings",
-        "desc": "Alarm system activated with warnings",
+        "desc": "Alarm system activated with warnings with open things in the notification circuit",
         "type": "boolean",
         "read": true,
         "write": false
@@ -446,10 +458,9 @@
         "type": "number",
         "states": {
           "0": "deactivated",
-          "1": "activated",
+          "1": "sharp",
           "2": "sharp inside",
-          "3": "burgular",
-          "4": "night rest"
+          "3": "burgular"
         },
         "read": true,
         "write": false
@@ -462,7 +473,7 @@
       "common": {
         "role": "",
         "name": "Enableable",
-        "desc": "Alarm system is enableable",
+        "desc": "Alarm system is sharp enableable",
         "type": "boolean",
         "read": true,
         "write": false
@@ -483,12 +494,12 @@
       "native": {}
     },
     {
-      "_id": "status.warn_circuit_activated",
+      "_id": "status.sharp_inside_activated",
       "type": "state",
       "common": {
         "role": "",
-        "name": "Warn circuit activated",
-        "desc": "Warn circuit is activated",
+        "name": "Sharp inside circuit activated",
+        "desc": "Sharp inside circuit is activated",
         "type": "boolean",
         "def": false,
         "read": true,
@@ -569,19 +580,6 @@
       "native": {}
     },
     {
-      "_id": "use.deactivate_nightrest",
-      "type": "state",
-      "common": {
-        "role": "button.deactivate.nightrest",
-        "name": "Deactivate nightrest",
-        "desc": "Deactivate nightrest",
-        "type": "boolean",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
       "_id": "use.toggle_nightrest",
       "type": "state",
       "common": {
@@ -595,38 +593,25 @@
       "native": {}
     },
     {
-      "_id": "use.activate_warn_circuit",
+      "_id": "use.activate_sharp_inside",
       "type": "state",
       "common": {
         "type": "boolean",
-        "role": "button.activate.warn",
-        "name": "Activate warn circuit",
-        "desc": "Activate warn circuit",
+        "role": "button.activate.sharp_inside",
+        "name": "Activate sharp inside circuit",
+        "desc": "Activate sharp inside circuit",
         "read": true,
         "write": true
       },
       "native": {}
     },
     {
-      "_id": "use.deactivate_warn_circuit",
-      "type": "state",
-      "common": {
-        "role": "button.deactivate.warn",
-        "name": "Deactivate warn circuit",
-        "desc": "Deactivate warn circuit",
-        "type": "boolean",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.toggle_warn_circuit",
+      "_id": "use.toggle_sharp_inside",
       "type": "state",
       "common": {
         "role": "switch",
-        "name": "Toggle warn circuit",
-        "desc": "Disable or enable warn circuit",
+        "name": "Toggle sharp inside circuit",
+        "desc": "Disable or enable sharp inside circuit",
         "type": "boolean",
         "read": true,
         "write": true
@@ -691,7 +676,7 @@
       "common": {
         "role": "button.quit",
         "name": "Quit changes",
-        "desc": "Quit warning and night changes",
+        "desc": "Quit changes during night rest and sharp inside",
         "type": "boolean",
         "read": true,
         "write": true
@@ -725,12 +710,12 @@
       "native": {}
     },
     {
-      "_id": "info.warning_circuit_changes",
+      "_id": "info.sharp_inside_siren",
       "type": "state",
       "common": {
         "role": "",
-        "name": "Changes warning circuit",
-        "desc": "Changes in warning circuit detected",
+        "name": "Changes sharp inside circuit",
+        "desc": "Changes in sharp inside circuit detected",
         "type": "boolean",
         "read": true,
         "write": false
@@ -738,12 +723,12 @@
       "native": {}
     },
     {
-      "_id": "info.night_circuit_changes",
+      "_id": "info.notification_circuit_changes",
       "type": "state",
       "common": {
         "role": "",
-        "name": "Changes night circuit",
-        "desc": "Changes in night circuit detected",
+        "name": "Changes notification circuit",
+        "desc": "Changes in notification circuit detected",
         "type": "boolean",
         "read": true,
         "write": false
@@ -751,12 +736,12 @@
       "native": {}
     },
     {
-      "_id": "info.sleep_circuit_list",
+      "_id": "info.notification_circuit_list",
       "type": "state",
       "common": {
         "role": "",
-        "name": "Sleep list",
-        "desc": "Warning list at night",
+        "name": "Notification list",
+        "desc": "Notification list at sharp, sharp inside and night rest",
         "type": "string",
         "read": true,
         "write": false
@@ -777,12 +762,12 @@
       "native": {}
     },
     {
-      "_id": "info.warning_circuit_list",
+      "_id": "info.sharp_inside_circuit_list",
       "type": "state",
       "common": {
         "role": "",
-        "name": "Warning list",
-        "desc": "Warning circuit list.",
+        "name": "Sharp inside list",
+        "desc": "Sharp inside circuit list.",
         "type": "string",
         "read": true,
         "write": false
