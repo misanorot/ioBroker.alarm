@@ -712,9 +712,9 @@ function sayit(message, opt_val){
 
 function inside_begins(){
     if(!inside && !burgle){
-        inside = true;
         activated = false;
         countdown(false);
+        inside = true;
         if(is_inside){
             let say = adapter.config.text_warning;
             if(notification_message) messages(`${adapter.config.log_warn_b_w} ${names_inside}`);
