@@ -277,7 +277,7 @@
     "night_from": "",
     "night_to": "",
     "send_alarm": true,
-    "send_warning": true,
+    "send_notification": true,
     "send_night": true,
     "send_activation": false,
     "sayit": [],
