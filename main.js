@@ -713,7 +713,6 @@ function sayit(message, opt_val){
 function inside_begins(){
     if(!inside && !burgle){
         activated = false;
-        countdown(false);
         inside = true;
         if(is_inside){
             let say = adapter.config.text_warning;
@@ -754,20 +753,21 @@ function inside_ends(){
 }
 
 function sleep_begin() {
-    if (!night_rest) {
-        night_rest = true;
-        activated = false;
-        adapter.setState('info.log', `${adapter.config.log_sleep_b}`);
-        sayit(adapter.config.text_nightrest_beginn, 7);
-        inside_ends();
+    if(night_rest) return;
+    night_rest = true;
+    if(log) adapter.log.info(`${adapter.config.log_sleep_b}`);
+    adapter.setState('status.sleep', true);
+    adapter.setState('use.toggle_nightrest', true);
+    adapter.setState('info.log', `${adapter.config.log_sleep_b}`);
+    sayit(adapter.config.text_nightrest_beginn, 7);
+    if (!inside && !activated) {
+        //activated = false;
+        //inside_ends();
         adapter.setState('status.state', 'night rest');
         adapter.setState('status.state_list', 4);
         adapter.setState('use.list', 4);
         adapter.setState('use.toggle', false);
         adapter.setState('use.toggle_with_delay', false);
-        if(log) adapter.log.info(`${adapter.config.log_sleep_b}`);
-        adapter.setState('status.sleep', true);
-        adapter.setState('use.toggle_nightrest', true);
         if(is_notification){
             let say = adapter.config.text_warning;
             if(night_message) messages(`${adapter.config.log_nights_b_w} ${names_notification}`);

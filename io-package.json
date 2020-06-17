@@ -460,7 +460,8 @@
           "0": "deactivated",
           "1": "sharp",
           "2": "sharp inside",
-          "3": "burgular"
+          "3": "burgular",
+          "4": "night rest"
         },
         "read": true,
         "write": false
