@@ -201,10 +201,11 @@ function enable(id, state){
         messages(`${adapter.config.log_act_warn_circuit} ${names_inside}`);
     }
     inside_ends();
+    sleep_end();
     adapter.setState('status.activated', true);
     adapter.setState('status.deactivated', false);
     adapter.setState('status.activation_failed', false);
-    adapter.setState('status.state', 'activated');
+    adapter.setState('status.state', 'sharp');
     adapter.setState('status.state_list', 1);
     adapter.setState('use.list', 1);
     adapter.setState('use.toggle', true);
@@ -712,6 +713,7 @@ function sayit(message, opt_val){
 
 function inside_begins(){
     if(!inside && !burgle){
+        sleep_end();
         activated = false;
         inside = true;
         if(is_inside){
@@ -753,31 +755,27 @@ function inside_ends(){
 }
 
 function sleep_begin() {
-    if(night_rest) return;
+    if(night_rest || inside && activated) return;
     night_rest = true;
     if(log) adapter.log.info(`${adapter.config.log_sleep_b}`);
     adapter.setState('status.sleep', true);
     adapter.setState('use.toggle_nightrest', true);
     adapter.setState('info.log', `${adapter.config.log_sleep_b}`);
     sayit(adapter.config.text_nightrest_beginn, 7);
-    if (!inside && !activated) {
-        //activated = false;
-        //inside_ends();
-        adapter.setState('status.state', 'night rest');
-        adapter.setState('status.state_list', 4);
-        adapter.setState('use.list', 4);
-        adapter.setState('use.toggle', false);
-        adapter.setState('use.toggle_with_delay', false);
-        if(is_notification){
-            let say = adapter.config.text_warning;
-            if(night_message) messages(`${adapter.config.log_nights_b_w} ${names_notification}`);
-            adapter.setState('info.log', `${adapter.config.log_nights_b_w} ${names_notification}`);
-            if(log) adapter.log.info(`${adapter.config.log_nights_b_w} ${names_notification}`);
-            if(speak_names){
-                say = say + ' ' + names_notification;
-            }
-            sayit(say, 4);
+    adapter.setState('status.state', 'night rest');
+    adapter.setState('status.state_list', 4);
+    adapter.setState('use.list', 4);
+    adapter.setState('use.toggle', false);
+    adapter.setState('use.toggle_with_delay', false);
+    if(is_notification){
+        let say = adapter.config.text_warning;
+        if(night_message) messages(`${adapter.config.log_nights_b_w} ${names_notification}`);
+        adapter.setState('info.log', `${adapter.config.log_nights_b_w} ${names_notification}`);
+        if(log) adapter.log.info(`${adapter.config.log_nights_b_w} ${names_notification}`);
+        if(speak_names){
+            say = say + ' ' + names_notification;
         }
+        sayit(say, 4);
     }
 }
 
@@ -1077,7 +1075,7 @@ function set_schedules(){
             sleep_begin();
         });
         schedule_to = schedule.scheduleJob({hour: parseInt(to[0]), minute: parseInt(to[1])}, ()=>{
-            if(!activated) countdown(false);
+            if(!activated || !inside) countdown(false);
         });
         adapter.log.debug(`Night rest configured from ${parseInt(from[0])}:${parseInt(from[1])} to ${parseInt(to[0])}:${parseInt(to[1])}`);
     }else{
