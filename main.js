@@ -283,7 +283,7 @@ function burglary(id, state){
             adapter.setState('status.silent_alarm', false);
             adapter.setState('status.siren', true);
             adapter.setState('status.state', 'burgle');
-            adapter.setState('status.state_list', 3);
+            adapter.setState('status.state_list', 4);
             siren_timer = setTimeout(()=>{
                 adapter.setState('status.siren', false);
             }, 1000*adapter.config.time_alarm);
@@ -304,7 +304,7 @@ function panic(){
     adapter.setState('status.burglar_alarm', true);
     adapter.setState('status.siren', true);
     adapter.setState('status.state', 'burgle');
-    adapter.setState('status.state_list', 3);
+    adapter.setState('status.state_list', 4);
     siren_timer = setTimeout(()=>{
         adapter.setState('status.siren', false);
     }, 1000*adapter.config.time_alarm);
@@ -713,9 +713,9 @@ function sayit(message, opt_val){
 
 function inside_begins(){
     if(!inside && !burgle){
-        sleep_end();
         activated = false;
         inside = true;
+        sleep_end();
         if(is_inside){
             let say = adapter.config.text_warning;
             if(notification_message) messages(`${adapter.config.log_warn_b_w} ${names_inside}`);
@@ -754,16 +754,18 @@ function inside_ends(){
     }
 }
 
-function sleep_begin() {
-    if(night_rest || inside && activated) return;
+function sleep_begin(auto) {
+    if(night_rest) return;
+    if(auto && inside || auto && activated) return;
     night_rest = true;
+    activated = false;
     if(log) adapter.log.info(`${adapter.config.log_sleep_b}`);
     adapter.setState('status.sleep', true);
     adapter.setState('use.toggle_nightrest', true);
     adapter.setState('info.log', `${adapter.config.log_sleep_b}`);
     sayit(adapter.config.text_nightrest_beginn, 7);
     adapter.setState('status.state', 'night rest');
-    adapter.setState('status.state_list', 4);
+    adapter.setState('status.state_list', 3);
     adapter.setState('use.list', 4);
     adapter.setState('use.toggle', false);
     adapter.setState('use.toggle_with_delay', false);
@@ -781,15 +783,17 @@ function sleep_begin() {
 
 function sleep_end() {
     if (night_rest) {
+        night_rest = false;
         adapter.setState('info.log', `${adapter.config.log_sleep_e}`);
         sayit(adapter.config.text_nightrest_end, 8);
         if(log) adapter.log.info(`${adapter.config.log_sleep_e}`);
         adapter.setState('status.sleep', false);
         adapter.setState('use.toggle_nightrest', false);
         adapter.setState('status.state', 'deactivated');
-        adapter.setState('status.state_list', 0);
-        adapter.setState('use.list', 0);
-
+        if(!inside){
+            adapter.setState('status.state_list', 0);
+            adapter.setState('use.list', 0);
+        }
     }
 }
 
@@ -1072,7 +1076,7 @@ function set_schedules(){
             return;
         }
         schedule_from = schedule.scheduleJob({hour: parseInt(from[0]), minute: parseInt(from[1])}, ()=>{
-            sleep_begin();
+            sleep_begin(true);
         });
         schedule_to = schedule.scheduleJob({hour: parseInt(to[0]), minute: parseInt(to[1])}, ()=>{
             if(!activated || !inside) countdown(false);
