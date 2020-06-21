@@ -1,6 +1,6 @@
 {
   "name": "iobroker.alarm",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "description": "Create your own little alarm system. Configure different alarm circuits with your own states.",
   "author": {
     "name": "misanorot",

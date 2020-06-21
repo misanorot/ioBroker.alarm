@@ -359,7 +359,7 @@ function change(id, state){
         return;
     }
     else if(id === adapter.namespace + '.status.sleep'){
-        night_rest = state.val;
+        //  night_rest = state.val;
         shortcuts('status.sleep', state.val);
         return;
     }
@@ -761,7 +761,10 @@ function inside_ends(){
 
 function sleep_begin(auto) {
     if(night_rest) return;
-    if(auto && inside || auto && activated) return;
+    if(auto && inside || auto && activated){
+        adapter.log.warn(`Cannot set alarm system to night rest, it is sharp or sharp inside`);
+        return;
+    }
     night_rest = true;
     activated = false;
     if(log) adapter.log.info(`${adapter.config.log_sleep_b}`);
@@ -818,7 +821,7 @@ function refreshLists(){
         }
     });
     check(inside_states, (val, ids)=>{
-        adapter.log.debug(`Warning circuit list: ${ids}`);
+        adapter.log.debug(`Inside circuit list: ${ids}`);
         if(ids.length > 0){
             ids_inside = ids;
             is_inside = true;
@@ -832,7 +835,7 @@ function refreshLists(){
         }
     });
     check(notification_states, (val, ids)=>{
-        adapter.log.debug(`Sleep circuit list: ${ids}`);
+        adapter.log.debug(`Notification circuit list: ${ids}`);
         if(ids.length > 0){
             ids_notification = ids;
             is_notification = true;

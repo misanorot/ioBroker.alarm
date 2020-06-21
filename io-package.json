@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.8.3",
+    "version": "0.8.4",
     "news": {
       "0.8.0": {
         "en": "!!! Changed circuits dramatacly !!!",
