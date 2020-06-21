@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.8.4",
+    "version": "0.8.5",
     "news": {
       "0.8.0": {
         "en": "!!! Changed circuits dramatacly !!!",
@@ -581,19 +581,6 @@
       "native": {}
     },
     {
-      "_id": "use.toggle_nightrest",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": "Toggle nightrest",
-        "desc": "Disable or enable nightrest",
-        "type": "boolean",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
       "_id": "use.activate_sharp_inside",
       "type": "state",
       "common": {
@@ -601,19 +588,6 @@
         "role": "button.activate.sharp_inside",
         "name": "Activate sharp inside circuit",
         "desc": "Activate sharp inside circuit",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.toggle_sharp_inside",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": "Toggle sharp inside circuit",
-        "desc": "Disable or enable sharp inside circuit",
-        "type": "boolean",
         "read": true,
         "write": true
       },

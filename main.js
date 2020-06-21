@@ -254,9 +254,9 @@ function disable(){
         adapter.setState('use.toggle_with_delay', false);
         if(act_message) messages(`${adapter.config.log_deact}`);
     }else if (inside) {
-        inside_ends();
+        inside_ends(true);
     }else if (night_rest) {
-        sleep_end();
+        sleep_end(true);
     }else {
         adapter.setState('status.activation_failed', false);
     }
@@ -444,35 +444,9 @@ function change(id, state){
         sleep_begin();
         return;
     }
-    else if(id === adapter.namespace + '.use.toggle_nightrest'){
-        if(state.val){
-            if(!night_rest) {
-                sleep_begin();
-            }
-            return;
-        }else{
-            if(night_rest) {
-                countdown(false);
-            }
-            return;
-        }
-    }
     else if(id === adapter.namespace + '.use.activate_sharp_inside' && state.val){
         inside_begins();
         return;
-    }
-    else if(id === adapter.namespace + '.use.toggle_sharp_inside'){
-        if(state.val){
-            if(!inside) {
-                inside_begins();
-            }
-            return;
-        }else{
-            if(inside) {
-                countdown(false);
-            }
-            return;
-        }
     }
     else if(id === adapter.namespace + '.use.enable_with_delay' && state.val){
         countdown(true);
@@ -740,22 +714,23 @@ function inside_begins(){
         adapter.setState('use.list', 2);
         adapter.setState('status.activated', false);
         adapter.setState('status.deactivated', true);
-        adapter.setState('use.toggle_sharp_inside', true);
     }
 
 }
 
-function inside_ends(){
+function inside_ends(off){
     if(inside){
         inside = false;
-        adapter.setState('info.log', `${adapter.config.log_warn_deact}`);
-        if(log)adapter.log.info(`${adapter.config.log_warn_deact}`);
-        sayit(adapter.config.text_warn_end, 0);
-        adapter.setState('status.sharp_inside_activated', false);
-        adapter.setState('status.state', 'deactivated');
-        adapter.setState('status.state_list',0);
-        adapter.setState('use.list',0);
-        adapter.setState('use.toggle_sharp_inside', false);
+        if(off){
+          adapter.setState('info.log', `${adapter.config.log_warn_deact}`);
+          if(log)adapter.log.info(`${adapter.config.log_warn_deact}`);
+          sayit(adapter.config.text_warn_end, 0);
+          adapter.setState('status.sharp_inside_activated', false);
+          adapter.setState('status.state', 'deactivated');
+          adapter.setState('status.state_list',0);
+          adapter.setState('use.list',0);
+        }
+
     }
 }
 
@@ -765,11 +740,11 @@ function sleep_begin(auto) {
         adapter.log.warn(`Cannot set alarm system to night rest, it is sharp or sharp inside`);
         return;
     }
-    night_rest = true;
     activated = false;
+    night_rest = true;
+    inside_ends();
     if(log) adapter.log.info(`${adapter.config.log_sleep_b}`);
     adapter.setState('status.sleep', true);
-    adapter.setState('use.toggle_nightrest', true);
     adapter.setState('info.log', `${adapter.config.log_sleep_b}`);
     sayit(adapter.config.text_nightrest_beginn, 7);
     adapter.setState('status.state', 'night rest');
@@ -789,18 +764,19 @@ function sleep_begin(auto) {
     }
 }
 
-function sleep_end() {
+function sleep_end(off) {
     if (night_rest) {
         night_rest = false;
-        adapter.setState('info.log', `${adapter.config.log_sleep_e}`);
-        sayit(adapter.config.text_nightrest_end, 8);
-        if(log) adapter.log.info(`${adapter.config.log_sleep_e}`);
-        adapter.setState('status.sleep', false);
-        adapter.setState('use.toggle_nightrest', false);
-        adapter.setState('status.state', 'deactivated');
-        if(!inside){
-            adapter.setState('status.state_list', 0);
-            adapter.setState('use.list', 0);
+        if(off){
+          adapter.setState('info.log', `${adapter.config.log_sleep_e}`);
+          sayit(adapter.config.text_nightrest_end, 8);
+          if(log) adapter.log.info(`${adapter.config.log_sleep_e}`);
+          adapter.setState('status.sleep', false);
+          adapter.setState('status.state', 'deactivated');
+          if(!inside){
+              adapter.setState('status.state_list', 0);
+              adapter.setState('use.list', 0);
+          }
         }
     }
 }
