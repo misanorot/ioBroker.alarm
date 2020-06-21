@@ -197,8 +197,8 @@ function enable(id, state){
         sayit(say, 3);
         return;
     }
-    if(notification_message && is_inside){
-        messages(`${adapter.config.log_act_warn_circuit} ${names_inside}`);
+    if(notification_message && is_alarm){
+        messages(`${adapter.config.log_act_warn_circuit} ${names_alarm}`);
     }
     inside_ends();
     sleep_end();
@@ -210,7 +210,7 @@ function enable(id, state){
     adapter.setState('use.list', 1);
     adapter.setState('use.toggle', true);
     adapter.setState('use.toggle_with_delay', true);
-    if(is_notification){
+    if(is_alarm){
         adapter.setState('status.activated_with_warnings', true);
         adapter.setState('status.state', 'activated with warnings');
         adapter.setState('info.log', `${adapter.config.log_act_warn} ${names_alarm}`);
