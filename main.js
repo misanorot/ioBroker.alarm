@@ -245,7 +245,6 @@ function disable(){
         adapter.setState('status.activation_failed', false);
         adapter.setState('status.siren', false);
         adapter.setState('status.burglar_alarm', false);
-        adapter.setState('status.activation_failed', false);
         adapter.setState('status.silent_alarm', false);
         adapter.setState('status.state', 'deactivated');
         adapter.setState('status.state_list',0);
@@ -258,7 +257,7 @@ function disable(){
     }else if (night_rest) {
         sleep_end(true);
     }else {
-        adapter.setState('status.activation_failed', false);
+        return;
     }
 }
 //##############################################################################
@@ -374,6 +373,7 @@ function change(id, state){
     else if(id === adapter.namespace + '.use.quit_changes'){
         clearTimeout(timer_inside_changes);
         clearTimeout(timer_notification_changes);
+        adapter.setState('status.activation_failed', false);
         adapter.setState('info.sharp_inside_siren', false);
         adapter.setState('info.notification_circuit_changes', false);
         return;
@@ -426,7 +426,7 @@ function change(id, state){
         panic();
         return;
     }
-    else if(id === adapter.namespace + '.use.toggle'){
+    /*else if(id === adapter.namespace + '.use.toggle'){
         if(state.val){
             if(!activated) {
                 enable(id, state);
@@ -439,7 +439,7 @@ function change(id, state){
             //disable();
             return;
         }
-    }
+    }*/
     else if(id === adapter.namespace + '.use.activate_nightrest' && state.val){
         sleep_begin();
         return;
@@ -452,7 +452,7 @@ function change(id, state){
         countdown(true);
         return;
     }
-    else if(id === adapter.namespace + '.use.toggle_with_delay'){
+    /*else if(id === adapter.namespace + '.use.toggle_with_delay'){
         if(state.val){
             if(!activated) {
                 countdown(true);
@@ -465,7 +465,7 @@ function change(id, state){
             //disable();
             return;
         }
-    }
+    }*/
     else if(id === adapter.namespace + '.use.toggle_password'){
         if(state.val == '') return;
         if(checkPassword(state.val, 'use.toggle_password') && !activated){
@@ -1063,7 +1063,7 @@ function set_schedules(){
             sleep_begin(true);
         });
         schedule_to = schedule.scheduleJob({hour: parseInt(to[0]), minute: parseInt(to[1])}, ()=>{
-            if(!activated || !inside) countdown(false);
+            if(!activated && !inside) countdown(false);
         });
         adapter.log.debug(`Night rest configured from ${parseInt(from[0])}:${parseInt(from[1])} to ${parseInt(to[0])}:${parseInt(to[1])}`);
     }else{

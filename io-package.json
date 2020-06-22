@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.8.5",
+    "version": "0.8.6",
     "news": {
       "0.8.0": {
         "en": "!!! Changed circuits dramatacly !!!",
@@ -601,32 +601,6 @@
         "name": "Disable/Enable with delay",
         "desc": "Disable or enable the alarm system with delay time and password",
         "type": "string",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.toggle",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": "Disable/Enable",
-        "desc": "Disable or enable the alarm system",
-        "type": "boolean",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.toggle_with_delay",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": "Disable/Enable with delay",
-        "desc": "Disable or enable the alarm system with delay time",
-        "type": "boolean",
         "read": true,
         "write": true
       },
