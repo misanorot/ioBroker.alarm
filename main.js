@@ -208,6 +208,7 @@ function enable(id, state){
     adapter.setState('status.state', 'sharp');
     adapter.setState('status.state_list', 1);
     adapter.setState('homekit.CurrentState', 1);
+    adapter.setState('homekit.TargetState', 1);
     adapter.setState('use.list', 1);
     adapter.setState('use.toggle', true);
     adapter.setState('use.toggle_with_delay', true);
@@ -250,6 +251,7 @@ function disable(){
         adapter.setState('status.state', 'deactivated');
         adapter.setState('status.state_list',0);
         adapter.setState('homekit.CurrentState', 3);
+        adapter.setState('homekit.TargetState', 3);
         adapter.setState('use.list',0);
         adapter.setState('use.toggle', false);
         adapter.setState('use.toggle_with_delay', false);
@@ -285,7 +287,7 @@ function burglary(id, state){
             adapter.setState('status.silent_alarm', false);
             adapter.setState('status.siren', true);
             adapter.setState('status.state', 'burgle');
-            adapter.setState('status.state_list', 4);
+            adapter.setState('status.state_list', 3);
             adapter.setState('homekit.CurrentState', 4);
             siren_timer = setTimeout(()=>{
                 adapter.setState('status.siren', false);
@@ -710,6 +712,7 @@ function inside_begins(){
         adapter.setState('status.state', 'sharp inside');
         adapter.setState('status.state_list', 2);
         adapter.setState('homekit.CurrentState', 0);
+        adapter.setState('homekit.TargetState', 0);
         adapter.setState('use.list', 2);
         adapter.setState('status.activated', false);
         adapter.setState('status.deactivated', true);
@@ -728,6 +731,7 @@ function inside_ends(off){
             adapter.setState('status.state', 'deactivated');
             adapter.setState('status.state_list',0);
             adapter.setState('homekit.CurrentState', 3);
+            adapter.setState('homekit.TargetState', 3);
             adapter.setState('use.list',0);
         }
 
@@ -747,8 +751,9 @@ function sleep_begin(auto) {
     adapter.setState('info.log', `${adapter.config.log_sleep_b}`);
     sayit(adapter.config.text_nightrest_beginn, 7);
     adapter.setState('status.state', 'night rest');
-    adapter.setState('status.state_list', 3);
+    adapter.setState('status.state_list', 4);
     adapter.setState('homekit.CurrentState', 2);
+    adapter.setState('homekit.TargetState', 2);
     adapter.setState('use.list', 4);
     adapter.setState('use.toggle', false);
     adapter.setState('use.toggle_with_delay', false);
@@ -775,6 +780,7 @@ function sleep_end(off) {
             if(!inside){
                 adapter.setState('status.state_list', 0);
                 adapter.setState('homekit.CurrentState', 3);
+                adapter.setState('homekit.TargetState', 3);
                 adapter.setState('use.list', 0);
             }
         }
