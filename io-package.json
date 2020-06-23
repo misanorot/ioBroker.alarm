@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.8.6",
+    "version": "0.8.7",
     "news": {
       "0.8.0": {
         "en": "!!! Changed circuits dramatacly !!!",
@@ -460,8 +460,8 @@
           "0": "deactivated",
           "1": "sharp",
           "2": "sharp inside",
-          "3": "night rest",
-          "4": "burgular"
+          "3": "burgular",
+          "4": "night rest"
         },
         "read": true,
         "write": false
@@ -642,6 +642,45 @@
         "type": "boolean",
         "read": true,
         "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "homekit.TargetState",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "List array",
+        "desc": "Use diffrent numbers for change the state of the alarm system (TargetState)",
+        "type": "number",
+        "states": {
+          "0": "stayArm",
+          "1": "awayArm",
+          "2": "nightArm",
+          "3": "disarmed"
+        },
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "homekit.CurrentState",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "State list",
+        "desc": "State of alarm system (CurrentState)",
+        "type": "number",
+        "states": {
+          "0": "stayArm",
+          "1": "awayArm",
+          "2": "nightArm",
+          "3": "disarmed",
+          "4": "triggered"
+        },
+        "read": true,
+        "write": false
       },
       "native": {}
     },

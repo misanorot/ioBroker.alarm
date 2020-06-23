@@ -207,6 +207,7 @@ function enable(id, state){
     adapter.setState('status.activation_failed', false);
     adapter.setState('status.state', 'sharp');
     adapter.setState('status.state_list', 1);
+    adapter.setState('homekit.CurrentState', 1);
     adapter.setState('use.list', 1);
     adapter.setState('use.toggle', true);
     adapter.setState('use.toggle_with_delay', true);
@@ -248,6 +249,7 @@ function disable(){
         adapter.setState('status.silent_alarm', false);
         adapter.setState('status.state', 'deactivated');
         adapter.setState('status.state_list',0);
+        adapter.setState('homekit.CurrentState', 3);
         adapter.setState('use.list',0);
         adapter.setState('use.toggle', false);
         adapter.setState('use.toggle_with_delay', false);
@@ -284,6 +286,7 @@ function burglary(id, state){
             adapter.setState('status.siren', true);
             adapter.setState('status.state', 'burgle');
             adapter.setState('status.state_list', 4);
+            adapter.setState('homekit.CurrentState', 4);
             siren_timer = setTimeout(()=>{
                 adapter.setState('status.siren', false);
             }, 1000*adapter.config.time_alarm);
@@ -305,6 +308,7 @@ function panic(){
     adapter.setState('status.siren', true);
     adapter.setState('status.state', 'burgle');
     adapter.setState('status.state_list', 4);
+    adapter.setState('homekit.CurrentState', 4);
     siren_timer = setTimeout(()=>{
         adapter.setState('status.siren', false);
     }, 1000*adapter.config.time_alarm);
@@ -347,6 +351,27 @@ function change(id, state){
                 break;
             default:
                 adapter.log.warn('Use wrong value in use.list');
+                break;
+
+        }
+        return;
+    }
+    else if(id === adapter.namespace + '.homekit.TargetState'){
+        switch (state.val) {
+            case 0:
+                inside_begins();
+                break;
+            case 1:
+                if(!activated) enable(id, state);
+                break;
+            case 2:
+                sleep_begin();
+                break;
+            case 3:
+                countdown(false);
+                break;
+            default:
+                adapter.log.warn('Use wrong value in homekit.TargetState');
                 break;
 
         }
@@ -426,20 +451,6 @@ function change(id, state){
         panic();
         return;
     }
-    /*else if(id === adapter.namespace + '.use.toggle'){
-        if(state.val){
-            if(!activated) {
-                enable(id, state);
-            }
-            return;
-        }else{
-            if(activated) {
-                countdown(false);
-            }
-            //disable();
-            return;
-        }
-    }*/
     else if(id === adapter.namespace + '.use.activate_nightrest' && state.val){
         sleep_begin();
         return;
@@ -452,20 +463,6 @@ function change(id, state){
         countdown(true);
         return;
     }
-    /*else if(id === adapter.namespace + '.use.toggle_with_delay'){
-        if(state.val){
-            if(!activated) {
-                countdown(true);
-            }
-            return;
-        }else{
-            if(activated) {
-                countdown(false);
-            }
-            //disable();
-            return;
-        }
-    }*/
     else if(id === adapter.namespace + '.use.toggle_password'){
         if(state.val == '') return;
         if(checkPassword(state.val, 'use.toggle_password') && !activated){
@@ -570,6 +567,7 @@ function set_subs(){
     adapter.subscribeStates('info.notification_circuit_changes');
     adapter.subscribeStates('use.*');
     adapter.subscribeStates('status.*');
+    adapter.subscribeStates('homekit.TargetState');
 }
 //##############################################################################
 
@@ -711,6 +709,7 @@ function inside_begins(){
         adapter.setState('status.sharp_inside_activated', true);
         adapter.setState('status.state', 'sharp inside');
         adapter.setState('status.state_list', 2);
+        adapter.setState('homekit.CurrentState', 0);
         adapter.setState('use.list', 2);
         adapter.setState('status.activated', false);
         adapter.setState('status.deactivated', true);
@@ -722,13 +721,14 @@ function inside_ends(off){
     if(inside){
         inside = false;
         if(off){
-          adapter.setState('info.log', `${adapter.config.log_warn_deact}`);
-          if(log)adapter.log.info(`${adapter.config.log_warn_deact}`);
-          sayit(adapter.config.text_warn_end, 0);
-          adapter.setState('status.sharp_inside_activated', false);
-          adapter.setState('status.state', 'deactivated');
-          adapter.setState('status.state_list',0);
-          adapter.setState('use.list',0);
+            adapter.setState('info.log', `${adapter.config.log_warn_deact}`);
+            if(log)adapter.log.info(`${adapter.config.log_warn_deact}`);
+            sayit(adapter.config.text_warn_end, 0);
+            adapter.setState('status.sharp_inside_activated', false);
+            adapter.setState('status.state', 'deactivated');
+            adapter.setState('status.state_list',0);
+            adapter.setState('homekit.CurrentState', 3);
+            adapter.setState('use.list',0);
         }
 
     }
@@ -744,11 +744,11 @@ function sleep_begin(auto) {
     night_rest = true;
     inside_ends();
     if(log) adapter.log.info(`${adapter.config.log_sleep_b}`);
-    adapter.setState('status.sleep', true);
     adapter.setState('info.log', `${adapter.config.log_sleep_b}`);
     sayit(adapter.config.text_nightrest_beginn, 7);
     adapter.setState('status.state', 'night rest');
     adapter.setState('status.state_list', 3);
+    adapter.setState('homekit.CurrentState', 2);
     adapter.setState('use.list', 4);
     adapter.setState('use.toggle', false);
     adapter.setState('use.toggle_with_delay', false);
@@ -768,15 +768,15 @@ function sleep_end(off) {
     if (night_rest) {
         night_rest = false;
         if(off){
-          adapter.setState('info.log', `${adapter.config.log_sleep_e}`);
-          sayit(adapter.config.text_nightrest_end, 8);
-          if(log) adapter.log.info(`${adapter.config.log_sleep_e}`);
-          adapter.setState('status.sleep', false);
-          adapter.setState('status.state', 'deactivated');
-          if(!inside){
-              adapter.setState('status.state_list', 0);
-              adapter.setState('use.list', 0);
-          }
+            adapter.setState('info.log', `${adapter.config.log_sleep_e}`);
+            sayit(adapter.config.text_nightrest_end, 8);
+            if(log) adapter.log.info(`${adapter.config.log_sleep_e}`);
+            adapter.setState('status.state', 'deactivated');
+            if(!inside){
+                adapter.setState('status.state_list', 0);
+                adapter.setState('homekit.CurrentState', 3);
+                adapter.setState('use.list', 0);
+            }
         }
     }
 }
@@ -1060,9 +1060,11 @@ function set_schedules(){
             return;
         }
         schedule_from = schedule.scheduleJob({hour: parseInt(from[0]), minute: parseInt(from[1])}, ()=>{
+            adapter.setState('status.sleep', true);
             sleep_begin(true);
         });
         schedule_to = schedule.scheduleJob({hour: parseInt(to[0]), minute: parseInt(to[1])}, ()=>{
+            adapter.setState('status.sleep', false);
             if(!activated && !inside) countdown(false);
         });
         adapter.log.debug(`Night rest configured from ${parseInt(from[0])}:${parseInt(from[1])} to ${parseInt(to[0])}:${parseInt(to[1])}`);
