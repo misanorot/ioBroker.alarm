@@ -23,9 +23,8 @@ Er bietet die Möglichkeit 3 Sicherheitskreise zu konfigurieren und diese z.B. b
 eine direkte Verknüpfung der jeweiligen Instanz "states", auf andere "states" möglich. Diese Verknüpfungen werden im Reiter Verknüpfungen angelegt.
 
 ----------------------------------------------------------------------------------------------------------------------
-*Stand 17.06.2020 ab Version 0.8.0*
-#### Wichtig ab 0.8.0
-	- Es empfiehlt sich bei Vorinstallationen < 0.8.0, beim Update des Adapters diesen vorher zu deinstallieren! Es haben sich ein paar Datenpunkte geändert.  
+*Stand 14.06.2020*
+
 
 ### Tab Haupteinstellungen
 
@@ -36,7 +35,7 @@ Hier werden die Einstellungen wie die Zeiten der Nachtruhe, Sirenezeit, Stiller-
 - Aktivierzeit -> Zeitverzögerung bis zu Aktivierung wenn man einen delay Datenpunkt benutzt
 - Sirenenzeit bei Einbruch -> Bei Einbruch wird der Datenpunkt alarm.0.status.siren für die Zeit auf true gesetzt
 - Alarmverzögerung -> Verzögerungszeit bis Einbruch ausgelöst wird (während dieser Zeit wird der Stille Alarm ausgelöst)  
-- Auslösezeit bei Warnungen/Sirene innen  -> Bei Auslösung des Benachrichtigungskreises oder scharf innen Kreises, wird der jeweils zugehörige Datenpunkt für die Zeit auf true gesetzt
+- Auslösezeit bei Warnungen -> Bei Auslösung eines der Warnkreise(info.warn/night_circuit_changes), wird der jeweils zugehörige Datenpunkt für die Zeit auf true gesetzt
 
 
 ----------------------------------------------------------------------------------------------------------------------
@@ -53,20 +52,28 @@ Benachrichtigungen über Andere Adapter wie z.B. Telegramm, Email oder andere.
 Hier werden die Kreise der Anlage konfiguriert.
 *die Namen der states lassen sich ändern*
 
-Der Alarmkreis hat die Priorität „hoch" und hat bei aktivierter Anlage (scharf) Vorrang vor allen anderen Keisen. Er dient zur eigentlichen Überwachung der Anlage. Dies entspricht den Vollschutz  einer Alarmanlage. Der scharf intern Kreis wird überwacht, wenn die Anlage sich im Zustand scharf intern befindet. Der Meldekreis dient nur zur Meldung während der Zustände scharf, scharf intern und bei der der Nachtruhe.
+Der Alarmkreis hat die Priorität „hoch" und hat bei aktivierter Anlage Vorrang vor allen anderen Keisen. Er dient zur eigentlichen Überwachung der Anlage. Dies entspricht einer einfachen Alarmanlage mit nur einem Kreis.
+
+Der Warnkreis hat zwei Funktionen, bei aktivierter Anlage werden diese States nur überwacht und geben ggf. eine Meldung ab wenn eine Änderung stattfand. Die zweite Funktion besteht darin, bei z. B. Anwesenheit und aktivierter internen Überwachung der Anlage (sharp inside), bei Veränderung einer der konfigurierten States ggf. eine Meldung abgesetzt wird.
+*!!!Eine beginnende Nachtruhe deaktiviert den scharf intern Kreis!!!*
+
+Der Nachtkreis hat die gleiche Funktion wie der Warnkreis, jedoch nur während der Nachtruhe. Bei beginender Nachtruhe löst diese, falls aktiviert, die Überwachung des Warnkreises (sharp inside) ab.
+
 *Es ist durchaus möglich, dass man für einen State, den Haken bei allen drei Kreisen macht.*
 
-Die Kreise werden folgendermaßen überwacht:
+Die Kreise sind folgendermaßen überwacht:
 
 #### Alarmkreis:
-Alarmanlage lässt sich nicht aktivieren (scharf schalten) wenn ein konfigurierter state aktiv ist. Bei aktivierter Alarmanlage führt eine Veränderung sofort zur Auslösung der Anlage.
+Alarmanlage lässt sich nicht aktivieren wenn ein konfigurierter state aktiv ist. Bei aktivierter Alarmanlage führt eine Veränderung sofort zur Auslösung der Anlage.
 
-#### Scharf intern Kreis:
-Alle hier konfigurierten states werden beim Zustand scharf intern überwacht und lösen unter anderem den internen Alarm aus.
+#### Warnkreis:
+Hier können Dinge überwacht werden die nicht die Priorität "hoch" haben, z.B. Fenster im OG. In den Haupteinstellungen kann man die Überwachung bei der Aktivierung einstellen. Ist die Alarmanlage aktiviert, wird hier bei Veränderung kein Alarm ausgelöst.
+Man kann sich jedoch benachrichtigen lassen.
 
-#### Meldekreis:
-Der überwacht die konfigurierten states auf Veränderungen und meldet dies.
+#### Nachtkreis:
+Bei aktiver Nachtruhe werden Veränderungen während der erkannt und ggf. gemeldet.
 
+*Sollten Alarm- und Warnkreis pro state aktiviert sein, zählt der Alarmkreis*
 
 ----------------------------------------------------------------------------------------------------------------------
 
@@ -91,14 +98,20 @@ Der Adapter liefert eine ganze Anzahl an states:
 
 #### "alarm.x.use.....".
 Das sind die eigentlichen states um die Alarmanlage zu bedienen.
+Es ist möglich die Alarmanlage direkt von aktiviert auf "intern scharf" umzuschalten, dies ist jedoch nur möglich wenn die Alarmanlage nicht ausgelöst hatte.
 
 - use.activate_nightrest -> Aktivierung der Nachtruhe
-- use.activate_sharp_inside_circuit -> Aktivierung der Überwachung des Warnkreises (intern scharf)
+- use.deactivate_nightrest -> Deaktivierung der Nachtruhe
+- use.toggle_nightrest -> Deaktivierung/Aktivierung der Nachtruhe
+- use.activate_warn_circuit -> Aktivierung der Überwachung des Warnkreises (intern scharf)
+- use.deactivate_warn_circuit -> Deaktivierung der Überwachung des Warnkreises (intern scharf)
+- use.toggle_warn_circuit -> Deaktivierung/Aktivierung der Überwachung des Warnkreises (intern scharf)
 - use.disable -> Deaktivierung der Anlage (Alarmkreis)
 - use.enable -> Aktivierung der Anlage (Alarmkreis)
 - use.enable_with_delay -> Aktivierung der Anlage (Alarmkreis) mit Verzögerungszeit
 - use.list -> Deaktivierung/Aktivierung/Warnkreis/Aktivierung mit Verzögerungszeit
-- use.quit_changes -> Rücksetzen der states *info.notification_circuit_changes, info.sharp_inside_siren, status.activation_failed*
+- use.quit_changes -> Rücksetzen der beiden states *info.warn/night_circuit_changes*
+- use.toggle -> Deaktivierung/Aktivierung der Anlage (Alarmkreis)
 - use.toggle_password -> Deaktivierung/Aktivierung der Anlage (Alarmkreis) mit Passwort
 - use.toggle_with_delay -> Deaktivierung/Aktivierung der Anlage (Alarmkreis) mit Verzögerungszeit
 - use.toggle_with_delay_and_password -> Deaktivierung/Aktivierung der Anlage (Alarmkreis) mit Passwort und Verzögerungszeit
@@ -126,7 +139,7 @@ Der log_today state wird um Mitternacht geleert.
 ## Changelog
 
 #### 0.8.0 (18.06.2020)
-* (misanorot) !!! Changed circuits dramatacly !!! Please do a new installation when you come from less versions
+* (misanorot) !!! Changed circuits dramatacly !!!
 
 #### 0.7.5 (14.06.2020)
 * (misanorot) fixed a few little issues
