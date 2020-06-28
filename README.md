@@ -125,8 +125,11 @@ Der log_today state wird um Mitternacht geleert.
 
 ## Changelog
 
+#### 0.9.0 (28.06.2020)
+* (misanorot) Homekit integrated, set shortcuts only when changed
+
 #### 0.8.0 (18.06.2020)
-* (misanorot) !!! Changed circuits dramatacly !!! Please do a new installation when you come from less versions
+#### (misanorot) !!! Changed circuits dramatacly !!! Please do a new installation when you come from less versions
 
 #### 0.7.5 (14.06.2020)
 * (misanorot) fixed a few little issues

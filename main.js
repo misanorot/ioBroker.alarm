@@ -1005,7 +1005,7 @@ function bools(val){
 
 function getStateAsync(id) {
     return new Promise((resolve, reject)=>{
-        adapter.getState(id, (err, state)=>{
+        adapter.getForeignState(id, (err, state)=>{
             if(err){
                 adapter.log.warn(`Error at shortcuts getState: ${id}`);
                 reject(err);
@@ -1023,7 +1023,7 @@ function getStateAsync(id) {
 async function asyncForEach(id, val, callback) {
     for (let index = 0; index < shorts.length; index++) {
         if(shorts[index].enabled && shorts[index].select_id == id && /true/.test(shorts[index].trigger_val) === val)
-            await callback(shorts[index].select_id, shorts[index].value, index, shorts);
+            await callback(shorts[index].name_id, shorts[index].value, index, shorts);
     }
 }
 
@@ -1031,8 +1031,8 @@ async function shortcuts (id, val){
     let result;
     await asyncForEach(id, val, async (found_id, value, index, ids) => {
         result = await getStateAsync(found_id);
-        adapter.log.debug(found_id + ' ' + ids[index].name_id + ' ' + value + ' ' + result);
-        if(ids[index].value !== result) {
+        adapter.log.debug(`Shorcut ID: ${found_id} old state: ${result} new state: ${value}`);
+        if(value !== result) {
             adapter.setForeignState(ids[index].name_id, bools(value), (err)=>{
                 if(err) adapter.log.warn(`Cannot set state: ${err}`);
             });
