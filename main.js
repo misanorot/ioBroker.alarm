@@ -210,8 +210,6 @@ function enable(id, state){
     adapter.setState('homekit.CurrentState', 1);
     adapter.setState('homekit.TargetState', 1);
     adapter.setState('use.list', 1);
-    adapter.setState('use.toggle', true);
-    adapter.setState('use.toggle_with_delay', true);
     if(is_alarm){
         adapter.setState('status.activated_with_warnings', true);
         adapter.setState('status.state', 'activated with warnings');
@@ -253,8 +251,6 @@ function disable(){
         adapter.setState('homekit.CurrentState', 3);
         adapter.setState('homekit.TargetState', 3);
         adapter.setState('use.list',0);
-        adapter.setState('use.toggle', false);
-        adapter.setState('use.toggle_with_delay', false);
         if(act_message) messages(`${adapter.config.log_deact}`);
     }else if (inside) {
         inside_ends(true);
@@ -755,8 +751,6 @@ function sleep_begin(auto) {
     adapter.setState('homekit.CurrentState', 2);
     adapter.setState('homekit.TargetState', 2);
     adapter.setState('use.list', 4);
-    adapter.setState('use.toggle', false);
-    adapter.setState('use.toggle_with_delay', false);
     if(is_notification){
         let say = adapter.config.text_warning;
         if(night_message) messages(`${adapter.config.log_nights_b_w} ${names_notification}`);
@@ -1009,19 +1003,41 @@ function bools(val){
     }
 }
 
-function shortcuts(id, val){
-    if(shorts){
-        shorts.forEach((ele, i) => {
-            if(ele.enabled && ele.select_id == id && /true/.test(ele.trigger_val) === val){
-                setTimeout(()=>{
-                    adapter.setForeignState(ele.name_id, bools(ele.value), (err)=>{
-                        if(err) adapter.log.warn(`Cannot set state: ${err}`);
-                    });
-                }, i*250);
-
+function getStateAsync(id) {
+    return new Promise((resolve, reject)=>{
+        adapter.getState(id, (err, state)=>{
+            if(err){
+                adapter.log.warn(`Error at shortcuts getState: ${id}`);
+                reject(err);
+            } else if(state == null || state.val == null) {
+                adapter.log.error(`state is null: ${id}`);
+                resolve(null);
             }
+            else resolve(state.val);
         });
+    });
+}
+
+
+
+async function asyncForEach(id, val, callback) {
+    for (let index = 0; index < shorts.length; index++) {
+        if(shorts[index].enabled && shorts[index].select_id == id && /true/.test(shorts[index].trigger_val) === val)
+            await callback(shorts[index].select_id, shorts[index].value, index, shorts);
     }
+}
+
+async function shortcuts (id, val){
+    let result;
+    await asyncForEach(id, val, async (found_id, value, index, ids) => {
+        result = await getStateAsync(found_id);
+        adapter.log.debug(found_id + ' ' + ids[index].name_id + ' ' + value + ' ' + result);
+        if(ids[index].value !== result) {
+            adapter.setForeignState(ids[index].name_id, bools(value), (err)=>{
+                if(err) adapter.log.warn(`Cannot set state: ${err}`);
+            });
+        }
+    });
 }
 
 function timeStamp(){

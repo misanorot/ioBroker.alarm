@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.8.7",
+    "version": "0.9.0",
     "news": {
+      "0.9.0": {
+        "en": "Homekit integrated, set shortcuts only when changed",
+        "de": "Homekit integriert, Verknüpfungen nur bei Änderung setzen",
+        "ru": "Homekit интегрирован, ярлыки устанавливаются только при смене",
+        "pt": "Homekit integrado, defina atalhos apenas quando alterado",
+        "nl": "Homekit geïntegreerd, stel snelkoppelingen alleen in bij wijziging",
+        "fr": "Homekit intégré, définir des raccourcis uniquement en cas de modification",
+        "it": "Homekit integrato, imposta le scorciatoie solo quando modificato",
+        "es": "Homekit integrado, establece accesos directos solo cuando se cambia",
+        "pl": "Zintegrowany Homekit, ustaw skróty tylko po zmianie",
+        "zh-cn": "集成了Homekit，仅在更改时设置快捷方式"
+      },
       "0.8.0": {
         "en": "!!! Changed circuits dramatacly !!!",
         "de": "!!! Schaltkreise dramatisch verändert !!!",
