@@ -33,6 +33,7 @@ let is_alarm = false,
     names_inside,
     names_notification;
 
+const change_ids = {};
 
 let activated = false,
     night_rest = false,
@@ -1003,42 +1004,33 @@ function bools(val){
     }
 }
 
-function getStateAsync(id) {
-    return new Promise((resolve, reject)=>{
-        adapter.getForeignState(id, (err, state)=>{
-            if(err){
-                adapter.log.warn(`Error at shortcuts getState: ${id}`);
-                reject(err);
-            } else if(state == null || state.val == null) {
-                adapter.log.error(`state is null: ${id}`);
-                resolve(null);
+function shortcuts(id, val){
+    const change = is_changed(id, val);
+    if(shorts && change){
+        shorts.forEach((ele, i) => {
+            if(ele.enabled && ele.select_id == id && /true/.test(ele.trigger_val) === val){
+                setTimeout(()=>{
+                    adapter.setForeignState(ele.name_id, bools(ele.value), (err)=>{
+                        if(err) adapter.log.warn(`Cannot set state: ${err}`);
+                    });
+                }, i*250);
             }
-            else resolve(state.val);
         });
-    });
-}
-
-
-
-async function asyncForEach(id, val, callback) {
-    for (let index = 0; index < shorts.length; index++) {
-        if(shorts[index].enabled && shorts[index].select_id == id && /true/.test(shorts[index].trigger_val) === val)
-            await callback(shorts[index].name_id, shorts[index].value, index, shorts);
     }
 }
 
-async function shortcuts (id, val){
-    let result;
-    await asyncForEach(id, val, async (found_id, value, index, ids) => {
-        result = await getStateAsync(found_id);
-        adapter.log.debug(`Shorcut ID: ${found_id} old state: ${result} new state: ${value}`);
-        if(value !== result) {
-            adapter.setForeignState(ids[index].name_id, bools(value), (err)=>{
-                if(err) adapter.log.warn(`Cannot set state: ${err}`);
-            });
-        }
-    });
+
+function is_changed(id, val) {
+    if(change_ids[id] === val ) {
+        adapter.log.debug(`No changes inside shortcuts!`);
+        return false;
+    } else {
+        change_ids[id] = val;
+        return true;
+    }
 }
+
+
 
 function timeStamp(){
     const date = new Date();
