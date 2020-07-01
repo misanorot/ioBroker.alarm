@@ -12,6 +12,9 @@ const schedule = require('node-schedule');
  */
 let adapter;
 
+var silent_i = false,
+    alarm_i = false;
+
 let clean_ids = [];
 const alarm_states = [],
     inside_states = [],
@@ -276,8 +279,6 @@ function disable(){
 //################# BURGALARY ####################################################
 
 function burglary(id, state){
-    let silent_i = false;
-    let alarm_i = false;
     if(burgle) return;
     const name = get_name(id);
     adapter.setState('info.log', `${adapter.config.log_burgle} ${name}`);
@@ -336,7 +337,6 @@ function burglary(id, state){
 //################# PANIC ####################################################
 
 function panic(){
-    let alarm_i = false;
     is_panic = true;
     adapter.setState('info.log', `${adapter.config.log_panic}`);
     if(log)adapter.log.info(`${adapter.config.log_panic}`);
