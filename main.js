@@ -295,7 +295,7 @@ function burglary(id, state){
                     adapter.setState('status.silent_flash', false);
                     silent_i = true;
                 }
-            }, adapter.config.silent_interval * 1000);
+            }, adapter.config.silent_flash * 1000);
         }
     }
     if(silent_timer) return;
@@ -321,7 +321,7 @@ function burglary(id, state){
                         adapter.setState('status.alarm_flash', false);
                         alarm_i = true;
                     }
-                }, adapter.config.alarm_interval * 1000);
+                }, adapter.config.alarm_flash * 1000);
             }
             siren_timer = setTimeout(()=>{
                 adapter.setState('status.siren', false);
@@ -352,7 +352,7 @@ function panic(){
                 adapter.setState('status.alarm_flash', false);
                 alarm_i = true;
             }
-        }, adapter.config.alarm_interval * 1000);
+        }, adapter.config.alarm_flash * 1000);
     }
     adapter.setState('status.siren', true);
     adapter.setState('status.state', 'burgle');
