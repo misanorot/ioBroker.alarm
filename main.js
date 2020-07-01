@@ -289,7 +289,7 @@ function burglary(id, state){
         if(adapter.config.silent_flash > 0) {
             silent_interval = setInterval(()=>{
                 if(silent_i) {
-                    adapter.setState('status.silent_flash', false);
+                    adapter.setState('status.silent_flash', true);
                     silent_i = false;
                 } else {
                     adapter.setState('status.silent_flash', false);
@@ -315,7 +315,7 @@ function burglary(id, state){
             if(adapter.config.alarm_flash > 0) {
                 alarm_interval = setInterval(()=>{
                     if(alarm_i) {
-                        adapter.setState('status.alarm_flash', false);
+                        adapter.setState('status.alarm_flash', true);
                         alarm_i = false;
                     } else {
                         adapter.setState('status.alarm_flash', false);
@@ -346,7 +346,7 @@ function panic(){
     if(adapter.config.alarm_flash > 0) {
         alarm_interval = setInterval(()=>{
             if(alarm_i) {
-                adapter.setState('status.alarm_flash', false);
+                adapter.setState('status.alarm_flash', true);
                 alarm_i = false;
             } else {
                 adapter.setState('status.alarm_flash', false);
