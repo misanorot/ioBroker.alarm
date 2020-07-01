@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "0.9.2",
+    "version": "1.0.0",
     "news": {
+      "1.0.0": {
+        "en": "added alarm and silent flash light",
+        "de": "Alarm und leises Blitzlicht hinzugefügt",
+        "ru": "добавлена сигнализация и бесшумная вспышка",
+        "pt": "alarme adicionado e luz silenciosa do flash",
+        "nl": "toegevoegd alarm en stil flitslicht",
+        "fr": "alarme supplémentaire et lumière flash silencieuse",
+        "it": "aggiunto allarme e luce flash silenziosa",
+        "es": "alarma adicional y luz de flash silenciosa",
+        "pl": "dodano alarm i cichą lampę błyskową",
+        "zh-cn": "添加了警报和静音闪光灯"
+      },
       "0.9.0": {
         "en": "Homekit integrated, set shortcuts only when changed",
         "de": "Homekit integriert, Verknüpfungen nur bei Änderung setzen",
@@ -278,6 +290,8 @@
     "time_alarm": 60,
     "time_silent": 0,
     "time_warning": 3,
+    "alarm_flash": 2,
+    "silent_flash": 2,
     "opt_say_night": true,
     "opt_say_warn": true,
     "opt_say_names": true,
@@ -401,6 +415,32 @@
         "role": "",
         "name": "Alarm siren",
         "desc": "Alarm system has triggered the siren",
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "status.silent_flash",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Silent flash alarm",
+        "desc": "Alarm system signalled burglary with silent alarm",
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "status.alarm_flash",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "flash alarm",
+        "desc": "Alarm system signalled burglary",
         "type": "boolean",
         "read": true,
         "write": false

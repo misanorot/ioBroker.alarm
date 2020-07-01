@@ -44,7 +44,9 @@ let timer = null,
     silent_timer = null,
     timer_inside_changes = null,
     timer_notification_changes = null,
-    siren_timer = null;
+    siren_timer = null,
+    silent_interval = null,
+    alarm_interval = null;
 
 let log,
     speak_names,
@@ -81,6 +83,8 @@ function startAdapter(options) {
                 clearInterval(timer);
                 clearTimeout(silent_timer);
                 clearTimeout(siren_timer);
+                clearInterval(silent_interval);
+                clearInterval(alarm_interval);
                 callback();
             } catch (e) {
                 callback();
@@ -232,14 +236,20 @@ function disable(){
     burgle = false;
     clearTimeout(silent_timer);
     clearTimeout(siren_timer);
+    clearInterval(silent_interval);
+    clearInterval(alarm_interval);
     silent_timer = null;
     siren_timer = null;
+    silent_interval = null,
+    alarm_interval = null;
     if(activated || is_panic){
         is_panic = false;
         adapter.setState('info.log', `${adapter.config.log_deact}`);
         sayit(adapter.config.text_deactivated, 2);
         if(log)adapter.log.info(`${adapter.config.log_deact}`);
         adapter.setState('status.siren', false);
+        adapter.setState('status.silent_flash', false);
+        adapter.setState('status.alarm_flash', false);
         adapter.setState('status.activated', false);
         adapter.setState('status.deactivated', true);
         adapter.setState('status.activated_with_warnings', false);
@@ -266,6 +276,8 @@ function disable(){
 //################# BURGALARY ####################################################
 
 function burglary(id, state){
+    let silent_i = false;
+    let alarm_i = false;
     if(burgle) return;
     const name = get_name(id);
     adapter.setState('info.log', `${adapter.config.log_burgle} ${name}`);
@@ -274,20 +286,46 @@ function burglary(id, state){
     if(adapter.config.time_silent > 0){
         adapter.setState('status.silent_alarm', true);
         adapter.setState('status.state', 'silent alarm');
+        if(adapter.config.silent_flash > 0) {
+            silent_interval = setInterval(()=>{
+                if(silent_i) {
+                    adapter.setState('status.silent_flash', false);
+                    silent_i = false;
+                } else {
+                    adapter.setState('status.silent_flash', false);
+                    silent_i = true;
+                }
+            }, adapter.config.silent_interval * 1000);
+        }
     }
     if(silent_timer) return;
     else if (!burgle){
         burgle = true;
         silent_timer = setTimeout(()=>{
+            clearTimeout(silent_timer);
+            clearInterval(silent_interval);
             sayit(adapter.config.text_alarm, 6);
             adapter.setState('status.burglar_alarm', true);
             adapter.setState('status.silent_alarm', false);
+            adapter.setState('status.silent_flash', false);
             adapter.setState('status.siren', true);
             adapter.setState('status.state', 'burgle');
             adapter.setState('status.state_list', 3);
             adapter.setState('homekit.CurrentState', 4);
+            if(adapter.config.alarm_flash > 0) {
+                alarm_interval = setInterval(()=>{
+                    if(alarm_i) {
+                        adapter.setState('status.alarm_flash', false);
+                        alarm_i = false;
+                    } else {
+                        adapter.setState('status.alarm_flash', false);
+                        alarm_i = true;
+                    }
+                }, adapter.config.alarm_interval * 1000);
+            }
             siren_timer = setTimeout(()=>{
                 adapter.setState('status.siren', false);
+                clearTimeout(siren_timer);
             }, 1000*adapter.config.time_alarm);
         }, adapter.config.time_silent * 1000);
     }
@@ -298,12 +336,24 @@ function burglary(id, state){
 //################# PANIC ####################################################
 
 function panic(){
+    let alarm_i = false;
     is_panic = true;
     adapter.setState('info.log', `${adapter.config.log_panic}`);
     if(log)adapter.log.info(`${adapter.config.log_panic}`);
     if(alarm_message) messages(`${adapter.config.log_panic}`);
     sayit(adapter.config.text_alarm, 6);
     adapter.setState('status.burglar_alarm', true);
+    if(adapter.config.alarm_flash > 0) {
+        alarm_interval = setInterval(()=>{
+            if(alarm_i) {
+                adapter.setState('status.alarm_flash', false);
+                alarm_i = false;
+            } else {
+                adapter.setState('status.alarm_flash', false);
+                alarm_i = true;
+            }
+        }, adapter.config.alarm_interval * 1000);
+    }
     adapter.setState('status.siren', true);
     adapter.setState('status.state', 'burgle');
     adapter.setState('status.state_list', 4);
@@ -412,6 +462,14 @@ function change(id, state){
     }
     else if(id === adapter.namespace + '.status.siren'){
         shortcuts('status.siren', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.status.alarm_flash'){
+        shortcuts('status.alarm_flash', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.status.silent_flash'){
+        shortcuts('status.silent_flash', state.val);
         return;
     }
     else if(id === adapter.namespace + '.status.activation_failed'){
