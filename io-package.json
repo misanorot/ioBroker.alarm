@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "news": {
+      "1.1.0": {
+        "en": "Added input shortcuts",
+        "de": "Eingabeverknüpfungen hinzugefügt",
+        "ru": "Добавлены ярлыки ввода",
+        "pt": "Atalhos de entrada adicionados",
+        "nl": "Invoersnelkoppelingen toegevoegd",
+        "fr": "Raccourcis d'entrée ajoutés",
+        "it": "Collegamenti di input aggiunti",
+        "es": "Atajos de entrada agregados",
+        "pl": "Dodano skróty do wprowadzania danych",
+        "zh-cn": "添加了输入快捷方式"
+      },
       "1.0.0": {
         "en": "added alarm and silent flash light",
         "de": "Alarm und leises Blitzlicht hinzugefügt",
@@ -285,6 +297,7 @@
   },
   "native": {
     "circuits": [],
+    "shorts_in": [],
     "shorts": [],
     "time_activate": 10,
     "time_alarm": 60,

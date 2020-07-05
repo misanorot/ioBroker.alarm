@@ -125,6 +125,9 @@ Der log_today state wird um Mitternacht geleert.
 
 ## Changelog
 
+#### 1.1.0 (05.07.2020)
+* (misanorot) Added input shortcuts
+
 #### 1.0.0 (01.07.2020)
 * (misanorot) added alarm and silent flash light
 

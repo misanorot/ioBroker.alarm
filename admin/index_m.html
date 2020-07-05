@@ -33,6 +33,7 @@
         //if (settings.sayit === undefined) settings.sayit = '';
 
         circuits = settings.circuits    || [];
+        shorts_in = settings.shorts_in    || [];
         shorts = settings.shorts    || [];
         sayit = settings.sayit    || [];
 
@@ -65,6 +66,7 @@
         $('.tooltipped').tooltip();
 
         values2table('circuits', circuits, onChange, tableOnReady);
+        values2table('shorts_in', shorts_in, onChange, tableOnReady);
         values2table('shorts', shorts, onChange, tableOnReady);
         values2table('sayit', sayit, onChange, tableOnReady);
 
@@ -121,6 +123,7 @@
         });
         obj.sendTo = chips2list('.sendTo_Chips');
         obj.circuits = table2values('circuits');
+        obj.shorts_in = table2values('shorts_in');
         obj.shorts = table2values('shorts');
         obj.sayit = table2values('sayit');
         obj.states = states;
@@ -150,6 +153,24 @@ function tableOnReady() {
                 }
             });
         });
+      }else if($(this).attr('id') === 'shorts_in_table'){
+            const shorts_in = table2values('shorts_in');
+            let id_s = 0;
+            for (let i = 0; i < shorts_in.length; i++) {
+                id_s = id_s +1;
+            }
+            initSelectId(function (sid) {
+                sid.selectId('show', $('#shorts_in .values-input[data-name="name"][data-index="' + id_s + '"]').val(), function (newId) {
+                    if (newId) {
+                        console.log(newId);
+                        $('#shorts_in .values-input[data-name="name_id"][data-index="' + id_s + '"]').val(newId).trigger('change');
+                        socket.emit('getObject', newId, function (err, obj) {
+                            const name = getName(obj);
+                            $('#shorts_in .values-input[data-name="name"][data-index="' + id_s + '"]').val(name).trigger('change');
+                        });
+                    }
+                });
+            });
       }else if($(this).attr('id') === 'shorts_table'){
             const shorts = table2values('shorts');
             let id_s = 0;
@@ -575,11 +596,23 @@ function getName(obj) {
           </div>
           <div id="tab_shortcuts" class="col s12 page">
             <div class="row">
+              <div class="col s12">
+                <div class="card-panel blue">
+                  <span class="red-text text-darken-2 translate">important</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
                 <div class="col s12" id="shorts">
                     <div class="row">
                         <div class="col s2 m1 l1 left">
                             <a   class="btn-floating waves-effect waves-light blue table-button-add" id="shorts_table"><i class="material-icons">add</i></a>
                         </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s12">
+                        <p class=" left translate">output</p>
+                      </div>
                     </div>
                     <div class="table-values-div">
                         <table class="table-values">
@@ -592,6 +625,36 @@ function getName(obj) {
                               <th data-name="name" data-type="text" style="width: 20%; background: #64b5f6" class="translate">Name</th>
                               <th data-name="name_id" data-type="text" style="width: 20%; background: #64b5f6" class="translate">Object-ID</th>
                               <th data-name="value"  style="width: 20%; background: #64b5f6" class="translate">values</th>
+                              <th data-buttons="delete" style="width: 100px; background: #64b5f6"></th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12" id="shorts_in">
+                    <div class="row">
+                        <div class="col s2 m1 l1 left">
+                            <a   class="btn-floating waves-effect waves-light blue table-button-add" id="shorts_in_table"><i class="material-icons">add</i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                      <div class="col s12">
+                        <p class=" left translate">input</p>
+                      </div>
+                    </div>
+                    <div class="table-values-div">
+                        <table class="table-values">
+                            <thead>
+                            <tr>
+                              <th data-name="_index" style="width: 80px; background: #64b5f6; text-align: center" data-style="text-align: center">Nr</th>
+                              <th data-name="enabled"  style="width: 70px; background: #64b5f6" data-style="width: 70px" data-type="checkbox" class="translate">active</th>
+                              <th data-name="name" data-type="text" style="width: 20%; background: #64b5f6" class="translate">Name</th>
+                              <th data-name="name_id" data-type="text" style="width: 20%; background: #64b5f6" class="translate">Object-ID</th>
+                              <th data-name="trigger_val" style="width: 20%; background: #64b5f6" data-type="select" data-options="any;ne" class="translate">Trigger</th>
+                              <th data-name="value"  style="width: 20%; background: #64b5f6" class="translate">trigger_values</th>
+                              <th data-name="select_id" style="width: 20%; background: #64b5f6" data-type="select" data-options="use.activate_nightrest;use.activate_sharp_inside;use.disable;use.enable;use.enable_with_delay;use.panic;use.quit_changes" class="translate">Name</th>
                               <th data-buttons="delete" style="width: 100px; background: #64b5f6"></th>
                             </tr>
                             </thead>
