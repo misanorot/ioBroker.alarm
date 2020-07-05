@@ -444,6 +444,18 @@ function change(id, state){
         shortcuts('status.sharp_inside_activated', state.val);
         return;
     }
+    else if(id === adapter.namespace + '.status.silent_alarm'){
+        shortcuts('status.silent_alarm', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.status.alarm_flash'){
+        shortcuts('status.alarm_flash', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.status.silent_flash'){
+        shortcuts('status.silent_flash', state.val);
+        return;
+    }
     else if(id === adapter.namespace + '.use.quit_changes'){
         clearTimeout(timer_inside_changes);
         clearTimeout(timer_notification_changes);
