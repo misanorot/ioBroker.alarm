@@ -1095,13 +1095,15 @@ function bools(val){
 function shortcuts_inside(id, val) {
     const change = is_changed(id, val);
     shorts_in.forEach((ele) => {
-        if(ele.name_id == id && bools(ele.value) == val) {
-            if(ele.trigger_val == 'any' || change) {
-                adapter.log.debug(`Input shorcut changed: ${ele.name_id}`);
-                adapter.setState(ele.select_id, true, (err)=>{
-                    if(err) adapter.log.warn(`Cannot set state: ${err}`);
-                });
-            }
+        if(ele.name_id == id) {
+            if(ele.value === val || bools(ele.value) == val) {
+                if(ele.trigger_val == 'any' || change) {
+                    adapter.log.debug(`Input shorcut changed: ${ele.name_id}`);
+                    adapter.setState(ele.select_id, true, (err)=>{
+                        if(err) adapter.log.warn(`Cannot set state: ${err}`);
+                    });
+                }
+            }  
         }
     });
 }
