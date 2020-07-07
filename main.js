@@ -12,7 +12,7 @@ const schedule = require('node-schedule');
  */
 let adapter;
 
-var silent_i = false,
+let silent_i = false,
     alarm_i = false;
 
 let clean_ids = [];
@@ -32,6 +32,7 @@ let is_alarm = false,
     ids_alarm = [], //Kreis extern schaf
     ids_inside = [], //Kreis intern scharf
     ids_notification = [], //Benachrichtigungskreis
+    ids_shorts_input = [],
     names_alarm,
     names_inside,
     names_notification;
@@ -58,6 +59,7 @@ let log,
     night_message,
     notification_message,
     act_message,
+    shorts_in,
     shorts;
 
 let schedule_from,
@@ -142,6 +144,7 @@ function main() {
     act_message = adapter.config.send_activation;
     shorts = adapter.config.shorts;
     speak_names = adapter.config.opt_say_names;
+    shorts_in = adapter.config.shorts_in;
     adapter.getState('status.activated', (err, state)=>{
         if(err){
             adapter.log.error(err);
@@ -182,6 +185,7 @@ function main() {
     else adapter.log.info('no states configured!');
     send_instances = split_arr(adapter.config.sendTo);
     adapter.log.debug(`Messages to: ${JSON.stringify(send_instances)}`);
+    ids_shorts_input = get_short_ids(shorts_in);
     get_ids();
     get_states();
     setTimeout(set_subs, 2000);
@@ -444,6 +448,18 @@ function change(id, state){
         shortcuts('status.sharp_inside_activated', state.val);
         return;
     }
+    else if(id === adapter.namespace + '.status.silent_alarm'){
+        shortcuts('status.silent_alarm', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.status.alarm_flash'){
+        shortcuts('status.alarm_flash', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.status.silent_flash'){
+        shortcuts('status.silent_flash', state.val);
+        return;
+    }
     else if(id === adapter.namespace + '.use.quit_changes'){
         clearTimeout(timer_inside_changes);
         clearTimeout(timer_notification_changes);
@@ -554,6 +570,10 @@ function change(id, state){
         logging(state.val);
         return;
     }
+    else if(ids_shorts_input.includes(id)){
+        shortcuts_inside(id, state.val);
+        return;
+    }
     if(alarm_states.includes(id) && activated && isTrue(id, state)){
         burglary(id, state);
         return;
@@ -617,6 +637,14 @@ function set_subs(){
             adapter.subscribeForeignStates(ele);
         }else{
             adapter.log.debug(`NO SUBSCRIBTION`);
+        }
+    });
+    ids_shorts_input.forEach((ele)=>{
+        if(ele){
+            adapter.log.debug(`SUBSCRIBTION for input shortcuts: ${ele}`);
+            adapter.subscribeForeignStates(ele);
+        }else{
+            adapter.log.debug(`NO SUBSCRIBTION for input shortcuts`);
         }
     });
     adapter.subscribeStates('info.log');
@@ -744,6 +772,8 @@ function sayit(message, opt_val){
 //##############################################################################
 
 //################# HELPERS ####################################################
+
+
 
 function inside_begins(){
     if(!inside && !burgle){
@@ -1060,6 +1090,32 @@ function bools(val){
         default:
             return val;
     }
+}
+
+function shortcuts_inside(id, val) {
+    const change = is_changed(id, val);
+    shorts_in.forEach((ele) => {
+        if(ele.name_id == id) {
+            if(ele.value === val || bools(ele.value) == val) {
+                if(ele.trigger_val == 'any' || change) {
+                    adapter.log.debug(`Input shorcut changed: ${ele.name_id}`);
+                    adapter.setState(ele.select_id, true, (err)=>{
+                        if(err) adapter.log.warn(`Cannot set state: ${err}`);
+                    });
+                }
+            }  
+        }
+    });
+}
+
+function get_short_ids(ids) {
+    const temp_ids = [];
+    ids.forEach((ele) => {
+        if(ele.enabled) {
+            temp_ids.push(ele.name_id);
+        }
+    });
+    return temp_ids;
 }
 
 function shortcuts(id, val){

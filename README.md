@@ -23,7 +23,7 @@ Er bietet die Möglichkeit 3 Sicherheitskreise zu konfigurieren und diese z.B. b
 eine direkte Verknüpfung der jeweiligen Instanz "states", auf andere "states" möglich. Diese Verknüpfungen werden im Reiter Verknüpfungen angelegt.
 
 ----------------------------------------------------------------------------------------------------------------------
-*Stand 17.06.2020 ab Version 0.8.0*
+*Stand 05.07.2020 ab Version 0.8.0*
 #### Wichtig ab 0.8.0
 	- Es empfiehlt sich bei Vorinstallationen < 0.8.0, beim Update des Adapters diesen vorher zu deinstallieren! Es haben sich ein paar Datenpunkte geändert.  
 
@@ -85,6 +85,14 @@ Hier ist es möglich Adapter interne states direkt mit externen states zu verkn�
 Es lässt sich somit z.B. bei Beginn der Nachtruhe, eine Veriegelung des Türschlosses realisieren.
 ![Logo](admin/img/short.png)
 
+#### Eingabeverknüpfungen
+
+Trigger--> any = es wird bei jeder Änderung getriggert
+					 ne = es wird nur getriggert wenn der Wert sich geändert
+
+Auslösewert--> Ist der Wert, auf welchen getriggert werden soll
+
+
 ----------------------------------------------------------------------------------------------------------------------
 
 Der Adapter liefert eine ganze Anzahl an states:
@@ -124,6 +132,9 @@ Der log_today state wird um Mitternacht geleert.
 
 
 ## Changelog
+
+#### 1.1.0 (05.07.2020)
+* (misanorot) Added input shortcuts
 
 #### 1.0.0 (01.07.2020)
 * (misanorot) added alarm and silent flash light
