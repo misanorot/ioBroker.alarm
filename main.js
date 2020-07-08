@@ -1049,9 +1049,10 @@ async function get_states(){
 
 function countdown(action){
     let counter = adapter.config.time_activate;
+    let say = adapter.config.time_activate + ' ' + adapter.config.text_countdown;
     if(action && !timer){
         if(is_alarm){
-            let say = adapter.config.text_warning;
+            say = say + ' ' + adapter.config.text_warning;
             if(speak_names){
                 say = say + ' ' + names_alarm;
             }
@@ -1062,6 +1063,7 @@ function countdown(action){
                 counter--;
                 adapter.setState('status.gets_activated', true);
                 adapter.setState('status.activation_countdown', counter);
+                sayit(say, 4);
             }else{
                 clearInterval(timer);
                 timer = null;
@@ -1103,7 +1105,7 @@ function shortcuts_inside(id, val) {
                         if(err) adapter.log.warn(`Cannot set state: ${err}`);
                     });
                 }
-            }  
+            }
         }
     });
 }

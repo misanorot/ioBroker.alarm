@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "news": {
+      "1.2.0": {
+        "en": "added countdown speech output",
+         "de": "Countdown-Sprachausgabe hinzugefügt",
+         "ru": "добавлен обратный отсчет",
+         "pt": "saída de fala de contagem regressiva adicionada",
+         "nl": "countdown spraakuitvoer toegevoegd",
+         "fr": "sortie vocale à compte à rebours ajoutée",
+         "it": "aggiunto l'output vocale del conto alla rovescia",
+         "es": "salida de voz de cuenta regresiva agregada",
+         "pl": "dodano wyjście mowy odliczania",
+         "zh-cn": "增加了倒计时语音输出"
+      },
       "1.1.0": {
         "en": "Added input shortcuts",
         "de": "Eingabeverknüpfungen hinzugefügt",
@@ -331,6 +343,7 @@
     "text_nightrest_end": "Nachtruhe beendet",
     "text_warn_begin": "Scharf intern aktiviert",
     "text_warn_end": "Scharf intern deaktiviert",
+    "text_countdown": "Sekunden bis zur Aktivierung",
     "password": "",
     "sendTo": "",
     "alarm": "",
