@@ -761,6 +761,14 @@ function sayit(message, opt_val){
                             });
                         }
                         break;
+                    case 11:
+                        if(ele.opt_say_count){
+                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
+                            adapter.setForeignState(ele.name_id, message, (err)=>{
+                                if(err) adapter.log.warn(err);
+                            });
+                        }
+                        break;
                     default:
                         adapter.log.debug(`no speech output!`);
                 }
@@ -834,7 +842,7 @@ function sleep_begin(auto) {
     inside_ends();
     if(log) adapter.log.info(`${adapter.config.log_sleep_b}`);
     adapter.setState('info.log', `${adapter.config.log_sleep_b}`);
-    sayit(adapter.config.text_nightrest_beginn, 7);
+    if(!is_notification) sayit(adapter.config.text_nightrest_beginn, 7);
     adapter.setState('status.state', 'night rest');
     adapter.setState('status.state_list', 4);
     adapter.setState('homekit.CurrentState', 2);
@@ -1058,12 +1066,12 @@ function countdown(action){
             }
             sayit(say, 4);
         }
+        sayit(say, 11);
         timer = setInterval(()=>{
             if(counter > 0){
                 counter--;
                 adapter.setState('status.gets_activated', true);
                 adapter.setState('status.activation_countdown', counter);
-                sayit(say, 4);
             }else{
                 clearInterval(timer);
                 timer = null;
