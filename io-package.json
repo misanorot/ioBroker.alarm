@@ -155,7 +155,7 @@
     "password": "",
     "sendTo": "",
     "alarm": "",
-    "alarm_repeat": "1x",
+    "alarm_repeat": "1",
     "warning": "",
     "night": "",
     "log_pass":"Falsches Passwort benutzt!",
