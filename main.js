@@ -50,7 +50,8 @@ let timer = null,
     timer_notification_changes = null,
     siren_timer = null,
     silent_interval = null,
-    alarm_interval = null;
+    alarm_interval = null,
+    text_alarm_interval = null;
 
 let log,
     speak_names,
@@ -90,6 +91,7 @@ function startAdapter(options) {
                 clearTimeout(siren_timer);
                 clearInterval(silent_interval);
                 clearInterval(alarm_interval);
+                clearInterval(text_alarm_interval);
                 callback();
             } catch (e) {
                 callback();
@@ -245,10 +247,12 @@ function disable(){
     clearTimeout(siren_timer);
     clearInterval(silent_interval);
     clearInterval(alarm_interval);
+    clearInterval(text_alarm_interval);
     silent_timer = null;
     siren_timer = null;
     silent_interval = null,
     alarm_interval = null;
+    text_alarm_interval = null;
     if(activated || is_panic){
         is_panic = false;
         adapter.setState('info.log', `${adapter.config.log_deact}`);
@@ -309,7 +313,9 @@ function burglary(id, state){
         silent_timer = setTimeout(()=>{
             clearTimeout(silent_timer);
             clearInterval(silent_interval);
-            sayit(adapter.config.text_alarm, 6);
+            text_alarm_interval = setInterval(()=> {
+                sayit(adapter.config.text_alarm, 6);
+            }, adapter.config.alarm_repeat * 5000);
             adapter.setState('status.burglar_alarm', true);
             adapter.setState('status.silent_alarm', false);
             adapter.setState('status.silent_flash', false);
@@ -345,7 +351,9 @@ function panic(){
     adapter.setState('info.log', `${adapter.config.log_panic}`);
     if(log)adapter.log.info(`${adapter.config.log_panic}`);
     if(alarm_message) messages(`${adapter.config.log_panic}`);
-    sayit(adapter.config.text_alarm, 6);
+    text_alarm_interval = setInterval(()=> {
+        sayit(adapter.config.text_alarm, 6);
+    }, adapter.config.alarm_repeat * 5000);
     adapter.setState('status.burglar_alarm', true);
     if(adapter.config.alarm_flash > 0) {
         alarm_interval = setInterval(()=>{
