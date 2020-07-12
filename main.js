@@ -25,6 +25,8 @@ let send_instances = [],
 
 let log_list = '';
 
+let alarm_repeat;
+
 let is_alarm = false,
     is_inside = false,
     is_notification = false,
@@ -147,6 +149,7 @@ function main() {
     shorts = adapter.config.shorts;
     speak_names = adapter.config.opt_say_names;
     shorts_in = adapter.config.shorts_in;
+    alarm_repeat = parseInt(adapter.config.alarm_repeat);
     adapter.getState('status.activated', (err, state)=>{
         if(err){
             adapter.log.error(err);
@@ -288,6 +291,7 @@ function disable(){
 
 function burglary(id, state){
     if(burgle) return;
+    let count = 0;
     const name = get_name(id);
     adapter.setState('info.log', `${adapter.config.log_burgle} ${name}`);
     if(log)adapter.log.info(`${adapter.config.log_burgle} ${name}`);
@@ -314,8 +318,13 @@ function burglary(id, state){
             clearTimeout(silent_timer);
             clearInterval(silent_interval);
             text_alarm_interval = setInterval(()=> {
-                sayit(adapter.config.text_alarm, 6);
-            }, adapter.config.alarm_repeat * 5000);
+                if(count <= alarm_repeat) {
+                    sayit(adapter.config.text_alarm, 6);
+                    count++;
+                } else {
+                    clearInterval(text_alarm_interval);
+                }
+            }, 5000);
             adapter.setState('status.burglar_alarm', true);
             adapter.setState('status.silent_alarm', false);
             adapter.setState('status.silent_flash', false);
@@ -347,13 +356,19 @@ function burglary(id, state){
 //################# PANIC ####################################################
 
 function panic(){
+    let count = 0;
     is_panic = true;
     adapter.setState('info.log', `${adapter.config.log_panic}`);
     if(log)adapter.log.info(`${adapter.config.log_panic}`);
     if(alarm_message) messages(`${adapter.config.log_panic}`);
     text_alarm_interval = setInterval(()=> {
-        sayit(adapter.config.text_alarm, 6);
-    }, adapter.config.alarm_repeat * 5000);
+        if(count <= alarm_repeat) {
+            sayit(adapter.config.text_alarm, 6);
+            count++;
+        } else {
+            clearInterval(text_alarm_interval);
+        }
+    }, 5000);
     adapter.setState('status.burglar_alarm', true);
     if(adapter.config.alarm_flash > 0) {
         alarm_interval = setInterval(()=>{
