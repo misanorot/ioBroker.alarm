@@ -317,8 +317,9 @@ function burglary(id, state){
         silent_timer = setTimeout(()=>{
             clearTimeout(silent_timer);
             clearInterval(silent_interval);
+            sayit(adapter.config.text_alarm, 6);
             text_alarm_interval = setInterval(()=> {
-                if(count <= alarm_repeat) {
+                if(count < alarm_repeat) {
                     sayit(adapter.config.text_alarm, 6);
                     count++;
                 } else {
@@ -361,8 +362,9 @@ function panic(){
     adapter.setState('info.log', `${adapter.config.log_panic}`);
     if(log)adapter.log.info(`${adapter.config.log_panic}`);
     if(alarm_message) messages(`${adapter.config.log_panic}`);
+    sayit(adapter.config.text_alarm, 6);
     text_alarm_interval = setInterval(()=> {
-        if(count <= alarm_repeat) {
+        if(count < alarm_repeat) {
             sayit(adapter.config.text_alarm, 6);
             count++;
         } else {
