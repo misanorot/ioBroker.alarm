@@ -117,6 +117,8 @@ Das sind die eigentlichen states um die Alarmanlage zu bedienen.
 #### "alarm.x.status...."
 Hier lässte sich der Zustand der Anlage ablesen.
 
+- status.sleep -> Signalisiert den Zustand der automatischen Nachtruhe
+
 #### "alarm.x.info...."
 Liefert zusätzliche Informationen wie z.B. welche "Türen offen sind" oder einen Log state.
 Der log_today state wird um Mitternacht geleert.
