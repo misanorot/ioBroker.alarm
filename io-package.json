@@ -301,7 +301,7 @@
       "common": {
         "role": "",
         "name": "Sleep",
-        "desc": "Night rest is activated",
+        "desc": "The automatic night rest is activated",
         "type": "boolean",
         "def": false,
         "read": true,
