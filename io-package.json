@@ -162,7 +162,6 @@
     "log_act_not": "Alarmanlage kann nicht aktiviert werden, kontrolliere:",
     "log_act":"Alarmanlage aktiviert",
     "log_warn_act":"Scharf innen aktiviert",
-    "log_act_warn_circuit": "Warnkreis meldet bei Aktivierung:",
     "log_act_warn":"Alarmanlage mit Warnungen aktiviert:",
     "log_deact":"Alarmanlage deaktiviert",
     "log_warn_deact":"Scharf innen deaktiviert",
@@ -172,7 +171,7 @@
     "log_night":"Alarmanlage meldet Veränderung während der Nachtruhe bei:",
     "log_sleep_b":"Nachtruhe beginnt",
     "log_sleep_e":"Nachtruhe endet",
-    "log_warn_b_w":"Überwachung des Warnkreises beginnt mit Warnungen:",
+    "log_warn_b_w":"Scharf innen beginnt mit Warnungen:",
     "log_nights_b_w":"Nachtruhe beginnt mit Warnungen:"
   },
   "objects": [],
