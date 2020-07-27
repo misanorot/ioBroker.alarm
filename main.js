@@ -215,7 +215,7 @@ function enable(id, state){
         return;
     }
     if(notification_message && is_alarm){
-        messages(`${adapter.config.log_act_warn_circuit} ${names_alarm}`);
+        messages(`${adapter.config.log_act_warn} ${names_alarm}`);
     }
     inside_ends();
     sleep_end();
@@ -385,7 +385,7 @@ function panic(){
     }
     adapter.setState('status.siren', true);
     adapter.setState('status.state', 'burgle');
-    adapter.setState('status.state_list', 4);
+    adapter.setState('status.state_list', 3);
     adapter.setState('homekit.CurrentState', 4);
     siren_timer = setTimeout(()=>{
         adapter.setState('status.siren', false);
@@ -623,7 +623,7 @@ function change(id, state){
     if(notification_states.includes(id) && isTrue(id, state)){
         if(!activated && !inside && !night_rest) return;
         const name = get_name(id);
-        adapter.setState('info.log', `${adapter.config.log_night} ${name}`);
+        adapter.setState('info.log', `${adapter.config.log_warn} ${name}`);
         adapter.setState('info.notification_circuit_changes', true);
         if(night_rest){
             let say = adapter.config.text_changes_night;
