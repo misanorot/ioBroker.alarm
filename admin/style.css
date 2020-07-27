@@ -33,11 +33,6 @@ table.table-values th.mOptional { color:#c9e7fa }
 /* format second column of option tables */
 table.table-values tr td:nth-child(2) input { font-weight:bold; }
 
-/* specific format of second column of tableCombinedDevices */
-#tableCombinedDevices table.table-values tr td:nth-child(2) input { width: 40% !important; font-family: monospace; }
-#tableCombinedDevices table.table-values tr td:nth-child(2)::before { content: "smartcontrol.x.combinedDevices."; font-size:1.1em; font-family: monospace; color:#585858;  }
-
-
 /* to be able to adjust column width accordingly */
 table.table-values { table-layout:fixed; }
 
