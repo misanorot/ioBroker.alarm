@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "1.2.3",
+    "version": "1.2.4",
     "news": {
       "1.2.0": {
         "en": "added countdown speech output",

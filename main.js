@@ -214,9 +214,6 @@ function enable(id, state){
         sayit(say, 3);
         return;
     }
-    if(notification_message && is_alarm){
-        messages(`${adapter.config.log_act_warn} ${names_alarm}`);
-    }
     inside_ends();
     sleep_end();
     adapter.setState('status.activated', true);
