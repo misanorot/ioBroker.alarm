@@ -344,8 +344,8 @@ function burglary(id, state){
             siren_timer = setTimeout(()=>{
                 adapter.setState('status.siren', false);
                 clearTimeout(siren_timer);
-            }, 1000*adapter.config.time_alarm);
-        }, adapter.config.time_silent * 1000);
+            }, timeMode(adapter.config.time_alarm_select) * adapter.config.time_alarm);
+        }, timeMode(adapter.config.time_silent_select) * adapter.config.time_silent);
     }
 
 }
@@ -386,7 +386,7 @@ function panic(){
     adapter.setState('homekit.CurrentState', 4);
     siren_timer = setTimeout(()=>{
         adapter.setState('status.siren', false);
-    }, 1000*adapter.config.time_alarm);
+    }, timeMode(adapter.config.time_alarm_select) * adapter.config.time_alarm);
 }
 
 //##############################################################################
@@ -614,7 +614,7 @@ function change(id, state){
 
         timer_inside_changes = setTimeout(()=>{
             adapter.setState('info.sharp_inside_siren', false);
-        }, adapter.config.time_warning * 1000);
+        }, timeMode(adapter.config.time_warning_select) * adapter.config.time_warning);
         return;
     }
     if(notification_states.includes(id) && isTrue(id, state)){
@@ -644,7 +644,7 @@ function change(id, state){
         }
         timer_notification_changes = setTimeout(()=>{
             adapter.setState('info.notification_circuit_changes', false);
-        }, adapter.config.time_warning * 1000);
+        }, timeMode(adapter.config.time_warning_select) * adapter.config.time_warning);
     }
 
 }
@@ -803,6 +803,20 @@ function sayit(message, opt_val){
 
 //################# HELPERS ####################################################
 
+function timeMode(value) {
+    let temp;
+    switch (value) {
+        case 'sec':
+            temp = 1000;
+            break;
+        case 'min':
+            temp = 60000;
+            break;
+        default:
+            temp = 1000;
+    }
+    return temp;
+}
 
 
 function inside_begins(){
@@ -1078,7 +1092,7 @@ async function get_states(){
 }
 
 function countdown(action){
-    let counter = adapter.config.time_activate;
+    let counter = adapter.config.time_activate * timeMode(adapter.config.time_activate_select) / 1000;
     let say = adapter.config.time_activate + ' ' + adapter.config.text_countdown;
     if(action && !timer){
         if(is_alarm){

@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "1.2.4",
+    "version": "1.3.0",
     "news": {
+      "1.3.0": {
+        "en": "added diffrent time options",
+        "de": "verschiedene Zeitoptionen hinzugefügt",
+        "ru": "добавлены разные варианты времени",
+        "pt": "adicionaram opções de tempo diferentes",
+        "nl": "verschillende tijdopties toegevoegd",
+        "fr": "ajout d'options de temps différentes",
+        "it": "aggiunte diverse opzioni di tempo",
+        "es": "se agregaron diferentes opciones de tiempo",
+        "pl": "dodano różne opcje czasowe",
+        "zh-cn": "添加了不同时间选项"
+      },
       "1.2.0": {
         "en": "added countdown speech output",
          "de": "Countdown-Sprachausgabe hinzugefügt",
@@ -123,6 +135,10 @@
     "time_alarm": 60,
     "time_silent": 0,
     "time_warning": 3,
+    "time_activate_select": "sec",
+    "time_alarm_select": "sec",
+    "time_silent_select": "sec",
+    "time_warning_select": "sec",
     "alarm_flash": 2,
     "silent_flash": 2,
     "opt_say_night": true,

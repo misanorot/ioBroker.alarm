@@ -403,13 +403,8 @@ function getName(obj) {
 
 
         	<div id="tab_settings" class="col s12 page">
-            <div class="row">
-              <div class="col s12">
-                <p class=" left translate">second</p>
-              </div>
-            </div>
               <div class="row">
-                <div class="input-field col s6 m3 l2">
+                <div class="input-field col s4 m2 l1">
                     <i class="material-icons prefix">alarm_on</i>
                     <input id="time_activate"
                             type="text"
@@ -418,7 +413,13 @@ function getName(obj) {
                             data-tooltip="in sec">
                     <label for="time_activate" class="translate">time_activate</label>
                 </div>
-                <div class="input-field col s6 m3 l2">
+                <div class="input-field col s2 m1 l1">
+                  <select id="time_activate_select" class="value">
+                    <option value="sec">sec</option>
+                    <option value="min">min</option>
+                  </select>
+                </div>
+                <div class="input-field col s4 m2 l1">
                     <i class="material-icons prefix">alarm</i>
                     <input id="time_alarm"
                             type="text"
@@ -427,7 +428,13 @@ function getName(obj) {
                             data-tooltip="in sec">
                     <label for="time_alarm" class="translate">time_alarm</label>
                 </div>
-                <div class="input-field col s6 m3 l2">
+                <div class="input-field col s2 m1 l1">
+                  <select id="time_alarm_select" class="value">
+                    <option value="sec">sec</option>
+                    <option value="min">min</option>
+                  </select>
+                </div>
+                <div class="input-field col s4 m2 l1">
                     <i class="material-icons prefix">alarm</i>
                     <input id="time_silent"
                             type="text"
@@ -436,7 +443,13 @@ function getName(obj) {
                             data-tooltip="in sec">
                     <label for="time_silent" class="translate">time_silent</label>
                 </div>
-                <div class="input-field col s6 m3 l2">
+                <div class="input-field col s2 m1 l1">
+                  <select id="time_silent_select" class="value">
+                    <option value="sec">sec</option>
+                    <option value="min">min</option>
+                  </select>
+                </div>
+                <div class="input-field col s4 m2 l1">
                     <i class="material-icons prefix">alarm</i>
                     <input id="time_warning"
                             type="text"
@@ -444,6 +457,12 @@ function getName(obj) {
                             data-position="top"
                             data-tooltip="in sec">
                     <label for="time_warning" class="translate">time_warning</label>
+                </div>
+                <div class="input-field col s2 m1 l1">
+                  <select id="time_warning_select" class="value">
+                    <option value="sec">sec</option>
+                    <option value="min">min</option>
+                  </select>
                 </div>
                 <div class="input-field col s6 m3 l2">
                     <i class="material-icons prefix">alarm</i>
