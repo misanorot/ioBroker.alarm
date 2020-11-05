@@ -4,16 +4,16 @@
     "version": "1.4.0",
     "news": {
       "1.4.0": {
-        "en": "added silent alarm selection for every state ",
-        "de": "stille Alarmauswahl für jeden Zustand hinzugefügt",
-        "ru": "добавлен выбор тихой сигнализации для каждого состояния",
-        "pt": "adicionou seleção de alarme silencioso para cada estado",
-        "nl": "stille alarmselectie toegevoegd voor elke staat",
-        "fr": "ajout d'une sélection d'alarme silencieuse pour chaque état",
-        "it": "aggiunta la selezione silenziosa dell'allarme per ogni stato",
-        "es": "Añadida selección de alarma silenciosa para cada estado",
-        "pl": "dodano cichy wybór alarmu dla każdego stanu",
-        "zh-cn": "为每个状态添加了静音警报选择"
+        "en": "added silent alarm selection for every state (PLEASE CHECK YOUR OLD CONFIG MONITORING SETTINGS)",
+        "de": "stille Alarmauswahl für jeden Zustand hinzugefügt (BITTE ÜBERPRÜFEN SIE IHRE ALTEN ÜBERWACHUNGSEINSTELLUNGEN)",
+        "ru": "добавлен выбор тихого сигнала тревоги для каждого состояния (ПОЖАЛУЙСТА, ПРОВЕРЬТЕ СТАРЫЕ НАСТРОЙКИ МОНИТОРИНГА КОНФИГУРАЦИИ)",
+        "pt": "adicionado seleção de alarme silencioso para cada estado (VERIFIQUE SUAS ANTIGAS CONFIGURAÇÕES DE MONITORAMENTO)",
+        "nl": "stille alarmselectie toegevoegd voor elke status (CONTROLEER UW OUDE CONFIG-MONITORING-INSTELLINGEN)",
+        "fr": "ajout de la sélection d'alarme silencieuse pour chaque état (VEUILLEZ VÉRIFIER VOS ANCIENS PARAMÈTRES DE SURVEILLANCE CONFIG)",
+        "it": "aggiunta la selezione dell'allarme silenzioso per ogni stato (CONTROLLA LE IMPOSTAZIONI DI MONITORAGGIO DELLA VECCHIA CONFIG)",
+        "es": "Se agregó una selección de alarma silenciosa para cada estado (COMPRUEBE SUS ANTIGUOS AJUSTES DE MONITOREO DE CONFIG)",
+        "pl": "dodany cichy wybór alarmu dla każdego stanu (PROSZĘ SPRAWDZIĆ STARE USTAWIENIA KONFIGURACJI MONITOROWANIA)",
+        "zh-cn": "为每个状态添加了静音警报选择（请检查您的旧配置监测设置）"
       },
       "1.3.0": {
         "en": "added diffrent time options",
