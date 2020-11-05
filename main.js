@@ -286,14 +286,15 @@ function disable(){
 
 //################# BURGALARY ####################################################
 
-function burglary(id, state){
+function burglary(id, state, silent){
     if(burgle) return;
+    if(silent_timer && silent) return;
     let count = 0;
     const name = get_name(id);
     adapter.setState('info.log', `${adapter.config.log_burgle} ${name}`);
     if(log)adapter.log.info(`${adapter.config.log_burgle} ${name}`);
     if(alarm_message) messages(`${adapter.config.log_burgle} ${name}`);
-    if(adapter.config.time_silent > 0){
+    if(silent){
         adapter.setState('status.silent_alarm', true);
         adapter.setState('status.state', 'silent alarm');
         if(adapter.config.silent_flash > 0) {
@@ -307,11 +308,8 @@ function burglary(id, state){
                 }
             }, adapter.config.silent_flash * 1000);
         }
-    }
-    if(silent_timer) return;
-    else if (!burgle){
-        burgle = true;
         silent_timer = setTimeout(()=>{
+            burgle = true;
             clearTimeout(silent_timer);
             clearInterval(silent_interval);
             sayit(adapter.config.text_alarm, 6);
@@ -347,7 +345,42 @@ function burglary(id, state){
             }, timeMode(adapter.config.time_alarm_select) * adapter.config.time_alarm);
         }, timeMode(adapter.config.time_silent_select) * adapter.config.time_silent);
     }
-
+    else if (!silent) {
+        burgle = true;
+        clearTimeout(silent_timer);
+        clearInterval(silent_interval);
+        sayit(adapter.config.text_alarm, 6);
+        text_alarm_interval = setInterval(()=> {
+            if(count < alarm_repeat) {
+                sayit(adapter.config.text_alarm, 6);
+                count++;
+            } else {
+                clearInterval(text_alarm_interval);
+            }
+        }, 5000);
+        adapter.setState('status.burglar_alarm', true);
+        adapter.setState('status.silent_alarm', false);
+        adapter.setState('status.silent_flash', false);
+        adapter.setState('status.siren', true);
+        adapter.setState('status.state', 'burgle');
+        adapter.setState('status.state_list', 3);
+        adapter.setState('homekit.CurrentState', 4);
+        if(adapter.config.alarm_flash > 0) {
+            alarm_interval = setInterval(()=>{
+                if(alarm_i) {
+                    adapter.setState('status.alarm_flash', true);
+                    alarm_i = false;
+                } else {
+                    adapter.setState('status.alarm_flash', false);
+                    alarm_i = true;
+                }
+            }, adapter.config.alarm_flash * 1000);
+        }
+        siren_timer = setTimeout(()=>{
+            adapter.setState('status.siren', false);
+            clearTimeout(siren_timer);
+        }, timeMode(adapter.config.time_alarm_select) * adapter.config.time_alarm);
+    }
 }
 //##############################################################################
 
@@ -478,6 +511,10 @@ function change(id, state){
         shortcuts('status.alarm_flash', state.val);
         return;
     }
+    else if(id === adapter.namespace + '.status.enableable'){
+        shortcuts('status.enableable', state.val);
+        return;
+    }
     else if(id === adapter.namespace + '.status.silent_flash'){
         shortcuts('status.silent_flash', state.val);
         return;
@@ -597,7 +634,7 @@ function change(id, state){
         return;
     }
     if(alarm_states.includes(id) && activated && isTrue(id, state)){
-        burglary(id, state);
+        burglary(id, state, isSilent(id));
         return;
     }
     if(inside_states.includes(id) && inside && isTrue(id, state)){
@@ -802,6 +839,14 @@ function sayit(message, opt_val){
 //##############################################################################
 
 //################# HELPERS ####################################################
+
+function isSilent(id) {
+    const temp = adapter.config.circuits.findIndex((obj)=>{
+        const reg = new RegExp(id);
+        return reg.test(obj.name_id);
+    });
+    return adapter.config.circuits[temp].delay;
+}
 
 function timeMode(value) {
     let temp;

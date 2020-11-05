@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "news": {
+      "1.4.0": {
+        "en": "added silent alarm selection for every state ",
+        "de": "stille Alarmauswahl für jeden Zustand hinzugefügt",
+        "ru": "добавлен выбор тихой сигнализации для каждого состояния",
+        "pt": "adicionou seleção de alarme silencioso para cada estado",
+        "nl": "stille alarmselectie toegevoegd voor elke staat",
+        "fr": "ajout d'une sélection d'alarme silencieuse pour chaque état",
+        "it": "aggiunta la selezione silenziosa dell'allarme per ogni stato",
+        "es": "Añadida selección de alarma silenciosa para cada estado",
+        "pl": "dodano cichy wybór alarmu dla każdego stanu",
+        "zh-cn": "为每个状态添加了静音警报选择"
+      },
       "1.3.0": {
         "en": "added diffrent time options",
         "de": "verschiedene Zeitoptionen hinzugefügt",
@@ -51,30 +63,6 @@
         "pl": "dodano alarm i cichą lampę błyskową",
         "zh-cn": "添加了警报和静音闪光灯"
       },
-      "0.9.0": {
-        "en": "Homekit integrated, set shortcuts only when changed",
-        "de": "Homekit integriert, Verknüpfungen nur bei Änderung setzen",
-        "ru": "Homekit интегрирован, ярлыки устанавливаются только при смене",
-        "pt": "Homekit integrado, defina atalhos apenas quando alterado",
-        "nl": "Homekit geïntegreerd, stel snelkoppelingen alleen in bij wijziging",
-        "fr": "Homekit intégré, définir des raccourcis uniquement en cas de modification",
-        "it": "Homekit integrato, imposta le scorciatoie solo quando modificato",
-        "es": "Homekit integrado, establece accesos directos solo cuando se cambia",
-        "pl": "Zintegrowany Homekit, ustaw skróty tylko po zmianie",
-        "zh-cn": "集成了Homekit，仅在更改时设置快捷方式"
-      },
-      "0.8.0": {
-        "en": "!!! Changed circuits dramatacly !!!",
-        "de": "!!! Schaltkreise dramatisch verändert !!!",
-        "ru": "!!! Измененные схемы драматично !!!",
-        "pt": "!!! Circuitos alterados dramaticamente !!!",
-        "nl": "!!! Schakelingen dramatisch veranderd !!!",
-        "fr": "!!! Circuits modifiés de façon spectaculaire !!!",
-        "it": "!!! Circuiti modificati drammaticamente !!!",
-        "es": "!!! ¡Circuitos cambiados dramáticamente!",
-        "pl": "!!! Dramatycznie zmienione obwody !!!",
-        "zh-cn": "!!!戏剧性地改变了电路！"
-      }
     },
     "title": "alarm system",
     "titleLang": {

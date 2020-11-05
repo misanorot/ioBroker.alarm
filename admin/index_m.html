@@ -144,12 +144,12 @@ function tableOnReady() {
         initSelectId(function (sid) {
             sid.selectId('show', $('#circuits .values-input[data-name="name"][data-index="' + id_c + '"]').val(), function (newId) {
                 if (newId) {
-                    console.log(newId);
                     $('#circuits .values-input[data-name="name_id"][data-index="' + id_c + '"]').val(newId).trigger('change');
                     socket.emit('getObject', newId, function (err, obj) {
                         const name = getName(obj);
                         $('#circuits .values-input[data-name="name"][data-index="' + id_c + '"]').val(name).trigger('change');
                     });
+                    $('#delay .values-input[data-name="opt_say_one"][data-index="' + id_c + '"]').prop( "checked", true).trigger('change');
                 }
             });
         });
@@ -162,7 +162,6 @@ function tableOnReady() {
             initSelectId(function (sid) {
                 sid.selectId('show', $('#shorts_in .values-input[data-name="name"][data-index="' + id_s + '"]').val(), function (newId) {
                     if (newId) {
-                        console.log(newId);
                         $('#shorts_in .values-input[data-name="name_id"][data-index="' + id_s + '"]').val(newId).trigger('change');
                         socket.emit('getObject', newId, function (err, obj) {
                             const name = getName(obj);
@@ -180,7 +179,6 @@ function tableOnReady() {
             initSelectId(function (sid) {
                 sid.selectId('show', $('#shorts .values-input[data-name="name"][data-index="' + id_s + '"]').val(), function (newId) {
                     if (newId) {
-                        console.log(newId);
                         $('#shorts .values-input[data-name="name_id"][data-index="' + id_s + '"]').val(newId).trigger('change');
                         socket.emit('getObject', newId, function (err, obj) {
                             const name = getName(obj);
@@ -198,7 +196,6 @@ function tableOnReady() {
             initSelectId(function (sid) {
                 sid.selectId('show', $('#sayit .values-input[data-name="name"][data-index="' + id_say + '"]').val(), function (newId) {
                     if (newId) {
-                        console.log(newId);
                         $('#sayit .values-input[data-name="name_id"][data-index="' + id_say + '"]').val(newId).trigger('change');
                         socket.emit('getObject', newId, function (err, obj) {
                             const name = getName(obj);
@@ -569,6 +566,7 @@ function getName(obj) {
                                 <th data-name="alarm"  style="width: 100px" data-type="checkbox" class="header translate">alarm</th>
                                 <th data-name="warning"  style="width: 100px" data-type="checkbox" class="header translate">inside</th>
                                 <th data-name="night"  style="width: 130px" data-type="checkbox" class="header translate">notification</th>
+                                <th data-name="delay"  style="width: 100px" data-type="checkbox" class="header translate">delay</th>
                                 <th data-name="negativ"  style="width: 100px" data-type="checkbox" class="header translate">negativ</th>
                                 <th data-buttons="delete" style="width: 40px" class="header"></th>
                             </tr>
