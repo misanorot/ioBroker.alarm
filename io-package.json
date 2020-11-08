@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "1.5.0",
+    "version": "1.6.0",
     "news": {
+      "1.6.0": {
+        "en": "changed time inputs to numbers",
+         "de": "Zeiteingaben in Zahlen geändert",
+         "ru": "изменил ввод времени на числа",
+         "pt": "alterou as entradas de tempo para números",
+         "nl": "veranderde tijdinvoer in cijfers",
+         "fr": "modification des entrées de temps en nombres",
+         "it": "cambiato gli input di tempo in numeri",
+         "es": "cambió las entradas de tiempo a números",
+         "pl": "zmieniono wejścia czasowe na liczby",
+         "zh-cn": "将时间输入更改为数字"
+            },
       "1.5.0": {
         "en": "added stop inside alarm with disable",
         "de": "Quittierung Alarm innen mit Deaktivierung hinzugefügt",
