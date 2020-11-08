@@ -243,8 +243,6 @@ function enable(id, state){
 
 function disable(){
     burgle = false;
-    clearTimeout(timer_inside_changes);
-    clearTimeout(timer_notification_changes);
     clearTimeout(silent_timer);
     clearTimeout(siren_timer);
     clearInterval(silent_interval);
@@ -275,8 +273,6 @@ function disable(){
         adapter.setState('homekit.CurrentState', 3);
         adapter.setState('homekit.TargetState', 3);
         adapter.setState('use.list',0);
-        adapter.setState('info.sharp_inside_siren', false);
-        adapter.setState('info.notification_circuit_changes', false);
         if(act_message) messages(`${adapter.config.log_deact}`);
     }else if (inside) {
         inside_ends(true);
@@ -902,6 +898,8 @@ function inside_ends(off){
     if(inside){
         inside = false;
         if(off){
+            clearTimeout(timer_inside_changes);
+            clearTimeout(timer_notification_changes);
             adapter.setState('info.log', `${adapter.config.log_warn_deact}`);
             if(log)adapter.log.info(`${adapter.config.log_warn_deact}`);
             sayit(adapter.config.text_warn_end, 0);
@@ -911,6 +909,8 @@ function inside_ends(off){
             adapter.setState('homekit.CurrentState', 3);
             adapter.setState('homekit.TargetState', 3);
             adapter.setState('use.list',0);
+            adapter.setState('info.sharp_inside_siren', false);
+            adapter.setState('info.notification_circuit_changes', false);
         }
 
     }
