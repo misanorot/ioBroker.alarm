@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "news": {
+      "1.5.0": {
+        "en": "added stop inside alarm with disable",
+        "de": "Quittierung Alarm innen mit Deaktivierung hinzugefügt",
+        "ru": "добавлена остановка внутри будильника с отключением",
+        "pt": "adicionado parada dentro do alarme com desabilitar",
+        "nl": "stop binnen alarm toegevoegd met uitschakelen",
+        "fr": "arrêt ajouté à l'intérieur de l'alarme avec désactivation",
+        "it": "aggiunto stop all'interno dell'allarme con disabilitazione",
+        "es": "parada agregada dentro de la alarma con deshabilitar",
+        "pl": "dodano stop wewnątrz alarmu z wyłączeniem",
+        "zh-cn": "添加了禁用内部警报"
+      },
       "1.4.0": {
         "en": "added silent alarm selection for every state (PLEASE CHECK YOUR OLD CONFIG MONITORING SETTINGS)",
         "de": "stille Alarmauswahl für jeden Zustand hinzugefügt (BITTE ÜBERPRÜFEN SIE IHRE ALTEN ÜBERWACHUNGSEINSTELLUNGEN)",

@@ -133,6 +133,9 @@ Der log_today state wird um Mitternacht geleert.
 
 ## Changelog
 
+#### 1.5.0 (08.11.2020)
+* (misanorot) added stop inside alarm with disable
+
 #### 1.4.0 (05.11.2020)
 * (misanorot) added silent alarm selection for every state
 
