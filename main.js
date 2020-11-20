@@ -10,7 +10,9 @@ const schedule = require('node-schedule');
  * The adapter instance
  * @type {ioBroker.Adapter}
  */
-let adapter;
+let adapter,
+    A;
+
 
 let silent_i = false,
     alarm_i = false;
@@ -56,12 +58,6 @@ let timer = null,
     text_alarm_interval = null;
 
 let log,
-    speak_names,
-    with_warnigs,
-    alarm_message,
-    night_message,
-    notification_message,
-    act_message,
     shorts_in,
     shorts;
 
@@ -140,16 +136,11 @@ function startAdapter(options) {
 }
 
 function main() {
-    log = adapter.config.opt_log;
-    with_warnigs = adapter.config.opt_warning;
-    alarm_message = adapter.config.send_alarm;
-    night_message = adapter.config.send_night;
-    notification_message = adapter.config.send_notification;
-    act_message = adapter.config.send_activation;
-    shorts = adapter.config.shorts;
-    speak_names = adapter.config.opt_say_names;
-    shorts_in = adapter.config.shorts_in;
-    alarm_repeat = parseInt(adapter.config.alarm_repeat);
+    A = adapter.config;
+    log = A.opt_log;
+    shorts = A.shorts;
+    shorts_in = A.shorts_in;
+    alarm_repeat = parseInt(A.alarm_repeat);
     adapter.getState('status.activated', (err, state)=>{
         if(err){
             adapter.log.error(err);
@@ -186,9 +177,9 @@ function main() {
             }else inside = state.val;
         }
     });
-    if(adapter.config.circuits)split_states(adapter.config.circuits);
+    if(A.circuits)split_states(A.circuits);
     else adapter.log.info('no states configured!');
-    send_instances = split_arr(adapter.config.sendTo);
+    send_instances = split_arr(A.sendTo);
     adapter.log.debug(`Messages to: ${JSON.stringify(send_instances)}`);
     ids_shorts_input = get_short_ids(shorts_in);
     get_ids();
@@ -200,15 +191,15 @@ function main() {
 //################# ENABLE ####################################################
 
 function enable(id, state){
-    let say = adapter.config.text_failed;
-    if(!adapter.config.opt_warning && is_alarm){
-        adapter.setState('info.log', `${adapter.config.log_act_not} ${names_alarm}`);
-        if(log)adapter.log.info(`${adapter.config.log_act_not} ${names_alarm}`);
-        if(act_message) messages(`${adapter.config.log_act_not} ${names_alarm}`);
+    let say = A.text_failed;
+    if(!A.opt_warning && is_alarm){
+        adapter.setState('info.log', `${A.log_act_not} ${names_alarm}`);
+        if(log)adapter.log.info(`${A.log_act_not} ${names_alarm}`);
+        if(A.send_activation) messages(`${A.log_act_not} ${names_alarm}`);
         adapter.setState('status.activation_failed', true);
         adapter.setState('status.state', 'activation failed');
         adapter.setState('use.list', 0);
-        if(speak_names){
+        if(A.opt_say_names){
             say = say + ' ' + names_alarm;
         }
         sayit(say, 3);
@@ -216,6 +207,7 @@ function enable(id, state){
     }
     inside_ends();
     sleep_end();
+    adapter.setState('status.sharp_inside_activated', false);
     adapter.setState('status.activated', true);
     adapter.setState('status.deactivated', false);
     adapter.setState('status.activation_failed', false);
@@ -227,14 +219,14 @@ function enable(id, state){
     if(is_alarm){
         adapter.setState('status.activated_with_warnings', true);
         adapter.setState('status.state', 'activated with warnings');
-        adapter.setState('info.log', `${adapter.config.log_act_warn} ${names_alarm}`);
-        if(log)adapter.log.info(`${adapter.config.log_act_warn} ${names_alarm}`);
-        if(notification_message) messages(`${adapter.config.log_act_warn} ${names_alarm}`);
+        adapter.setState('info.log', `${A.log_act_warn} ${names_alarm}`);
+        if(log)adapter.log.info(`${A.log_act_warn} ${names_alarm}`);
+        if(A.send_activation_warnings) messages(`${A.log_act_warn} ${names_alarm}`);
     } else{
-        adapter.setState('info.log', `${adapter.config.log_act}`);
-        if(log)adapter.log.info(`${adapter.config.log_act}`);
-        sayit(adapter.config.text_activated, 1);
-        if(act_message) messages(`${adapter.config.log_act}`);
+        adapter.setState('info.log', `${A.log_act}`);
+        if(log)adapter.log.info(`${A.log_act}`);
+        sayit(A.text_activated, 1);
+        if(A.send_activation) messages(`${A.log_act}`);
     }
 }
 //##############################################################################
@@ -255,9 +247,9 @@ function disable(){
     text_alarm_interval = null;
     if(activated || is_panic){
         is_panic = false;
-        adapter.setState('info.log', `${adapter.config.log_deact}`);
-        sayit(adapter.config.text_deactivated, 2);
-        if(log)adapter.log.info(`${adapter.config.log_deact}`);
+        adapter.setState('info.log', `${A.log_deact}`);
+        sayit(A.text_deactivated, 2);
+        if(log)adapter.log.info(`${A.log_deact}`);
         adapter.setState('status.siren', false);
         adapter.setState('status.silent_flash', false);
         adapter.setState('status.alarm_flash', false);
@@ -273,7 +265,7 @@ function disable(){
         adapter.setState('homekit.CurrentState', 3);
         adapter.setState('homekit.TargetState', 3);
         adapter.setState('use.list',0);
-        if(act_message) messages(`${adapter.config.log_deact}`);
+        if(A.send_activation) messages(`${A.log_deact}`);
     }else if (inside) {
         inside_ends(true);
     }else if (night_rest) {
@@ -291,13 +283,13 @@ function burglary(id, state, silent){
     if(silent_timer && silent) return;
     let count = 0;
     const name = get_name(id);
-    adapter.setState('info.log', `${adapter.config.log_burgle} ${name}`);
-    if(log)adapter.log.info(`${adapter.config.log_burgle} ${name}`);
-    if(alarm_message) messages(`${adapter.config.log_burgle} ${name}`);
+    adapter.setState('info.log', `${A.log_burgle} ${name}`);
+    if(log)adapter.log.info(`${A.log_burgle} ${name}`);
+    if(A.send_alarm) messages(`${A.log_burgle} ${name}`);
     if(silent){
         adapter.setState('status.silent_alarm', true);
         adapter.setState('status.state', 'silent alarm');
-        if(adapter.config.silent_flash > 0) {
+        if(A.silent_flash > 0) {
             silent_interval = setInterval(()=>{
                 if(silent_i) {
                     adapter.setState('status.silent_flash', true);
@@ -306,16 +298,16 @@ function burglary(id, state, silent){
                     adapter.setState('status.silent_flash', false);
                     silent_i = true;
                 }
-            }, adapter.config.silent_flash * 1000);
+            }, A.silent_flash * 1000);
         }
         silent_timer = setTimeout(()=>{
             burgle = true;
             clearTimeout(silent_timer);
             clearInterval(silent_interval);
-            sayit(adapter.config.text_alarm, 6);
+            sayit(A.text_alarm, 6);
             text_alarm_interval = setInterval(()=> {
                 if(count < alarm_repeat) {
-                    sayit(adapter.config.text_alarm, 6);
+                    sayit(A.text_alarm, 6);
                     count++;
                 } else {
                     clearInterval(text_alarm_interval);
@@ -328,7 +320,7 @@ function burglary(id, state, silent){
             adapter.setState('status.state', 'burgle');
             adapter.setState('status.state_list', 3);
             adapter.setState('homekit.CurrentState', 4);
-            if(adapter.config.alarm_flash > 0) {
+            if(A.alarm_flash > 0) {
                 alarm_interval = setInterval(()=>{
                     if(alarm_i) {
                         adapter.setState('status.alarm_flash', true);
@@ -337,22 +329,22 @@ function burglary(id, state, silent){
                         adapter.setState('status.alarm_flash', false);
                         alarm_i = true;
                     }
-                }, adapter.config.alarm_flash * 1000);
+                }, A.alarm_flash * 1000);
             }
             siren_timer = setTimeout(()=>{
                 adapter.setState('status.siren', false);
                 clearTimeout(siren_timer);
-            }, timeMode(adapter.config.time_alarm_select) * adapter.config.time_alarm);
-        }, timeMode(adapter.config.time_silent_select) * adapter.config.time_silent);
+            }, timeMode(A.time_alarm_select) * A.time_alarm);
+        }, timeMode(A.time_silent_select) * A.time_silent);
     }
     else if (!silent) {
         burgle = true;
         clearTimeout(silent_timer);
         clearInterval(silent_interval);
-        sayit(adapter.config.text_alarm, 6);
+        sayit(A.text_alarm, 6);
         text_alarm_interval = setInterval(()=> {
             if(count < alarm_repeat) {
-                sayit(adapter.config.text_alarm, 6);
+                sayit(A.text_alarm, 6);
                 count++;
             } else {
                 clearInterval(text_alarm_interval);
@@ -365,7 +357,7 @@ function burglary(id, state, silent){
         adapter.setState('status.state', 'burgle');
         adapter.setState('status.state_list', 3);
         adapter.setState('homekit.CurrentState', 4);
-        if(adapter.config.alarm_flash > 0) {
+        if(A.alarm_flash > 0) {
             alarm_interval = setInterval(()=>{
                 if(alarm_i) {
                     adapter.setState('status.alarm_flash', true);
@@ -374,12 +366,12 @@ function burglary(id, state, silent){
                     adapter.setState('status.alarm_flash', false);
                     alarm_i = true;
                 }
-            }, adapter.config.alarm_flash * 1000);
+            }, A.alarm_flash * 1000);
         }
         siren_timer = setTimeout(()=>{
             adapter.setState('status.siren', false);
             clearTimeout(siren_timer);
-        }, timeMode(adapter.config.time_alarm_select) * adapter.config.time_alarm);
+        }, timeMode(A.time_alarm_select) * A.time_alarm);
     }
 }
 //##############################################################################
@@ -389,20 +381,20 @@ function burglary(id, state, silent){
 function panic(){
     let count = 0;
     is_panic = true;
-    adapter.setState('info.log', `${adapter.config.log_panic}`);
-    if(log)adapter.log.info(`${adapter.config.log_panic}`);
-    if(alarm_message) messages(`${adapter.config.log_panic}`);
-    sayit(adapter.config.text_alarm, 6);
+    adapter.setState('info.log', `${A.log_panic}`);
+    if(log)adapter.log.info(`${A.log_panic}`);
+    if(A.send_alarm) messages(`${A.log_panic}`);
+    sayit(A.text_alarm, 6);
     text_alarm_interval = setInterval(()=> {
         if(count < alarm_repeat) {
-            sayit(adapter.config.text_alarm, 6);
+            sayit(A.text_alarm, 6);
             count++;
         } else {
             clearInterval(text_alarm_interval);
         }
     }, 5000);
     adapter.setState('status.burglar_alarm', true);
-    if(adapter.config.alarm_flash > 0) {
+    if(A.alarm_flash > 0) {
         alarm_interval = setInterval(()=>{
             if(alarm_i) {
                 adapter.setState('status.alarm_flash', true);
@@ -411,7 +403,7 @@ function panic(){
                 adapter.setState('status.alarm_flash', false);
                 alarm_i = true;
             }
-        }, adapter.config.alarm_flash * 1000);
+        }, A.alarm_flash * 1000);
     }
     adapter.setState('status.siren', true);
     adapter.setState('status.state', 'burgle');
@@ -419,7 +411,7 @@ function panic(){
     adapter.setState('homekit.CurrentState', 4);
     siren_timer = setTimeout(()=>{
         adapter.setState('status.siren', false);
-    }, timeMode(adapter.config.time_alarm_select) * adapter.config.time_alarm);
+    }, timeMode(A.time_alarm_select) * A.time_alarm);
 }
 
 //##############################################################################
@@ -605,7 +597,7 @@ function change(id, state){
             //disable();
             return;
         }else{
-            if(log) adapter.log.info(`${adapter.config.log_pass}`);
+            if(log) adapter.log.info(`${A.log_pass}`);
             adapter.log.debug(`Password denied ${state.val}`);
             return;
         }
@@ -620,7 +612,7 @@ function change(id, state){
             //disable();
             return;
         }else{
-            if(log) adapter.log.info(`${adapter.config.log_pass}`);
+            if(log) adapter.log.info(`${A.log_pass}`);
             adapter.log.debug(`Password denied ${state.val}`);
             return;
         }
@@ -639,49 +631,49 @@ function change(id, state){
     }
     if(inside_states.includes(id) && inside && isTrue(id, state)){
         const name = get_name(id);
-        let say = adapter.config.text_changes;
-        adapter.setState('info.log', `${adapter.config.log_warn} ${name}`);
+        let say = A.text_changes;
+        adapter.setState('info.log', `${A.log_warn} ${name}`);
         adapter.setState('info.sharp_inside_siren', true);
-        if(log) adapter.log.info(`${adapter.config.log_warn} ${name}`);
-        if(notification_message) messages(`${adapter.config.log_warn} ${name}`);
-        if(speak_names){
+        if(log) adapter.log.info(`${A.log_warn} ${name}`);
+        if(A.send_alarm_inside) messages(`${A.log_warn} ${name}`);
+        if(A.opt_say_names){
             say = say + ' ' + name;
         }
         sayit(say, 5);
 
         timer_inside_changes = setTimeout(()=>{
             adapter.setState('info.sharp_inside_siren', false);
-        }, timeMode(adapter.config.time_warning_select) * adapter.config.time_warning);
+        }, timeMode(A.time_warning_select) * A.time_warning);
         return;
     }
     if(notification_states.includes(id) && isTrue(id, state)){
         if(!activated && !inside && !night_rest) return;
         const name = get_name(id);
-        adapter.setState('info.log', `${adapter.config.log_warn} ${name}`);
+        adapter.setState('info.log', `${A.log_warn} ${name}`);
         adapter.setState('info.notification_circuit_changes', true);
         if(night_rest){
-            let say = adapter.config.text_changes_night;
-            if(log) adapter.log.info(`${adapter.config.log_night} ${name}`);
-            if(night_message) messages(`${adapter.config.log_night} ${name}`);
-            if(speak_names){
+            let say = A.text_changes_night;
+            if(log) adapter.log.info(`${A.log_night} ${name}`);
+            if(A.send_notification_changes) messages(`${A.log_night} ${name}`);
+            if(A.opt_say_names){
                 say = say + ' ' + name;
             }
             sayit(say, 9);
         } else if (inside) {
-            let say = adapter.config.text_changes;
-            if(log) adapter.log.info(`${adapter.config.log_warn} ${name}`);
-            if(notification_message) messages(`${adapter.config.log_warn} ${name}`);
-            if(speak_names){
+            let say = A.text_changes;
+            if(log) adapter.log.info(`${A.log_warn} ${name}`);
+            if(A.send_notification_changes) messages(`${A.log_warn} ${name}`);
+            if(A.opt_say_names){
                 say = say + ' ' + name;
             }
             sayit(say, 5);
         } else if (activated) {
-            if(log) adapter.log.info(`${adapter.config.log_warn} ${name}`);
-            if(notification_message) messages(`${adapter.config.log_warn} ${name}`);
+            if(log) adapter.log.info(`${A.log_warn} ${name}`);
+            if(A.send_notification_changes) messages(`${A.log_warn} ${name}`);
         }
         timer_notification_changes = setTimeout(()=>{
             adapter.setState('info.notification_circuit_changes', false);
-        }, timeMode(adapter.config.time_warning_select) * adapter.config.time_warning);
+        }, timeMode(A.time_warning_select) * A.time_warning);
     }
 
 }
@@ -727,7 +719,7 @@ function messages(content){
 }
 
 function sayit(message, opt_val){
-    const tts_instance = adapter.config.sayit;
+    const tts_instance = A.sayit;
     if(tts_instance){
         tts_instance.forEach((ele)=>{
             if(ele.enabled){
@@ -841,11 +833,11 @@ function sayit(message, opt_val){
 //################# HELPERS ####################################################
 
 function isSilent(id) {
-    const temp = adapter.config.circuits.findIndex((obj)=>{
+    const temp = A.circuits.findIndex((obj)=>{
         const reg = new RegExp(id);
         return reg.test(obj.name_id);
     });
-    return adapter.config.circuits[temp].delay;
+    return A.circuits[temp].delay;
 }
 
 function timeMode(value) {
@@ -870,18 +862,20 @@ function inside_begins(){
         inside = true;
         sleep_end();
         if(is_inside){
-            let say = adapter.config.text_warning;
-            if(notification_message) messages(`${adapter.config.log_warn_b_w} ${names_inside}`);
-            adapter.setState('info.log', `${adapter.config.log_warn_b_w} ${names_inside}`);
-            if(log) adapter.log.info(`${adapter.config.log_warn_b_w} ${names_inside}`);
-            if(speak_names){
+            let say = A.text_warning;
+            if(A.send_activation_warnings_inside) messages(`${A.log_warn_b_w} ${names_inside}`);
+            adapter.setState('info.log', `${A.log_warn_b_w} ${names_inside}`);
+            if(log) adapter.log.info(`${A.log_warn_b_w} ${names_inside}`);
+            if(A.opt_say_names){
                 say = say + ' ' + names_inside;
             }
             sayit(say, 4);
+        } else {
+            adapter.setState('info.log', `${A.log_warn_act}`);
+            if(log)adapter.log.info(`${A.log_warn_act}`);
+            if(A.send_activation_inside) messages(`${A.log_warn_act}`);
+            sayit(A.text_warn_begin, 10);
         }
-        adapter.setState('info.log', `${adapter.config.log_warn_act}`);
-        if(log)adapter.log.info(`${adapter.config.log_warn_act}`);
-        sayit(adapter.config.text_warn_begin, 10);
         adapter.setState('status.sharp_inside_activated', true);
         adapter.setState('status.state', 'sharp inside');
         adapter.setState('status.state_list', 2);
@@ -891,7 +885,6 @@ function inside_begins(){
         adapter.setState('status.activated', false);
         adapter.setState('status.deactivated', true);
     }
-
 }
 
 function inside_ends(off){
@@ -900,9 +893,10 @@ function inside_ends(off){
         if(off){
             clearTimeout(timer_inside_changes);
             clearTimeout(timer_notification_changes);
-            adapter.setState('info.log', `${adapter.config.log_warn_deact}`);
-            if(log)adapter.log.info(`${adapter.config.log_warn_deact}`);
-            sayit(adapter.config.text_warn_end, 0);
+            adapter.setState('info.log', `${A.log_warn_deact}`);
+            if(log)adapter.log.info(`${A.log_warn_deact}`);
+            if(A.send_activation_inside) messages(`${A.log_warn_deact}`);
+            sayit(A.text_warn_end, 0);
             adapter.setState('status.sharp_inside_activated', false);
             adapter.setState('status.state', 'deactivated');
             adapter.setState('status.state_list',0);
@@ -925,20 +919,20 @@ function sleep_begin(auto) {
     activated = false;
     night_rest = true;
     inside_ends();
-    if(log) adapter.log.info(`${adapter.config.log_sleep_b}`);
-    adapter.setState('info.log', `${adapter.config.log_sleep_b}`);
-    if(!is_notification) sayit(adapter.config.text_nightrest_beginn, 7);
+    if(log) adapter.log.info(`${A.log_sleep_b}`);
+    adapter.setState('info.log', `${A.log_sleep_b}`);
+    if(!is_notification) sayit(A.text_nightrest_beginn, 7);
     adapter.setState('status.state', 'night rest');
     adapter.setState('status.state_list', 4);
     adapter.setState('homekit.CurrentState', 2);
     adapter.setState('homekit.TargetState', 2);
     adapter.setState('use.list', 4);
     if(is_notification){
-        let say = adapter.config.text_warning;
-        if(night_message) messages(`${adapter.config.log_nights_b_w} ${names_notification}`);
-        adapter.setState('info.log', `${adapter.config.log_nights_b_w} ${names_notification}`);
-        if(log) adapter.log.info(`${adapter.config.log_nights_b_w} ${names_notification}`);
-        if(speak_names){
+        let say = A.text_warning;
+        //if(night_message) messages(`${A.log_nights_b_w} ${names_notification}`);
+        adapter.setState('info.log', `${A.log_nights_b_w} ${names_notification}`);
+        if(log) adapter.log.info(`${A.log_nights_b_w} ${names_notification}`);
+        if(A.opt_say_names){
             say = say + ' ' + names_notification;
         }
         sayit(say, 4);
@@ -949,9 +943,9 @@ function sleep_end(off) {
     if (night_rest) {
         night_rest = false;
         if(off){
-            adapter.setState('info.log', `${adapter.config.log_sleep_e}`);
-            sayit(adapter.config.text_nightrest_end, 8);
-            if(log) adapter.log.info(`${adapter.config.log_sleep_e}`);
+            adapter.setState('info.log', `${A.log_sleep_e}`);
+            sayit(A.text_nightrest_end, 8);
+            if(log) adapter.log.info(`${A.log_sleep_e}`);
             adapter.setState('status.state', 'deactivated');
             if(!inside){
                 adapter.setState('status.state_list', 0);
@@ -1009,7 +1003,7 @@ function refreshLists(){
     if(is_alarm){
         adapter.setState('status.enableable', false);
         return;
-    } else if (!with_warnigs && is_alarm) {
+    } else if (!A.opt_warning && is_alarm) {
         adapter.setState('status.enableable', false);
     }else {
         adapter.setState('status.enableable', true);
@@ -1017,7 +1011,7 @@ function refreshLists(){
 }
 
 function checkPassword(pass, id) {
-    if(adapter.config.password === pass){
+    if(A.password === pass){
         adapter.log.debug(`Password accept`);
         adapter.setState('info.wrong_password', false, (err)=>{
             if(err)adapter.log.error(err);
@@ -1069,11 +1063,11 @@ function get_ids(){
 }
 
 function search(id){
-    const temp = adapter.config.circuits.findIndex((obj)=>{
+    const temp = A.circuits.findIndex((obj)=>{
         const reg = new RegExp(id);
         return reg.test(obj.name_id);
     });
-    return adapter.config.circuits[temp].negativ;
+    return A.circuits[temp].negativ;
 }
 
 function check(arr, callback){
@@ -1098,19 +1092,19 @@ function get_name(ids, callback){
     const name =[];
     if(Array.isArray(ids)){
         ids.forEach((id)=>{
-            const temp = adapter.config.circuits.findIndex((obj)=>{
+            const temp = A.circuits.findIndex((obj)=>{
                 const reg = new RegExp(id);
                 return reg.test(obj.name_id);
             });
-            name.push(adapter.config.circuits[temp].name) ;
+            name.push(A.circuits[temp].name) ;
         });
         return name.join();
     }else{
-        const temp = adapter.config.circuits.findIndex((obj)=>{
+        const temp = A.circuits.findIndex((obj)=>{
             const reg = new RegExp(ids);
             return reg.test(obj.name_id);
         });
-        return adapter.config.circuits[temp].name;
+        return A.circuits[temp].name;
     }
 }
 
@@ -1141,12 +1135,12 @@ async function get_states(){
 }
 
 function countdown(action){
-    let counter = adapter.config.time_activate * timeMode(adapter.config.time_activate_select) / 1000;
-    let say = adapter.config.time_activate + ' ' + adapter.config.text_countdown;
+    let counter = A.time_activate * timeMode(A.time_activate_select) / 1000;
+    let say = A.time_activate + ' ' + A.text_countdown;
     if(action && !timer){
         if(is_alarm){
-            say = say + ' ' + adapter.config.text_warning;
-            if(speak_names){
+            say = say + ' ' + A.text_warning;
+            if(A.opt_say_names){
                 say = say + ' ' + names_alarm;
             }
             sayit(say, 4);
@@ -1273,11 +1267,11 @@ function set_schedules(){
     schedule_reset = schedule.scheduleJob({hour: 00, minute: 00}, ()=>{
         adapter.setState('info.log_today', '');
     });
-    if(adapter.config.night_from && adapter.config.night_to){
+    if(A.night_from && A.night_to){
         let from, to;
         try{
-            from = adapter.config.night_from.split(':');
-            to = adapter.config.night_to.split(':');
+            from = A.night_from.split(':');
+            to = A.night_to.split(':');
         }catch(e){
             adapter.log.warn(`Cannot read night rest time: ${e}`);
             return;

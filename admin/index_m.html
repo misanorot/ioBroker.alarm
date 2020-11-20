@@ -512,8 +512,13 @@ function getName(obj) {
           </div>
           <div id="tab_notifications" class="col s12 page">
             <div class="row">
+              <div class="col s12">
+                <p class=" left translate">info_words</p>
+              </div>
+            </div>
+            <div class="row">
               <div class="col s2">
-                <a id="add_sendTo" class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></a>
+                <a id="add_sendTo" class="btn-floating waves-effect waves-light blue"><i class="material-icons">add</i></a>
               </div>
             </div>
             <div class="row">
@@ -523,22 +528,51 @@ function getName(obj) {
               </div>
             </div>
             <div class="row">
+              <div class="col s12">
+                <div class="card-panel">
+                  <span class="blue-text text-darken-2 translate">alarm</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
               <div class="col s3">
                 <input type="checkbox" id="send_alarm" class="value" /><label  for="send_alarm" class="translate">send_alarm</label>
               </div>
               <div class="col s3">
-                <input type="checkbox" id="send_notification" class="value" /><label  for="send_notification" class="translate">send_notification</label>
-              </div>
-              <div class="col s3">
-                <input type="checkbox" id="send_night" class="value" /><label  for="send_night" class="translate">send_night</label>
-              </div>
-              <div class="col s3">
                 <input type="checkbox" id="send_activation" class="value" /><label  for="send_activation" class="translate">send_activation</label>
+              </div>
+              <div class="col s3">
+                <input type="checkbox" id="send_activation_warnings" class="value" /><label  for="send_activation_warnings" class="translate">send_activation_warnings</label>
               </div>
             </div>
             <div class="row">
               <div class="col s12">
-                <p class=" left translate">info_words</p>
+                <div class="card-panel">
+                  <span class="blue-text text-darken-2 translate">inside</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s3">
+                <input type="checkbox" id="send_alarm_inside" class="value" /><label  for="send_alarm_inside" class="translate">send_alarm</label>
+              </div>
+              <div class="col s3">
+                <input type="checkbox" id="send_activation_inside" class="value" /><label  for="send_activation_inside" class="translate">send_activation</label>
+              </div>
+              <div class="col s3">
+                <input type="checkbox" id="send_activation_warnings_inside" class="value" /><label  for="send_activation_warnings_inside" class="translate">send_activation_warnings</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <div class="card-panel">
+                  <span class="blue-text text-darken-2 translate">notification</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s3">
+                <input type="checkbox" id="send_notification_changes" class="value" /><label  for="send_notification_changes" class="translate">send_notification_changes</label>
               </div>
             </div>
           </div>
@@ -728,8 +762,8 @@ function getName(obj) {
                             <thead>
                             <tr>
                               <th data-name="enabled"  style="width: 50px" data-type="checkbox" class="header translate">active</th>
-                              <th data-name="select_id" data-type="select" data-options="status.activated;status.gets_activated;status.deactivated;status.burglar_alarm;status.silent_alarm;status.siren;status.activation_failed;status.sleep;status.activated_with_warnings;status.enableable;status.sharp_inside_activated;info.sharp_inside_siren;info.notification_circuit_changes;status.alarm_flash;status.silent_flash" class="header translate">Name</th>
-                              <th data-name="trigger_val" style="width: 80px" data-type="select" data-options="true;false" class="header translate">Trigger</th>
+                              <th data-name="select_id" data-type="select" data-options="status.activated;status.gets_activated;status.deactivated;status.burglar_alarm;status.silent_alarm;status.siren;status.activation_failed;status.sleep;status.activated_with_warnings;status.enableable;status.sharp_inside_activated;info.sharp_inside_siren;info.notification_circuit_changes;status.alarm_flash;status.silent_flash; status.state_list" class="header translate">Name</th>
+                              <th data-name="trigger_val" style="width: 80px" data-type="select" data-options="true;false;deactivated;sharp;sharp inside;burgular;night rest" class="header translate">Trigger</th>
                               <th data-name="name" data-type="text" class="header translate">Name</th>
                               <th data-name="name_id" data-type="text" class="header translate">Object-ID</th>
                               <th data-buttons="edit" style="width: 40px" class="header translate"></th>

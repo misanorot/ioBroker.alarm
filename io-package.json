@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "news": {
+      "1.7.0": {
+        "en": "changed notifications and fixed little issues",
+         "de": "Benachrichtigungen geändert und kleine Probleme behoben",
+         "ru": "изменены уведомления и исправлены мелкие проблемы",
+         "pt": "alterou notificações e corrigiu pequenos problemas",
+         "nl": "gewijzigde meldingen en opgeloste kleine problemen",
+         "fr": "modifications des notifications et correction de petits problèmes",
+         "it": "notifiche modificate e risolti piccoli problemi",
+         "es": "notificaciones cambiadas y pequeños problemas solucionados",
+         "pl": "zmieniono powiadomienia i naprawiono drobne problemy",
+         "zh-cn": "更改了通知并修复了小问题"
+            },
       "1.6.0": {
         "en": "changed time inputs to numbers",
          "de": "Zeiteingaben in Zahlen geändert",
@@ -164,9 +176,12 @@
     "night_from": "",
     "night_to": "",
     "send_alarm": true,
-    "send_notification": true,
-    "send_night": true,
+    "send_alarm_inside": true,
+    "send_notification_changes": true,
     "send_activation": false,
+    "send_activation_inside": false,
+    "send_activation_warnings": true,
+    "send_activation_warnings_inside": true,
     "sayit": [],
     "text_activated": "Alarmanlage aktiviert",
     "text_deactivated": "Alarmanlage deaktiviert",
