@@ -285,10 +285,10 @@ function burglary(id, state, silent){
     const name = get_name(id);
     adapter.setState('info.log', `${A.log_burgle} ${name}`);
     if(log)adapter.log.info(`${A.log_burgle} ${name}`);
-    if(A.send_alarm) messages(`${A.log_burgle} ${name}`);
     if(silent){
         adapter.setState('status.silent_alarm', true);
         adapter.setState('status.state', 'silent alarm');
+        if(A.send_alarm_silent) messages(`${A.log_burgle} ${name}`);
         if(A.silent_flash > 0) {
             silent_interval = setInterval(()=>{
                 if(silent_i) {
@@ -341,6 +341,7 @@ function burglary(id, state, silent){
         burgle = true;
         clearTimeout(silent_timer);
         clearInterval(silent_interval);
+        if(A.send_alarm) messages(`${A.log_burgle} ${name}`);
         sayit(A.text_alarm, 6);
         text_alarm_interval = setInterval(()=> {
             if(count < alarm_repeat) {
