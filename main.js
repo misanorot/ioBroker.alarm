@@ -1214,9 +1214,32 @@ function get_short_ids(ids) {
 
 function shortcuts(id, val){
     const change = is_changed(id, val);
+    let setVal = val;
+    if(id === 'status.state_list') {
+        switch (val) {
+            case 0:
+                setVal = 'deactivated';
+                break;
+            case 1:
+                setVal = 'sharp';
+                break;
+            case 2:
+                setVal = 'sharp_inside';
+                break;
+            case 3:
+                setVal = 'burgular';
+                break;
+            case 4:
+                setVal = 'night_rest';
+                break;
+            default:
+                setVal = val;
+                adapter.log.warn(`Wrong list state at shortcuts: ${val}`);
+        }
+    }
     if(shorts && change){
         shorts.forEach((ele, i) => {
-            if(ele.enabled && ele.select_id == id && /true/.test(ele.trigger_val) === val){
+            if(ele.enabled && ele.select_id == id && /true/.test(ele.trigger_val) === setVal){
                 setTimeout(()=>{
                     adapter.setForeignState(ele.name_id, bools(ele.value), (err)=>{
                         if(err) adapter.log.warn(`Cannot set state: ${err}`);
