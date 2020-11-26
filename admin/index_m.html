@@ -133,7 +133,35 @@
 
 //###########  HELPERS  ###########
 
+function checkTrigger(val, id) {
+  if (val === 'status.state_list') {
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=true]').prop('disabled',true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=false]').prop('disabled',true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=deactivated]').prop('disabled',false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp]').prop('disabled',false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp_inside]').prop('disabled',false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=burgular]').prop('disabled',false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=night_rest]').prop('disabled',false);
+  } else {
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=true]').prop('disabled',false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=false]').prop('disabled',false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=deactivated]').prop('disabled',true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp]').prop('disabled',true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp_inside]').prop('disabled',true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=burgular]').prop('disabled',true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=night_rest]').prop('disabled',true);
+  }
+$('select').select()
+}
+
 function tableOnReady() {
+
+  $('#shorts .table-values-div .table-values [data-name="select_id"]').each(function() {
+      let id = $(this).data('index');
+      let val = $(this).val();
+      checkTrigger(val, id);
+  });
+
     $('.table-button-add').on('click', function () {
       if($(this).attr('id') === 'circuits_table'){
         const devices = table2values('circuits');
@@ -282,6 +310,11 @@ function tableOnReady() {
                   });
               });
 
+      $('#shorts .table-values-div .table-values [data-name="select_id"]').change(function() {
+          let id = $(this).data('index');
+          let val = $(this).val();
+          checkTrigger(val, id);
+      });
 }
 
 function list2chips(selector,list, onChange) {
@@ -765,8 +798,8 @@ function getName(obj) {
                             <thead>
                             <tr>
                               <th data-name="enabled"  style="width: 50px" data-type="checkbox" class="header translate">active</th>
-                              <th data-name="select_id" data-type="select" data-options="status.activated;status.gets_activated;status.deactivated;status.burglar_alarm;status.silent_alarm;status.siren;status.activation_failed;status.sleep;status.activated_with_warnings;status.enableable;status.sharp_inside_activated;info.sharp_inside_siren;info.notification_circuit_changes;status.alarm_flash;status.silent_flash; status.state_list" class="header translate">Name</th>
-                              <th data-name="trigger_val" style="width: 80px" data-type="select" data-options="true;false;deactivated;sharp;sharp inside;burgular;night rest" class="header translate">Trigger</th>
+                              <th data-name="select_id" data-type="select" data-options="status.activated;status.gets_activated;status.deactivated;status.burglar_alarm;status.silent_alarm;status.siren;status.activation_failed;status.sleep;status.activated_with_warnings;status.enableable;status.sharp_inside_activated;info.sharp_inside_siren;info.notification_circuit_changes;status.alarm_flash;status.silent_flash;status.state_list" class="header translate">Name</th>
+                              <th data-name="trigger_val" style="width: 80px" data-type="select" data-options="true;false;deactivated;sharp;sharp_inside;burgular;night_rest" class="header translate">Trigger</th>
                               <th data-name="name" data-type="text" class="header translate">Name</th>
                               <th data-name="name_id" data-type="text" class="header translate">Object-ID</th>
                               <th data-buttons="edit" style="width: 40px" class="header translate"></th>

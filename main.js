@@ -492,6 +492,10 @@ function change(id, state){
         shortcuts('status.gets_activated', state.val);
         return;
     }
+    else if(id === adapter.namespace + '.status.state_list'){
+        shortcuts('status.state_list', state.val);
+        return;
+    }
     else if(id === adapter.namespace + '.status.sharp_inside_activated'){
         shortcuts('status.sharp_inside_activated', state.val);
         return;

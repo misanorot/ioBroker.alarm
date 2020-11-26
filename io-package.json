@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "1.7.1",
+    "version": "1.8.0",
     "news": {
+      "1.8.0": {
+        "en": "added status.state_list to shortcuts",
+         "de": "status.state_list zu Verknüpfungen hinzugefügt",
+         "ru": "в ярлыки добавлен status.state_list",
+         "pt": "adicionou status.state_list aos atalhos",
+         "nl": "status.state_list toegevoegd aan snelkoppelingen",
+         "fr": "ajout de status.state_list aux raccourcis",
+         "it": "aggiunto status.state_list alle scorciatoie",
+         "es": "agregado status.state_list a atajos",
+         "pl": "dodano status.state_list do skrótów",
+         "zh-cn": "在快捷方式中添加了status.state_list"
+            },
       "1.7.0": {
         "en": "changed notifications and fixed little issues",
          "de": "Benachrichtigungen geändert und kleine Probleme behoben",
