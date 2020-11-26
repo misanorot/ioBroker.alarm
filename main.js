@@ -1213,6 +1213,7 @@ function get_short_ids(ids) {
 }
 
 function shortcuts(id, val){
+
     const change = is_changed(id, val);
     let setVal = val;
     if(id === 'status.state_list') {
@@ -1239,7 +1240,7 @@ function shortcuts(id, val){
     }
     if(shorts && change){
         shorts.forEach((ele, i) => {
-            if(ele.enabled && ele.select_id == id && /true/.test(ele.trigger_val) === setVal){
+            if(ele.enabled && ele.select_id == id && bools(ele.trigger_val) === setVal){
                 setTimeout(()=>{
                     adapter.setForeignState(ele.name_id, bools(ele.value), (err)=>{
                         if(err) adapter.log.warn(`Cannot set state: ${err}`);
