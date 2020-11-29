@@ -302,6 +302,7 @@ function burglary(id, state, silent){
         }
         silent_timer = setTimeout(()=>{
             burgle = true;
+            if(A.send_alarm) messages(`${A.log_burgle} ${name}`);
             clearTimeout(silent_timer);
             clearInterval(silent_interval);
             sayit(A.text_alarm, 6);
@@ -1213,7 +1214,6 @@ function get_short_ids(ids) {
 }
 
 function shortcuts(id, val){
-
     const change = is_changed(id, val);
     let setVal = val;
     if(id === 'status.state_list') {
@@ -1228,7 +1228,7 @@ function shortcuts(id, val){
                 setVal = 'sharp_inside';
                 break;
             case 3:
-                setVal = 'burgular';
+                setVal = 'burglary';
                 break;
             case 4:
                 setVal = 'night_rest';

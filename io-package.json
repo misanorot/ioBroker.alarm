@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "1.8.0",
+    "version": "1.8.1",
     "news": {
+      "1.8.1": {
+        "en": "fixed little issues at silent alarm",
+        "de": "kleine Probleme bei stillem Alarm behoben",
+        "ru": "исправлены небольшие проблемы при тихой тревоге",
+        "pt": "corrigiu pequenos problemas no alarme silencioso",
+        "nl": "kleine problemen opgelost bij stil alarm",
+        "fr": "correction de petits problèmes lors d'une alarme silencieuse",
+        "it": "risolti piccoli problemi con l'allarme silenzioso",
+        "es": "pequeños problemas solucionados en alarma silenciosa",
+        "pl": "naprawiono drobne problemy przy cichym alarmie",
+        "zh-cn": "修复了无声警报中的小问题"
+            },
       "1.8.0": {
         "en": "added status.state_list to shortcuts",
          "de": "status.state_list zu Verknüpfungen hinzugefügt",
@@ -143,7 +155,7 @@
     "keywords": [
       "alarm",
       "security",
-      "burgular"
+      "burglar"
     ],
     "license": "MIT",
     "platform": "Javascript/Node.js",
@@ -402,7 +414,7 @@
           "0": "deactivated",
           "1": "sharp",
           "2": "sharp inside",
-          "3": "burgular",
+          "3": "burglary",
           "4": "night rest"
         },
         "read": true,
