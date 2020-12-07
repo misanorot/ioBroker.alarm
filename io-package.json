@@ -3,7 +3,6 @@
     "name": "alarm",
     "version": "1.8.2",
     "news": {
-      "news": {
         "1.8.2": {
           "en": "fixed little issues at notifications",
            "de": "kleine Probleme bei Benachrichtigungen behoben",
