@@ -609,6 +609,14 @@ function change(id, state){
             //disable();
             return;
         }else{
+            adapter.setState('info.wrong_password', true, (err)=>{
+                if(err)adapter.log.error(err);
+                adapter.setState(id, '');
+            });
+            if(log) adapter.log.info(`${A.log_pass}`);
+            adapter.log.debug(`Password denied ${state.val}`);
+            //adapter.setState('info.log', `${A.log_pass}`);
+            if(A.send_failed) messages(`${A.log_pass}`);
             return;
         }
     }
@@ -622,6 +630,14 @@ function change(id, state){
             //disable();
             return;
         }else{
+            adapter.setState('info.wrong_password', true, (err)=>{
+                if(err)adapter.log.error(err);
+                adapter.setState(id, '');
+            });
+            if(log) adapter.log.info(`${A.log_pass}`);
+            adapter.log.debug(`Password denied ${state.val}`);
+            //adapter.setState('info.log', `${A.log_pass}`);
+            if(A.send_failed) messages(`${A.log_pass}`);
             return;
         }
     }
@@ -1028,14 +1044,6 @@ function checkPassword(pass, id) {
         return true;
     }
     else{
-        adapter.setState('info.wrong_password', true, (err)=>{
-            if(err)adapter.log.error(err);
-            adapter.setState(id, '');
-        });
-        if(log) adapter.log.info(`${A.log_pass}`);
-        adapter.log.debug(`Password denied ${pass}`);
-        //adapter.setState('info.log', `${A.log_pass}`);
-        if(A.send_failed) messages(`${A.log_pass}`);
         return false;
     }
 }
