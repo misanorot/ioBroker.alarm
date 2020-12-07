@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "1.8.1",
+    "version": "1.8.2",
     "news": {
+      "news": {
+        "1.8.2": {
+          "en": "fixed little issues at notifications",
+           "de": "kleine Probleme bei Benachrichtigungen behoben",
+           "ru": "исправлены небольшие проблемы с уведомлениями",
+           "pt": "corrigiu pequenos problemas nas notificações",
+           "nl": "kleine problemen opgelost bij meldingen",
+           "fr": "correction de petits problèmes au niveau des notifications",
+           "it": "risolti piccoli problemi alle notifiche",
+           "es": "pequeños problemas solucionados en las notificaciones",
+           "pl": "naprawiono drobne problemy z powiadomieniami",
+           "zh-cn": "修复了通知中的小问题"
+              },
       "1.8.1": {
         "en": "fixed little issues at silent alarm",
         "de": "kleine Probleme bei stillem Alarm behoben",
@@ -98,30 +111,6 @@
          "es": "salida de voz de cuenta regresiva agregada",
          "pl": "dodano wyjście mowy odliczania",
          "zh-cn": "增加了倒计时语音输出"
-      },
-      "1.1.0": {
-        "en": "Added input shortcuts",
-        "de": "Eingabeverknüpfungen hinzugefügt",
-        "ru": "Добавлены ярлыки ввода",
-        "pt": "Atalhos de entrada adicionados",
-        "nl": "Invoersnelkoppelingen toegevoegd",
-        "fr": "Raccourcis d'entrée ajoutés",
-        "it": "Collegamenti di input aggiunti",
-        "es": "Atajos de entrada agregados",
-        "pl": "Dodano skróty do wprowadzania danych",
-        "zh-cn": "添加了输入快捷方式"
-      },
-      "1.0.0": {
-        "en": "added alarm and silent flash light",
-        "de": "Alarm und leises Blitzlicht hinzugefügt",
-        "ru": "добавлена сигнализация и бесшумная вспышка",
-        "pt": "alarme adicionado e luz silenciosa do flash",
-        "nl": "toegevoegd alarm en stil flitslicht",
-        "fr": "alarme supplémentaire et lumière flash silencieuse",
-        "it": "aggiunto allarme e luce flash silenziosa",
-        "es": "alarma adicional y luz de flash silenciosa",
-        "pl": "dodano alarm i cichą lampę błyskową",
-        "zh-cn": "添加了警报和静音闪光灯"
       }
     },
     "title": "alarm system",
@@ -207,6 +196,7 @@
     "send_activation_warnings": true,
     "send_activation_warnings_inside": true,
     "send_alarm_silent": true,
+    "send_failed": true,
     "sayit": [],
     "text_activated": "Alarmanlage aktiviert",
     "text_deactivated": "Alarmanlage deaktiviert",

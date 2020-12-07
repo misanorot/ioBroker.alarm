@@ -116,6 +116,18 @@ systemDictionary = {
         'es': 'Notificación de advertencias sobre la activación',
         'pl': 'Powiadomienie o ostrzeżeniach po aktywacji',
         'zh-cn': '激活时发出警告通知'},
+    'send_failed': {
+        'en': 'wrong password',
+        'de': 'falsches Passwort',
+        'ru': 'неправильный пароль',
+        'pt': 'senha incorreta',
+        'nl': 'verkeerd wachtwoord',
+        'fr': 'mauvais mot de passe',
+        'it': 'password errata',
+        'es': 'contraseña incorrecta',
+        'pl': 'złe hasło',
+        'zh-cn': '密码错误'
+    },
     'send_notification_changes': {    'en': 'send notifications during sharp, scharp inside and night rest',
         'de': 'Benachrichtigungen während scharf, scharf Innen und Nachtruhe',
         'ru': 'отправлять уведомления во время резкого, резкого внутри и ночью',

@@ -192,6 +192,12 @@ function main() {
 
 function enable(id, state){
     let say = A.text_failed;
+    if(timer) {
+        clearInterval(timer);
+        timer = null;
+        adapter.setState('status.activation_countdown', null);
+        adapter.setState('status.gets_activated', false);
+    }
     if(!A.opt_warning && is_alarm){
         adapter.setState('info.log', `${A.log_act_not} ${names_alarm}`);
         if(log)adapter.log.info(`${A.log_act_not} ${names_alarm}`);
@@ -603,8 +609,6 @@ function change(id, state){
             //disable();
             return;
         }else{
-            if(log) adapter.log.info(`${A.log_pass}`);
-            adapter.log.debug(`Password denied ${state.val}`);
             return;
         }
     }
@@ -618,8 +622,6 @@ function change(id, state){
             //disable();
             return;
         }else{
-            if(log) adapter.log.info(`${A.log_pass}`);
-            adapter.log.debug(`Password denied ${state.val}`);
             return;
         }
     }
@@ -1030,6 +1032,10 @@ function checkPassword(pass, id) {
             if(err)adapter.log.error(err);
             adapter.setState(id, '');
         });
+        if(log) adapter.log.info(`${A.log_pass}`);
+        adapter.log.debug(`Password denied ${pass}`);
+        //adapter.setState('info.log', `${A.log_pass}`);
+        if(A.send_failed) messages(`${A.log_pass}`);
         return false;
     }
 }
@@ -1152,10 +1158,10 @@ function countdown(action){
             sayit(say, 4);
         }
         sayit(say, 11);
+        adapter.setState('status.gets_activated', true);
         timer = setInterval(()=>{
             if(counter > 0){
                 counter--;
-                adapter.setState('status.gets_activated', true);
                 adapter.setState('status.activation_countdown', counter);
             }else{
                 clearInterval(timer);
