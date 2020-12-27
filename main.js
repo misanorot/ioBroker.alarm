@@ -1154,10 +1154,10 @@ async function get_states(){
     adapter.log.debug(JSON.stringify(states));
 }
 
-function countdown(action){
+function countdown(count){
     let counter = A.time_activate * timeMode(A.time_activate_select) / 1000;
     let say = A.time_activate + ' ' + A.text_countdown;
-    if(action && !timer){
+    if(count && !timer && !activated){
         if(is_alarm){
             say = say + ' ' + A.text_warning;
             if(A.opt_say_names){
@@ -1179,7 +1179,9 @@ function countdown(action){
                 enable();
             }
         }, 1000);
-    }else{
+    }else if(count && timer) {
+        return;
+    }else {
         if(timer){
             clearInterval(timer);
             timer = null;

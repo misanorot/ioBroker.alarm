@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "1.8.2",
+    "version": "1.8.3",
     "news": {
+      "1.8.3": {
+        "en": "fixed issues at enable with delay",
+        "de": "Probleme bei der Aktivierung mit Verzögerung behoben",
+        "ru": "исправлены проблемы при включении с задержкой",
+        "pt": "problemas corrigidos na ativação com atraso",
+        "nl": "opgeloste problemen bij inschakelen met vertraging",
+        "fr": "problèmes résolus lors de l'activation avec retard",
+        "it": "risolti problemi all'abilitazione con ritardo",
+        "es": "problemas solucionados al habilitar con retraso",
+        "pl": "naprawiono problemy z włączaniem z opóźnieniem",
+        "zh-cn": "解决了启用延迟问题"
+            },
         "1.8.2": {
           "en": "fixed little issues at notifications",
            "de": "kleine Probleme bei Benachrichtigungen behoben",
@@ -156,6 +168,8 @@
     "mode": "daemon",
     "type": "alarm",
     "compact": false,
+    "connectionType": "local",
+    "dataSource": "poll",
     "materialize": true,
     "dependencies": [
       {
