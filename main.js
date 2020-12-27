@@ -1181,6 +1181,8 @@ function countdown(count){
         }, 1000);
     }else if(count && timer) {
         return;
+    }else if (count && activated) {
+        return;
     }else {
         if(timer){
             clearInterval(timer);
