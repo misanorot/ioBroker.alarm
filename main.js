@@ -227,7 +227,7 @@ function enable(id, state){
         adapter.setState('status.state', 'activated with warnings');
         adapter.setState('info.log', `${A.log_act_warn} ${names_alarm}`);
         if(log)adapter.log.info(`${A.log_act_warn} ${names_alarm}`);
-        if(A.send_activation_warnings) messages(`${A.log_act_warn} ${names_alarm}`);
+        if(A.send_activated_with_warnings) messages(`${A.log_act_warn} ${names_alarm}`);
     } else{
         adapter.setState('info.log', `${A.log_act}`);
         if(log)adapter.log.info(`${A.log_act}`);
@@ -744,6 +744,7 @@ function messages(content){
 
 function sayit(message, opt_val){
     const tts_instance = A.sayit;
+    if(night_rest && A.opt_night_silent) return;
     if(tts_instance){
         tts_instance.forEach((ele)=>{
             if(ele.enabled){
@@ -989,11 +990,13 @@ function refreshLists(){
             is_alarm = true;
             names_alarm = get_name(ids);
             adapter.setState('info.alarm_circuit_list', names_alarm);
+            adapter.setState('info.alarm_circuit_list_html', get_name_html(ids));
         }else{
             ids_alarm = [];
             is_alarm = false;
             names_alarm = '';
             adapter.setState('info.alarm_circuit_list', '');
+            adapter.setState('info.alarm_circuit_list_html', '');
         }
     });
     check(inside_states, (val, ids)=>{
@@ -1003,11 +1006,13 @@ function refreshLists(){
             is_inside = true;
             names_inside = get_name(ids);
             adapter.setState('info.sharp_inside_circuit_list', names_inside);
+            adapter.setState('info.sharp_inside_circuit_list_html', get_name_html(ids));
         }else{
             ids_inside = [];
             is_inside = false;
             names_inside = '';
             adapter.setState('info.sharp_inside_circuit_list', '');
+            adapter.setState('info.sharp_inside_circuit_list_html', '');
         }
     });
     check(notification_states, (val, ids)=>{
@@ -1017,11 +1022,13 @@ function refreshLists(){
             is_notification = true;
             names_notification = get_name(ids);
             adapter.setState('info.notification_circuit_list', names_notification);
+            adapter.setState('info.notification_circuit_list_html', get_name_html(ids));
         }else{
             ids_notification = [];
             is_notification = false;
             names_notification = '';
             adapter.setState('info.notification_circuit_list', '');
+            adapter.setState('info.notification_circuit_list_html', '');
         }
     });
     if(is_alarm){
@@ -1116,9 +1123,29 @@ function get_name(ids, callback){
                 const reg = new RegExp(id);
                 return reg.test(obj.name_id);
             });
-            name.push(A.circuits[temp].name) ;
+            name.push(A.circuits[temp].name);
         });
         return name.join();
+    }else{
+        const temp = A.circuits.findIndex((obj)=>{
+            const reg = new RegExp(ids);
+            return reg.test(obj.name_id);
+        });
+        return A.circuits[temp].name;
+    }
+}
+
+function get_name_html(ids, callback){
+    const name =[];
+    if(Array.isArray(ids)){
+        ids.forEach((id)=>{
+            const temp = A.circuits.findIndex((obj)=>{
+                const reg = new RegExp(id);
+                return reg.test(obj.name_id);
+            });
+            name.push(A.circuits[temp].name);
+        });
+        return name.join('<br>');
     }else{
         const temp = A.circuits.findIndex((obj)=>{
             const reg = new RegExp(ids);
@@ -1159,6 +1186,7 @@ function countdown(count){
     let say = A.time_activate + ' ' + A.text_countdown;
     if(count && !timer && !activated){
         if(is_alarm){
+            if(A.send_activation_warnings) messages(`${A.log_act_notice} ${names_alarm}`);
             say = say + ' ' + A.text_warning;
             if(A.opt_say_names){
                 say = say + ' ' + names_alarm;

@@ -433,6 +433,13 @@ function getName(obj) {
 
 
         	<div id="tab_settings" class="col s12 page">
+            <div class="row">
+              <form action="https://www.paypal.com/donate" method="post" target="_top">
+                <input type="hidden" name="hosted_button_id" value="T74L2ADQW4898" />
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                <img alt="" border="0" src="https://www.paypal.com/en_DE/i/scr/pixel.gif" width="1" height="1" />
+              </form>
+            </div>
               <div class="row">
                 <div class="input-field col s4 m2 l1">
                     <i class="material-icons prefix">alarm_on</i>
@@ -568,19 +575,22 @@ function getName(obj) {
               </div>
             </div>
             <div class="row">
-              <div class="col s2">
+              <div class="col s12 m6 l4">
                 <input type="checkbox" id="send_alarm" class="value" /><label  for="send_alarm" class="translate">send_alarm</label>
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l4">
                 <input type="checkbox" id="send_activation" class="value" /><label  for="send_activation" class="translate">send_activation</label>
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l4">
+                <input type="checkbox" id="send_activated_with_warnings" class="value" /><label  for="send_activated_with_warnings" class="translate">send_activated_with_warnings</label>
+              </div>
+              <div class="col s12 m6 l4">
                 <input type="checkbox" id="send_activation_warnings" class="value" /><label  for="send_activation_warnings" class="translate">send_activation_warnings</label>
               </div>
-              <div class="col s2">
+              <div class="col s12 m6 l4">
                 <input type="checkbox" id="send_alarm_silent" class="value" /><label  for="send_alarm_silent" class="translate">send_alarm_silent</label>
               </div>
-              <div class="col s2">
+              <div class="col s12 m6 l4">
                 <input type="checkbox" id="send_failed" class="value" /><label  for="send_failed" class="translate">send_failed</label>
               </div>
             </div>
@@ -592,13 +602,13 @@ function getName(obj) {
               </div>
             </div>
             <div class="row">
-              <div class="col s3">
+              <div class="col s12 m6 l4">
                 <input type="checkbox" id="send_alarm_inside" class="value" /><label  for="send_alarm_inside" class="translate">send_alarm</label>
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l4">
                 <input type="checkbox" id="send_activation_inside" class="value" /><label  for="send_activation_inside" class="translate">send_activation</label>
               </div>
-              <div class="col s3">
+              <div class="col s12 m6 l4">
                 <input type="checkbox" id="send_activation_warnings_inside" class="value" /><label  for="send_activation_warnings_inside" class="translate">send_activation_warnings</label>
               </div>
             </div>
@@ -610,7 +620,7 @@ function getName(obj) {
               </div>
             </div>
             <div class="row">
-              <div class="col s3">
+              <div class="col s12 m6 l4">
                 <input type="checkbox" id="send_notification_changes" class="value" /><label  for="send_notification_changes" class="translate">send_notification_changes</label>
               </div>
             </div>
@@ -658,6 +668,9 @@ function getName(obj) {
             <div class="row">
               <div class="col s4">
                 <input type="checkbox" id="opt_say_names" class="value" /><label  for="opt_say_names" class="translate">opt_say_names</label>
+              </div>
+              <div class="col s4">
+                <input type="checkbox" id="opt_night_silent" class="value" /><label  for="opt_night_silent" class="translate">opt_night_silent</label>
               </div>
             </div>
               <div class="row">
@@ -864,8 +877,8 @@ function getName(obj) {
                 </div>
                 <div class="input-field col s12 m6 l4">
                   <i class="material-icons prefix">edit</i>
-                  <textarea id="log_warn_act" class="materialize-textarea value"></textarea>
-                  <label for="log_warn_act" class="translate">log_warn_act</label>
+                  <textarea id="log_act_notice" class="materialize-textarea value"></textarea>
+                  <label for="log_act_notice" class="translate">log_act_notice</label>
                 </div>
                 <div class="input-field col s12 m6 l4">
                   <i class="material-icons prefix">edit</i>
@@ -876,6 +889,11 @@ function getName(obj) {
                   <i class="material-icons prefix">edit</i>
                   <textarea id="log_deact" class="materialize-textarea value"></textarea>
                   <label for="log_deact" class="translate">log_deact</label>
+                </div>
+                <div class="input-field col s12 m6 l4">
+                  <i class="material-icons prefix">edit</i>
+                  <textarea id="log_warn_act" class="materialize-textarea value"></textarea>
+                  <label for="log_warn_act" class="translate">log_warn_act</label>
                 </div>
                 <div class="input-field col s12 m6 l4">
                   <i class="material-icons prefix">edit</i>

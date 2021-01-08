@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "1.8.3",
+    "version": "1.9.0",
     "news": {
+      "1.9.0": {
+        "en": "added html states and fixed little issues",
+         "de": "HTML-Status hinzugefügt und kleine Probleme behoben",
+         "ru": "добавлены состояния html и исправлены мелкие проблемы",
+         "pt": "adicionamos estados html e corrigimos pequenos problemas",
+         "nl": "html-staten toegevoegd en kleine problemen opgelost",
+         "fr": "ajout d'états html et correction de petits problèmes",
+         "it": "aggiunti stati html e risolti piccoli problemi",
+         "es": "estados html agregados y pequeños problemas solucionados",
+         "pl": "dodano stany html i naprawiono drobne problemy",
+         "zh-cn": "添加了html状态并修复了一些小问题"
+            },
       "1.8.3": {
         "en": "fixed issues at enable with delay",
         "de": "Probleme bei der Aktivierung mit Verzögerung behoben",
@@ -192,6 +204,7 @@
     "alarm_flash": 2,
     "silent_flash": 2,
     "opt_say_night": true,
+    "opt_night_silent": false,
     "opt_say_warn": true,
     "opt_say_names": true,
     "opt_say_changes": true,
@@ -208,6 +221,7 @@
     "send_activation_inside": false,
     "send_activation_warnings": true,
     "send_activation_warnings_inside": true,
+    "send_activated_with_warnings": true,
     "send_alarm_silent": true,
     "send_failed": true,
     "sayit": [],
@@ -234,6 +248,7 @@
     "log_act":"Alarmanlage aktiviert",
     "log_warn_act":"Scharf innen aktiviert",
     "log_act_warn":"Alarmanlage mit Warnungen aktiviert:",
+    "log_act_notice":"Es sind noch Sachen offen",
     "log_deact":"Alarmanlage deaktiviert",
     "log_warn_deact":"Scharf innen deaktiviert",
     "log_burgle":"Alarmanlage meldet Einbruch in:",
@@ -708,6 +723,45 @@
     },
     {
       "_id": "info.sharp_inside_circuit_list",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Sharp inside list",
+        "desc": "Sharp inside circuit list.",
+        "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.notification_circuit_list_html",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Notification list",
+        "desc": "Notification list at sharp, sharp inside and night rest",
+        "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.alarm_circuit_list_html",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Alarm list",
+        "desc": "Alarm circuit list.",
+        "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.sharp_inside_circuit_list_html",
       "type": "state",
       "common": {
         "role": "",
