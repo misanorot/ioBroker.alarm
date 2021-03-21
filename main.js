@@ -18,11 +18,17 @@ let silent_i = false,
     alarm_i = false;
 
 let clean_ids = [];
-const alarm_states = [],
-    inside_states = [],
-    notification_states = [];
+
+const alarm_ids = [],
+    inside_ids = [],
+    notification_ids = [],
+    one_ids = [],
+    two_ids = [],
+    one_states = {},
+    two_states = {},
+    states = {};
+
 let send_instances = [],
-    states = {},
     send_available = false;
 
 let log_list = '';
@@ -33,13 +39,19 @@ let is_alarm = false,
     is_inside = false,
     is_notification = false,
     is_panic = false,
+    is_one = false,
+    is_two = false,
     ids_alarm = [], //Kreis extern schaf
     ids_inside = [], //Kreis intern scharf
     ids_notification = [], //Benachrichtigungskreis
     ids_shorts_input = [],
+    ids_one = [],
+    ids_two = [],
     names_alarm,
     names_inside,
-    names_notification;
+    names_notification,
+    names_one,
+    names_two;
 
 const change_ids = {};
 
@@ -184,9 +196,11 @@ function main() {
     ids_shorts_input = get_short_ids(shorts_in);
     get_ids();
     get_states();
+    get_other_states();
     setTimeout(set_subs, 2000);
     set_schedules();
     setTimeout(refreshLists, 2000);
+    check_doubles();
 }
 //################# ENABLE ####################################################
 
@@ -439,6 +453,28 @@ function change(id, state){
             adapter.log.debug(`Inside state change: ${id} val: ${state.val}`);
         }
     }
+    for(const i in one_states){
+        if(i === id){
+            if(one_states[id] === state.val){
+                is_not_change = true;
+                break;
+            }
+            one_states[id] = state.val;
+            refreshLists();
+            adapter.log.debug(`Inside state change: ${id} val: ${state.val}`);
+        }
+    }
+    for(const i in two_states){
+        if(i === id){
+            if(two_states[id] === state.val){
+                is_not_change = true;
+                break;
+            }
+            two_states[id] = state.val;
+            refreshLists();
+            adapter.log.debug(`Inside state change: ${id} val: ${state.val}`);
+        }
+    }
     if(is_not_change) return;
     else if(id === adapter.namespace + '.use.list'){
         switch (state.val) {
@@ -529,6 +565,8 @@ function change(id, state){
         adapter.setState('status.activation_failed', false);
         adapter.setState('info.sharp_inside_siren', false);
         adapter.setState('info.notification_circuit_changes', false);
+        adapter.setState('other_alarms.one_changes', false);
+        adapter.setState('other_alarms.two_changes', false);
         return;
     }
     else if(id === adapter.namespace + '.status.deactivated'){
@@ -573,6 +611,14 @@ function change(id, state){
     }
     else if(id === adapter.namespace + '.info.notification_circuit_changes'){
         shortcuts('info.notification_circuit_changes', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.other_alarms.one_changes'){
+        shortcuts('other_alarms.one_changes', state.val);
+        return;
+    }
+    else if(id === adapter.namespace + '.other_alarms.two_changes'){
+        shortcuts('other_alarms.two_changes', state.val);
         return;
     }
     else if(id === adapter.namespace + '.use.enable' && state.val){
@@ -649,11 +695,11 @@ function change(id, state){
         shortcuts_inside(id, state.val);
         return;
     }
-    if(alarm_states.includes(id) && activated && isTrue(id, state)){
+    if(alarm_ids.includes(id) && activated && isTrue(id, state)){
         burglary(id, state, isSilent(id));
         return;
     }
-    if(inside_states.includes(id) && inside && isTrue(id, state)){
+    if(inside_ids.includes(id) && inside && isTrue(id, state)){
         const name = get_name(id);
         let say = A.text_changes;
         adapter.setState('info.log', `${A.log_warn} ${name}`);
@@ -670,7 +716,7 @@ function change(id, state){
         }, timeMode(A.time_warning_select) * A.time_warning);
         return;
     }
-    if(notification_states.includes(id) && isTrue(id, state)){
+    if(notification_ids.includes(id) && isTrue(id, state)){
         if(!activated && !inside && !night_rest) return;
         const name = get_name(id);
         adapter.setState('info.log', `${A.log_warn} ${name}`);
@@ -699,7 +745,28 @@ function change(id, state){
             adapter.setState('info.notification_circuit_changes', false);
         }, timeMode(A.time_warning_select) * A.time_warning);
     }
-
+    if(one_ids.includes(id) && isTrue(id, state, 'one')) {
+        const name = get_name(id, 'one');
+        let say = A.text_one;
+        if(log) adapter.log.info(`${A.log_one} ${name}`);
+        if(A.one_changes) messages(`${A.log_one} ${name}`);
+        if(A.opt_say_names){
+            say = say + ' ' + name;
+        }
+        sayit(say, 12);
+        adapter.setState('other_alarms.one_changes', true);
+    }
+    if(two_ids.includes(id) && isTrue(id, state, 'two')) {
+        const name = get_name(id, 'two');
+        let say = A.text_changes_two;
+        if(log) adapter.log.info(`${A.log_two} ${name}`);
+        if(A.two_changes) messages(`${A.log_two} ${name}`);
+        if(A.opt_say_names){
+            say = say + ' ' + name;
+        }
+        sayit(say, 13);
+        adapter.setState('other_alarms.two_changes', true);
+    }
 }
 //##############################################################################
 
@@ -711,7 +778,7 @@ function set_subs(){
             adapter.log.debug(`SUBSCRIBTION for: ${ele}`);
             adapter.subscribeForeignStates(ele);
         }else{
-            adapter.log.debug(`NO SUBSCRIBTION`);
+            adapter.log.debug(`NO SUBSCRIBTION for monitoring circuits`);
         }
     });
     ids_shorts_input.forEach((ele)=>{
@@ -722,9 +789,27 @@ function set_subs(){
             adapter.log.debug(`NO SUBSCRIBTION for input shortcuts`);
         }
     });
+    one_ids.forEach((ele)=>{
+        if(ele){
+            adapter.log.debug(`SUBSCRIBTION for other alarm one: ${ele}`);
+            adapter.subscribeForeignStates(ele);
+        }else{
+            adapter.log.debug(`NO SUBSCRIBTION for other alarm one`);
+        }
+    });
+    two_ids.forEach((ele)=>{
+        if(ele){
+            adapter.log.debug(`SUBSCRIBTION for other alarm two: ${ele}`);
+            adapter.subscribeForeignStates(ele);
+        }else{
+            adapter.log.debug(`NO SUBSCRIBTION for other alarm two`);
+        }
+    });
     adapter.subscribeStates('info.log');
     adapter.subscribeStates('info.sharp_inside_siren');
     adapter.subscribeStates('info.notification_circuit_changes');
+    adapter.subscribeStates('other_alarms.one_changes');
+    adapter.subscribeStates('other_alarms.two_changes');
     adapter.subscribeStates('use.*');
     adapter.subscribeStates('status.*');
     adapter.subscribeStates('homekit.TargetState');
@@ -845,6 +930,22 @@ function sayit(message, opt_val){
                             });
                         }
                         break;
+                    case 12:
+                        if(ele.opt_say_fire){
+                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
+                            adapter.setForeignState(ele.name_id, message, (err)=>{
+                                if(err) adapter.log.warn(err);
+                            });
+                        }
+                        break;
+                    case 13:
+                        if(ele.opt_say_water){
+                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
+                            adapter.setForeignState(ele.name_id, message, (err)=>{
+                                if(err) adapter.log.warn(err);
+                            });
+                        }
+                        break;
                     default:
                         adapter.log.debug(`no speech output!`);
                 }
@@ -856,6 +957,18 @@ function sayit(message, opt_val){
 //##############################################################################
 
 //################# HELPERS ####################################################
+
+function check_doubles() {
+    clean_ids.forEach((ele, i) => {
+        one_ids.forEach((item, i) => {
+            if(item === ele) adapter.log.warn(`You use double states in main and other alarms, PLEASE FIX IT: ${item}`);
+        });
+        two_ids.forEach((item, i) => {
+            if(item === ele) adapter.log.warn(`You use double states in main and other alarms, PLEASE FIX IT: ${item}`);
+        });
+    });
+
+}
 
 function isSilent(id) {
     const temp = A.circuits.findIndex((obj)=>{
@@ -983,7 +1096,7 @@ function sleep_end(off) {
 }
 
 function refreshLists(){
-    check(alarm_states, (val, ids)=>{
+    check(alarm_ids, (val, ids)=>{
         adapter.log.debug(`Alarm circuit list: ${ids}`);
         if(ids.length > 0){
             ids_alarm = ids;
@@ -999,7 +1112,7 @@ function refreshLists(){
             adapter.setState('info.alarm_circuit_list_html', '');
         }
     });
-    check(inside_states, (val, ids)=>{
+    check(inside_ids, (val, ids)=>{
         adapter.log.debug(`Inside circuit list: ${ids}`);
         if(ids.length > 0){
             ids_inside = ids;
@@ -1015,7 +1128,7 @@ function refreshLists(){
             adapter.setState('info.sharp_inside_circuit_list_html', '');
         }
     });
-    check(notification_states, (val, ids)=>{
+    check(notification_ids, (val, ids)=>{
         adapter.log.debug(`Notification circuit list: ${ids}`);
         if(ids.length > 0){
             ids_notification = ids;
@@ -1029,6 +1142,38 @@ function refreshLists(){
             names_notification = '';
             adapter.setState('info.notification_circuit_list', '');
             adapter.setState('info.notification_circuit_list_html', '');
+        }
+    });
+    check_one(one_ids, (val, ids)=>{
+        adapter.log.debug(`One list: ${ids}`);
+        if(ids.length > 0){
+            ids_one = ids;
+            is_one = true;
+            names_one = get_name(ids, 'one');
+            adapter.setState('other_alarms.one_list', names_one);
+            adapter.setState('other_alarms.one_list_html', get_name_html(ids, 'one'));
+        }else{
+            ids_one = [];
+            is_one = false;
+            names_one = '';
+            adapter.setState('other_alarms.one_list', '');
+            adapter.setState('other_alarms.one_list_html', '');
+        }
+    });
+    check_two(two_ids, (val, ids)=>{
+        adapter.log.debug(`Two list: ${ids}`);
+        if(ids.length > 0){
+            ids_two = ids;
+            is_two = true;
+            names_two = get_name(ids, 'two');
+            adapter.setState('other_alarms.two_list', names_two);
+            adapter.setState('other_alarms.two_list_html', get_name_html(ids, 'two'));
+        }else{
+            ids_two = [];
+            is_two = false;
+            names_two = '';
+            adapter.setState('other_alarms.two_list', '');
+            adapter.setState('other_alarms.two_list_html', '');
         }
     });
     if(is_alarm){
@@ -1055,10 +1200,10 @@ function checkPassword(pass, id) {
     }
 }
 
-function isTrue(id, state){
+function isTrue(id, state, other){
     let test = false;
-    if(!search(id) && state.val) test = true;
-    else if(search(id) && !state.val) test = true;
+    if(!search(id, other) && state.val) test = true;
+    else if(search(id, other) && !state.val) test = true;
     return test;
 }
 
@@ -1074,9 +1219,9 @@ function split_arr(str){
 function split_states(arr){
     arr.forEach((ele)=>{
         if(ele.enabled){
-            if(ele.alarm)alarm_states.push(ele.name_id);
-            if(ele.warning)inside_states.push(ele.name_id);
-            if(ele.night)notification_states.push(ele.name_id);
+            if(ele.alarm)alarm_ids.push(ele.name_id);
+            if(ele.warning)inside_ids.push(ele.name_id);
+            if(ele.night)notification_ids.push(ele.name_id);
         }else{
             adapter.log.debug(`State not used but configured: ${ele.name_id}`);
         }
@@ -1085,16 +1230,22 @@ function split_states(arr){
 
 function get_ids(){
     let ids = [];
-    ids = ids.concat(alarm_states, inside_states, notification_states);
+    ids = ids.concat(alarm_ids, inside_ids, notification_ids);
     clean_ids = Array.from(new Set(ids));
 }
 
-function search(id){
-    const temp = A.circuits.findIndex((obj)=>{
+//test negativ
+function search(id, other){
+    let table = A.circuits;
+    if(other) {
+        if(other === 'one') table = A.one;
+        if(other === 'two') table = A.two;
+    }
+    const temp = table.findIndex((obj)=>{
         const reg = new RegExp(id);
         return reg.test(obj.name_id);
     });
-    return A.circuits[temp].negativ;
+    return table[temp].negativ;
 }
 
 function check(arr, callback){
@@ -1115,43 +1266,90 @@ function check(arr, callback){
     }
 }
 
-function get_name(ids, callback){
-    const name =[];
-    if(Array.isArray(ids)){
-        ids.forEach((id)=>{
-            const temp = A.circuits.findIndex((obj)=>{
-                const reg = new RegExp(id);
-                return reg.test(obj.name_id);
-            });
-            name.push(A.circuits[temp].name);
+
+function check_one(arr, callback){
+    const temp_arr = [];
+    if(arr.length > 0){
+        arr.forEach((ele)=>{
+            if(one_states[ele] && !search(ele, 'one')){
+                temp_arr.push(ele);
+            }else if(one_states[ele] == false && search(ele, 'one')){
+                temp_arr.push(ele);
+            }
         });
-        return name.join();
-    }else{
-        const temp = A.circuits.findIndex((obj)=>{
-            const reg = new RegExp(ids);
-            return reg.test(obj.name_id);
-        });
-        return A.circuits[temp].name;
+        if(temp_arr.length>0){
+            callback(true, temp_arr);
+        }else{
+            callback(false, temp_arr);
+        }
     }
 }
 
-function get_name_html(ids, callback){
+function check_two(arr, callback){
+    const temp_arr = [];
+    if(arr.length > 0){
+        arr.forEach((ele)=>{
+            if(two_states[ele] && !search(ele, 'two')){
+                temp_arr.push(ele);
+            }else if(two_states[ele] == false && search(ele, 'two')){
+                temp_arr.push(ele);
+            }
+        });
+        if(temp_arr.length>0){
+            callback(true, temp_arr);
+        }else{
+            callback(false, temp_arr);
+        }
+    }
+}
+
+function get_name(ids, other){
     const name =[];
+    let table = A.circuits;
+    if(other) {
+        if(other === 'one') table = A.one;
+        if(other === 'two') table = A.two;
+    }
     if(Array.isArray(ids)){
         ids.forEach((id)=>{
-            const temp = A.circuits.findIndex((obj)=>{
+            const temp = table.findIndex((obj)=>{
                 const reg = new RegExp(id);
                 return reg.test(obj.name_id);
             });
-            name.push(A.circuits[temp].name);
+            name.push(table[temp].name);
         });
-        return name.join('<br>');
+        return name.join();
     }else{
-        const temp = A.circuits.findIndex((obj)=>{
+        const temp = table.findIndex((obj)=>{
             const reg = new RegExp(ids);
             return reg.test(obj.name_id);
         });
-        return A.circuits[temp].name;
+        return table[temp].name;
+    }
+}
+
+function get_name_html(ids, other, callback){
+    const name =[];
+    let table = A.circuits;
+    if(other) {
+        if(other === 'one') table = A.one;
+        if(other === 'two') table = A.two;
+    }
+    if(Array.isArray(ids)){
+        ids.forEach((id)=>{
+            const temp = table.findIndex((obj)=>{
+                const reg = new RegExp(id);
+                return reg.test(obj.name_id);
+            });
+            name.push(table[temp].name);
+        });
+        return name.join('<br>');
+    }else{
+        const temp = table.findIndex((obj)=>{
+            const reg = new RegExp(ids);
+            return reg.test(obj.name_id);
+        });
+        return table[temp].name;
     }
 }
 
@@ -1179,6 +1377,28 @@ async function get_states(){
         states[id] = state;
     }
     adapter.log.debug(JSON.stringify(states));
+}
+
+async function get_other_states(){
+    if(A.one) {
+        A.one.forEach((ele) => {
+            if(ele.enabled) one_ids.push(ele.name_id);
+        });
+        for (const id of one_ids){
+            const state = await get_states_delay(id);
+            one_states[id] = state;
+        }
+    }
+    if(A.two) {
+        A.two.forEach((ele) => {
+            if(ele.enabled) two_ids.push(ele.name_id);
+        });
+        for (const id of two_ids){
+            const state = await get_states_delay(id);
+            two_states[id] = state;
+        }
+    }
+    adapter.log.debug(`other alarm are one: ${JSON.stringify(one_states)} two: ${JSON.stringify(two_states)}`);
 }
 
 function countdown(count){

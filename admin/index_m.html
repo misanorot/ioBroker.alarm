@@ -36,6 +36,8 @@
         shorts_in = settings.shorts_in    || [];
         shorts = settings.shorts    || [];
         sayit = settings.sayit    || [];
+        one = settings.one    || [];
+        two = settings.two    || [];
 
         if(typeof settings.sayit !== 'object') sayit = [];
 
@@ -69,6 +71,8 @@
         values2table('shorts_in', shorts_in, onChange, tableOnReady);
         values2table('shorts', shorts, onChange, tableOnReady);
         values2table('sayit', sayit, onChange, tableOnReady);
+        values2table('one', one, onChange, tableOnReady);
+        values2table('two', two, onChange, tableOnReady);
 
         $('.sendTo_Chips').chips({
             placeholder: 'Add adapter',
@@ -89,6 +93,9 @@
 
         $('#sayit_help').on('click', ()=> {
           showMessage('Bitte einen state auswählen, wo Sie sicher sind, dass dieser mit einem Text zur Sprachausgabe beschrieben werden kann! Als Beispiel sayit.0.tts.text. Als Optionen zur Ausgabe, stehen die unten stehenden Sätze mit der entsprechenden Nummer zu Verfügung.');
+        });
+        $('#circuits_help').on('click', ()=> {
+          showMessage('Alarmkreis => entspricht Vollschutz, Betreiber ist nicht Zuhause *** Scharf innen => entspricht Aussenhautüberwachung, Betreiber ist anwesend *** Benachrichtigungen => Es werden Meldungen während scharf und scharf innen aussgegeben *** Stiller Alarm => Bei Aktivierung wird erst der stille statt der richtige Alarm ausgelöst. *** negieren => triggert den State auf false ');
         });
         $('#test_sayit').on('click', ()=>{
                 			const tts_instance = table2values('sayit');
@@ -126,6 +133,8 @@
         obj.shorts_in = table2values('shorts_in');
         obj.shorts = table2values('shorts');
         obj.sayit = table2values('sayit');
+        obj.one = table2values('one');
+        obj.two = table2values('two');
         obj.states = states;
         callback(obj);
     }
@@ -241,6 +250,42 @@ function tableOnReady() {
                         $('#sayit .values-input[data-name="opt_say_nine_plus"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
                         $('#sayit .values-input[data-name="opt_say_zero"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
                         $('#sayit .values-input[data-name="opt_say_count"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
+                        $('#sayit .values-input[data-name="opt_say_fire"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
+                        $('#sayit .values-input[data-name="opt_say_water"][data-index="' + id_say + '"]').prop( "checked", true ).trigger('change');
+                    }
+                });
+            });
+      }else if($(this).attr('id') === 'one_table'){
+            const one = table2values('one');
+            let id_f = 0;
+            for (let i = 0; i < one.length; i++) {
+                id_f = id_f +1;
+            }
+            initSelectId(function (sid) {
+                sid.selectId('show', $('#one .values-input[data-name="name"][data-index="' + id_f + '"]').val(), function (newId) {
+                    if (newId) {
+                        $('#one .values-input[data-name="name_id"][data-index="' + id_f + '"]').val(newId).trigger('change');
+                        socket.emit('getObject', newId, function (err, obj) {
+                            const name = getName(obj);
+                            $('#one .values-input[data-name="name"][data-index="' + id_f + '"]').val(name).trigger('change');
+                        });
+                    }
+                });
+            });
+      }else if($(this).attr('id') === 'two_table'){
+            const two = table2values('two');
+            let id_w = 0;
+            for (let i = 0; i < two.length; i++) {
+                id_w = id_w +1;
+            }
+            initSelectId(function (sid) {
+                sid.selectId('show', $('#two .values-input[data-name="name"][data-index="' + id_w + '"]').val(), function (newId) {
+                    if (newId) {
+                        $('#two .values-input[data-name="name_id"][data-index="' + id_w + '"]').val(newId).trigger('change');
+                        socket.emit('getObject', newId, function (err, obj) {
+                            const name = getName(obj);
+                            $('#two .values-input[data-name="name"][data-index="' + id_w + '"]').val(name).trigger('change');
+                        });
                     }
                 });
             });
@@ -309,6 +354,35 @@ function tableOnReady() {
                       });
                   });
               });
+
+            $('#one .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function() {
+                          let id = $(this).data('index');
+                          initSelectId(function (sid) {
+                              sid.selectId('show', $('#one .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId)=> {
+                                  if (newId) {
+                                      $('#one .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+                                       socket.emit('getObject', newId, (err, obj)=> {
+                                          let name = getName(obj);
+                                          $('#one .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+                                      });
+                                  }
+                              });
+                          });
+                      }) ;
+                      $('#two .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function() {
+                                  let id = $(this).data('index');
+                                  initSelectId(function (sid) {
+                                      sid.selectId('show', $('#two .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId)=> {
+                                          if (newId) {
+                                              $('#two .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+                                               socket.emit('getObject', newId, (err, obj)=> {
+                                                  let name = getName(obj);
+                                                  $('#two .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+                                              });
+                                          }
+                                      });
+                                  });
+                              });
 
       $('#shorts .table-values-div .table-values [data-name="select_id"]').change(function() {
           let id = $(this).data('index');
@@ -422,12 +496,13 @@ function getName(obj) {
 
           <div class="col s12" style="padding-left:0;padding-right:0; margin-top: 0px; margin-bottom: 1px; background-color:#174475; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);">
             <ul class="tabs blue lighten-4">
-              <li class="tab col s2"><a href="#tab_settings" class="translate">general</a></li>
-              <li class="tab col s2"><a href="#tab_notifications" class="translate">notifications</a></li>
-              <li class="tab col s2"><a href="#tab_states" class="translate">states</a></li>
-              <li class="tab col s2"><a href="#tab_sayit" class="translate">sayit</a></li>
-              <li class="tab col s2"><a href="#tab_shortcuts" class="translate">shortcuts</a></li>
-              <li class="tab col s2"><a href="#tab_words" class="translate">words</a></li>
+              <li class="tab"><a href="#tab_settings" class="translate">general</a></li>
+              <li class="tab"><a href="#tab_notifications" class="translate">notifications</a></li>
+              <li class="tab"><a href="#tab_states" class="translate">states</a></li>
+              <li class="tab"><a href="#tab_sayit" class="translate">sayit</a></li>
+              <li class="tab"><a href="#tab_shortcuts" class="translate">shortcuts</a></li>
+              <li class="tab"><a href="#tab_words" class="translate">words</a></li>
+              <li class="tab"><a href="#other_alarms" class="translate">other_alarms</a></li>
             </ul>
           </div>
 
@@ -624,6 +699,23 @@ function getName(obj) {
                 <input type="checkbox" id="send_notification_changes" class="value" /><label  for="send_notification_changes" class="translate">send_notification_changes</label>
               </div>
             </div>
+            <div class="row">
+              <div class="col s12">
+                <div class="card-panel">
+                  <span class="blue-text text-darken-2 translate">other_alarms</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12 m6 l4">
+                <input type="checkbox" id="send_one_changes" class="value" />
+                <label  for="send_one_changes" class="material-icons prefix">looks_one</label>
+              </div>
+              <div class="col s12 m6 l4">
+                <input type="checkbox" id="send_two_changes" class="value" />
+                <label  for="send_two_changes" class="material-icons prefix">looks_two</label>
+              </div>
+            </div>
           </div>
           <div id="tab_states" class="col s12 page">
             <div class="row">
@@ -631,6 +723,9 @@ function getName(obj) {
                     <div class="row">
                         <div class="col s2 m1 l1 left">
                             <a   class="btn-floating waves-effect waves-light blue table-button-add" id="circuits_table"><i class="material-icons">add</i></a>
+                        </div>
+                        <div class="col s2 m1 l1 right">
+                            <a   class="btn-floating waves-effect waves-light blue" id="circuits_help"><i class="material-icons">help_center</i></a>
                         </div>
                     </div>
                     <div class="row">
@@ -690,20 +785,22 @@ function getName(obj) {
                                 <th data-name="enabled"  style="width: 50px" data-type="checkbox" class="header translate">active</th>
                                 <th data-name="name" data-type="text" class="header translate">Name</th>
                                 <th data-name="name_id" data-type="text" class="header translate">Object-ID</th>
-                                <th data-buttons="edit" style="width: 40px" class="header translate"></th>
-                                <th data-name="opt_say_one"  style="width: 40px" data-type="checkbox" class="header translate">1</th>
-                                <th data-name="opt_say_two"  style="width: 40px" data-type="checkbox" class="header translate">2</th>
-                                <th data-name="opt_say_three"  style="width: 40px" data-type="checkbox" class="header translate">3</th>
-                                <th data-name="opt_say_four"  style="width: 40px" data-type="checkbox" class="header translate">4</th>
-                                <th data-name="opt_say_five"  style="width: 40px" data-type="checkbox" class="header translate">5</th>
-                                <th data-name="opt_say_six"  style="width: 40px" data-type="checkbox" class="header translate">6</th>
-                                <th data-name="opt_say_seven"  style="width: 40px" data-type="checkbox" class="header translate">7</th>
-                                <th data-name="opt_say_eigth"  style="width: 40px" data-type="checkbox" class="header translate">8</th>
-                                <th data-name="opt_say_nine"  style="width: 40px" data-type="checkbox" class="header translate">9</th>
-                                <th data-name="opt_say_nine_plus"  style="width: 40px" data-type="checkbox" class="header translate">9+</th>
-                                <th data-name="opt_say_zero"  style="width: 40px" data-type="checkbox" class="header translate">0</th>
-                                <th data-name="opt_say_count"  style="width: 40px" data-type="checkbox" class="header translate">time</th>
-                                <th data-buttons="delete" style="width: 40px" class="header translate"></th>
+                                <th data-buttons="edit" style="width: 40px" class="header"></th>
+                                <th data-name="opt_say_one"  style="width: 40px" data-type="checkbox" class="header">1</th>
+                                <th data-name="opt_say_two"  style="width: 40px" data-type="checkbox" class="header">2</th>
+                                <th data-name="opt_say_three"  style="width: 40px" data-type="checkbox" class="header">3</th>
+                                <th data-name="opt_say_four"  style="width: 40px" data-type="checkbox" class="header">4</th>
+                                <th data-name="opt_say_five"  style="width: 40px" data-type="checkbox" class="header">5</th>
+                                <th data-name="opt_say_six"  style="width: 40px" data-type="checkbox" class="header">6</th>
+                                <th data-name="opt_say_seven"  style="width: 40px" data-type="checkbox" class="header">7</th>
+                                <th data-name="opt_say_eigth"  style="width: 40px" data-type="checkbox" class="header">8</th>
+                                <th data-name="opt_say_nine"  style="width: 40px" data-type="checkbox" class="header">9</th>
+                                <th data-name="opt_say_nine_plus"  style="width: 40px" data-type="checkbox" class="header">9+</th>
+                                <th data-name="opt_say_zero"  style="width: 40px" data-type="checkbox" class="header">0</th>
+                                <th data-name="opt_say_count"  style="width: 40px" data-type="checkbox" class="header">time</th>
+                                <th data-name="opt_say_fire"  style="width: 40px" data-type="checkbox" class="header">one</th>
+                                <th data-name="opt_say_water"  style="width: 40px" data-type="checkbox" class="header">two</th>
+                                <th data-buttons="delete" style="width: 40px" class="header"></th>
                               </tr>
                               </thead>
                           </table>
@@ -787,6 +884,14 @@ function getName(obj) {
                   <textarea id="text_countdown" class="materialize-textarea value"></textarea>
                   <label for="text_countdown" class="translate">text_countdown</label>
                 </div>
+                <div class="input-field col s12 m6 l4">
+                  <i class="material-icons prefix">looks_one</i>
+                  <textarea id="text_one" class="materialize-textarea value"></textarea>
+                </div>
+                <div class="input-field col s12 m6 l4">
+                  <i class="material-icons prefix">looks_two</i>
+                  <textarea id="text_two" class="materialize-textarea value"></textarea>
+                </div>
             </div>
           </div>
           <div id="tab_shortcuts" class="col s12 page">
@@ -814,7 +919,7 @@ function getName(obj) {
                             <thead>
                             <tr>
                               <th data-name="enabled"  style="width: 50px" data-type="checkbox" class="header translate">active</th>
-                              <th data-name="select_id" data-type="select" data-options="status.state_list;status.activated;status.gets_activated;status.deactivated;status.burglar_alarm;status.silent_alarm;status.siren;status.activation_failed;status.sleep;status.activated_with_warnings;status.enableable;status.sharp_inside_activated;info.sharp_inside_siren;info.notification_circuit_changes;status.alarm_flash;status.silent_flash" class="header translate">Name</th>
+                              <th data-name="select_id" data-type="select" data-options="status.state_list;status.activated;status.gets_activated;status.deactivated;status.burglar_alarm;status.silent_alarm;status.siren;status.activation_failed;status.sleep;status.activated_with_warnings;status.enableable;status.sharp_inside_activated;info.sharp_inside_siren;info.notification_circuit_changes;status.alarm_flash;status.silent_flash;other_alarms.one_changes;other_alarms.two_changes" class="header translate">Name</th>
                               <th data-name="trigger_val" data-type="select" data-options=" ;true;false;deactivated;sharp;sharp_inside;burglary;night_rest" class="header translate">Trigger</th>
                               <th data-name="name" data-type="text" class="header translate">Name</th>
                               <th data-name="name_id" data-type="text" class="header translate">Object-ID</th>
@@ -940,8 +1045,87 @@ function getName(obj) {
                   <textarea id="log_nights_b_w" class="materialize-textarea value"></textarea>
                   <label for="log_nights_b_w" class="translate">log_nights_b_w</label>
                 </div>
+                <div class="input-field col s12 m6 l4">
+                  <i class="material-icons prefix">looks_one</i>
+                  <textarea id="log_one" class="materialize-textarea value"></textarea>
+                </div>
+                <div class="input-field col s12 m6 l4">
+                  <i class="material-icons prefix">looks_two</i>
+                  <textarea id="log_two" class="materialize-textarea value"></textarea>
+                </div>
             </div>
           </div>
+          <div id="other_alarms" class="col s12 page">
+            <div class="row">
+              <div class="col s12">
+                <div class="card-panel">
+                  <span class="red-text text-darken-2 translate">please</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col s12" id="one">
+                  <div class="row">
+                      <div class="col s2 m1 l1 left">
+                          <a   class="btn-floating waves-effect waves-light blue table-button-add" id="one_table"><i class="material-icons">add</i></a>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12 m6 l4">
+                      <i class="material-icons prefix">looks_one</i>
+                      <input id="one_name" type="text" class="validate value">
+                    </div>
+                  </div>
+            <div class="row">
+              <div class="table-values-div">
+                  <table class="table-values">
+                      <thead>
+                      <tr>
+                        <th data-name="enabled"  style="width: 50px" data-type="checkbox" class="header translate">active</th>
+                        <th data-name="name" data-type="text" class="header translate">Name</th>
+                        <th data-name="name_id" data-type="text" class="header translate">Object-ID</th>
+                        <th data-name="negativ"  style="width: 100px" data-type="checkbox" class="header translate">negativ</th>
+                        <th data-buttons="edit" style="width: 40px" class="header translate"></th>
+                        <th data-buttons="delete" style="width: 40px" class="header translate"></th>
+                      </tr>
+                      </thead>
+                  </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col s12" id="two">
+              <div class="row">
+                  <div class="col s2 m1 l1 left">
+                      <a   class="btn-floating waves-effect waves-light blue table-button-add" id="two_table"><i class="material-icons">add</i></a>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="input-field col s12 m6 l4">
+                    <i class="material-icons prefix">looks_two</i>
+                    <input id="two_name" type="text" class="validate value">
+                  </div>
+              </div>
+        <div class="row">
+          <div class="table-values-div">
+              <table class="table-values">
+                  <thead>
+                  <tr>
+                    <th data-name="enabled"  style="width: 50px" data-type="checkbox" class="header translate">active</th>
+                    <th data-name="name" data-type="text" class="header translate">Name</th>
+                    <th data-name="name_id" data-type="text" class="header translate">Object-ID</th>
+                    <th data-name="negativ"  style="width: 100px" data-type="checkbox" class="header translate">negativ</th>
+                    <th data-buttons="edit" style="width: 40px" class="header translate"></th>
+                    <th data-buttons="delete" style="width: 40px" class="header translate"></th>
+                  </tr>
+                  </thead>
+              </table>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div>
         </div>
 
 

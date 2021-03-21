@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "1.9.0",
+    "version": "2.0.0",
     "news": {
+      "2.0.0": {
+        "en": "added other alarms",
+         "de": "weitere Alarme hinzugefügt",
+         "ru": "добавлены другие будильники",
+         "pt": "adicionou outros alarmes",
+         "nl": "andere alarmen toegevoegd",
+         "fr": "ajouté d'autres alarmes",
+         "it": "aggiunti altri allarmi",
+         "es": "agregó otras alarmas",
+         "pl": "dodano inne alarmy",
+         "zh-cn": "添加了其他警报"
+            },
       "1.9.0": {
         "en": "added html states and fixed little issues",
          "de": "HTML-Status hinzugefügt und kleine Probleme behoben",
@@ -193,6 +205,8 @@
     "circuits": [],
     "shorts_in": [],
     "shorts": [],
+    "one": [],
+    "two": [],
     "time_activate": 10,
     "time_alarm": 60,
     "time_silent": 0,
@@ -217,6 +231,8 @@
     "send_alarm": true,
     "send_alarm_inside": true,
     "send_notification_changes": true,
+    "send_one_changes": true,
+    "send_two_changes": true,
     "send_activation": false,
     "send_activation_inside": false,
     "send_activation_warnings": true,
@@ -237,6 +253,8 @@
     "text_warn_begin": "Scharf intern aktiviert",
     "text_warn_end": "Scharf intern deaktiviert",
     "text_countdown": "Sekunden bis zur Aktivierung",
+    "text_one": "Alarmanlage meldet einen Feueralarm:",
+    "text_two": "Alarmanlage meldet einen Wasseralarm:",
     "password": "",
     "sendTo": "",
     "alarm": "",
@@ -258,7 +276,11 @@
     "log_sleep_b":"Nachtruhe beginnt",
     "log_sleep_e":"Nachtruhe endet",
     "log_warn_b_w":"Scharf innen beginnt mit Warnungen:",
-    "log_nights_b_w":"Nachtruhe beginnt mit Warnungen:"
+    "log_nights_b_w":"Nachtruhe beginnt mit Warnungen:",
+    "log_one": "Alarmanlage meldet einen Feueralarm:",
+    "log_two": "Alarmanlage meldet einen Wasseralarm:",
+    "one_name": "Feueralarm",
+    "two_name": "Wasseralarm"
   },
   "objects": [],
   "instanceObjects": [
@@ -792,7 +814,85 @@
       "common": {
         "role": "",
         "name": "last log",
-        "desc": "the last log that was fired",
+        "desc": "the last log that was oned",
+        "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "other_alarms.one_changes",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Changes one",
+        "desc": "Signalled changes in other alarm one",
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "other_alarms.one_list",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "One list",
+        "desc": "List other alarms one",
+        "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "other_alarms.one_list_html",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "One list html",
+        "desc": "List other alarms one html",
+        "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "other_alarms.two_changes",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Changes two",
+        "desc": "Signalled changes in other alarm two",
+        "type": "boolean",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "other_alarms.two_list",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Two list",
+        "desc": "List other alarm two",
+        "type": "string",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "other_alarms.two_list_html",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Two list html",
+        "desc": "List other alarms two html",
         "type": "string",
         "read": true,
         "write": false
