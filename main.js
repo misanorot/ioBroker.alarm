@@ -749,7 +749,7 @@ function change(id, state){
         const name = get_name(id, 'one');
         let say = A.text_one;
         if(log) adapter.log.info(`${A.log_one} ${name}`);
-        if(A.one_changes) messages(`${A.log_one} ${name}`);
+        if(A.send_one_changes) messages(`${A.log_one} ${name}`);
         if(A.opt_say_names){
             say = say + ' ' + name;
         }
@@ -760,7 +760,7 @@ function change(id, state){
         const name = get_name(id, 'two');
         let say = A.text_changes_two;
         if(log) adapter.log.info(`${A.log_two} ${name}`);
-        if(A.two_changes) messages(`${A.log_two} ${name}`);
+        if(A.send_two_changes) messages(`${A.log_two} ${name}`);
         if(A.opt_say_names){
             say = say + ' ' + name;
         }
