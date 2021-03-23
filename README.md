@@ -138,6 +138,7 @@ Der log_today state wird um Mitternacht geleert.
 
 #### "alarm.x.other_alarms...."
 Beinhaltet die Informationen für die "anderen" Alarmkreise 1 + 2.
+
 ----------------------------------------------------------------------------------------------------------------------
 
 ## Probleme
