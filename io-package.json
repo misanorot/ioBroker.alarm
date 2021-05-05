@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "news": {
+      "2.0.1": {
+        "en": "fixed ack issue",
+        "de": "ack Problem behoben",
+        "ru": "исправлена проблема с подтверждением",
+        "pt": "problema de reconhecimento corrigido",
+        "nl": "probleem opgelost",
+        "fr": "problème d'ack corrigé",
+        "it": "risolto problema ack",
+        "es": "problema de ack solucionado",
+        "pl": "naprawiono problem z potwierdzeniem",
+        "zh-cn": "固定确认问题"
+            },
       "2.0.0": {
         "en": "added other alarms",
          "de": "weitere Alarme hinzugefügt",

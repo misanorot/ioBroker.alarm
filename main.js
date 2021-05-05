@@ -156,36 +156,36 @@ function main() {
     adapter.getState('status.activated', (err, state)=>{
         if(err){
             adapter.log.error(err);
-            adapter.setState('info.connection', false);
+            adapter.setState('info.connection', false, true);
             return;
         }else{
       	    if(state == null){
                 activated = false;
-                adapter.setState('status.activated', false);
+                adapter.setState('status.activated', false, true);
             }else activated = state.val;
 		    }
     });
     adapter.getState('status.sleep', (err, state)=>{
         if(err){
             adapter.log.error(err);
-            adapter.setState('info.connection', false);
+            adapter.setState('info.connection', false, true);
             return;
         }else{
             if(state == null){
                 night_rest = false;
-                adapter.setState('status.sleep', false);
+                adapter.setState('status.sleep', false, true);
             }else night_rest = state.val;
         }
     });
     adapter.getState('status.sharp_inside_activated', (err, state)=>{
         if(err){
             adapter.log.error(err);
-            adapter.setState('info.connection', false);
+            adapter.setState('info.connection', false, true);
             return;
         }else{
             if(state == null){
                 inside = false;
-                adapter.setState('status.sharp_inside_activated', false);
+                adapter.setState('status.sharp_inside_activated', false, true);
             }else inside = state.val;
         }
     });
@@ -209,16 +209,16 @@ function enable(id, state){
     if(timer) {
         clearInterval(timer);
         timer = null;
-        adapter.setState('status.activation_countdown', null);
-        adapter.setState('status.gets_activated', false);
+        adapter.setState('status.activation_countdown', null, true);
+        adapter.setState('status.gets_activated', false, true);
     }
     if(!A.opt_warning && is_alarm){
-        adapter.setState('info.log', `${A.log_act_not} ${names_alarm}`);
+        adapter.setState('info.log', `${A.log_act_not} ${names_alarm}`, true);
         if(log)adapter.log.info(`${A.log_act_not} ${names_alarm}`);
         if(A.send_activation) messages(`${A.log_act_not} ${names_alarm}`);
-        adapter.setState('status.activation_failed', true);
-        adapter.setState('status.state', 'activation failed');
-        adapter.setState('use.list', 0);
+        adapter.setState('status.activation_failed', true, true);
+        adapter.setState('status.state', 'activation failed', true);
+        adapter.setState('use.list', 0, true);
         if(A.opt_say_names){
             say = say + ' ' + names_alarm;
         }
@@ -227,23 +227,23 @@ function enable(id, state){
     }
     inside_ends();
     sleep_end();
-    adapter.setState('status.sharp_inside_activated', false);
-    adapter.setState('status.activated', true);
-    adapter.setState('status.deactivated', false);
-    adapter.setState('status.activation_failed', false);
-    adapter.setState('status.state', 'sharp');
-    adapter.setState('status.state_list', 1);
-    adapter.setState('homekit.CurrentState', 1);
-    adapter.setState('homekit.TargetState', 1);
-    adapter.setState('use.list', 1);
+    adapter.setState('status.sharp_inside_activated', false, true);
+    adapter.setState('status.activated', true, true);
+    adapter.setState('status.deactivated', false, true);
+    adapter.setState('status.activation_failed', false, true);
+    adapter.setState('status.state', 'sharp', true);
+    adapter.setState('status.state_list', 1, true);
+    adapter.setState('homekit.CurrentState', 1, true);
+    adapter.setState('homekit.TargetState', 1, true);
+    adapter.setState('use.list', 1, true);
     if(is_alarm){
-        adapter.setState('status.activated_with_warnings', true);
-        adapter.setState('status.state', 'activated with warnings');
-        adapter.setState('info.log', `${A.log_act_warn} ${names_alarm}`);
+        adapter.setState('status.activated_with_warnings', true, true);
+        adapter.setState('status.state', 'activated with warnings', true);
+        adapter.setState('info.log', `${A.log_act_warn} ${names_alarm}`, true);
         if(log)adapter.log.info(`${A.log_act_warn} ${names_alarm}`);
         if(A.send_activated_with_warnings) messages(`${A.log_act_warn} ${names_alarm}`);
     } else{
-        adapter.setState('info.log', `${A.log_act}`);
+        adapter.setState('info.log', `${A.log_act}`, true);
         if(log)adapter.log.info(`${A.log_act}`);
         sayit(A.text_activated, 1);
         if(A.send_activation) messages(`${A.log_act}`);
@@ -267,24 +267,24 @@ function disable(){
     text_alarm_interval = null;
     if(activated || is_panic){
         is_panic = false;
-        adapter.setState('info.log', `${A.log_deact}`);
+        adapter.setState('info.log', `${A.log_deact}`, true);
         sayit(A.text_deactivated, 2);
         if(log)adapter.log.info(`${A.log_deact}`);
-        adapter.setState('status.siren', false);
-        adapter.setState('status.silent_flash', false);
-        adapter.setState('status.alarm_flash', false);
-        adapter.setState('status.activated', false);
-        adapter.setState('status.deactivated', true);
-        adapter.setState('status.activated_with_warnings', false);
-        adapter.setState('status.activation_failed', false);
-        adapter.setState('status.siren', false);
-        adapter.setState('status.burglar_alarm', false);
-        adapter.setState('status.silent_alarm', false);
-        adapter.setState('status.state', 'deactivated');
-        adapter.setState('status.state_list',0);
-        adapter.setState('homekit.CurrentState', 3);
-        adapter.setState('homekit.TargetState', 3);
-        adapter.setState('use.list',0);
+        adapter.setState('status.siren', false, true);
+        adapter.setState('status.silent_flash', false, true);
+        adapter.setState('status.alarm_flash', false, true);
+        adapter.setState('status.activated', false, true);
+        adapter.setState('status.deactivated', true, true);
+        adapter.setState('status.activated_with_warnings', false, true);
+        adapter.setState('status.activation_failed', false, true);
+        adapter.setState('status.siren', false, true);
+        adapter.setState('status.burglar_alarm', false, true);
+        adapter.setState('status.silent_alarm', false, true);
+        adapter.setState('status.state', 'deactivated', true);
+        adapter.setState('status.state_list',0, true);
+        adapter.setState('homekit.CurrentState', 3, true);
+        adapter.setState('homekit.TargetState', 3, true);
+        adapter.setState('use.list',0, true);
         if(A.send_activation) messages(`${A.log_deact}`);
     }else if (inside) {
         inside_ends(true);
@@ -303,19 +303,19 @@ function burglary(id, state, silent){
     if(silent_timer && silent) return;
     let count = 0;
     const name = get_name(id);
-    adapter.setState('info.log', `${A.log_burgle} ${name}`);
+    adapter.setState('info.log', `${A.log_burgle} ${name}`, true);
     if(log)adapter.log.info(`${A.log_burgle} ${name}`);
     if(silent){
-        adapter.setState('status.silent_alarm', true);
-        adapter.setState('status.state', 'silent alarm');
+        adapter.setState('status.silent_alarm', true, true);
+        adapter.setState('status.state', 'silent alarm', true);
         if(A.send_alarm_silent) messages(`${A.log_burgle} ${name}`);
         if(A.silent_flash > 0) {
             silent_interval = setInterval(()=>{
                 if(silent_i) {
-                    adapter.setState('status.silent_flash', true);
+                    adapter.setState('status.silent_flash', true, true);
                     silent_i = false;
                 } else {
-                    adapter.setState('status.silent_flash', false);
+                    adapter.setState('status.silent_flash', false, true);
                     silent_i = true;
                 }
             }, A.silent_flash * 1000);
@@ -334,26 +334,26 @@ function burglary(id, state, silent){
                     clearInterval(text_alarm_interval);
                 }
             }, 5000);
-            adapter.setState('status.burglar_alarm', true);
-            adapter.setState('status.silent_alarm', false);
-            adapter.setState('status.silent_flash', false);
-            adapter.setState('status.siren', true);
-            adapter.setState('status.state', 'burgle');
-            adapter.setState('status.state_list', 3);
-            adapter.setState('homekit.CurrentState', 4);
+            adapter.setState('status.burglar_alarm', true, true);
+            adapter.setState('status.silent_alarm', false, true);
+            adapter.setState('status.silent_flash', false, true);
+            adapter.setState('status.siren', true, true);
+            adapter.setState('status.state', 'burgle', true);
+            adapter.setState('status.state_list', 3, true);
+            adapter.setState('homekit.CurrentState', 4, true);
             if(A.alarm_flash > 0) {
                 alarm_interval = setInterval(()=>{
                     if(alarm_i) {
-                        adapter.setState('status.alarm_flash', true);
+                        adapter.setState('status.alarm_flash', true, true);
                         alarm_i = false;
                     } else {
-                        adapter.setState('status.alarm_flash', false);
+                        adapter.setState('status.alarm_flash', false, true);
                         alarm_i = true;
                     }
                 }, A.alarm_flash * 1000);
             }
             siren_timer = setTimeout(()=>{
-                adapter.setState('status.siren', false);
+                adapter.setState('status.siren', false, true);
                 clearTimeout(siren_timer);
             }, timeMode(A.time_alarm_select) * A.time_alarm);
         }, timeMode(A.time_silent_select) * A.time_silent);
@@ -372,26 +372,26 @@ function burglary(id, state, silent){
                 clearInterval(text_alarm_interval);
             }
         }, 5000);
-        adapter.setState('status.burglar_alarm', true);
-        adapter.setState('status.silent_alarm', false);
-        adapter.setState('status.silent_flash', false);
-        adapter.setState('status.siren', true);
-        adapter.setState('status.state', 'burgle');
-        adapter.setState('status.state_list', 3);
-        adapter.setState('homekit.CurrentState', 4);
+        adapter.setState('status.burglar_alarm', true, true);
+        adapter.setState('status.silent_alarm', false, true);
+        adapter.setState('status.silent_flash', false, true);
+        adapter.setState('status.siren', true, true);
+        adapter.setState('status.state', 'burgle', true);
+        adapter.setState('status.state_list', 3, true);
+        adapter.setState('homekit.CurrentState', 4, true);
         if(A.alarm_flash > 0) {
             alarm_interval = setInterval(()=>{
                 if(alarm_i) {
-                    adapter.setState('status.alarm_flash', true);
+                    adapter.setState('status.alarm_flash', true, true);
                     alarm_i = false;
                 } else {
-                    adapter.setState('status.alarm_flash', false);
+                    adapter.setState('status.alarm_flash', false, true);
                     alarm_i = true;
                 }
             }, A.alarm_flash * 1000);
         }
         siren_timer = setTimeout(()=>{
-            adapter.setState('status.siren', false);
+            adapter.setState('status.siren', false, true);
             clearTimeout(siren_timer);
         }, timeMode(A.time_alarm_select) * A.time_alarm);
     }
@@ -403,7 +403,7 @@ function burglary(id, state, silent){
 function panic(){
     let count = 0;
     is_panic = true;
-    adapter.setState('info.log', `${A.log_panic}`);
+    adapter.setState('info.log', `${A.log_panic}`, true);
     if(log)adapter.log.info(`${A.log_panic}`);
     if(A.send_alarm) messages(`${A.log_panic}`);
     sayit(A.text_alarm, 6);
@@ -415,24 +415,24 @@ function panic(){
             clearInterval(text_alarm_interval);
         }
     }, 5000);
-    adapter.setState('status.burglar_alarm', true);
+    adapter.setState('status.burglar_alarm', true, true);
     if(A.alarm_flash > 0) {
         alarm_interval = setInterval(()=>{
             if(alarm_i) {
-                adapter.setState('status.alarm_flash', true);
+                adapter.setState('status.alarm_flash', true, true);
                 alarm_i = false;
             } else {
-                adapter.setState('status.alarm_flash', false);
+                adapter.setState('status.alarm_flash', false, true);
                 alarm_i = true;
             }
         }, A.alarm_flash * 1000);
     }
-    adapter.setState('status.siren', true);
-    adapter.setState('status.state', 'burgle');
-    adapter.setState('status.state_list', 3);
-    adapter.setState('homekit.CurrentState', 4);
+    adapter.setState('status.siren', true, true);
+    adapter.setState('status.state', 'burgle', true);
+    adapter.setState('status.state_list', 3, true);
+    adapter.setState('homekit.CurrentState', 4, true);
     siren_timer = setTimeout(()=>{
-        adapter.setState('status.siren', false);
+        adapter.setState('status.siren', false, true);
     }, timeMode(A.time_alarm_select) * A.time_alarm);
 }
 
@@ -562,11 +562,11 @@ function change(id, state){
     else if(id === adapter.namespace + '.use.quit_changes'){
         clearTimeout(timer_inside_changes);
         clearTimeout(timer_notification_changes);
-        adapter.setState('status.activation_failed', false);
-        adapter.setState('info.sharp_inside_siren', false);
-        adapter.setState('info.notification_circuit_changes', false);
-        adapter.setState('other_alarms.one_changes', false);
-        adapter.setState('other_alarms.two_changes', false);
+        adapter.setState('status.activation_failed', false, true);
+        adapter.setState('info.sharp_inside_siren', false, true);
+        adapter.setState('info.notification_circuit_changes', false, true);
+        adapter.setState('other_alarms.one_changes', false, true);
+        adapter.setState('other_alarms.two_changes', false, true);
         return;
     }
     else if(id === adapter.namespace + '.status.deactivated'){
@@ -655,13 +655,13 @@ function change(id, state){
             //disable();
             return;
         }else{
-            adapter.setState('info.wrong_password', true, (err)=>{
+            adapter.setState('info.wrong_password', true, true, (err)=>{
                 if(err)adapter.log.error(err);
-                adapter.setState(id, '');
+                adapter.setState(id, '', true);
             });
             if(log) adapter.log.info(`${A.log_pass}`);
             adapter.log.debug(`Password denied ${state.val}`);
-            //adapter.setState('info.log', `${A.log_pass}`);
+            //adapter.setState('info.log', `${A.log_pass}`, true);
             if(A.send_failed) messages(`${A.log_pass}`);
             return;
         }
@@ -676,13 +676,13 @@ function change(id, state){
             //disable();
             return;
         }else{
-            adapter.setState('info.wrong_password', true, (err)=>{
+            adapter.setState('info.wrong_password', true, true, (err)=>{
                 if(err)adapter.log.error(err);
-                adapter.setState(id, '');
+                adapter.setState(id, '', true);
             });
             if(log) adapter.log.info(`${A.log_pass}`);
             adapter.log.debug(`Password denied ${state.val}`);
-            //adapter.setState('info.log', `${A.log_pass}`);
+            //adapter.setState('info.log', `${A.log_pass}`, true);
             if(A.send_failed) messages(`${A.log_pass}`);
             return;
         }
@@ -702,8 +702,8 @@ function change(id, state){
     if(inside_ids.includes(id) && inside && isTrue(id, state)){
         const name = get_name(id);
         let say = A.text_changes;
-        adapter.setState('info.log', `${A.log_warn} ${name}`);
-        adapter.setState('info.sharp_inside_siren', true);
+        adapter.setState('info.log', `${A.log_warn} ${name}`, true);
+        adapter.setState('info.sharp_inside_siren', true, true);
         if(log) adapter.log.info(`${A.log_warn} ${name}`);
         if(A.send_alarm_inside) messages(`${A.log_warn} ${name}`);
         if(A.opt_say_names){
@@ -712,15 +712,15 @@ function change(id, state){
         sayit(say, 5);
 
         timer_inside_changes = setTimeout(()=>{
-            adapter.setState('info.sharp_inside_siren', false);
+            adapter.setState('info.sharp_inside_siren', false, true);
         }, timeMode(A.time_warning_select) * A.time_warning);
         return;
     }
     if(notification_ids.includes(id) && isTrue(id, state)){
         if(!activated && !inside && !night_rest) return;
         const name = get_name(id);
-        adapter.setState('info.log', `${A.log_warn} ${name}`);
-        adapter.setState('info.notification_circuit_changes', true);
+        adapter.setState('info.log', `${A.log_warn} ${name}`, true);
+        adapter.setState('info.notification_circuit_changes', true, true);
         if(night_rest){
             let say = A.text_changes_night;
             if(log) adapter.log.info(`${A.log_night} ${name}`);
@@ -742,7 +742,7 @@ function change(id, state){
             if(A.send_notification_changes) messages(`${A.log_warn} ${name}`);
         }
         timer_notification_changes = setTimeout(()=>{
-            adapter.setState('info.notification_circuit_changes', false);
+            adapter.setState('info.notification_circuit_changes', false, true);
         }, timeMode(A.time_warning_select) * A.time_warning);
     }
     if(one_ids.includes(id) && isTrue(id, state, 'one')) {
@@ -754,7 +754,7 @@ function change(id, state){
             say = say + ' ' + name;
         }
         sayit(say, 12);
-        adapter.setState('other_alarms.one_changes', true);
+        adapter.setState('other_alarms.one_changes', true, true);
     }
     if(two_ids.includes(id) && isTrue(id, state, 'two')) {
         const name = get_name(id, 'two');
@@ -765,7 +765,7 @@ function change(id, state){
             say = say + ' ' + name;
         }
         sayit(say, 13);
-        adapter.setState('other_alarms.two_changes', true);
+        adapter.setState('other_alarms.two_changes', true, true);
     }
 }
 //##############################################################################
@@ -1002,26 +1002,26 @@ function inside_begins(){
         if(is_inside){
             let say = A.text_warning;
             if(A.send_activation_warnings_inside) messages(`${A.log_warn_b_w} ${names_inside}`);
-            adapter.setState('info.log', `${A.log_warn_b_w} ${names_inside}`);
+            adapter.setState('info.log', `${A.log_warn_b_w} ${names_inside}`, true);
             if(log) adapter.log.info(`${A.log_warn_b_w} ${names_inside}`);
             if(A.opt_say_names){
                 say = say + ' ' + names_inside;
             }
             sayit(say, 4);
         } else {
-            adapter.setState('info.log', `${A.log_warn_act}`);
+            adapter.setState('info.log', `${A.log_warn_act}`, true);
             if(log)adapter.log.info(`${A.log_warn_act}`);
             if(A.send_activation_inside) messages(`${A.log_warn_act}`);
             sayit(A.text_warn_begin, 10);
         }
-        adapter.setState('status.sharp_inside_activated', true);
-        adapter.setState('status.state', 'sharp inside');
-        adapter.setState('status.state_list', 2);
-        adapter.setState('homekit.CurrentState', 0);
-        adapter.setState('homekit.TargetState', 0);
-        adapter.setState('use.list', 2);
-        adapter.setState('status.activated', false);
-        adapter.setState('status.deactivated', true);
+        adapter.setState('status.sharp_inside_activated', true, true);
+        adapter.setState('status.state', 'sharp inside', true);
+        adapter.setState('status.state_list', 2, true);
+        adapter.setState('homekit.CurrentState', 0, true);
+        adapter.setState('homekit.TargetState', 0, true);
+        adapter.setState('use.list', 2, true);
+        adapter.setState('status.activated', false, true);
+        adapter.setState('status.deactivated', true, true);
     }
 }
 
@@ -1031,18 +1031,18 @@ function inside_ends(off){
         if(off){
             clearTimeout(timer_inside_changes);
             clearTimeout(timer_notification_changes);
-            adapter.setState('info.log', `${A.log_warn_deact}`);
+            adapter.setState('info.log', `${A.log_warn_deact}`, true);
             if(log)adapter.log.info(`${A.log_warn_deact}`);
             if(A.send_activation_inside) messages(`${A.log_warn_deact}`);
             sayit(A.text_warn_end, 0);
-            adapter.setState('status.sharp_inside_activated', false);
-            adapter.setState('status.state', 'deactivated');
-            adapter.setState('status.state_list',0);
-            adapter.setState('homekit.CurrentState', 3);
-            adapter.setState('homekit.TargetState', 3);
-            adapter.setState('use.list',0);
-            adapter.setState('info.sharp_inside_siren', false);
-            adapter.setState('info.notification_circuit_changes', false);
+            adapter.setState('status.sharp_inside_activated', false, true);
+            adapter.setState('status.state', 'deactivated', true);
+            adapter.setState('status.state_list',0, true);
+            adapter.setState('homekit.CurrentState', 3, true);
+            adapter.setState('homekit.TargetState', 3, true);
+            adapter.setState('use.list',0, true);
+            adapter.setState('info.sharp_inside_siren', false, true);
+            adapter.setState('info.notification_circuit_changes', false, true);
         }
 
     }
@@ -1058,17 +1058,17 @@ function sleep_begin(auto) {
     night_rest = true;
     inside_ends();
     if(log) adapter.log.info(`${A.log_sleep_b}`);
-    adapter.setState('info.log', `${A.log_sleep_b}`);
+    adapter.setState('info.log', `${A.log_sleep_b}`, true);
     if(!is_notification) sayit(A.text_nightrest_beginn, 7);
-    adapter.setState('status.state', 'night rest');
-    adapter.setState('status.state_list', 4);
-    adapter.setState('homekit.CurrentState', 2);
-    adapter.setState('homekit.TargetState', 2);
-    adapter.setState('use.list', 4);
+    adapter.setState('status.state', 'night rest', true);
+    adapter.setState('status.state_list', 4, true);
+    adapter.setState('homekit.CurrentState', 2, true);
+    adapter.setState('homekit.TargetState', 2, true);
+    adapter.setState('use.list', 4, true);
     if(is_notification){
         let say = A.text_warning;
         //if(night_message) messages(`${A.log_nights_b_w} ${names_notification}`);
-        adapter.setState('info.log', `${A.log_nights_b_w} ${names_notification}`);
+        adapter.setState('info.log', `${A.log_nights_b_w} ${names_notification}`, true);
         if(log) adapter.log.info(`${A.log_nights_b_w} ${names_notification}`);
         if(A.opt_say_names){
             say = say + ' ' + names_notification;
@@ -1081,15 +1081,15 @@ function sleep_end(off) {
     if (night_rest) {
         night_rest = false;
         if(off){
-            adapter.setState('info.log', `${A.log_sleep_e}`);
+            adapter.setState('info.log', `${A.log_sleep_e}`, true);
             sayit(A.text_nightrest_end, 8);
             if(log) adapter.log.info(`${A.log_sleep_e}`);
-            adapter.setState('status.state', 'deactivated');
+            adapter.setState('status.state', 'deactivated', true);
             if(!inside){
-                adapter.setState('status.state_list', 0);
-                adapter.setState('homekit.CurrentState', 3);
-                adapter.setState('homekit.TargetState', 3);
-                adapter.setState('use.list', 0);
+                adapter.setState('status.state_list', 0, true);
+                adapter.setState('homekit.CurrentState', 3, true);
+                adapter.setState('homekit.TargetState', 3, true);
+                adapter.setState('use.list', 0, true);
             }
         }
     }
@@ -1102,14 +1102,14 @@ function refreshLists(){
             ids_alarm = ids;
             is_alarm = true;
             names_alarm = get_name(ids);
-            adapter.setState('info.alarm_circuit_list', names_alarm);
-            adapter.setState('info.alarm_circuit_list_html', get_name_html(ids));
+            adapter.setState('info.alarm_circuit_list', names_alarm, true);
+            adapter.setState('info.alarm_circuit_list_html', get_name_html(ids), true);
         }else{
             ids_alarm = [];
             is_alarm = false;
             names_alarm = '';
-            adapter.setState('info.alarm_circuit_list', '');
-            adapter.setState('info.alarm_circuit_list_html', '');
+            adapter.setState('info.alarm_circuit_list', '', true);
+            adapter.setState('info.alarm_circuit_list_html', '', true);
         }
     });
     check(inside_ids, (val, ids)=>{
@@ -1118,14 +1118,14 @@ function refreshLists(){
             ids_inside = ids;
             is_inside = true;
             names_inside = get_name(ids);
-            adapter.setState('info.sharp_inside_circuit_list', names_inside);
-            adapter.setState('info.sharp_inside_circuit_list_html', get_name_html(ids));
+            adapter.setState('info.sharp_inside_circuit_list', names_inside, true);
+            adapter.setState('info.sharp_inside_circuit_list_html', get_name_html(ids), true);
         }else{
             ids_inside = [];
             is_inside = false;
             names_inside = '';
-            adapter.setState('info.sharp_inside_circuit_list', '');
-            adapter.setState('info.sharp_inside_circuit_list_html', '');
+            adapter.setState('info.sharp_inside_circuit_list', '', true);
+            adapter.setState('info.sharp_inside_circuit_list_html', '', true);
         }
     });
     check(notification_ids, (val, ids)=>{
@@ -1134,14 +1134,14 @@ function refreshLists(){
             ids_notification = ids;
             is_notification = true;
             names_notification = get_name(ids);
-            adapter.setState('info.notification_circuit_list', names_notification);
-            adapter.setState('info.notification_circuit_list_html', get_name_html(ids));
+            adapter.setState('info.notification_circuit_list', names_notification, true);
+            adapter.setState('info.notification_circuit_list_html', get_name_html(ids), true);
         }else{
             ids_notification = [];
             is_notification = false;
             names_notification = '';
-            adapter.setState('info.notification_circuit_list', '');
-            adapter.setState('info.notification_circuit_list_html', '');
+            adapter.setState('info.notification_circuit_list', '', true);
+            adapter.setState('info.notification_circuit_list_html', '', true);
         }
     });
     check_one(one_ids, (val, ids)=>{
@@ -1150,14 +1150,14 @@ function refreshLists(){
             ids_one = ids;
             is_one = true;
             names_one = get_name(ids, 'one');
-            adapter.setState('other_alarms.one_list', names_one);
-            adapter.setState('other_alarms.one_list_html', get_name_html(ids, 'one'));
+            adapter.setState('other_alarms.one_list', names_one, true);
+            adapter.setState('other_alarms.one_list_html', get_name_html(ids, 'one'), true);
         }else{
             ids_one = [];
             is_one = false;
             names_one = '';
-            adapter.setState('other_alarms.one_list', '');
-            adapter.setState('other_alarms.one_list_html', '');
+            adapter.setState('other_alarms.one_list', '', true);
+            adapter.setState('other_alarms.one_list_html', '', true);
         }
     });
     check_two(two_ids, (val, ids)=>{
@@ -1166,32 +1166,32 @@ function refreshLists(){
             ids_two = ids;
             is_two = true;
             names_two = get_name(ids, 'two');
-            adapter.setState('other_alarms.two_list', names_two);
-            adapter.setState('other_alarms.two_list_html', get_name_html(ids, 'two'));
+            adapter.setState('other_alarms.two_list', names_two, true);
+            adapter.setState('other_alarms.two_list_html', get_name_html(ids, 'two'), true);
         }else{
             ids_two = [];
             is_two = false;
             names_two = '';
-            adapter.setState('other_alarms.two_list', '');
-            adapter.setState('other_alarms.two_list_html', '');
+            adapter.setState('other_alarms.two_list', '', true);
+            adapter.setState('other_alarms.two_list_html', '', true);
         }
     });
     if(is_alarm){
-        adapter.setState('status.enableable', false);
+        adapter.setState('status.enableable', false, true);
         return;
     } else if (!A.opt_warning && is_alarm) {
-        adapter.setState('status.enableable', false);
+        adapter.setState('status.enableable', false, true);
     }else {
-        adapter.setState('status.enableable', true);
+        adapter.setState('status.enableable', true, true);
     }
 }
 
 function checkPassword(pass, id) {
     if(A.password === pass){
         adapter.log.debug(`Password accept`);
-        adapter.setState('info.wrong_password', false, (err)=>{
+        adapter.setState('info.wrong_password', false, true, (err)=>{
             if(err)adapter.log.error(err);
-            adapter.setState(id, '');
+            adapter.setState(id, '', true);
         });
         return true;
     }
@@ -1414,16 +1414,16 @@ function countdown(count){
             sayit(say, 4);
         }
         sayit(say, 11);
-        adapter.setState('status.gets_activated', true);
+        adapter.setState('status.gets_activated', true, true);
         timer = setInterval(()=>{
             if(counter > 0){
                 counter--;
-                adapter.setState('status.activation_countdown', counter);
+                adapter.setState('status.activation_countdown', counter, true);
             }else{
                 clearInterval(timer);
                 timer = null;
-                adapter.setState('status.activation_countdown', counter);
-                adapter.setState('status.gets_activated', false);
+                adapter.setState('status.activation_countdown', counter, true);
+                adapter.setState('status.gets_activated', false, true);
                 enable();
             }
         }, 1000);
@@ -1435,8 +1435,8 @@ function countdown(count){
         if(timer){
             clearInterval(timer);
             timer = null;
-            adapter.setState('status.activation_countdown', null);
-            adapter.setState('status.gets_activated', false);
+            adapter.setState('status.activation_countdown', null, true);
+            adapter.setState('status.gets_activated', false, true);
         }
         disable();
     }
@@ -1460,7 +1460,7 @@ function shortcuts_inside(id, val) {
             if(ele.value === val || bools(ele.value) == val) {
                 if(ele.trigger_val == 'any' || change) {
                     adapter.log.debug(`Input shorcut changed: ${ele.name_id}`);
-                    adapter.setState(ele.select_id, true, (err)=>{
+                    adapter.setState(ele.select_id, true, true, (err)=>{
                         if(err) adapter.log.warn(`Cannot set state: ${err}`);
                     });
                 }
@@ -1548,7 +1548,7 @@ function logging(content){
                 log_list = log_list.split('<br>');
                 log_list.unshift(timeStamp() + ': ' + content);
                 //if (log_list.length > 25) log_list.splice(0,1);
-                adapter.setState('info.log_today', log_list.join('<br>'));
+                adapter.setState('info.log_today', log_list.join('<br>'), true);
             }
         }
     });
@@ -1560,7 +1560,7 @@ function logging(content){
 
 function set_schedules(){
     schedule_reset = schedule.scheduleJob({hour: 00, minute: 00}, ()=>{
-        adapter.setState('info.log_today', '');
+        adapter.setState('info.log_today', '', true);
     });
     if(A.night_from && A.night_to){
         let from, to;
@@ -1572,11 +1572,11 @@ function set_schedules(){
             return;
         }
         schedule_from = schedule.scheduleJob({hour: parseInt(from[0]), minute: parseInt(from[1])}, ()=>{
-            adapter.setState('status.sleep', true);
+            adapter.setState('status.sleep', true, true);
             sleep_begin(true);
         });
         schedule_to = schedule.scheduleJob({hour: parseInt(to[0]), minute: parseInt(to[1])}, ()=>{
-            adapter.setState('status.sleep', false);
+            adapter.setState('status.sleep', false, true);
             if(!activated && !inside) countdown(false);
         });
         adapter.log.debug(`Night rest configured from ${parseInt(from[0])}:${parseInt(from[1])} to ${parseInt(to[0])}:${parseInt(to[1])}`);
