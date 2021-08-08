@@ -650,7 +650,7 @@ function change(id, state){
         if(checkPassword(state.val, 'use.toggle_password') && !activated){
             enable(id, state);
             return;
-        }else if(checkPassword(state.val) && activated){
+        }else if(checkPassword(state.val, 'use.toggle_password') && activated){
             countdown(false);
             //disable();
             return;
@@ -671,7 +671,7 @@ function change(id, state){
         if(checkPassword(state.val, 'use.toggle_with_delay_and_password') && !activated){
             countdown(true);
             return;
-        }else if(checkPassword(state.val) && activated){
+        }else if(checkPassword(state.val, 'use.toggle_with_delay_and_password') && activated){
             countdown(false);
             //disable();
             return;

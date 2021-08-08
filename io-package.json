@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "news": {
+      "2.0.2": {
+        "en": "fixed password issues",
+        "de": "Passwortprobleme behoben",
+        "ru": "исправлены проблемы с паролем",
+        "pt": "problemas de senha corrigidos",
+        "nl": "problemen met opgeloste wachtwoorden",
+        "fr": "problèmes de mot de passe corrigés",
+        "it": "problemi di password risolti",
+        "es": "problemas de contraseña solucionados",
+        "pl": "naprawiono problemy z hasłem",
+        "zh-cn": "固定密码问题"
+            },
       "2.0.1": {
         "en": "fixed ack issue",
         "de": "ack Problem behoben",
