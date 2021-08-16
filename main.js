@@ -1415,6 +1415,7 @@ function countdown(count){
         }
         sayit(say, 11);
         adapter.setState('status.gets_activated', true, true);
+	adapter.setState('status.state_list', 5, true);
         timer = setInterval(()=>{
             if(counter > 0){
                 counter--;
@@ -1499,6 +1500,9 @@ function shortcuts(id, val){
             case 4:
                 setVal = 'night_rest';
                 break;
+	    case 5:
+		setVal = 'gets_activated';
+		break;
             default:
                 setVal = val;
                 adapter.log.warn(`Wrong list state at shortcuts: ${val}`);
