@@ -151,6 +151,9 @@ Beinhaltet die Informationen für die "anderen" Alarmkreise 1 + 2.
 
 ## Changelog
 
+#### 2.0.3 (16.08.2021)
+* (Schmakus) added state "gets_activated" to state_list
+
 #### 2.0.2 (08.08.2021)
 * (misanorot) fixed password issues
 
