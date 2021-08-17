@@ -539,7 +539,8 @@
           "1": "enable",
           "2": "sharp inside",
           "3": "enable with delay",
-          "4": "night rest"
+          "4": "night rest",
+          "5": "gets_activated"
         },
         "read": true,
         "write": true
