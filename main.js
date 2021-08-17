@@ -1438,6 +1438,7 @@ function countdown(count){
             timer = null;
             adapter.setState('status.activation_countdown', null, true);
             adapter.setState('status.gets_activated', false, true);
+	    adapter.setState('status.state_list', 0, true);
         }
         disable();
     }
