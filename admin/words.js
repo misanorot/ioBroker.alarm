@@ -102,7 +102,7 @@ systemDictionary = {
         'pl': 'aktywacja przy wyjściu podczas odliczania',
         'zh-cn': '倒计时离开时激活'                              },
     'opt_list': {            'en': 'set list states to burgle when sharp inside triggered',
-        'de': 'List States auf Einbruch setzen, wenn scharfe Innen ausgelöst wird',
+        'de': 'List States auf Einbruch setzen, wenn scharf Innen ausgelöst wird',
         'ru': 'установить список состояний для взлома при резком срабатывании внутри',
         'pt': 'definir os estados da lista para burgle quando afiado for acionado',
         'nl': 'stel lijststaten in om in te breken wanneer scherp van binnen wordt geactiveerd',
