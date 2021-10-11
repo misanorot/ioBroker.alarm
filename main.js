@@ -22,6 +22,7 @@ let clean_ids = [];
 const alarm_ids = [],
     inside_ids = [],
     notification_ids = [],
+    leave_ids = [],
     one_ids = [],
     two_ids = [],
     one_states = {},
@@ -33,7 +34,8 @@ let send_instances = [],
 
 let log_list = '';
 
-let alarm_repeat;
+let alarm_repeat,
+    changes_repeat;
 
 let is_alarm = false,
     is_inside = false,
@@ -67,7 +69,8 @@ let timer = null,
     siren_timer = null,
     silent_interval = null,
     alarm_interval = null,
-    text_alarm_interval = null;
+    text_alarm_interval = null,
+    text_changes_interval = null;
 
 let log,
     shorts_in,
@@ -102,6 +105,7 @@ function startAdapter(options) {
                 clearInterval(silent_interval);
                 clearInterval(alarm_interval);
                 clearInterval(text_alarm_interval);
+                clearInterval(text_changes_interval);
                 callback();
             } catch (e) {
                 callback();
@@ -153,6 +157,7 @@ function main() {
     shorts = A.shorts;
     shorts_in = A.shorts_in;
     alarm_repeat = parseInt(A.alarm_repeat);
+    changes_repeat = parseInt(A.changes_repeat);
     adapter.getState('status.activated', (err, state)=>{
         if(err){
             adapter.log.error(err);
@@ -217,6 +222,7 @@ function enable(id, state){
         if(log)adapter.log.info(`${A.log_act_not} ${names_alarm}`);
         if(A.send_activation) messages(`${A.log_act_not} ${names_alarm}`);
         adapter.setState('status.activation_failed', true, true);
+        adapter.setState('status.state_list', 6, true);
         adapter.setState('status.state', 'activation failed', true);
         adapter.setState('use.list', 0, true);
         if(A.opt_say_names){
@@ -260,11 +266,13 @@ function disable(){
     clearInterval(silent_interval);
     clearInterval(alarm_interval);
     clearInterval(text_alarm_interval);
+    clearInterval(text_changes_interval);
     silent_timer = null;
     siren_timer = null;
     silent_interval = null,
     alarm_interval = null;
     text_alarm_interval = null;
+    text_changes_interval = null;
     if(activated || is_panic){
         is_panic = false;
         adapter.setState('info.log', `${A.log_deact}`, true);
@@ -450,7 +458,7 @@ function change(id, state){
             }
             states[id] = state.val;
             refreshLists();
-            adapter.log.debug(`Inside state change: ${id} val: ${state.val}`);
+            adapter.log.debug(`Inside states, state change: ${id} val: ${state.val}`);
         }
     }
     for(const i in one_states){
@@ -461,7 +469,7 @@ function change(id, state){
             }
             one_states[id] = state.val;
             refreshLists();
-            adapter.log.debug(`Inside state change: ${id} val: ${state.val}`);
+            adapter.log.debug(`Inside one, state change: ${id} val: ${state.val}`);
         }
     }
     for(const i in two_states){
@@ -472,7 +480,7 @@ function change(id, state){
             }
             two_states[id] = state.val;
             refreshLists();
-            adapter.log.debug(`Inside state change: ${id} val: ${state.val}`);
+            adapter.log.debug(`Inside two, state change: ${id} val: ${state.val}`);
         }
     }
     if(is_not_change) return;
@@ -695,14 +703,22 @@ function change(id, state){
         shortcuts_inside(id, state.val);
         return;
     }
+    if(leave_ids.includes(id) && !activated && !isTrue(id, state) && timer && A.opt_leave){
+        leaving(id, state);
+        return;
+    }
     if(alarm_ids.includes(id) && activated && isTrue(id, state)){
         burglary(id, state, isSilent(id));
         return;
     }
     if(inside_ids.includes(id) && inside && isTrue(id, state)){
+        let count = 0;
         const name = get_name(id);
         let say = A.text_changes;
         adapter.setState('info.log', `${A.log_warn} ${name}`, true);
+        if (A.opt_list) adapter.setState('status.state', 'burgle', true);
+        if (A.opt_list) adapter.setState('status.state_list', 3, true);
+        if (A.opt_list) adapter.setState('homekit.CurrentState', 4, true);
         adapter.setState('info.sharp_inside_siren', true, true);
         if(log) adapter.log.info(`${A.log_warn} ${name}`);
         if(A.send_alarm_inside) messages(`${A.log_warn} ${name}`);
@@ -710,7 +726,14 @@ function change(id, state){
             say = say + ' ' + name;
         }
         sayit(say, 5);
-
+        text_changes_interval = setInterval(()=> {
+            if(count < changes_repeat) {
+                sayit(say, 5);
+                count++;
+            } else {
+                clearInterval(text_changes_interval);
+            }
+        }, 5000);
         timer_inside_changes = setTimeout(()=>{
             adapter.setState('info.sharp_inside_siren', false, true);
         }, timeMode(A.time_warning_select) * A.time_warning);
@@ -1222,6 +1245,7 @@ function split_states(arr){
             if(ele.alarm)alarm_ids.push(ele.name_id);
             if(ele.warning)inside_ids.push(ele.name_id);
             if(ele.night)notification_ids.push(ele.name_id);
+            if(ele.leave)leave_ids.push(ele.name_id);
         }else{
             adapter.log.debug(`State not used but configured: ${ele.name_id}`);
         }
@@ -1230,7 +1254,7 @@ function split_states(arr){
 
 function get_ids(){
     let ids = [];
-    ids = ids.concat(alarm_ids, inside_ids, notification_ids);
+    ids = ids.concat(alarm_ids, inside_ids, notification_ids, leave_ids);
     clean_ids = Array.from(new Set(ids));
 }
 
@@ -1401,6 +1425,14 @@ async function get_other_states(){
     adapter.log.debug(`other alarm are one: ${JSON.stringify(one_states)} two: ${JSON.stringify(two_states)}`);
 }
 
+function leaving(id, state) {
+    clearInterval(timer);
+    timer = null;
+    adapter.setState('status.activation_countdown', null, true);
+    adapter.setState('status.gets_activated', false, true);
+    enable();
+}
+
 function countdown(count){
     let counter = A.time_activate * timeMode(A.time_activate_select) / 1000;
     let say = A.time_activate + ' ' + A.text_countdown;
@@ -1415,6 +1447,8 @@ function countdown(count){
         }
         sayit(say, 11);
         adapter.setState('status.gets_activated', true, true);
+        adapter.setState('status.state', 'gets activated', true);
+        adapter.setState('status.state_list', 5, true);
         timer = setInterval(()=>{
             if(counter > 0){
                 counter--;
@@ -1437,6 +1471,7 @@ function countdown(count){
             timer = null;
             adapter.setState('status.activation_countdown', null, true);
             adapter.setState('status.gets_activated', false, true);
+            adapter.setState('status.state_list', 7, true);
         }
         disable();
     }
@@ -1498,6 +1533,15 @@ function shortcuts(id, val){
                 break;
             case 4:
                 setVal = 'night_rest';
+                break;
+            case 5:
+                setVal = 'gets_activated';
+                break;
+            case 6:
+                setVal = 'activation_failed';
+                break;
+            case 7:
+                setVal = 'activation_aborted';
                 break;
             default:
                 setVal = val;

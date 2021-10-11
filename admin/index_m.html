@@ -39,6 +39,8 @@
         one = settings.one    || [];
         two = settings.two    || [];
 
+
+
         if(typeof settings.sayit !== 'object') sayit = [];
 
         $('.value').each(function () {
@@ -68,11 +70,21 @@
         $('.tooltipped').tooltip();
 
         values2table('circuits', circuits, onChange, tableOnReady);
+        leaving();
         values2table('shorts_in', shorts_in, onChange, tableOnReady);
         values2table('shorts', shorts, onChange, tableOnReady);
         values2table('sayit', sayit, onChange, tableOnReady);
         values2table('one', one, onChange, tableOnReady);
         values2table('two', two, onChange, tableOnReady);
+        /*values2table('zone_one', zone_one, onChange, tableOnReady);
+        values2table('zone_two', zone_two, onChange, tableOnReady);
+        values2table('zone_three', zone_three, onChange, tableOnReady);
+        values2table('zone_four', zone_four, onChange, tableOnReady);
+        values2table('zone_five', zone_five, onChange, tableOnReady);
+        values2table('zone_six', zone_six, onChange, tableOnReady);
+        */
+        $('#opt_leave').change(leaving);
+
 
         $('.sendTo_Chips').chips({
             placeholder: 'Add adapter',
@@ -135,6 +147,12 @@
         obj.sayit = table2values('sayit');
         obj.one = table2values('one');
         obj.two = table2values('two');
+        /*obj.zone_one = table2values('zone_one');
+        obj.zone_two = table2values('zone_two');
+        obj.zone_three = table2values('zone_three');
+        obj.zone_four = table2values('zone_four');
+        obj.zone_five = table2values('zone_five');
+        obj.zone_six = table2values('zone_six');*/
         obj.states = states;
         callback(obj);
     }
@@ -151,6 +169,9 @@ function checkTrigger(val, id) {
         $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp_inside]').prop('disabled',false);
         $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=burgular]').prop('disabled',false);
         $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=night_rest]').prop('disabled',false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=gets_activated]').prop('disabled',false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_failed]').prop('disabled',false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_aborted]').prop('disabled',false);
   } else {
         $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=true]').prop('disabled',false);
         $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=false]').prop('disabled',false);
@@ -159,8 +180,26 @@ function checkTrigger(val, id) {
         $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp_inside]').prop('disabled',true);
         $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=burgular]').prop('disabled',true);
         $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=night_rest]').prop('disabled',true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=gets_activated]').prop('disabled',true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_failed]').prop('disabled',true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_aborted]').prop('disabled',true);
   }
 $('select').select()
+}
+
+function leaving() {
+
+  let check = document.getElementById('opt_leave').checked;
+
+  if (check) {
+    $('#circuits .table-values-div .table-values [data-name="leave"]').each(function() {
+        $(this).prop('disabled', false);
+    });
+  } else {
+    $('#circuits .table-values-div .table-values [data-name="leave"]').each(function() {
+        $(this).prop('disabled', true);
+    });
+  }
 }
 
 function tableOnReady() {
@@ -503,6 +542,7 @@ function getName(obj) {
               <li class="tab"><a href="#tab_shortcuts" class="translate">shortcuts</a></li>
               <li class="tab"><a href="#tab_words" class="translate">words</a></li>
               <li class="tab"><a href="#other_alarms" class="translate">other_alarms</a></li>
+              <li class="tab"><a href="#zones" class="translate">zones</a></li>
             </ul>
           </div>
 
@@ -617,11 +657,17 @@ function getName(obj) {
                 <input type="checkbox" id="opt_night" class="value" /><label  for="opt_night" class="translate">opt_night</label>
               </div>
 -->
-              <div class="col s12">
+              <div class="col s12 m4 l2">
                 <input type="checkbox" id="opt_log" class="value" /><label  for="opt_log" class="translate">opt_log</label>
               </div>
-              <div class="col s12">
+              <div class="col s12 m4 l2">
                 <input type="checkbox" id="opt_warning" class="value" /><label  for="opt_warning" class="translate">opt_warning</label>
+              </div>
+              <div class="col s12 m4 l2">
+                <input type="checkbox" id="opt_list" class="value" /><label  for="opt_list" class="translate">opt_list</label>
+              </div>
+              <div class="col s12 m4 l2">
+                <input type="checkbox" id="opt_leave" class="value" /><label  for="opt_leave" class="translate">opt_leave</label>
               </div>
             </div>
           </div>
@@ -719,6 +765,13 @@ function getName(obj) {
           </div>
           <div id="tab_states" class="col s12 page">
             <div class="row">
+              <div class="col s12">
+                <div class="card-panel">
+                  <span class="blue-text text-darken-2 translate">circuits</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
                 <div class="col s12" id="circuits">
                     <div class="row">
                         <div class="col s2 m1 l1 left">
@@ -728,11 +781,6 @@ function getName(obj) {
                             <a   class="btn-floating waves-effect waves-light blue" id="circuits_help"><i class="material-icons">help_center</i></a>
                         </div>
                     </div>
-                    <div class="row">
-                      <div class="col s12">
-                        <p class=" left translate">circuits</p>
-                      </div>
-                    </div>
                     <div class="table-values-div">
                         <table class="table-values">
                             <thead>
@@ -741,11 +789,12 @@ function getName(obj) {
                                 <th data-name="name" data-type="text"  class="header translate">Name</th>
                                 <th data-name="name_id" data-type="text" class="header translate">Object-ID</th>
                                 <th data-buttons="edit" style="width: 40px" class="header"></th>
+                                <th data-name="negativ"  style="width: 100px" data-type="checkbox" class="header translate">negativ</th>
                                 <th data-name="alarm"  style="width: 100px" data-type="checkbox" class="header translate">alarm</th>
                                 <th data-name="warning"  style="width: 100px" data-type="checkbox" class="header translate">inside</th>
                                 <th data-name="night"  style="width: 130px" data-type="checkbox" class="header translate">notification</th>
                                 <th data-name="delay"  style="width: 100px" data-type="checkbox" class="header translate">delay</th>
-                                <th data-name="negativ"  style="width: 100px" data-type="checkbox" class="header translate">negativ</th>
+                                <th data-name="leave"  style="width: 100px" data-type="checkbox" class="header translate">leave</th>
                                 <th data-buttons="delete" style="width: 40px" class="header"></th>
                             </tr>
                             </thead>
@@ -828,10 +877,26 @@ function getName(obj) {
                   <textarea id="text_warning" class="materialize-textarea value"></textarea>
                   <label for="text_warning" class="translate">text_warning</label>
                 </div>
-                <div class="input-field col s12 m6 l4">
+                <div class="input-field col s9 m4 l3">
                   <i class="material-icons prefix">filter_5</i>
                   <textarea id="text_changes" class="materialize-textarea value"></textarea>
                   <label for="text_changes" class="translate">text_changes</label>
+                </div>
+                <div class="input-field col s3 m2 l1">
+                  <select id="changes_repeat" class="value">
+                    <option value="1">1x</option>
+                    <option value="2">2x</option>
+                    <option value="3">3x</option>
+                    <option value="4">4x</option>
+                    <option value="5">5x</option>
+                    <option value="6">6x</option>
+                    <option value="7">7x</option>
+                    <option value="8">8x</option>
+                    <option value="9">9x</option>
+                    <option value="10">10x</option>
+                    <option value="15">15x</option>
+                    <option value="20">20x</option>
+                  </select>
                 </div>
                 <div class="input-field col s9 m4 l3">
                   <i class="material-icons prefix">filter_6</i>
@@ -920,7 +985,7 @@ function getName(obj) {
                             <tr>
                               <th data-name="enabled"  style="width: 50px" data-type="checkbox" class="header translate">active</th>
                               <th data-name="select_id" data-type="select" data-options="status.state_list;status.activated;status.gets_activated;status.deactivated;status.burglar_alarm;status.silent_alarm;status.siren;status.activation_failed;status.sleep;status.activated_with_warnings;status.enableable;status.sharp_inside_activated;info.sharp_inside_siren;info.notification_circuit_changes;status.alarm_flash;status.silent_flash;other_alarms.one_changes;other_alarms.two_changes" class="header translate">Name</th>
-                              <th data-name="trigger_val" data-type="select" data-options=" ;true;false;deactivated;sharp;sharp_inside;burglary;night_rest" class="header translate">Trigger</th>
+                              <th data-name="trigger_val" data-type="select" data-options=" ;true;false;deactivated;sharp;sharp_inside;burglary;night_rest;gets_activated;activation_failed;activation_aborted" class="header translate">Trigger</th>
                               <th data-name="name" data-type="text" class="header translate">Name</th>
                               <th data-name="name_id" data-type="text" class="header translate">Object-ID</th>
                               <th data-buttons="edit" style="width: 40px" class="header translate"></th>
@@ -1125,8 +1190,18 @@ function getName(obj) {
         </div>
       </div>
     </div>
-      </div>
+    </div>
+      <div id="zones" class="col s12 page">
+        <div class="row">
+          <div class="col s12">
+            <div class="card-panel">
+              <span class="red-text text-darken-2">coming in the next versions....</span>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
 
 
         <div class="m material-dialogs">

@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "2.0.2",
+    "version": "2.1.0",
     "news": {
+      "2.1.0": {
+        "en": "extend list states and speech output, added leave option",
+        "de": "List States und Sprachausgabe erweitert, Verlassen-Option hinzugefügt",
+        "ru": "расширены состояния списка и речевой вывод, добавлена опция выхода",
+        "pt": "estender estados de lista e saída de voz, opção de licença adicionada",
+        "nl": "lijststatussen en spraakuitvoer uitbreiden, verlofoptie toegevoegd",
+        "fr": "étendre les états de liste et la sortie vocale, option de congé ajoutée",
+        "it": "estendere gli stati dell'elenco e l'output vocale, aggiunta l'opzione di uscita",
+        "es": "extender estados de lista y salida de voz, opción de salida agregada",
+        "pl": "rozszerzanie stanów list i mowy, dodana opcja opuszczania",
+        "zh-cn": "扩展列表状态和语音输出，添加离开选项"
+            },
       "2.0.2": {
         "en": "fixed password issues",
         "de": "Passwortprobleme behoben",
@@ -249,6 +261,8 @@
     "opt_say_warn_changes": true,
     "opt_night": true,
     "opt_log": true,
+    "opt_list": false,
+    "opt_leave": false,
     "opt_warning": false,
     "night_from": "",
     "night_to": "",
@@ -283,6 +297,7 @@
     "sendTo": "",
     "alarm": "",
     "alarm_repeat": "1",
+    "changes_repeat": "1",
     "warning": "",
     "night": "",
     "log_pass":"Falsches Passwort benutzt!",
@@ -479,7 +494,10 @@
           "1": "sharp",
           "2": "sharp inside",
           "3": "burglary",
-          "4": "night rest"
+          "4": "night rest",
+          "5": "gets_activated",
+          "6": "activation_failed",
+          "7": "activation_aborted"
         },
         "read": true,
         "write": false
