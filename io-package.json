@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "news": {
+      "2.1.1": {
+        "en": "added countdown state for silent alarm",
+        "de": "Countdown-Status für stillen Alarm hinzugefügt",
+        "ru": "добавлен обратный отсчет для тихой тревоги",
+        "pt": "adicionado estado de contagem regressiva para alarme silencioso",
+        "nl": "aftelstatus toegevoegd voor stil alarm",
+        "fr": "état de compte à rebours ajouté pour l'alarme silencieuse",
+        "it": "stato aggiunto il conto alla rovescia per l'allarme silenzioso",
+        "es": "estado de cuenta regresiva agregado para alarma silenciosa",
+        "pl": "dodano stan odliczania dla cichego alarmu;",
+        "zh-cn": "增加了静音报警的倒计时状态"
+            },
       "2.1.0": {
         "en": "extend list states and speech output, added leave option",
         "de": "List States und Sprachausgabe erweitert, Verlassen-Option hinzugefügt",
@@ -50,139 +62,7 @@
          "es": "agregó otras alarmas",
          "pl": "dodano inne alarmy",
          "zh-cn": "添加了其他警报"
-            },
-      "1.9.0": {
-        "en": "added html states and fixed little issues",
-         "de": "HTML-Status hinzugefügt und kleine Probleme behoben",
-         "ru": "добавлены состояния html и исправлены мелкие проблемы",
-         "pt": "adicionamos estados html e corrigimos pequenos problemas",
-         "nl": "html-staten toegevoegd en kleine problemen opgelost",
-         "fr": "ajout d'états html et correction de petits problèmes",
-         "it": "aggiunti stati html e risolti piccoli problemi",
-         "es": "estados html agregados y pequeños problemas solucionados",
-         "pl": "dodano stany html i naprawiono drobne problemy",
-         "zh-cn": "添加了html状态并修复了一些小问题"
-            },
-      "1.8.3": {
-        "en": "fixed issues at enable with delay",
-        "de": "Probleme bei der Aktivierung mit Verzögerung behoben",
-        "ru": "исправлены проблемы при включении с задержкой",
-        "pt": "problemas corrigidos na ativação com atraso",
-        "nl": "opgeloste problemen bij inschakelen met vertraging",
-        "fr": "problèmes résolus lors de l'activation avec retard",
-        "it": "risolti problemi all'abilitazione con ritardo",
-        "es": "problemas solucionados al habilitar con retraso",
-        "pl": "naprawiono problemy z włączaniem z opóźnieniem",
-        "zh-cn": "解决了启用延迟问题"
-            },
-        "1.8.2": {
-          "en": "fixed little issues at notifications",
-           "de": "kleine Probleme bei Benachrichtigungen behoben",
-           "ru": "исправлены небольшие проблемы с уведомлениями",
-           "pt": "corrigiu pequenos problemas nas notificações",
-           "nl": "kleine problemen opgelost bij meldingen",
-           "fr": "correction de petits problèmes au niveau des notifications",
-           "it": "risolti piccoli problemi alle notifiche",
-           "es": "pequeños problemas solucionados en las notificaciones",
-           "pl": "naprawiono drobne problemy z powiadomieniami",
-           "zh-cn": "修复了通知中的小问题"
-              },
-      "1.8.1": {
-        "en": "fixed little issues at silent alarm",
-        "de": "kleine Probleme bei stillem Alarm behoben",
-        "ru": "исправлены небольшие проблемы при тихой тревоге",
-        "pt": "corrigiu pequenos problemas no alarme silencioso",
-        "nl": "kleine problemen opgelost bij stil alarm",
-        "fr": "correction de petits problèmes lors d'une alarme silencieuse",
-        "it": "risolti piccoli problemi con l'allarme silenzioso",
-        "es": "pequeños problemas solucionados en alarma silenciosa",
-        "pl": "naprawiono drobne problemy przy cichym alarmie",
-        "zh-cn": "修复了无声警报中的小问题"
-            },
-      "1.8.0": {
-        "en": "added status.state_list to shortcuts",
-         "de": "status.state_list zu Verknüpfungen hinzugefügt",
-         "ru": "в ярлыки добавлен status.state_list",
-         "pt": "adicionou status.state_list aos atalhos",
-         "nl": "status.state_list toegevoegd aan snelkoppelingen",
-         "fr": "ajout de status.state_list aux raccourcis",
-         "it": "aggiunto status.state_list alle scorciatoie",
-         "es": "agregado status.state_list a atajos",
-         "pl": "dodano status.state_list do skrótów",
-         "zh-cn": "在快捷方式中添加了status.state_list"
-            },
-      "1.7.0": {
-        "en": "changed notifications and fixed little issues",
-         "de": "Benachrichtigungen geändert und kleine Probleme behoben",
-         "ru": "изменены уведомления и исправлены мелкие проблемы",
-         "pt": "alterou notificações e corrigiu pequenos problemas",
-         "nl": "gewijzigde meldingen en opgeloste kleine problemen",
-         "fr": "modifications des notifications et correction de petits problèmes",
-         "it": "notifiche modificate e risolti piccoli problemi",
-         "es": "notificaciones cambiadas y pequeños problemas solucionados",
-         "pl": "zmieniono powiadomienia i naprawiono drobne problemy",
-         "zh-cn": "更改了通知并修复了小问题"
-            },
-      "1.6.0": {
-        "en": "changed time inputs to numbers",
-         "de": "Zeiteingaben in Zahlen geändert",
-         "ru": "изменил ввод времени на числа",
-         "pt": "alterou as entradas de tempo para números",
-         "nl": "veranderde tijdinvoer in cijfers",
-         "fr": "modification des entrées de temps en nombres",
-         "it": "cambiato gli input di tempo in numeri",
-         "es": "cambió las entradas de tiempo a números",
-         "pl": "zmieniono wejścia czasowe na liczby",
-         "zh-cn": "将时间输入更改为数字"
-            },
-      "1.5.0": {
-        "en": "added stop inside alarm with disable",
-        "de": "Quittierung Alarm innen mit Deaktivierung hinzugefügt",
-        "ru": "добавлена остановка внутри будильника с отключением",
-        "pt": "adicionado parada dentro do alarme com desabilitar",
-        "nl": "stop binnen alarm toegevoegd met uitschakelen",
-        "fr": "arrêt ajouté à l'intérieur de l'alarme avec désactivation",
-        "it": "aggiunto stop all'interno dell'allarme con disabilitazione",
-        "es": "parada agregada dentro de la alarma con deshabilitar",
-        "pl": "dodano stop wewnątrz alarmu z wyłączeniem",
-        "zh-cn": "添加了禁用内部警报"
-      },
-      "1.4.0": {
-        "en": "added silent alarm selection for every state (PLEASE CHECK YOUR OLD CONFIG MONITORING SETTINGS)",
-        "de": "stille Alarmauswahl für jeden Zustand hinzugefügt (BITTE ÜBERPRÜFEN SIE IHRE ALTEN ÜBERWACHUNGSEINSTELLUNGEN)",
-        "ru": "добавлен выбор тихого сигнала тревоги для каждого состояния (ПОЖАЛУЙСТА, ПРОВЕРЬТЕ СТАРЫЕ НАСТРОЙКИ МОНИТОРИНГА КОНФИГУРАЦИИ)",
-        "pt": "adicionado seleção de alarme silencioso para cada estado (VERIFIQUE SUAS ANTIGAS CONFIGURAÇÕES DE MONITORAMENTO)",
-        "nl": "stille alarmselectie toegevoegd voor elke status (CONTROLEER UW OUDE CONFIG-MONITORING-INSTELLINGEN)",
-        "fr": "ajout de la sélection d'alarme silencieuse pour chaque état (VEUILLEZ VÉRIFIER VOS ANCIENS PARAMÈTRES DE SURVEILLANCE CONFIG)",
-        "it": "aggiunta la selezione dell'allarme silenzioso per ogni stato (CONTROLLA LE IMPOSTAZIONI DI MONITORAGGIO DELLA VECCHIA CONFIG)",
-        "es": "Se agregó una selección de alarma silenciosa para cada estado (COMPRUEBE SUS ANTIGUOS AJUSTES DE MONITOREO DE CONFIG)",
-        "pl": "dodany cichy wybór alarmu dla każdego stanu (PROSZĘ SPRAWDZIĆ STARE USTAWIENIA KONFIGURACJI MONITOROWANIA)",
-        "zh-cn": "为每个状态添加了静音警报选择（请检查您的旧配置监测设置）"
-      },
-      "1.3.0": {
-        "en": "added diffrent time options",
-        "de": "verschiedene Zeitoptionen hinzugefügt",
-        "ru": "добавлены разные варианты времени",
-        "pt": "adicionaram opções de tempo diferentes",
-        "nl": "verschillende tijdopties toegevoegd",
-        "fr": "ajout d'options de temps différentes",
-        "it": "aggiunte diverse opzioni di tempo",
-        "es": "se agregaron diferentes opciones de tiempo",
-        "pl": "dodano różne opcje czasowe",
-        "zh-cn": "添加了不同时间选项"
-      },
-      "1.2.0": {
-        "en": "added countdown speech output",
-         "de": "Countdown-Sprachausgabe hinzugefügt",
-         "ru": "добавлен обратный отсчет",
-         "pt": "saída de fala de contagem regressiva adicionada",
-         "nl": "countdown spraakuitvoer toegevoegd",
-         "fr": "sortie vocale à compte à rebours ajoutée",
-         "it": "aggiunto l'output vocale del conto alla rovescia",
-         "es": "salida de voz de cuenta regresiva agregada",
-         "pl": "dodano wyjście mowy odliczania",
-         "zh-cn": "增加了倒计时语音输出"
-      }
+            }
     },
     "title": "alarm system",
     "titleLang": {
@@ -524,6 +404,19 @@
         "role": "",
         "name": "Countdown",
         "desc": "Time to activate the alarm system",
+        "type": "number",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "status.silent_countdown",
+      "type": "state",
+      "common": {
+        "role": "",
+        "name": "Silent countdown",
+        "desc": "Time to trigger the alarm system",
         "type": "number",
         "read": true,
         "write": false

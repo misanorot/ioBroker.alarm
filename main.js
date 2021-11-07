@@ -68,6 +68,7 @@ let timer = null,
     timer_notification_changes = null,
     siren_timer = null,
     silent_interval = null,
+    silent_contdown = null,
     alarm_interval = null,
     text_alarm_interval = null,
     text_changes_interval = null;
@@ -103,6 +104,7 @@ function startAdapter(options) {
                 clearTimeout(silent_timer);
                 clearTimeout(siren_timer);
                 clearInterval(silent_interval);
+                clearInterval(silent_contdown);
                 clearInterval(alarm_interval);
                 clearInterval(text_alarm_interval);
                 clearInterval(text_changes_interval);
@@ -264,12 +266,14 @@ function disable(){
     clearTimeout(silent_timer);
     clearTimeout(siren_timer);
     clearInterval(silent_interval);
+    clearInterval(silent_contdown);
     clearInterval(alarm_interval);
     clearInterval(text_alarm_interval);
     clearInterval(text_changes_interval);
     silent_timer = null;
     siren_timer = null;
     silent_interval = null,
+    silent_contdown = null,
     alarm_interval = null;
     text_alarm_interval = null;
     text_changes_interval = null;
@@ -328,6 +332,16 @@ function burglary(id, state, silent){
                 }
             }, A.silent_flash * 1000);
         }
+        let silent_contdown_time = timeMode(A.time_silent_select) * A.time_silent / 1000;
+        silent_contdown = setInterval(()=>{
+            if(silent_contdown_time > 0) {
+                silent_contdown_time = silent_contdown_time - 1;
+                adapter.setState('status.silent_countdown', silent_contdown_time, true);
+            } else {
+                adapter.setState('status.silent_countdown', null, true);
+                clearInterval(silent_contdown);
+            }
+        }, 1000);
         silent_timer = setTimeout(()=>{
             burgle = true;
             if(A.send_alarm) messages(`${A.log_burgle} ${name}`);
@@ -370,6 +384,7 @@ function burglary(id, state, silent){
         burgle = true;
         clearTimeout(silent_timer);
         clearInterval(silent_interval);
+        clearInterval(silent_contdown);
         if(A.send_alarm) messages(`${A.log_burgle} ${name}`);
         sayit(A.text_alarm, 6);
         text_alarm_interval = setInterval(()=> {
