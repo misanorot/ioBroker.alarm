@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "2.1.1",
+    "version": "2.1.2",
     "news": {
+      "2.1.2": {
+        "en": "fixed \"colors\" vulnerabilities",
+        "de": "\"Farben\"-Schwachstellen behoben",
+        "ru": "исправлены \"цветовые\" уязвимости",
+        "pt": "vulnerabilidades de \"cores\" corrigidas",
+        "nl": "vaste \"kleuren\" kwetsbaarheden",
+        "fr": "vulnérabilités \"couleurs\" corrigées",
+        "it": "risolte le vulnerabilità dei \"colori\".",
+        "es": "vulnerabilidades de \"colores\" fijas",
+        "pl": "naprawiono podatności na „kolory”",
+        "zh-cn": "修复了“颜色”漏洞"
+            },
       "2.1.1": {
         "en": "added countdown state for silent alarm",
         "de": "Countdown-Status für stillen Alarm hinzugefügt",

@@ -1,6 +1,6 @@
 {
   "name": "iobroker.alarm",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Create your own little alarm system. Configure different alarm circuits with your own states.",
   "author": {
     "name": "misanorot",
@@ -28,7 +28,6 @@
     "@fimbul/wotan": "^0.21.1",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "colors": "^1.4.0",
     "copyfiles": "^2.2.0",
     "coveralls": "^3.0.11",
     "eslint-config-prettier": "^6.10.1",
