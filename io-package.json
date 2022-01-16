@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "2.1.2",
+    "version": "2.2.0",
     "news": {
+      "2.2.0": {
+        "en": "added telegram special parameters",
+        "de": "spezielle Telegrammparameter hinzugefügt",
+        "ru": "добавлены специальные параметры телеграммы",
+        "pt": "parâmetros especiais de telegrama adicionados",
+        "nl": "toegevoegde telegram speciale parameters",
+        "fr": "paramètres spéciaux de télégramme ajoutés",
+        "it": "aggiunti parametri speciali del telegramma",
+        "es": "parámetros especiales de telegrama agregados",
+        "pl": "dodano parametry specjalne telegramu",
+        "zh-cn": "添加电报特殊参数"
+            },
       "2.1.2": {
         "en": "fixed \"colors\" vulnerabilities",
         "de": "\"Farben\"-Schwachstellen behoben",
@@ -211,7 +223,10 @@
     "log_one": "Alarmanlage meldet einen Feueralarm:",
     "log_two": "Alarmanlage meldet einen Wasseralarm:",
     "one_name": "Feueralarm",
-    "two_name": "Wasseralarm"
+    "two_name": "Wasseralarm",
+    "opt_telegram": false,
+    "chatID": "",
+    "userID": ""
   },
   "objects": [],
   "instanceObjects": [

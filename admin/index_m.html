@@ -68,7 +68,7 @@
         });
 
         $('.tooltipped').tooltip();
-
+        telChanging();
         values2table('circuits', circuits, onChange, tableOnReady);
         leaving();
         values2table('shorts_in', shorts_in, onChange, tableOnReady);
@@ -84,6 +84,8 @@
         values2table('zone_six', zone_six, onChange, tableOnReady);
         */
         $('#opt_leave').change(leaving);
+
+        $('#opt_telegram').change(telChanging);
 
 
         $('.sendTo_Chips').chips({
@@ -186,6 +188,19 @@ function checkTrigger(val, id) {
   }
 $('select').select()
 }
+
+function telChanging() {
+  let check = document.getElementById('opt_telegram').checked;
+
+  if (check) {
+    $('#userID').prop('disabled', false);
+    $('#chatID').prop('disabled', false);
+  } else {
+    $('#userID').prop('disabled', true);
+    $('#chatID').prop('disabled', true);
+  }
+}
+
 
 function leaving() {
 
@@ -687,6 +702,19 @@ function getName(obj) {
               <div class="col s12">
                 <label class="translate">sendTo_Chips</label>
                 <div class="chips sendTo_Chips"></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12 m4 l2">
+                <input type="checkbox" id="opt_telegram" class="value" /><label  for="opt_telegram" class="translate">opt_telegram</label>
+              </div>
+              <div class="input-field col s6 m4 l2">
+                <input id="chatID" type="text" class="validate value">
+                <label for="chatID">chatID</label>
+              </div>
+              <div class="input-field col s6 m4 l2">
+                <input id="userID" type="text" class="validate value">
+                <label for="userID">userID</label>
               </div>
             </div>
             <div class="row">

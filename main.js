@@ -858,9 +858,15 @@ function set_subs(){
 
 function messages(content){
     if(send_instances.length){
+        const reg = new RegExp('telegram');
         send_instances.forEach((ele)=>{
-            adapter.log.debug(`Send message to ${ele}, message: ${content}`);
-            adapter.sendTo(ele, content);
+            if (reg.test(ele) && A.opt_telegram) {
+                adapter.log.debug(`Send message to ${ele} with special parameter, message: text: ${content}, userID: ${A.userID}, chatID: ${A.chatID}`);
+                adapter.sendTo(ele, 'send', {'text':content, 'userId': A.userID, 'chatId': A.chatID});
+            } else {
+                adapter.log.debug(`Send message to ${ele}, message: ${content}`);
+                adapter.sendTo(ele, {'text':content});
+            }
         });
     }
 }
