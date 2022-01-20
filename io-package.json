@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "2.2.0",
+    "version": "2.2.1",
     "news": {
+      "2.2.1": {
+        "en": "added notification when warnings at beginning night rest",
+        "de": "Benachrichtigung bei Warnungen zu Beginn der Nachtruhe hinzugefügt",
+        "ru": "добавлено уведомление при предупреждениях при начале ночного отдыха",
+        "pt": "adicionada notificação quando avisos no início do descanso noturno",
+        "nl": "melding toegevoegd bij waarschuwingen bij het begin van de nachtrust",
+        "fr": "ajout d'une notification lors des avertissements au début du repos nocturne",
+        "it": "aggiunta notifica quando avverte all'inizio del riposo notturno",
+        "es": "notificación agregada cuando las advertencias al comienzo del descanso nocturno",
+        "pl": "dodano powiadomienie, gdy ostrzeżenia o rozpoczęciu nocnego odpoczynku",
+        "zh-cn": "在开始夜间休息时发出警告时添加通知"
+            },
       "2.2.0": {
         "en": "added telegram special parameters",
         "de": "spezielle Telegrammparameter hinzugefügt",
@@ -179,6 +191,7 @@
     "send_activation_inside": false,
     "send_activation_warnings": true,
     "send_activation_warnings_inside": true,
+    "send_activation_warnings_night": true,
     "send_activated_with_warnings": true,
     "send_alarm_silent": true,
     "send_failed": true,

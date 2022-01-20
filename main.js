@@ -1111,7 +1111,7 @@ function sleep_begin(auto) {
     adapter.setState('use.list', 4, true);
     if(is_notification){
         let say = A.text_warning;
-        //if(night_message) messages(`${A.log_nights_b_w} ${names_notification}`);
+        if(A.send_activation_warnings_night) messages(`${A.log_nights_b_w} ${names_notification}`);
         adapter.setState('info.log', `${A.log_nights_b_w} ${names_notification}`, true);
         if(log) adapter.log.info(`${A.log_nights_b_w} ${names_notification}`);
         if(A.opt_say_names){

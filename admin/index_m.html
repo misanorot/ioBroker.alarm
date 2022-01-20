@@ -195,12 +195,15 @@ function telChanging() {
   if (check) {
     $('#userID').prop('disabled', false);
     $('#chatID').prop('disabled', false);
+    $('#userID').show();
+    $('#chatID').show();
   } else {
     $('#userID').prop('disabled', true);
     $('#chatID').prop('disabled', true);
+    $('#userID').hide();
+    $('#chatID').hide();
   }
 }
-
 
 function leaving() {
 
@@ -772,6 +775,9 @@ function getName(obj) {
             <div class="row">
               <div class="col s12 m6 l4">
                 <input type="checkbox" id="send_notification_changes" class="value" /><label  for="send_notification_changes" class="translate">send_notification_changes</label>
+              </div>
+              <div class="col s12 m6 l4">
+                <input type="checkbox" id="send_activation_warnings_night" class="value" /><label  for="send_activation_warnings_night" class="translate">send_activation_warnings_night</label>
               </div>
             </div>
             <div class="row">
