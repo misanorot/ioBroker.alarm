@@ -239,7 +239,7 @@
     "two_name": "Wasseralarm",
     "opt_telegram": false,
     "chatID": "",
-    "userID": ""
+    "user": ""
   },
   "objects": [],
   "instanceObjects": [

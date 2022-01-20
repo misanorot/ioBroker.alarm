@@ -193,14 +193,14 @@ function telChanging() {
   let check = document.getElementById('opt_telegram').checked;
 
   if (check) {
-    $('#userID').prop('disabled', false);
+    $('#user').prop('disabled', false);
     $('#chatID').prop('disabled', false);
-    $('#userID').show();
+    $('#user').show();
     $('#chatID').show();
   } else {
-    $('#userID').prop('disabled', true);
+    $('#user').prop('disabled', true);
     $('#chatID').prop('disabled', true);
-    $('#userID').hide();
+    $('#user').hide();
     $('#chatID').hide();
   }
 }
@@ -716,8 +716,8 @@ function getName(obj) {
                 <label for="chatID">chatID</label>
               </div>
               <div class="input-field col s6 m4 l2">
-                <input id="userID" type="text" class="validate value">
-                <label for="userID">userID</label>
+                <input id="user" type="text" class="validate value">
+                <label for="user">user</label>
               </div>
             </div>
             <div class="row">
