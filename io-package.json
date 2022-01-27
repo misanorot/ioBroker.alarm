@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "2.2.1",
+    "version": "3.0.0",
     "news": {
+      "3.0.0": {
+        "en": "changed burgle concept, added silent alarm at sharp inside, fixed little issues",
+        "de": "Einbruchkonzept geändert, stiller Alarm bei scharf Innen hinzugefügt, kleine Probleme behoben",
+        "ru": "изменена концепция взломов, добавлена бесшумная сигнализация при проникновении внутрь, исправлены мелкие недочеты",
+        "pt": "mudou o conceito de burle, adicionou alarme silencioso no interior, corrigiu pequenos problemas",
+        "nl": "gewijzigd inbraakconcept, stil alarm toegevoegd aan scherpe binnenkant, kleine problemen opgelost",
+        "fr": "changement du concept de cambriolage, ajout d'une alarme silencieuse à l'intérieur net, petits problèmes résolus",
+        "it": "cambiato il concetto di furto, aggiunto un allarme silenzioso all'interno acuto, risolti piccoli problemi",
+        "es": "cambió el concepto de robo, agregó alarma silenciosa en el interior agudo, solucionó pequeños problemas",
+        "pl": "zmieniono koncepcję włamywania, dodano cichy alarm w ostrym wnętrzu, naprawiono małe problemy",
+        "zh-cn": "改变了防盗概念，在尖锐的内部增加了静音警报，修复了一些小问题"
+            },
       "2.2.1": {
         "en": "added notification when warnings at beginning night rest",
         "de": "Benachrichtigung bei Warnungen zu Beginn der Nachtruhe hinzugefügt",
@@ -154,6 +166,7 @@
     ]
   },
   "native": {
+    "new_version": false,
     "circuits": [],
     "shorts_in": [],
     "shorts": [],
@@ -177,7 +190,7 @@
     "opt_say_warn_changes": true,
     "opt_night": true,
     "opt_log": true,
-    "opt_list": false,
+    "opt_siren": false,
     "opt_leave": false,
     "opt_warning": false,
     "night_from": "",
@@ -194,6 +207,7 @@
     "send_activation_warnings_night": true,
     "send_activated_with_warnings": true,
     "send_alarm_silent": true,
+    "send_alarm_silent_inside": true,
     "send_failed": true,
     "sayit": [],
     "text_activated": "Alarmanlage aktiviert",
@@ -667,11 +681,11 @@
       "native": {}
     },
     {
-      "_id": "info.sharp_inside_siren",
+      "_id": "status.siren_inside",
       "type": "state",
       "common": {
         "role": "",
-        "name": "Changes sharp inside circuit",
+        "name": "Sharp inside siren",
         "desc": "Changes in sharp inside circuit detected",
         "type": "boolean",
         "read": true,
