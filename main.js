@@ -64,7 +64,7 @@ let activated = false,
 
 let timer = null,
     silent_timer = null,
-    timer_inside_changes = null,
+    siren_inside_timer = null,
     timer_notification_changes = null,
     siren_timer = null,
     silent_interval = null,
@@ -283,22 +283,11 @@ function disable(){
         adapter.setState('info.log', `${A.log_deact}`, true);
         sayit(A.text_deactivated, 2);
         if(log)adapter.log.info(`${A.log_deact}`);
-        adapter.setState('status.siren', false, true);
-        adapter.setState('status.silent_flash', false, true);
-        adapter.setState('status.alarm_flash', false, true);
         adapter.setState('status.activated', false, true);
-        adapter.setState('status.deactivated', true, true);
         adapter.setState('status.activated_with_warnings', false, true);
         adapter.setState('status.activation_failed', false, true);
-        adapter.setState('status.siren', false, true);
-        adapter.setState('status.burglar_alarm', false, true);
-        adapter.setState('status.silent_alarm', false, true);
-        adapter.setState('status.state', 'deactivated', true);
-        adapter.setState('status.state_list',0, true);
-        adapter.setState('homekit.CurrentState', 3, true);
-        adapter.setState('homekit.TargetState', 3, true);
-        adapter.setState('use.list',0, true);
         if(A.send_activation) messages(`${A.log_deact}`);
+        disableStates();
     }else if (inside) {
         inside_ends(true);
     }else if (night_rest) {
@@ -362,7 +351,7 @@ function burglary(id, state, silent, indoor){
             adapter.setState('status.silent_alarm', false, true);
             adapter.setState('status.silent_flash', false, true);
             adapter.setState('status.siren_inside', true, true);
-            timer_inside_changes = setTimeout(()=>{
+            siren_inside_timer = setTimeout(()=>{
                 adapter.setState('status.siren_inside', false, true);
             }, timeMode(A.time_warning_select) * A.time_warning);
             if (A.opt_siren && indoor) {
@@ -417,7 +406,7 @@ function burglary(id, state, silent, indoor){
         adapter.setState('status.state_list', 3, true);
         adapter.setState('homekit.CurrentState', 4, true);
         adapter.setState('status.siren_inside', true, true);
-        timer_inside_changes = setTimeout(()=>{
+        siren_inside_timer = setTimeout(()=>{
             adapter.setState('status.siren_inside', false, true);
         }, timeMode(A.time_warning_select) * A.time_warning);
         if (A.opt_siren && indoor) {
@@ -614,7 +603,7 @@ function change(id, state){
         return;
     }
     else if(id === adapter.namespace + '.use.quit_changes'){
-        clearTimeout(timer_inside_changes);
+        clearTimeout(siren_inside_timer);
         clearTimeout(timer_notification_changes);
         adapter.setState('status.activation_failed', false, true);
         adapter.setState('status.siren_inside', false, true);
@@ -1008,6 +997,22 @@ function sayit(message, opt_val){
 //##############################################################################
 
 //################# HELPERS ####################################################
+function disableStates() {
+    adapter.setState('status.sharp_inside_activated', false, true);
+    adapter.setState('status.state', 'deactivated', true);
+    adapter.setState('status.state_list',0, true);
+    adapter.setState('homekit.CurrentState', 3, true);
+    adapter.setState('homekit.TargetState', 3, true);
+    adapter.setState('use.list',0, true);
+    adapter.setState('status.siren_inside', false, true);
+    adapter.setState('status.siren', false, true);
+    adapter.setState('info.notification_circuit_changes', false, true);
+    adapter.setState('status.silent_flash', false, true);
+    adapter.setState('status.alarm_flash', false, true);
+    adapter.setState('status.burglar_alarm', false, true);
+    adapter.setState('status.silent_alarm', false, true);
+}
+
 
 function check_doubles() {
     clean_ids.forEach((ele, i) => {
@@ -1089,20 +1094,13 @@ function inside_ends(off){
     if(inside){
         inside = false;
         if(off){
-            clearTimeout(timer_inside_changes);
+            clearTimeout(siren_inside_timer);
             clearTimeout(timer_notification_changes);
             adapter.setState('info.log', `${A.log_warn_deact}`, true);
             if(log)adapter.log.info(`${A.log_warn_deact}`);
             if(A.send_activation_inside) messages(`${A.log_warn_deact}`);
             sayit(A.text_warn_end, 0);
-            adapter.setState('status.sharp_inside_activated', false, true);
-            adapter.setState('status.state', 'deactivated', true);
-            adapter.setState('status.state_list',0, true);
-            adapter.setState('homekit.CurrentState', 3, true);
-            adapter.setState('homekit.TargetState', 3, true);
-            adapter.setState('use.list',0, true);
-            adapter.setState('status.siren_inside', false, true);
-            adapter.setState('info.notification_circuit_changes', false, true);
+            disableStates();
         }
 
     }
