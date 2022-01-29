@@ -360,7 +360,8 @@ function burglary(id, state, silent, indoor){
                     adapter.setState('status.siren', false, true);
                     clearTimeout(siren_timer);
                 }, timeMode(A.time_alarm_select) * A.time_alarm);
-            } else {
+            }
+            if (!indoor) {
                 adapter.setState('status.siren', true, true);
                 siren_timer = setTimeout(()=>{
                     adapter.setState('status.siren', false, true);
@@ -402,9 +403,6 @@ function burglary(id, state, silent, indoor){
         adapter.setState('status.burglar_alarm', true, true);
         adapter.setState('status.silent_alarm', false, true);
         adapter.setState('status.silent_flash', false, true);
-        adapter.setState('status.state', 'burgle', true);
-        adapter.setState('status.state_list', 3, true);
-        adapter.setState('homekit.CurrentState', 4, true);
         adapter.setState('status.siren_inside', true, true);
         siren_inside_timer = setTimeout(()=>{
             adapter.setState('status.siren_inside', false, true);
@@ -415,13 +413,17 @@ function burglary(id, state, silent, indoor){
                 adapter.setState('status.siren', false, true);
                 clearTimeout(siren_timer);
             }, timeMode(A.time_alarm_select) * A.time_alarm);
-        } else {
+        }
+        if (!indoor) {
             adapter.setState('status.siren', true, true);
             siren_timer = setTimeout(()=>{
                 adapter.setState('status.siren', false, true);
                 clearTimeout(siren_timer);
             }, timeMode(A.time_alarm_select) * A.time_alarm);
         }
+        adapter.setState('status.state', 'burgle', true);
+        adapter.setState('status.state_list', 3, true);
+        adapter.setState('homekit.CurrentState', 4, true);
         if(A.alarm_flash > 0) {
             alarm_interval = setInterval(()=>{
                 if(alarm_i) {
