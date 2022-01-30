@@ -355,33 +355,17 @@ function burglary(id, state, silent, indoor){
                 adapter.setState('status.siren_inside', false, true);
             }, timeMode(A.time_warning_select) * A.time_warning);
             if (A.opt_siren && indoor) {
-                adapter.setState('status.siren', true, true);
-                siren_timer = setTimeout(()=>{
-                    adapter.setState('status.siren', false, true);
-                    clearTimeout(siren_timer);
-                }, timeMode(A.time_alarm_select) * A.time_alarm);
+                alarmSiren();
+                alarmFlash();
             }
             if (!indoor) {
                 adapter.setState('status.siren', true, true);
-                siren_timer = setTimeout(()=>{
-                    adapter.setState('status.siren', false, true);
-                    clearTimeout(siren_timer);
-                }, timeMode(A.time_alarm_select) * A.time_alarm);
+                alarmSiren();
+                alarmFlash();
             }
             adapter.setState('status.state', 'burgle', true);
             adapter.setState('status.state_list', 3, true);
             adapter.setState('homekit.CurrentState', 4, true);
-            if(A.alarm_flash > 0) {
-                alarm_interval = setInterval(()=>{
-                    if(alarm_i) {
-                        adapter.setState('status.alarm_flash', true, true);
-                        alarm_i = false;
-                    } else {
-                        adapter.setState('status.alarm_flash', false, true);
-                        alarm_i = true;
-                    }
-                }, A.alarm_flash * 1000);
-            }
         }, timeMode(A.time_silent_select) * A.time_silent);
     }
     else if (!silent) {
@@ -408,33 +392,17 @@ function burglary(id, state, silent, indoor){
             adapter.setState('status.siren_inside', false, true);
         }, timeMode(A.time_warning_select) * A.time_warning);
         if (A.opt_siren && indoor) {
-            adapter.setState('status.siren', true, true);
-            siren_timer = setTimeout(()=>{
-                adapter.setState('status.siren', false, true);
-                clearTimeout(siren_timer);
-            }, timeMode(A.time_alarm_select) * A.time_alarm);
+            alarmSiren();
+            alarmFlash();
         }
         if (!indoor) {
             adapter.setState('status.siren', true, true);
-            siren_timer = setTimeout(()=>{
-                adapter.setState('status.siren', false, true);
-                clearTimeout(siren_timer);
-            }, timeMode(A.time_alarm_select) * A.time_alarm);
+            alarmSiren();
+            alarmFlash();
         }
         adapter.setState('status.state', 'burgle', true);
         adapter.setState('status.state_list', 3, true);
         adapter.setState('homekit.CurrentState', 4, true);
-        if(A.alarm_flash > 0) {
-            alarm_interval = setInterval(()=>{
-                if(alarm_i) {
-                    adapter.setState('status.alarm_flash', true, true);
-                    alarm_i = false;
-                } else {
-                    adapter.setState('status.alarm_flash', false, true);
-                    alarm_i = true;
-                }
-            }, A.alarm_flash * 1000);
-        }
         siren_timer = setTimeout(()=>{
             adapter.setState('status.siren', false, true);
             clearTimeout(siren_timer);
@@ -999,6 +967,29 @@ function sayit(message, opt_val){
 //##############################################################################
 
 //################# HELPERS ####################################################
+
+function alarmSiren() {
+    adapter.setState('status.siren', true, true);
+    siren_timer = setTimeout(()=>{
+        adapter.setState('status.siren', false, true);
+        clearTimeout(siren_timer);
+    }, timeMode(A.time_alarm_select) * A.time_alarm);
+}
+
+function alarmFlash() {
+    if(A.alarm_flash > 0) {
+        alarm_interval = setInterval(()=>{
+            if(alarm_i) {
+                adapter.setState('status.alarm_flash', true, true);
+                alarm_i = false;
+            } else {
+                adapter.setState('status.alarm_flash', false, true);
+                alarm_i = true;
+            }
+        }, A.alarm_flash * 1000);
+    }
+}
+
 function disableStates() {
     adapter.setState('status.sharp_inside_activated', false, true);
     adapter.setState('status.state', 'deactivated', true);
