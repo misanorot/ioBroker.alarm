@@ -285,7 +285,6 @@ function disable(){
         if(log)adapter.log.info(`${A.log_deact}`);
         adapter.setState('status.activated_with_warnings', false, true);
         adapter.setState('status.activation_failed', false, true);
-        adapter.setState('status.deactivated', true, true);
         adapter.setState('status.activated', false, true);
         if(A.send_activation) messages(`${A.log_deact}`);
         disableStates();
@@ -992,6 +991,7 @@ function alarmFlash() {
 }
 
 function disableStates() {
+    adapter.setState('status.deactivated', true, true);
     adapter.setState('status.state', 'deactivated', true);
     adapter.setState('status.state_list',0, true);
     adapter.setState('homekit.CurrentState', 3, true);
@@ -1078,7 +1078,7 @@ function inside_begins(){
         adapter.setState('homekit.CurrentState', 0, true);
         adapter.setState('homekit.TargetState', 0, true);
         adapter.setState('use.list', 2, true);
-        //adapter.setState('status.activated', true, true);
+        adapter.setState('status.activated', false, true);
         adapter.setState('status.deactivated', false, true);
     }
 }
