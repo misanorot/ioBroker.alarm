@@ -285,6 +285,8 @@ function disable(){
         if(log)adapter.log.info(`${A.log_deact}`);
         adapter.setState('status.activated_with_warnings', false, true);
         adapter.setState('status.activation_failed', false, true);
+        adapter.setState('status.deactivated', true, true);
+        adapter.setState('status.activated', false, true);
         if(A.send_activation) messages(`${A.log_deact}`);
         disableStates();
     }else if (inside) {
@@ -990,10 +992,7 @@ function alarmFlash() {
 }
 
 function disableStates() {
-    adapter.setState('status.sharp_inside_activated', false, true);
     adapter.setState('status.state', 'deactivated', true);
-    adapter.setState('status.deactivated', true, true);
-    adapter.setState('status.activated', false, true);
     adapter.setState('status.state_list',0, true);
     adapter.setState('homekit.CurrentState', 3, true);
     adapter.setState('homekit.TargetState', 3, true);
@@ -1079,7 +1078,7 @@ function inside_begins(){
         adapter.setState('homekit.CurrentState', 0, true);
         adapter.setState('homekit.TargetState', 0, true);
         adapter.setState('use.list', 2, true);
-        adapter.setState('status.activated', true, true);
+        //adapter.setState('status.activated', true, true);
         adapter.setState('status.deactivated', false, true);
     }
 }
@@ -1094,6 +1093,7 @@ function inside_ends(off){
             if(log)adapter.log.info(`${A.log_warn_deact}`);
             if(A.send_activation_inside) messages(`${A.log_warn_deact}`);
             sayit(A.text_warn_end, 0);
+            adapter.setState('status.sharp_inside_activated', false, true);
             disableStates();
         }
 

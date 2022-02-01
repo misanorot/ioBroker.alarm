@@ -1,9 +1,9 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.0.3",
+    "version": "3.0.4",
     "news": {
-      "3.0.2": {
+      "3.0.4": {
         "en": "changed burgle concept, added silent alarm at sharp inside, fixed little issues",
         "de": "Einbruchkonzept geändert, stiller Alarm bei scharf Innen hinzugefügt, kleine Probleme behoben",
         "ru": "изменена концепция взломов, добавлена бесшумная сигнализация при проникновении внутрь, исправлены мелкие недочеты",
