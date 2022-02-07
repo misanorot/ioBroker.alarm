@@ -831,7 +831,7 @@ function messages(content){
                 adapter.sendTo(ele, 'send', {'text':content, 'user': A.user, 'chatId': A.chatID});
             } else {
                 adapter.log.debug(`Send message to ${ele}, message: ${content}`);
-                adapter.sendTo(ele, {'text':content});
+                adapter.sendTo(ele, content);
             }
         });
     }
