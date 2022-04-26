@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.0.5",
+    "version": "3.1.0",
     "news": {
+      "3.1.0": {
+        "en": "added speech delay",
+        "de": "Sprachverzögerung hinzugefügt",
+        "ru": "добавлена задержка речи",
+        "pt": "atraso de fala adicionado",
+        "nl": "spraakvertraging toegevoegd",
+        "fr": "délai de parole ajouté",
+        "it": "aggiunto ritardo del discorso",
+        "es": "retardo de voz añadido",
+        "pl": "dodano opóźnienie mowy",
+        "zh-cn": "增加语音延迟"
+            },
       "3.0.5": {
         "en": "fixed pushover issue",
          "de": "Pushover-Problem behoben",

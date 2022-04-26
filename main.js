@@ -63,6 +63,7 @@ let activated = false,
     burgle = false;
 
 let timer = null,
+    speech_timeout = null,
     silent_timer = null,
     siren_inside_timer = null,
     timer_notification_changes = null,
@@ -102,6 +103,7 @@ function startAdapter(options) {
                 schedule_reset.cancel();
                 clearInterval(timer);
                 clearTimeout(silent_timer);
+                clearTimeout(speech_timeout);
                 clearTimeout(siren_timer);
                 clearInterval(silent_interval);
                 clearInterval(silent_contdown);
@@ -837,6 +839,22 @@ function messages(content){
     }
 }
 
+function speechOutput(id, message, time) {
+    let delay;
+    time = parseInt(time);
+    if (Number.isInteger(time)) {
+        delay = time;
+    } else {
+        delay = 0;
+    }
+    adapter.log.debug(`speech output instance: ${id}: ${message}, delay ${delay}s`);
+    speech_timeout = setTimeout(() => {adapter.setForeignState(id, message, (err)=>{
+        if(err) adapter.log.warn(err);
+    });
+    }, delay * 1000);
+}
+
+
 function sayit(message, opt_val){
     const tts_instance = A.sayit;
     if(night_rest && A.opt_night_silent) return;
@@ -846,114 +864,72 @@ function sayit(message, opt_val){
                 switch (opt_val) {
                     case 1:
                         if(ele.opt_say_one){
-                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
-                            adapter.setForeignState(ele.name_id, message, (err)=>{
-                                if(err) adapter.log.warn(err);
-                            });
+                            speechOutput(ele.name_id, message, ele.speech_delay);
                         }
                         break;
                     case 2:
                         if(ele.opt_say_two){
-                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
-                            adapter.setForeignState(ele.name_id, message, (err)=>{
-                                if(err) adapter.log.warn(err);
-                            });
+                            speechOutput(ele.name_id, message, ele.speech_delay);
                         }
                         break;
                     case 3:
                         if(ele.opt_say_three){
-                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
-                            adapter.setForeignState(ele.name_id, message, (err)=>{
-                                if(err) adapter.log.warn(err);
-                            });
+                            speechOutput(ele.name_id, message, ele.speech_delay);
                         }
                         break;
                     case 4:
                         if(ele.opt_say_four){
-                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
-                            adapter.setForeignState(ele.name_id, message, (err)=>{
-                                if(err) adapter.log.warn(err);
-                            });
+                            speechOutput(ele.name_id, message, ele.speech_delay);
                         }
                         break;
                     case 5:
                         if(ele.opt_say_five){
-                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
-                            adapter.setForeignState(ele.name_id, message, (err)=>{
-                                if(err) adapter.log.warn(err);
-                            });
+                            speechOutput(ele.name_id, message, ele.speech_delay);
                         }
                         break;
                     case 6:
                         if(ele.opt_say_six){
-                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
-                            adapter.setForeignState(ele.name_id, message, (err)=>{
-                                if(err) adapter.log.warn(err);
-                            });
+                            speechOutput(ele.name_id, message, ele.speech_delay);
                         }
                         break;
                     case 7:
                         if(ele.opt_say_seven){
-                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
-                            adapter.setForeignState(ele.name_id, message, (err)=>{
-                                if(err) adapter.log.warn(err);
-                            });
+                            speechOutput(ele.name_id, message, ele.speech_delay);
                         }
                         break;
                     case 8:
                         if(ele.opt_say_eigth){
-                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
-                            adapter.setForeignState(ele.name_id, message, (err)=>{
-                                if(err) adapter.log.warn(err);
-                            });
+                            speechOutput(ele.name_id, message, ele.speech_delay);
                         }
                         break;
                     case 9:
                         if(ele.opt_say_nine){
-                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
-                            adapter.setForeignState(ele.name_id, message, (err)=>{
-                                if(err) adapter.log.warn(err);
-                            });
+                            speechOutput(ele.name_id, message, ele.speech_delay);
                         }
                         break;
                     case 10:
                         if(ele.opt_say_nine_plus){
-                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
-                            adapter.setForeignState(ele.name_id, message, (err)=>{
-                                if(err) adapter.log.warn(err);
-                            });
+                            speechOutput(ele.name_id, message, ele.speech_delay);
                         }
                         break;
                     case 0:
                         if(ele.opt_say_zero){
-                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
-                            adapter.setForeignState(ele.name_id, message, (err)=>{
-                                if(err) adapter.log.warn(err);
-                            });
+                            speechOutput(ele.name_id, message, ele.speech_delay);
                         }
                         break;
                     case 11:
                         if(ele.opt_say_count){
-                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
-                            adapter.setForeignState(ele.name_id, message, (err)=>{
-                                if(err) adapter.log.warn(err);
-                            });
+                            speechOutput(ele.name_id, message, ele.speech_delay);
                         }
                         break;
                     case 12:
                         if(ele.opt_say_fire){
-                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
-                            adapter.setForeignState(ele.name_id, message, (err)=>{
-                                if(err) adapter.log.warn(err);
-                            });
+                            speechOutput(ele.name_id, message, ele.speech_delay);
                         }
                         break;
                     case 13:
                         if(ele.opt_say_water){
-                            adapter.log.debug(`speech output instance: ${ele.name_id}: ${message}`);
-                            adapter.setForeignState(ele.name_id, message, (err)=>{
-                                if(err) adapter.log.warn(err);
-                            });
+                            speechOutput(ele.name_id, message, ele.speech_delay);
                         }
                         break;
                     default:

@@ -43,6 +43,18 @@ systemDictionary = {
         'es': 'alarma silenciosa aguda en el interior',
         'pl': 'cichy alarm ostry w środku',
         'zh-cn': '静音报警尖锐内部'},
+    'speech_delay': {
+        'en': 'delay (sec)',
+        'de': 'Verzögerung (Sek.)',
+        'ru': 'задержка (сек)',
+        'pt': 'atraso (s)',
+        'nl': 'vertraging (sec)',
+        'fr': 'délai (sec)',
+        'it': 'ritardo (sec)',
+        'es': 'retraso (seg)',
+        'pl': 'opóźnienie (sek)',
+        'zh-cn': '延迟（秒）'
+    },
     'disabled': {                                    'en': 'disabled',                                        'de': 'deaktiviert',                                     'ru': 'отключен',                                        'pt': 'Desativado',                                      'nl': 'invalide',                                        'fr': 'désactivée',                                      'it': 'Disabilitato',                                    'es': 'discapacitado',                                   'pl': 'wyłączone',                                       'zh-cn': '残'},
     'donat': {'en': "I'm not a professional developer and this is a private project, the development takes place in my spare time, if you want to support this you can thank me with a donation under PayPal. You are also welcome to send me feature requests for future versions of the adapter.",
         'de': 'Ich bin kein professioneller Entwickler und dies ist ein privates Projekt, die Entwicklung findet in meiner Freizeit statt, wenn Sie dies unterstützen möchten, können Sie sich mit einer Spende unter PayPal bei mir bedanken. Sie können mir auch gerne Funktionsanfragen für zukünftige Versionen des Adapters senden.',
