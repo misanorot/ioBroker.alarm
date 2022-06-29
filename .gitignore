@@ -15,3 +15,4 @@ admin/i18n/*/flat.txt
 
 # Local Files
 .history
+.DS_Store
