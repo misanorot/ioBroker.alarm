@@ -4,7 +4,16 @@
     "version": "3.1.1",
     "news": {
       "3.1.1": {
-        "de": "Man kann nun die Sekunden für die Zeiten zwischen den Alarmsprachausgaben steuern."
+        "en": "added time interval for alarm speech output",
+        "de": "zusätzliches zeitintervall für alarm-sprachausgabe",
+        "ru": "добавлен интервал времени для вывода речи тревоги",
+        "pt": "intervalo de tempo adicionado para saída de discurso de alarme",
+        "nl": "vertaling:",
+        "fr": "intervalle de temps supplémentaire pour la sortie d'alarme",
+        "it": "intervallo di tempo aggiunto per l'uscita del discorso di allarme",
+        "es": "intervalo de tiempo añadido para la salida del habla de alarma",
+        "pl": "dodać czas trwania mowy alarmowej",
+        "zh-cn": "警觉产出增加时间"
       },
       "3.1.0": {
         "en": "added speech delay",
