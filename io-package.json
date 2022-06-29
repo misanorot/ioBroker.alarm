@@ -1,8 +1,11 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.1.0",
+    "version": "3.1.1",
     "news": {
+      "3.1.1": {
+        "de": "Man kann nun die Sekunden für die Zeiten zwischen den Alarmsprachausgaben steuern."
+      },
       "3.1.0": {
         "en": "added speech delay",
         "de": "Sprachverzögerung hinzugefügt",
@@ -241,7 +244,7 @@
     "text_changes": "Veränderungen erkannt",
     "text_changes_night": "Veränderungen erkannt",
     "text_alarm": "Verlassen Sie sofort das Haus",
-    "test_alarm_pause": 5,
+    "text_alarm_pause": 5,
     "text_nightrest_beginn": "Nachtruhe beginnt",
     "text_nightrest_end": "Nachtruhe beendet",
     "text_warn_begin": "Scharf intern aktiviert",
