@@ -348,7 +348,7 @@ function burglary(id, state, silent, indoor){
                 } else {
                     clearInterval(text_alarm_interval);
                 }
-            }, 5000);
+            }, A.text_alarm_pause * 1000);
             adapter.setState('status.burglar_alarm', true, true);
             adapter.setState('status.silent_alarm', false, true);
             adapter.setState('status.silent_flash', false, true);
@@ -385,7 +385,7 @@ function burglary(id, state, silent, indoor){
             } else {
                 clearInterval(text_alarm_interval);
             }
-        }, 5000);
+        }, A.text_alarm_pause * 1000);
         adapter.setState('status.burglar_alarm', true, true);
         adapter.setState('status.silent_alarm', false, true);
         adapter.setState('status.silent_flash', false, true);
@@ -429,7 +429,7 @@ function panic(){
         } else {
             clearInterval(text_alarm_interval);
         }
-    }, 5000);
+    }, A.text_alarm_pause * 1000);
     adapter.setState('status.burglar_alarm', true, true);
     if(A.alarm_flash > 0) {
         alarm_interval = setInterval(()=>{
