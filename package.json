@@ -1,6 +1,6 @@
 {
   "name": "iobroker.alarm",
-  "version": "3.1.1",
+  "version": "3.2.0",
   "description": "Create your own little alarm system. Configure different alarm circuits with your own states.",
   "author": {
     "name": "misanorot",
@@ -19,7 +19,8 @@
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.2.1",
-    "node-schedule": "^1.3.2"
+    "node-schedule": "^1.3.2",
+    "suncalc2": "^1.8.1"
   },
   "devDependencies": {
     "@iobroker/testing": "^2.5.4",

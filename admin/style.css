@@ -3,97 +3,176 @@
     box-sizing: border-box
 }
 .m {
-    /* Don't cut off dropdowns! */
-    overflow: initial;
+    /* Don't cut off dropdowns! 
+    overflow: initial;*/
+    overflow: hidden;
 }
 
 /* Add your styles here */
-
-/**************************************************************************************************************************************/
-/* Required to avoid y-scrollbar. */
-.modal { max-height:85% !important; }
-.m .page {height: auto !important; min-height:75% !important; }
-
-/* span */
-.m span { font-size: 1.0em !important }  /* span is set to 0.9em for some unknown reason, we set back to 1.0em  */
-.m .dialog-config-buttons span { font-size: 0.9em !important }  /* leave span at 0.9em for the save/cancel etc. buttons  */
-
-/* Tabs menu */
-.m .tabs .tab a { color: rgba(13, 134, 231, 0.7); }
-.m .tabs .active { border-bottom: 2px solid #0d47a1; font-weight: bold;}
-.m .tabs .tab a.active, .m .tabs .tab a:hover { color:#0d47a1; }
-.m .tabs .tab a:hover { border-bottom: 2px solid #46a0e9 !important; }
-
-/* Table header */
-table.table-values th.header { background-color:#64BfF6; font-size:90%; text-align:center; line-height: 1em; padding:6px 2px;}
-
-/* Table header -- Optional column */
-table.table-values th.mOptional { color:#c9e7fa }
-
-/* format second column of option tables */
-table.table-values tr td:nth-child(2) input { font-weight:bold; }
-
-/* to be able to adjust column width accordingly */
-table.table-values { table-layout:fixed; }
-
-/* add space at top/bottom */
-.spaceTop3em {margin-top: 3em; }
-.spaceBottom3em {margin-top: 3em; }
-
-/* Header section "Alarm" */
-#header-area {margin-top: 5px; margin-bottom: 1px; background-color:#174475;}
+/* Header section*/
+#header-area {margin-top: 2px; margin-bottom: 1px; background-color:#174475;}
 #header-area #header-logo-title .logo {float:left; margin-right: 10px;}
 #header-area #header-logo-title p {line-height: normal !important; margin: 0 !important; padding: 8px 0 0 8px;}
 #header-area #header-logo-title p>span.h-title {font-size: 2em !important; color:white; }
 #header-area #header-logo-title p>span.h-sub-title {font-size: 1.1em !important; color:white; font-style: italic; }
 
+/* Tabs menu */
+.m .tabs .tab a { color: rgba(13, 134, 231, 0.7); } /* Color */
+.m .tabs .tab a { padding: 0 5px; } /* space of x px at beginning and end of text  */
+.m .tabs .active { border-bottom: 2px solid #0d47a1; font-weight: bold;}
+.m .tabs .tab a.active, .m .tabs .tab a:hover { color:#0d47a1; }
+.m .tabs .tab a:hover { border-bottom: 2px solid #46a0e9 !important; }
+.m .row .col.m1 { width: 14%;}
+#tab-area { padding-left:0;padding-right:0; margin-top: 0px; margin-bottom: 1px; background-color:#174475; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2) }
 
-/* Introduction section */
-.intro {font-size: 18px;}
-.intro h5 {font-size: 1.5em;}
-ol.instr li {font-size: .9em;}
-ol.instr li:not(:last-child) { margin-bottom: .6em; }
+/* Tabs menu react-dark */
+.m.react-dark .tabs .tab a.active, .m .tabs .tab a:hover { color: #2196f3; }
+.m.react-dark .tabs { background-color: #272727 !important;}
 
-/* Code */
-code { padding: 2px 4px; font-size: 1.05em !important; color: #2696ef; background-color: rgba(101, 190, 246, 0.05); border-radius: 0; }
+/* Tabs menu react-blue */
+.m.react-blue .tabs .tab a.active, .m .tabs .tab a:hover { color: #2196f3; }
+.m.react-blue .tabs { background-color: #272727 !important;}
 
-/* Links */
-.page a:link, .page a:visited { color: #0d47a1;}      /* unvisited link */
-.page a:visited { color:#616e83; } /* visited link */
-.page a:visited { color:#2696ef;; } /* visited link */
-.page a:hover { text-decoration: underline; } /* mouse over link */
-.page a:active { color: #0d47a1; } /* selected link */
+.m .col .select-wrapper + label {
+    top: -26px;
+}
 
-/* ****** collapsible sections ****** */
-/* collapsible: general ****** */
-.collapsible-header { background-color: #c8e4fa69 !important;}
-.collapsible-header { padding-top:3px !important; padding-bottom:5px !important;}
-.collapsible-header i { padding-top:3px; }
-.collapsible-header h5 { font-weight: bold; font-size:1.3em; margin-top:0.7em; }
-.collapsible-body ol li {font-size: 1.1em;}
-.collapsible-body ol li:not(:last-child) { margin-bottom: .6em; }
-.collapsible-body p { font-size: 1.1em; }
-.collapsible-body code { font-size: 1.1em !important }
-.collapsible-body td:nth-child(1) { font-weight:normal; color: #0d47a1; width: 200px; } /* Format first column */
-.collapsible-body table {font-size: 1.0em;}
-.collapsible-body th {background-color: #c8e4fa69;}
+.m span {
+    font-size: 0.9em;
+}
 
-/* collapsible: Config Table Header/Documentation ****** */
-.collapsible-header.config-section    { background-color: #174475 !important; }
-.collapsible-header.config-section i.material-icons { color:#fff; } /* icon color */
-.collapsible-header.config-section h5 { color:#fff; }
-.collapsible-header.config-section { display: flex; justify-content: space-between; } /* for right alignment of question mark icon */
-.collapsible-header.config-section i.material-icons { padding-right: 0; margin-right: 0;}
+.m .tabs {
+    height: 48px;
+}
 
-/* collapsible: Documentation ****** */
-.collapsible-body.instructions td { line-height: 1.7em; }
+.m .page {
+    height: calc(100% - 160px);
+}
 
-/* For selectID.js (node_modules/iobroker.admin/www/lib/js/) */
-#dialog-select-member { z-index: 9999 !important; width:  calc(100% - 150px) !important;  }
-#dialog-select-member .modal-footer { width:calc(100% - 20px) !important; }
-#dialog-select-member .modal-content span {font-size:1.0em !important;}
-#dialog-select-member .main-toolbar-table {height: 28px !important;}
-#dialog-select-member .panel-button {height:28px !important; width:28px !important;}
+#dialog-command {
+    width: calc(100% - 100px);
+}
 
-/* Line hight for p */
-.collapsible-body p {line-height: 1.6em !important;}
+#dialog-command .title {
+    background: #174475;
+    color: #FFF;
+    padding: 0.5rem;
+}
+
+#dialog-command .textarea {
+    margin-bottom: 0;
+}
+
+#dialog-command textarea {
+    background: #e9e9e9;
+    font-family: courier, monospace;
+    font-size: 11px;
+    resize: none;
+    width: 100%;
+    height: calc(100% - 125px);
+    margin-bottom: 0;
+}
+
+#dialog-command .progress-dont-close {
+    float: left;
+    padding-left: 1rem;
+    padding-top: 1rem;
+}
+
+#dialog-command .command {
+    font-style: italic;
+}
+
+#dialog-command .btn {
+    margin-right: 1.5rem;
+}
+
+.do-restore {
+    cursor: pointer;
+}
+
+.collapsible-body {
+    margin-left: 2rem !important;
+    padding-top: 0 !important;
+}
+
+#dialog-presence-edit .title {
+    width: 100% !important;
+    background: #174475;
+    color: #FFF;
+    padding: 0.3rem;
+}
+
+.modal .page {
+    width: calc(100% - 20px) !important;
+}
+
+#dialog-presence-edit .modal-content {
+    width: 100% !important;
+    height: calc(100% - 10px) !important;
+}
+
+#dialog-presence-edit .tabs {
+    width: calc(100% - 0px) !important;
+    margin-top: -25px;
+    height: auto !important;
+}
+#dialog-presence-edit .titlePopUp {
+    width: 100% !important;
+    background: #174475;
+    color: #FFF;
+    padding: 0.2rem;
+}
+
+#dialog-presence-edit .page {
+    width: calc(100% - 10px) !important;
+    padding-left:20;
+    height: calc(100% - 100px);
+}
+/*
+#dialog-presence-edit .btn {
+    margin-right: 1.5rem;
+}
+*/
+/* hidden table column */
+#presence td:nth-of-type(n+6) {
+    visibility: hidden !important;
+    display: none !important;
+}
+/* hidden table column */
+#presence th:nth-of-type(n+6) {
+    visibility: hidden !important;
+    display: none !important;
+}
+
+#dialog-select-member {
+    z-index: 9995 !important;
+}
+
+.timepicker {
+    z-index: 10000 !important;
+}
+
+#dialog-presence-edit .modal {
+    height: 100%;
+}
+
+#dialog-presence-edit {
+    z-index: 9900 !important;
+    max-height: 95% !important;
+    max-width: 85% !important;
+    width: 80% !important;
+
+    overflow: visible !important;
+    top: 10px !important;
+}
+.m .collapsible-header {
+    padding: 0.5rem;
+}
+.trigger-add {
+    margin-top: 1.3rem;
+    margin-left: -0.5rem;
+}
+.m .modal .modal-footer {
+    padding-right: 2rem;
+}
