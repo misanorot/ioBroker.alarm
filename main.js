@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use strict';
 
 /*
@@ -35,39 +36,28 @@ const alarm_ids = [],
 	zone_three_states = {},
 	states = {};
 
-let send_instances = [],
-	send_available = false;
+let send_instances = [];
 
 let log_list = '';
 
-let alarm_repeat,
-	changes_repeat;
+let alarm_repeat;
+//changes_repeat;
 
 let is_alarm = false,
 	is_inside = false,
 	is_notification = false,
 	is_panic = false,
-	is_one = false,
-	is_two = false,
-	is_zone_one = false,
-	is_zone_two = false,
-	is_zone_three = false,
-	ids_alarm = [], //Kreis extern schaf
-	ids_inside = [], //Kreis intern scharf
-	ids_notification = [], //Benachrichtigungskreis
 	ids_shorts_input = [],
-	ids_one = [],
-	ids_two = [],
-	ids_zone_one = [],
-	ids_zone_two = [],
-	ids_zone_three = [],
 	names_alarm,
 	names_inside,
 	names_notification,
 	names_one,
 	names_two,
+	// eslint-disable-next-line no-unused-vars
 	names_zone_one,
+	// eslint-disable-next-line no-unused-vars
 	names_zone_two,
+	// eslint-disable-next-line no-unused-vars
 	names_zone_three;
 
 const change_ids = {};
@@ -106,7 +96,7 @@ let presenceInterval;
 let presenceTimers = {};
 let presenceRun = false;
 
-let sunsetStr, sunriseStr, dayStr;
+let sunsetStr, sunriseStr;
 
 class Alarm extends utils.Adapter {
 
@@ -198,7 +188,7 @@ class Alarm extends utils.Adapter {
 		shorts = this.config.shorts;
 		shorts_in = this.config.shorts_in;
 		alarm_repeat = parseInt(this.config.alarm_repeat);
-		changes_repeat = parseInt(this.config.changes_repeat);
+		//changes_repeat = parseInt(this.config.changes_repeat);
 		this.getState('status.activated', (err, state) => {
 			if (err) {
 				this.log.error(err);
@@ -264,7 +254,7 @@ class Alarm extends utils.Adapter {
 	}
 	//################# ENABLE ####################################################
 
-	async enable(id, state) {
+	async enable(_id, _state) {
 		if (activated || burgle) return;
 		let say = this.config.text_failed;
 		if (timer) {
@@ -354,7 +344,7 @@ class Alarm extends utils.Adapter {
 
 	//################# BURGALARY ####################################################
 
-	async burglary(id, state, silent, indoor) {
+	async burglary(id, _state, silent, indoor) {
 		if (burgle) return;
 		if (silent_timer && silent) return;
 		let count = 0;
@@ -694,14 +684,6 @@ class Alarm extends utils.Adapter {
 		}
 		else if (id === this.namespace + '.status.siren') {
 			this.shortcuts('status.siren', state.val);
-			return;
-		}
-		else if (id === this.namespace + '.status.alarm_flash') {
-			this.shortcuts('status.alarm_flash', state.val);
-			return;
-		}
-		else if (id === this.namespace + '.status.silent_flash') {
-			this.shortcuts('status.silent_flash', state.val);
 			return;
 		}
 		else if (id === this.namespace + '.status.activation_failed') {
@@ -1125,20 +1107,20 @@ class Alarm extends utils.Adapter {
 
 
 	async check_doubles() {
-		clean_ids.forEach((ele, i) => {
-			one_ids.forEach((item, i) => {
+		clean_ids.forEach((ele, _i) => {
+			one_ids.forEach((item, _i) => {
 				if (item === ele) this.log.warn(`You use double states in main and other alarms, PLEASE FIX IT: ${item}`);
 			});
-			two_ids.forEach((item, i) => {
+			two_ids.forEach((item, _i) => {
 				if (item === ele) this.log.warn(`You use double states in main and other alarms, PLEASE FIX IT: ${item}`);
 			});
-			zone_one_ids.forEach((item, i) => {
+			zone_one_ids.forEach((item, _i) => {
 				if (item === ele) this.log.warn(`You use double states in main and other alarms, PLEASE FIX IT: ${item}`);
 			});
-			zone_two_ids.forEach((item, i) => {
+			zone_two_ids.forEach((item, _i) => {
 				if (item === ele) this.log.warn(`You use double states in main and other alarms, PLEASE FIX IT: ${item}`);
 			});
-			zone_three_ids.forEach((item, i) => {
+			zone_three_ids.forEach((item, _i) => {
 				if (item === ele) this.log.warn(`You use double states in main and other alarms, PLEASE FIX IT: ${item}`);
 			});
 		});
@@ -1274,124 +1256,97 @@ class Alarm extends utils.Adapter {
 	}
 
 	refreshLists() {
-		this.check(alarm_ids, 'main', (val, ids) => {
+		this.check(alarm_ids, 'main', (_val, ids) => {
 			this.log.debug(`Alarm circuit list: ${ids}`);
 			if (ids.length > 0) {
-				ids_alarm = ids;
 				is_alarm = true;
 				names_alarm = this.get_name(ids, 'main');
 				this.setState('info.alarm_circuit_list', names_alarm, true);
 				this.setState('info.alarm_circuit_list_html', this.get_name_html(ids), true);
 			} else {
-				ids_alarm = [];
 				is_alarm = false;
 				names_alarm = '';
 				this.setState('info.alarm_circuit_list', '', true);
 				this.setState('info.alarm_circuit_list_html', '', true);
 			}
 		});
-		this.check(inside_ids, 'main', (val, ids) => {
+		this.check(inside_ids, 'main', (_val, ids) => {
 			this.log.debug(`Inside circuit list: ${ids}`);
 			if (ids.length > 0) {
-				ids_inside = ids;
 				is_inside = true;
 				names_inside = this.get_name(ids, 'main');
 				this.setState('info.sharp_inside_circuit_list', names_inside, true);
 				this.setState('info.sharp_inside_circuit_list_html', this.get_name_html(ids), true);
 			} else {
-				ids_inside = [];
 				is_inside = false;
 				names_inside = '';
 				this.setState('info.sharp_inside_circuit_list', '', true);
 				this.setState('info.sharp_inside_circuit_list_html', '', true);
 			}
 		});
-		this.check(notification_ids, 'main', (val, ids) => {
+		this.check(notification_ids, 'main', (_val, ids) => {
 			this.log.debug(`Notification circuit list: ${ids}`);
 			if (ids.length > 0) {
-				ids_notification = ids;
 				is_notification = true;
 				names_notification = this.get_name(ids, 'main');
 				this.setState('info.notification_circuit_list', names_notification, true);
 				this.setState('info.notification_circuit_list_html', this.get_name_html(ids), true);
 			} else {
-				ids_notification = [];
-				is_notification = false;
 				names_notification = '';
 				this.setState('info.notification_circuit_list', '', true);
 				this.setState('info.notification_circuit_list_html', '', true);
 			}
 		});
-		this.check(one_ids, 'one', (val, ids) => {
+		this.check(one_ids, 'one', (_val, ids) => {
 			this.log.debug(`One list: ${ids}`);
 			if (ids.length > 0) {
-				ids_one = ids;
-				is_one = true;
 				names_one = this.get_name(ids, 'one');
 				this.setState('other_alarms.one_list', names_one, true);
 				this.setState('other_alarms.one_list_html', this.get_name_html(ids, 'one'), true);
 			} else {
-				ids_one = [];
-				is_one = false;
 				names_one = '';
 				this.setState('other_alarms.one_list', '', true);
 				this.setState('other_alarms.one_list_html', '', true);
 			}
 		});
-		this.check(two_ids, 'two', (val, ids) => {
+		this.check(two_ids, 'two', (_val, ids) => {
 			this.log.debug(`Two list: ${ids}`);
 			if (ids.length > 0) {
-				ids_two = ids;
-				is_two = true;
 				names_two = this.get_name(ids, 'two');
 				this.setState('other_alarms.two_list', names_two, true);
-				this.setState('other_alarms.two_list_html', this.get_name_html(ids, 'two'), true); ids_zone_two;
+				this.setState('other_alarms.two_list_html', this.get_name_html(ids, 'two'), true);
 			} else {
-				ids_two = [];
-				is_two = false;
 				names_two = '';
 				this.setState('other_alarms.two_list', '', true);
 				this.setState('other_alarms.two_list_html', '', true);
 			}
 		});
-		this.check(zone_one_ids, 'zone_one', (val, ids) => {
+		this.check(zone_one_ids, 'zone_one', (_val, ids) => {
 			this.log.debug(`Zone_one list: ${ids}`);
 			if (ids.length > 0) {
-				ids_zone_one = ids;
-				is_zone_one = true;
 				names_zone_one = this.get_name(ids, 'zone_one');
 				this.setState('zone.one', true, true);
 			} else {
-				ids_zone_one = [];
-				is_zone_one = false;
 				names_zone_one = '';
 				this.setState('zone.one', false, true);
 			}
 		});
-		this.check(zone_two_ids, 'zone_two', (val, ids) => {
+		this.check(zone_two_ids, 'zone_two', (_val, ids) => {
 			this.log.debug(`Zone_two list: ${ids}`);
 			if (ids.length > 0) {
-				ids_zone_two = ids;
-				is_zone_two = true;
 				names_zone_two = this.get_name(ids, 'zone_two');
 				this.setState('zone.two', true, true);
 			} else {
-				ids_zone_two = [];
-				is_zone_two = false;
 				names_zone_two = '';
 				this.setState('zone.two', false, true);
 			}
 		});
-		this.check(zone_three_ids, 'zone_three', (val, ids) => {
+		this.check(zone_three_ids, 'zone_three', (_val, ids) => {
 			this.log.debug(`Zone_three list: ${ids}`);
 			if (ids.length > 0) {
-				ids_zone_three = ids;
-				is_zone_three = true;
 				names_zone_three = this.get_name(ids, 'zone_three');
 				this.setState('zone.three', true, true);
 			} else {
-				ids_zone_three = [];
-				is_zone_three = false;
 				names_zone_three = '';
 				this.setState('zone.three', false, true);
 			}
@@ -1642,7 +1597,7 @@ class Alarm extends utils.Adapter {
 		this.log.debug(`zone one: ${JSON.stringify(zone_one_states)} zone two: ${JSON.stringify(zone_two_states)} zone three: ${JSON.stringify(zone_three_states)}`);
 	}
 
-	async leaving(id, state) {
+	async leaving(_id, _state) {
 		clearInterval(timer);
 		timer = null;
 		this.setState('status.activation_countdown', null, true);
@@ -1869,6 +1824,7 @@ class Alarm extends utils.Adapter {
 		clearTimeout(presenceDelay_timer);
 		clearInterval(presenceInterval);
 		for (const item in presenceTimers) {
+			// eslint-disable-next-line no-prototype-builtins
 			if (presenceTimers.hasOwnProperty(item)) {
 				clearTimeout(presenceTimers[item].presenceLengthTimer);
 				clearTimeout(presenceTimers[item].presenceDelayTimer);
@@ -1884,6 +1840,7 @@ class Alarm extends utils.Adapter {
 		sunrise = await this.isTimeInRange(sunriseStr, '12:00');
 		sunset = await this.isTimeInRange(sunsetStr, '22:00');
 		for (const item in presenceTimers) {
+			// eslint-disable-next-line no-prototype-builtins
 			if (presenceTimers.hasOwnProperty(item)) {
 				switch (presenceTimers[item].option_presence) {
 					case 'time':
