@@ -1,0 +1,1864 @@
+<html>
+
+<head>
+<!-- Load ioBroker scripts and styles-->
+	<link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
+	<link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+  <link rel="stylesheet" type="text/css" href="../../lib/css/fancytree/ui.fancytree.min.css" />
+
+	<script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="../../lib/js/selectID.js"></script>
+  <script type="text/javascript" src="../../lib/js/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="../../lib/js/jquery.fancytree-all.min.js"></script>
+
+
+	<script type="text/javascript" src="../../js/translate.js"></script>
+	<script type="text/javascript" src="../../lib/js/materialize.js"></script>
+	<script type="text/javascript" src="../../js/adapter-settings.js"></script>
+
+	<!-- Load our own files -->
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script type="text/javascript" src="words.js"></script>
+
+	<script type="text/javascript">
+
+    const states = {};
+    let selectId;
+
+    // This will be called by the admin adapter when the settings page loads
+    function load(settings, onChange) {
+      // example: select elements with id=key and class=value and insert value
+      if (!settings) return;
+      //if (settings.sayit === undefined) settings.sayit = '';
+
+      circuits = settings.circuits || [];
+      shorts_in = settings.shorts_in || [];
+      shorts = settings.shorts || [];
+      sayit = settings.sayit || [];
+      one = settings.one || [];
+      two = settings.two || [];
+      presence = settings.presence || [];
+      zone_one = settings.zone_one || [];
+      zone_two = settings.zone_two || [];
+      zone_three = settings.zone_three || [];
+      new_version = settings.version;
+
+
+
+      if (typeof settings.sayit !== 'object') sayit = [];
+
+      $('.value').each(function () {
+        const $key = $(this);
+        const id = $key.attr('id');
+        if ($key.attr('type') === 'checkbox') {
+          // do not call onChange direct, because onChange could expect some arguments
+          $key.prop('checked', settings[id])
+            .on('change', () => onChange())
+            ;
+        } else {
+          // do not call onChange direct, because onChange could expect some arguments
+          $key.val(settings[id])
+            .on('change', () => onChange())
+            .on('keyup', () => onChange())
+            ;
+        }
+      });
+
+      onChange(false);
+      // reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
+      if (M) M.updateTextFields();
+      if (!new_version) {
+        version('', onChange);
+      }
+      $('.timepicker').timepicker({
+        "twelveHour": false,
+      });
+
+      $('.tooltipped').tooltip();
+      telChanging();
+      values2table('circuits', circuits, onChange, tableOnReady);
+      leaving();
+      values2table('shorts_in', shorts_in, onChange, tableOnReady);
+      values2table('shorts', shorts, onChange, tableOnReady);
+      values2table('sayit', sayit, onChange, tableOnReady);
+      values2table('one', one, onChange, tableOnReady);
+      values2table('two', two, onChange, tableOnReady);
+      values2table('presence', presence, onChange, tableOnReady);
+      values2table('zone_one', zone_one, onChange, tableOnReady);
+      values2table('zone_two', zone_two, onChange, tableOnReady);
+      values2table('zone_three', zone_three, onChange, tableOnReady);
+
+
+      $('#opt_leave').change(leaving);
+      $('#opt_telegram').change(telChanging);
+      $('.sendTo_Chips').chips({
+        placeholder: 'Add adapter',
+        secondaryPlaceholder: '+instance'
+      });
+      // sendTo Chips
+      $('#add_sendTo').on('click', () => {
+        initSelectId((sid) => {
+          sid.selectId('show', (newId) => {
+            if (newId) {
+              $('.sendTo_Chips').chips('addChip', { tag: newId });
+              onChange();
+            }
+          });
+        });
+      });
+      list2chips('.sendTo_Chips', settings.sendTo || '', onChange);
+      $('#sayit_help').on('click', () => {
+        showMessage('Bitte einen state auswählen, wo Sie sicher sind, dass dieser mit einem Text zur Sprachausgabe beschrieben werden kann! Als Beispiel sayit.0.tts.text. Als Optionen zur Ausgabe, stehen die unten stehenden Sätze mit der entsprechenden Nummer zu Verfügung.');
+      });
+      $('#circuits_help').on('click', () => {
+        showMessage('* Alarmkreis => entspricht Vollschutz, Betreiber ist nicht Zuhause <br>* Scharf innen => entspricht Aussenhautüberwachung, Betreiber ist anwesend <br>* Benachrichtigungen => Es werden Meldungen während scharf und scharf innen aussgegeben <br>* Stiller Alarm => Bei Aktivierung wird erst der Stille statt der richtige Alarm ausgelöst. <br>* negieren => triggert den State auf false <br>* verlassen => Bei Aktivierung über Countdown, wird dieser beendet und die Alarmanlage aktiviert');
+      });
+      $('#test_sayit').on('click', () => {
+        const tts_instance = table2values('sayit');
+        if (tts_instance) {
+          tts_instance.forEach((ele) => {
+            socket.emit('setState', ele.name_id, 'dies ist eine Testnachricht vom Alarm Adapter', (err) => {
+              if (err) console.log(err);
+            });
+          });
+
+        }
+        else showMessage('Nichts konfiguriert!')
+      });
+      $('#triggerLightPopup').on('click', function () {
+        initSelectId(function (sid) {
+          sid.selectId('show', $('#presence_trigger_light').val(), function (newId) {
+            if (newId) {
+              $('#presence_trigger_light').val(newId).trigger('change');
+            }
+          });
+        });
+      });
+      //Timepicker in Modal
+      document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.datepicker');
+        var instances = M.Datepicker.init(elems, {});
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+      });
+
+
+    }
+
+
+    //######  END LOAD  #######
+
+    //###########  SAVE  #########
+
+    // This will be called by the admin adapter when the user presses the save button
+    function save(callback) {
+      // example: select elements with class=value and build settings object
+      const obj = {};
+      $('.value').each(function () {
+        const $this = $(this);
+        if ($this.attr('type') === 'checkbox') {
+          obj[$this.attr('id')] = $this.prop('checked');
+        } else {
+          obj[$this.attr('id')] = $this.val();
+        }
+      });
+      obj.sendTo = chips2list('.sendTo_Chips');
+      obj.circuits = table2values('circuits');
+      obj.shorts_in = table2values('shorts_in');
+      obj.shorts = table2values('shorts');
+      obj.sayit = table2values('sayit');
+      obj.one = table2values('one');
+      obj.two = table2values('two');
+      obj.presence = table2values('presence');
+      obj.zone_one = table2values('zone_one');
+      obj.zone_two = table2values('zone_two');
+      obj.zone_three = table2values('zone_three');
+
+      obj.states = states;
+      obj.version = new_version;
+      callback(obj);
+    }
+    //##############################################
+
+    //###########  HELPERS  ###########
+
+    function version(id, callback) {
+      if (id !== 'version_button') {
+        new_version = true;
+        callback();
+      }
+      showMessage('<b>Ab Version 3.x.x, habe ich mich dazu entschieden den Alarm auch bei scharf innen auszulösen! Das verändert die Funktion des Adapters ein wenig. Es wird jetzt zwischen Sirene intern und extern unterschieden, hierzu ist zu beachten, dass es den Datenpunkt info.sharp_inside_siren nicht mehr gibt. Diesen bitte ggf. manuell löschen! Der Datenpunkt wurde durch status.siren_inside ersetzt, und entspricht der Innensirene. Es ist zu beachten, dass das auch ggf. bei den Verknüpfungen neu einzustellen ist. Möchte man dies Aussensirene auch bei innen Alarm auslösen, kann man das in den allgemeinen Einstellungen tun. <br><br> DANKE FÜR DAS VERSTÄNDNIS, ABER ICH DENKE SO IST ES LOGISCHER!</b>');
+    }
+
+    function checkTrigger(val, id) {
+      if (val === 'status.state_list') {
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=true]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=false]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=deactivated]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp_inside]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=burgular]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=night_rest]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=gets_activated]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_failed]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_aborted]').prop('disabled', false);
+      } else {
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=true]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=false]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=deactivated]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp_inside]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=burgular]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=night_rest]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=gets_activated]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_failed]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_aborted]').prop('disabled', true);
+      }
+      $('select').select()
+    }
+
+    function telChanging() {
+      let check = document.getElementById('opt_telegram').checked;
+      if (check) {
+        $('#user').prop('disabled', false);
+        $('#chatID').prop('disabled', false);
+        $('#user').show();
+        $('#chatID').show();
+      } else {
+        $('#user').prop('disabled', true);
+        $('#chatID').prop('disabled', true);
+        $('#user').hide();
+        $('#chatID').hide();
+      }
+    }
+
+    function leaving() {
+      let check = document.getElementById('opt_leave').checked;
+      if (check) {
+        $('#circuits .table-values-div .table-values [data-name="leave"]').each(function () {
+          $(this).prop('disabled', false);
+        });
+      } else {
+        $('#circuits .table-values-div .table-values [data-name="leave"]').each(function () {
+          $(this).prop('disabled', true);
+        });
+      }
+    }
+
+    function tableOnReady() {
+
+      $('#shorts .table-values-div .table-values [data-name="select_id"]').each(function () {
+        let id = $(this).data('index');
+        let val = $(this).val();
+        checkTrigger(val, id);
+      });
+
+      $('.table-button-add').on('click', function () {
+        if ($(this).attr('id') === 'circuits_table') {
+          const devices = table2values('circuits');
+          let id_c = 0;
+          for (let i = 0; i < devices.length; i++) {
+            id_c = id_c + 1;
+          }
+          initSelectId(function (sid) {
+            sid.selectId('show', $('#circuits .values-input[data-name="name"][data-index="' + id_c + '"]').val(), function (newId) {
+              if (newId) {
+                $('#circuits .values-input[data-name="name_id"][data-index="' + id_c + '"]').val(newId).trigger('change');
+                socket.emit('getObject', newId, function (err, obj) {
+                  const name = getName(obj);
+                  $('#circuits .values-input[data-name="name"][data-index="' + id_c + '"]').val(name).trigger('change');
+                });
+                //$('#circuits .values-input[data-name="delay"][data-index="' + id_c + '"]').prop( "checked", true).trigger('change');
+              }
+            });
+          });
+          leaving();
+        } else if ($(this).attr('id') === 'shorts_in_table') {
+          const shorts_in = table2values('shorts_in');
+          let id_s = 0;
+          for (let i = 0; i < shorts_in.length; i++) {
+            id_s = id_s + 1;
+          }
+          initSelectId(function (sid) {
+            sid.selectId('show', $('#shorts_in .values-input[data-name="name"][data-index="' + id_s + '"]').val(), function (newId) {
+              if (newId) {
+                $('#shorts_in .values-input[data-name="name_id"][data-index="' + id_s + '"]').val(newId).trigger('change');
+                socket.emit('getObject', newId, function (err, obj) {
+                  const name = getName(obj);
+                  $('#shorts_in .values-input[data-name="name"][data-index="' + id_s + '"]').val(name).trigger('change');
+                });
+              }
+            });
+          });
+        } else if ($(this).attr('id') === 'shorts_table') {
+          const shorts = table2values('shorts');
+          let id_s = 0;
+          for (let i = 0; i < shorts.length; i++) {
+            id_s = id_s + 1;
+          }
+          initSelectId(function (sid) {
+            sid.selectId('show', $('#shorts .values-input[data-name="name"][data-index="' + id_s + '"]').val(), function (newId) {
+              if (newId) {
+                $('#shorts .values-input[data-name="name_id"][data-index="' + id_s + '"]').val(newId).trigger('change');
+                socket.emit('getObject', newId, function (err, obj) {
+                  const name = getName(obj);
+                  $('#shorts .values-input[data-name="name"][data-index="' + id_s + '"]').val(name).trigger('change');
+                });
+              }
+            });
+          });
+        } else if ($(this).attr('id') === 'sayit_table') {
+          const sayit = table2values('sayit');
+          let id_say = 0;
+          for (let i = 0; i < sayit.length; i++) {
+            id_say = id_say + 1;
+          }
+          initSelectId(function (sid) {
+            sid.selectId('show', $('#sayit .values-input[data-name="name"][data-index="' + id_say + '"]').val(), function (newId) {
+              if (newId) {
+                $('#sayit .values-input[data-name="name_id"][data-index="' + id_say + '"]').val(newId).trigger('change');
+                socket.emit('getObject', newId, function (err, obj) {
+                  const name = getName(obj);
+                  $('#sayit .values-input[data-name="name"][data-index="' + id_say + '"]').val(name).trigger('change');
+                });
+                $('#sayit .values-input[data-name="opt_say_one"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+                $('#sayit .values-input[data-name="opt_say_two"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+                $('#sayit .values-input[data-name="opt_say_three"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+                $('#sayit .values-input[data-name="opt_say_four"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+                $('#sayit .values-input[data-name="opt_say_five"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+                $('#sayit .values-input[data-name="opt_say_six"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+                $('#sayit .values-input[data-name="opt_say_seven"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+                $('#sayit .values-input[data-name="opt_say_eigth"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+                $('#sayit .values-input[data-name="opt_say_nine"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+                $('#sayit .values-input[data-name="opt_say_nine_plus"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+                $('#sayit .values-input[data-name="opt_say_zero"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+                $('#sayit .values-input[data-name="opt_say_count"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+                $('#sayit .values-input[data-name="opt_say_fire"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+                $('#sayit .values-input[data-name="opt_say_water"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+              }
+            });
+          });
+        } else if ($(this).attr('id') === 'one_table') {
+          const one = table2values('one');
+          let id_f = 0;
+          for (let i = 0; i < one.length; i++) {
+            id_f = id_f + 1;
+          }
+          initSelectId(function (sid) {
+            sid.selectId('show', $('#one .values-input[data-name="name"][data-index="' + id_f + '"]').val(), function (newId) {
+              if (newId) {
+                $('#one .values-input[data-name="name_id"][data-index="' + id_f + '"]').val(newId).trigger('change');
+                socket.emit('getObject', newId, function (err, obj) {
+                  const name = getName(obj);
+                  $('#one .values-input[data-name="name"][data-index="' + id_f + '"]').val(name).trigger('change');
+                });
+              }
+            });
+          });
+        } else if ($(this).attr('id') === 'two_table') {
+          const two = table2values('two');
+          let id_w = 0;
+          for (let i = 0; i < two.length; i++) {
+            id_w = id_w + 1;
+          }
+          initSelectId(function (sid) {
+            sid.selectId('show', $('#two .values-input[data-name="name"][data-index="' + id_w + '"]').val(), function (newId) {
+              if (newId) {
+                $('#two .values-input[data-name="name_id"][data-index="' + id_w + '"]').val(newId).trigger('change');
+                socket.emit('getObject', newId, function (err, obj) {
+                  const name = getName(obj);
+                  $('#two .values-input[data-name="name"][data-index="' + id_w + '"]').val(name).trigger('change');
+                });
+              }
+            });
+          });
+        } else if ($(this).attr('id') === 'zone_one_table') {
+          const rows = table2values('zone_one');
+          let id = 0;
+          for (let i = 0; i < rows.length; i++) {
+            id = id + 1;
+          }
+          initSelectId(function (sid) {
+            sid.selectId('show', $('#zone_one .values-input[data-name="name"][data-index="' + id + '"]').val(), function (newId) {
+              if (newId) {
+                $('#zone_one .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+                socket.emit('getObject', newId, function (err, obj) {
+                  const name = getName(obj);
+                  $('#zone_one .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+                });
+              }
+            });
+          });
+        } else if ($(this).attr('id') === 'zone_two_table') {
+          const rows = table2values('zone_two');
+          let id = 0;
+          for (let i = 0; i < rows.length; i++) {
+            id = id + 1;
+          }
+          initSelectId(function (sid) {
+            sid.selectId('show', $('#zone_two .values-input[data-name="name"][data-index="' + id + '"]').val(), function (newId) {
+              if (newId) {
+                $('#zone_two .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+                socket.emit('getObject', newId, function (err, obj) {
+                  const name = getName(obj);
+                  $('#zone_two .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+                });
+              }
+            });
+          });
+        } else if ($(this).attr('id') === 'zone_three_table') {
+          const rows = table2values('zone_three');
+          let id = 0;
+          for (let i = 0; i < rows.length; i++) {
+            id = id + 1;
+          }
+          initSelectId(function (sid) {
+            sid.selectId('show', $('#zone_three .values-input[data-name="name"][data-index="' + id + '"]').val(), function (newId) {
+              if (newId) {
+                $('#zone_three .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+                socket.emit('getObject', newId, function (err, obj) {
+                  const name = getName(obj);
+                  $('#zone_three .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+                });
+              }
+            });
+          });
+        } else if ($(this).attr('id') === 'presence_table') {
+          const presence = table2values('presence');
+          let id_p = 0;
+          for (let i = 0; i < presence.length; i++) {
+            id_p = id_p + 1;
+          }
+
+          initSelectId(function (sid) {
+            sid.selectId('show', $('#presence .values-input[data-name="name"][data-index="' + id_p + '"]').val(), function (newId) {
+              if (newId) {
+                $('#presence .values-input[data-name="name_id"][data-index="' + id_p + '"]').val(newId).trigger('change');
+                socket.emit('getObject', newId, function (err, obj) {
+                  const name = getName(obj);
+                  $('#presence .values-input[data-name="name"][data-index="' + id_p + '"]').val(name).trigger('change');
+                });
+                $('#presence .values-input[data-name="option_presence"][data-index="' + id_p + '"]').val('time').trigger('change');
+                $('#presence .values-input[data-name="presence_length"][data-index="' + id_p + '"]').val(10).trigger('change');
+                $('#presence .values-input[data-name="presence_length_select"][data-index="' + id_p + '"]').val('min').trigger('change');
+                $('#presence .values-input[data-name="presence_length_shuffle"][data-index="' + id_p + '"]').val(1).trigger('change');
+                $('#presence .values-input[data-name="presence_delay"][data-index="' + id_p + '"]').val(1).trigger('change');
+                $('#presence .values-input[data-name="presence_delay_select"][data-index="' + id_p + '"]').val('min').trigger('change');
+                $('#presence .values-input[data-name="presence_delay_shuffle"][data-index="' + id_p + '"]').val(1).trigger('change');
+                $('#presence .values-input[data-name="presence_val_on"][data-index="' + id_p + '"]').val("true").trigger('change');
+                $('#presence .values-input[data-name="presence_val_off"][data-index="' + id_p + '"]').val("false").trigger('change');
+                $('#presence .values-input[data-name="presence_light_lux"][data-index="' + id_p + '"]').val(100).trigger('change');
+
+              }
+            });
+          });
+        } else {
+          console.log('wrong table!');
+        }
+      });
+
+      $('#circuits .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
+        let id = $(this).data('index');
+        initSelectId(function (sid) {
+          sid.selectId('show', $('#circuits .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
+            if (newId) {
+              $('#circuits .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+              socket.emit('getObject', newId, (err, obj) => {
+                let name = getName(obj);
+                $('#circuits .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+              });
+            }
+          });
+        });
+      });
+
+      $('#sayit .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
+        let id = $(this).data('index');
+        initSelectId(function (sid) {
+          sid.selectId('show', $('#sayit .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
+            if (newId) {
+              $('#sayit .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+              socket.emit('getObject', newId, (err, obj) => {
+                let name = getName(obj);
+                $('#sayit .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+              });
+            }
+          });
+        });
+      });
+
+
+      $('#shorts .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
+        let id = $(this).data('index');
+        initSelectId(function (sid) {
+          sid.selectId('show', $('#shorts .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
+            if (newId) {
+              $('#shorts .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+              socket.emit('getObject', newId, (err, obj) => {
+                let name = getName(obj);
+                $('#shorts .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+              });
+            }
+          });
+        });
+      });
+
+      $('#shorts_in .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
+        let id = $(this).data('index');
+        initSelectId(function (sid) {
+          sid.selectId('show', $('#shorts_in .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
+            if (newId) {
+              $('#shorts_in .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+              socket.emit('getObject', newId, (err, obj) => {
+                let name = getName(obj);
+                $('#shorts_in .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+              });
+            }
+          });
+        });
+      });
+
+      $('#one .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
+        let id = $(this).data('index');
+        initSelectId(function (sid) {
+          sid.selectId('show', $('#one .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
+            if (newId) {
+              $('#one .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+              socket.emit('getObject', newId, (err, obj) => {
+                let name = getName(obj);
+                $('#one .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+              });
+            }
+          });
+        });
+      });
+      $('#two .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
+        let id = $(this).data('index');
+        initSelectId(function (sid) {
+          sid.selectId('show', $('#two .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
+            if (newId) {
+              $('#two .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+              socket.emit('getObject', newId, (err, obj) => {
+                let name = getName(obj);
+                $('#two .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+              });
+            }
+          });
+        });
+      });
+
+
+      $('#presence .table-values-div .table-values .values-buttons[data-command="edit2"]').on('click', function () {
+        let id = $(this).data('index');
+        initSelectId(function (sid) {
+          sid.selectId('show', $('#presence .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
+            if (newId) {
+              $('#presence .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+              socket.emit('getObject', newId, (err, obj) => {
+                let name = getName(obj);
+                $('#presence .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+              });
+            }
+          });
+        });
+      });
+
+
+      $('#presence .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
+        let id = $(this).data('index');
+        $('#dialogDeviceEditPresence').html($('#presence .values-input[data-name="name_id"][data-index="' + id + '"]').val());
+        $('#option_presence').val($('#presence .values-input[data-name="option_presence"][data-index="' + id + '"]').val());
+        $('#option_presence').select();
+        $('#presence_time_from').val($('#presence .values-input[data-name="presence_time_from"][data-index="' + id + '"]').val());
+        $('#presence_time_to').val($('#presence .values-input[data-name="presence_time_to"][data-index="' + id + '"]').val());
+        $('#presence_length').val($('#presence .values-input[data-name="presence_length"][data-index="' + id + '"]').val());
+        $('#presence_length_select').val($('#presence .values-input[data-name="presence_length_select"][data-index="' + id + '"]').val());
+        $('#presence_length_select').select();
+        $('#presence_length_shuffle').val($('#presence .values-input[data-name="presence_length_shuffle"][data-index="' + id + '"]').val());
+        $('#presence_length_shuffle').select();
+        $('#presence_delay').val($('#presence .values-input[data-name="presence_delay"][data-index="' + id + '"]').val());
+        $('#presence_delay_select').val($('#presence .values-input[data-name="presence_delay_select"][data-index="' + id + '"]').val());
+        $('#presence_delay_select').select();
+        $('#presence_delay_shuffle').val($('#presence .values-input[data-name="presence_delay_shuffle"][data-index="' + id + '"]').val());
+        $('#presence_delay_shuffle').select();
+        $('#presence_val_on').val($('#presence .values-input[data-name="presence_val_on"][data-index="' + id + '"]').val());
+        $('#presence_val_off').val($('#presence .values-input[data-name="presence_val_off"][data-index="' + id + '"]').val());
+        $('#presence_trigger_light').val($('#presence .values-input[data-name="presence_trigger_light"][data-index="' + id + '"]').val());
+        $('#presence_light_lux').val($('#presence .values-input[data-name="presence_light_lux"][data-index="' + id + '"]').val());
+
+        setTimeout(function () {
+          initDialogPresence(function (sid) {
+            var new_option = $('#option_presence').val();
+            var new_time_from = $('#presence_time_from').val();
+            var new_time_to = $('#presence_time_to').val();
+            var new_length = $('#presence_length').val();
+            var new_length_select = $('#presence_length_select').val();
+            var new_length_shuffle = $('#presence_length_shuffle').val();
+            var new_delay = $('#presence_delay').val();
+            var new_delay_select = $('#presence_delay_select').val();
+            var new_delay_shuffle = $('#presence_delay_shuffle').val();
+            var new_val_on = $('#presence_val_on').val();
+            var new_val_off = $('#presence_val_off').val();
+            var new_trigger_light = $('#presence_trigger_light').val();
+            var new_light_lux = $('#presence_light_lux').val();
+
+            $('#presence .values-input[data-name="option_presence"][data-index="' + id + '"]').val(new_option).trigger('change');
+            $('#presence .values-input[data-name="presence_time_from"][data-index="' + id + '"]').val(new_time_from).trigger('change');
+            $('#presence .values-input[data-name="presence_time_to"][data-index="' + id + '"]').val(new_time_to).trigger('change');
+            $('#presence .values-input[data-name="presence_length"][data-index="' + id + '"]').val(new_length).trigger('change');
+            $('#presence .values-input[data-name="presence_length_select"][data-index="' + id + '"]').val(new_length_select).trigger('change');
+            $('#presence .values-input[data-name="presence_length_shuffle"][data-index="' + id + '"]').val(new_length_shuffle).trigger('change');
+            $('#presence .values-input[data-name="presence_delay"][data-index="' + id + '"]').val(new_delay).trigger('change');
+            $('#presence .values-input[data-name="presence_delay_select"][data-index="' + id + '"]').val(new_delay_select).trigger('change');
+            $('#presence .values-input[data-name="presence_delay_shuffle"][data-index="' + id + '"]').val(new_delay_shuffle).trigger('change');
+            $('#presence .values-input[data-name="presence_val_on"][data-index="' + id + '"]').val(new_val_on).trigger('change');
+            $('#presence .values-input[data-name="presence_val_off"][data-index="' + id + '"]').val(new_val_off).trigger('change');
+            $('#presence .values-input[data-name="presence_trigger_light"][data-index="' + id + '"]').val(new_trigger_light).trigger('change');
+            $('#presence .values-input[data-name="presence_light_lux"][data-index="' + id + '"]').val(new_light_lux).trigger('change');
+
+          });
+        }, 20)
+      });
+
+
+      $('#shorts .table-values-div .table-values [data-name="select_id"]').change(function () {
+        let id = $(this).data('index');
+        let val = $(this).val();
+        checkTrigger(val, id);
+      });
+    }
+
+    function list2chips(selector, list, onChange) {
+      const chips = list.split(/[,;\s]+/);
+      const data = [];
+      for (let c = 0; c < chips.length; c++) {
+        if (chips[c] && chips[c].trim()) {
+          data.push({ tag: chips[c].trim() });
+        }
+      }
+      $(selector).chips({
+        data: data,
+        //placeholder: _('Send Instanz'),
+        //secondaryPlaceholder: _('Add Instanz'),
+        onChipAdd: onChange,
+        onChipDelete: onChange
+      });
+    }
+    function chips2list(selector) {
+      const data = $(selector).chips('getData');
+      const text = [];
+      for (let lib = 0; lib < data.length; lib++) {
+        text.push(data[lib].tag);
+      }
+      return text.join(' ');
+    }
+
+    function initSelectId(callback) {
+      if (selectId) {
+        return callback(selectId);
+      }
+      socket.emit('getObjects', (err, objs) => {
+        selectId = $('#dialog-select-member').selectId('init', {
+          noMultiselect: true,
+          objects: objs,
+          imgPath: '../../lib/css/fancytree/',
+          filter: { type: 'state' },
+          name: 'scenes-select-state',
+          texts: {
+            select: _('Select'),
+            cancel: _('Cancel'),
+            all: _('All'),
+            id: _('ID'),
+            name: _('Name'),
+            role: _('Role'),
+            room: _('Room'),
+            value: _('Value'),
+            selectid: _('Select ID'),
+            from: _('From'),
+            lc: _('Last changed'),
+            ts: _('Time stamp'),
+            wait: _('Processing...'),
+            ack: _('Acknowledged'),
+            selectAll: _('Select all'),
+            unselectAll: _('Deselect all'),
+            invertSelection: _('Invert selection')
+          },
+          columns: ['image', 'name', 'role', 'room']
+        });
+        callback(selectId);
+      });
+    }
+
+    function getName(obj) {
+      if (obj && obj.common && obj.common.name) {
+        let name = obj.common.name;
+        if (typeof name === 'object') {
+          name = name[systemLang] || name.en;
+        }
+        return name;
+      } else if (obj && obj.name) {
+        let name = obj.name;
+        if (typeof name === 'object') {
+          name = name[systemLang] || name.en;
+        }
+        return name;
+      } else {
+        const parts = obj.id.split('.');
+        const last = parts.pop();
+        return last[0].toUpperCase() + last.substring(1).toLowerCase();
+      }
+    }
+
+    function initDialogPresence(callback) {
+      var $editDialog = $('#dialog-presence-edit');
+      if (!$editDialog.data('inited')) {
+        $editDialog.data('inited', true);
+        $editDialog.modal({
+          dismissible: false
+        });
+
+        $editDialog.find('.btn-set').on('click', function () {
+          var $editDialog = $('#dialog-presence-edit');
+          var callback = $editDialog.data('callback');
+          if (typeof callback === 'function') callback();
+          $editDialog.data('callback', null);
+        });
+      }
+      $editDialog.data('callback', callback);
+      $editDialog.modal('open');
+    }
+
+
+
+
+  </script>
+</head>
+
+<body>
+
+  <div class="m adapter-container">
+    <!-- =============  WITH LOGO AND BUTTONS ============= -->
+    <div id="header-area" class="row">
+      <div id="header-logo-title" class="col s6">
+        <img class="logo" src="alarm.png">
+        <p>
+          <span class="h-title">Alarm</span><br />
+          <span class="h-sub-title">Your own little alarm system...
+        </p>
+        </p>
+      </div>
+    </div>
+
+    <!-- ============= MAIN SECTION ============= -->
+
+    <div class="row">
+
+      <div class="col s12" id="tab-area">
+        <ul class="tabs blue lighten-4">
+          <li class="tab"><a href="#tab_settings" class="translate">general</a></li>
+          <li class="tab"><a href="#tab_notifications" class="translate">notifications</a></li>
+          <li class="tab"><a href="#tab_states" class="translate">states</a></li>
+          <li class="tab"><a href="#tab_sayit" class="translate">sayit</a></li>
+          <li class="tab"><a href="#tab_shortcuts" class="translate">shortcuts</a></li>
+          <li class="tab"><a href="#tab_words" class="translate">words</a></li>
+          <li class="tab"><a href="#other_alarms" class="translate">other_alarms</a></li>
+          <li class="tab"><a href="#zones" class="translate">zones</a></li>
+          <li class="tab"><a href="#tab_presence" class="translate">presence</a></li>
+        </ul>
+      </div>
+
+
+      <div id="tab_settings" class="col s12 page">
+        <div class="row">
+          <div class="col s12 m2">
+            <form action="https://www.paypal.com/donate" method="post" target="_top">
+              <input type="hidden" name="hosted_button_id" value="BXTYTYW3D5MRU" />
+              <input type="image" src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" border="0"
+                name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+              <img alt="" border="0" src="https://www.paypal.com/de_DE/i/scr/pixel.gif" width="1" height="1" />
+            </form>
+          </div>
+          <div class="col s12 m8">
+            <p class=" left translate">donat</p>
+          </div>
+          <div>
+            <a id="version_button" onclick="version(this.id)" class="pulse waves-effect waves-light btn">Version > 3</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <div class="card-panel">
+              <span class="blue-text text-darken-2 translate">alarm</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s4 m2 l2">
+            <i class="material-icons prefix">alarm_on</i>
+            <input id="time_activate" type="number" class="validate value tooltipped" data-position="top"
+              data-tooltip="in sec">
+            <label for="time_activate" class="translate">time_activate</label>
+          </div>
+          <div class="input-field col s2 m1 l1">
+            <select id="time_activate_select" class="value">
+              <option value="sec">sec</option>
+              <option value="min">min</option>
+            </select>
+          </div>
+          <div class="input-field col s4 m2 l2">
+            <i class="material-icons prefix">alarm</i>
+            <input id="time_alarm" type="number" class="validate value tooltipped" data-position="top"
+              data-tooltip="in sec">
+            <label for="time_alarm" class="translate">time_alarm</label>
+          </div>
+          <div class="input-field col s2 m1 l1">
+            <select id="time_alarm_select" class="value">
+              <option value="sec">sec</option>
+              <option value="min">min</option>
+            </select>
+          </div>
+          <div class="input-field col s6 m3 l2">
+            <i class="material-icons prefix">alarm</i>
+            <input id="alarm_flash" type="number" class="validate value tooltipped" data-position="top"
+              data-tooltip="in sec">
+            <label for="alarm_flash" class="translate">alarm_flash</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <div class="card-panel">
+              <span class="blue-text text-darken-2 translate">inside</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s4 m2 l1">
+            <i class="material-icons prefix">alarm</i>
+            <input id="time_warning" type="number" class="validate value tooltipped" data-position="top"
+              data-tooltip="in sec">
+            <label for="time_warning" class="translate">time_warning</label>
+          </div>
+          <div class="input-field col s2 m1 l1">
+            <select id="time_warning_select" class="value">
+              <option value="sec">sec</option>
+              <option value="min">min</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <div class="card-panel">
+              <span class="blue-text text-darken-2 translate">general_settings</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m3 l2">
+            <input id="night_from" type="text" class="timepicker value">
+            <label for="night_from" class="translate">night_from</label>
+          </div>
+          <div class="input-field col s12 m3 l2">
+            <input id="night_to" type="text" class="timepicker value">
+            <label for="night_to" class="translate">night_to</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s3 m4 l2">
+            <input id="password" type="password" class="validate value">
+            <label for="password" class="translate">Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s4 m2 l1">
+            <i class="material-icons prefix">alarm</i>
+            <input id="time_silent" type="number" class="validate value tooltipped" data-position="top"
+              data-tooltip="in sec">
+            <label for="time_silent" class="translate">time_silent</label>
+          </div>
+          <div class="input-field col s2 m1 l1">
+            <select id="time_silent_select" class="value">
+              <option value="sec">sec</option>
+              <option value="min">min</option>
+            </select>
+          </div>
+          <div class="input-field col s6 m3 l2">
+            <i class="material-icons prefix">alarm</i>
+            <input id="silent_flash" type="number" class="validate value tooltipped" data-position="top"
+              data-tooltip="in sec">
+            <label for="silent_flash" class="translate">silent_flash</label>
+          </div>
+        </div>
+        <div class="row">
+          <!--
+              <div class="col s12">
+                <input type="checkbox" id="opt_night" class="value" /><label  for="opt_night" class="translate">opt_night</label>
+              </div>
+-->
+          <div class="col s12 m4 l2">
+            <input type="checkbox" id="opt_log" class="value" /><label for="opt_log" class="translate">opt_log</label>
+          </div>
+          <div class="col s12 m4 l2">
+            <input type="checkbox" id="opt_warning" class="value" /><label for="opt_warning"
+              class="translate">opt_warning</label>
+          </div>
+          <div class="col s12 m4 l2">
+            <input type="checkbox" id="opt_siren" class="value" /><label for="opt_siren"
+              class="translate">opt_siren</label>
+          </div>
+          <div class="col s12 m4 l2">
+            <input type="checkbox" id="opt_leave" class="value" /><label for="opt_leave"
+              class="translate">opt_leave</label>
+          </div>
+        </div>
+      </div>
+      <div id="tab_notifications" class="col s12 page">
+        <div class="row">
+          <div class="col s12">
+            <p class=" left translate">info_words</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s2">
+            <a id="add_sendTo" class="btn-floating waves-effect waves-light blue"><i class="material-icons">add</i></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <label class="translate">sendTo_Chips</label>
+            <div class="chips sendTo_Chips"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m4 l2">
+            <input type="checkbox" id="opt_telegram" class="value" /><label for="opt_telegram"
+              class="translate">opt_telegram</label>
+          </div>
+          <div class="input-field col s6 m4 l2">
+            <input id="chatID" type="text" class="validate value">
+            <label for="chatID">chatID</label>
+          </div>
+          <div class="input-field col s6 m4 l2">
+            <input id="user" type="text" class="validate value">
+            <label for="user">user</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <div class="card-panel">
+              <span class="blue-text text-darken-2 translate">alarm</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m6 l4">
+            <input type="checkbox" id="send_alarm" class="value" /><label for="send_alarm"
+              class="translate">send_alarm</label>
+          </div>
+          <div class="col s12 m6 l4">
+            <input type="checkbox" id="send_activation" class="value" /><label for="send_activation"
+              class="translate">send_activation</label>
+          </div>
+          <div class="col s12 m6 l4">
+            <input type="checkbox" id="send_activated_with_warnings" class="value" /><label
+              for="send_activated_with_warnings" class="translate">send_activated_with_warnings</label>
+          </div>
+          <div class="col s12 m6 l4">
+            <input type="checkbox" id="send_activation_warnings" class="value" /><label for="send_activation_warnings"
+              class="translate">send_activation_warnings</label>
+          </div>
+          <div class="col s12 m6 l4">
+            <input type="checkbox" id="send_alarm_silent" class="value" /><label for="send_alarm_silent"
+              class="translate">send_alarm_silent</label>
+          </div>
+          <div class="col s12 m6 l4">
+            <input type="checkbox" id="send_failed" class="value" /><label for="send_failed"
+              class="translate">send_failed</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <div class="card-panel">
+              <span class="blue-text text-darken-2 translate">inside</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m6 l4">
+            <input type="checkbox" id="send_alarm_inside" class="value" /><label for="send_alarm_inside"
+              class="translate">send_alarm</label>
+          </div>
+          <div class="col s12 m6 l4">
+            <input type="checkbox" id="send_activation_inside" class="value" /><label for="send_activation_inside"
+              class="translate">send_activation</label>
+          </div>
+          <div class="col s12 m6 l4">
+            <input type="checkbox" id="send_activation_warnings_inside" class="value" /><label
+              for="send_activation_warnings_inside" class="translate">send_activation_warnings</label>
+          </div>
+          <div class="col s12 m6 l4">
+            <input type="checkbox" id="send_alarm_silent_inside" class="value" /><label for="send_alarm_silent_inside"
+              class="translate">send_alarm_silent</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <div class="card-panel">
+              <span class="blue-text text-darken-2 translate">notification</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m6 l4">
+            <input type="checkbox" id="send_notification_changes" class="value" /><label for="send_notification_changes"
+              class="translate">send_notification_changes</label>
+          </div>
+          <div class="col s12 m6 l4">
+            <input type="checkbox" id="send_activation_warnings_night" class="value" /><label
+              for="send_activation_warnings_night" class="translate">send_activation_warnings_night</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <div class="card-panel">
+              <span class="blue-text text-darken-2 translate">other_alarms</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m6 l4">
+            <input type="checkbox" id="send_one_changes" class="value" />
+            <label for="send_one_changes" class="material-icons prefix">looks_one</label>
+          </div>
+          <div class="col s12 m6 l4">
+            <input type="checkbox" id="send_two_changes" class="value" />
+            <label for="send_two_changes" class="material-icons prefix">looks_two</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <div class="card-panel">
+              <span class="blue-text text-darken-2 translate">zones</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12 m4 l2">
+            <input type="checkbox" id="send_zone_one" class="value" />
+            <label for="send_zone_one" class="translate">zone_one</label>
+          </div>
+          <div class="col s12 m4 l2">
+            <input type="checkbox" id="send_zone_two" class="value" />
+            <label for="send_zone_two" class="translate">zone_two</label>
+          </div>
+          <div class="col s12 m4 l2">
+            <input type="checkbox" id="send_zone_three" class="value" />
+            <label for="send_zone_three" class="translate">zone_three</label>
+          </div>
+        </div>
+      </div>
+      <div id="tab_states" class="col s12 page">
+        <div class="row">
+          <div class="col s12">
+            <div class="card-panel">
+              <span class="blue-text text-darken-2 translate">circuits</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12" id="circuits">
+            <div class="row">
+              <div class="col s2 m1 l1 left">
+                <a class="btn-floating waves-effect waves-light blue table-button-add" id="circuits_table"><i
+                    class="material-icons">add</i></a>
+              </div>
+              <div class="col s2 m1 l1 right">
+                <a class="btn-floating pulse waves-effect waves-light blue" id="circuits_help"><i
+                    class="material-icons">help_center</i></a>
+              </div>
+            </div>
+            <div class="table-values-div">
+              <table class="table-values">
+                <thead>
+                  <tr>
+                    <th data-name="enabled" style="background: #174475; width: 50px" data-type="checkbox"
+                      class=" translate">active</th>
+                    <th data-name="name" style="background: #174475" data-type="text" class=" translate">Name</th>
+                    <th data-name="name_id" style="background: #174475" data-type="text" class=" translate">Object-ID
+                    </th>
+                    <th data-buttons="edit" style="background: #174475; width: 40px" class=""></th>
+                    <th data-name="negativ" style="background: #174475; width: 100px" data-type="checkbox"
+                      class=" translate">negativ</th>
+                    <th data-name="alarm" style="background: #174475; width: 100px" data-type="checkbox"
+                      class=" translate">alarm</th>
+                    <th data-name="delay" style="background: #174475; width: 100px" data-type="checkbox"
+                      class=" translate">delay</th>
+                    <th data-name="leave" style="background: #174475; width: 100px" data-type="checkbox"
+                      class=" translate">leave</th>
+                    <th data-name="warning" style="background: #174475; width: 100px" data-type="checkbox"
+                      class=" translate">inside</th>
+                    <th data-name="delay_inside" style="background: #174475; width: 100px" data-type="checkbox"
+                      class=" translate">delay_inside</th>
+                    <th data-name="night" style="background: #174475; width: 130px" data-type="checkbox"
+                      class=" translate">notification</th>
+                    <th data-buttons="delete" style="background: #174475; width: 40px" class=""></th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab_sayit" class="col s12 page">
+        <div class="row">
+          <div class="col s2">
+            <a class="waves-effect waves-light btn" id="test_sayit">Test</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s4">
+            <input type="checkbox" id="opt_say_names" class="value" /><label for="opt_say_names"
+              class="translate">opt_say_names</label>
+          </div>
+          <div class="col s4">
+            <input type="checkbox" id="opt_night_silent" class="value" /><label for="opt_night_silent"
+              class="translate">opt_night_silent</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12" id="sayit">
+            <div class="row">
+              <div class="col s2 m1 l1 left">
+                <a class="btn-floating waves-effect waves-light blue table-button-add" id="sayit_table"><i
+                    class="material-icons">add</i></a>
+              </div>
+              <div class="col s2 m1 l1 right">
+                <a class="btn-floating waves-effect waves-light blue" id="sayit_help"><i
+                    class="material-icons">help_center</i></a>
+              </div>
+            </div>
+            <div class="table-values-div">
+              <table class="table-values">
+                <thead>
+                  <tr>
+                    <th data-name="enabled" style="background: #174475; width: 50px" data-type="checkbox"
+                      class=" translate">active</th>
+                    <th data-name="name" style="background: #174475" data-type="text" class=" translate">Name</th>
+                    <th data-name="name_id" style="background: #174475" data-type="text" class=" translate">Object-ID
+                    </th>
+                    <th data-name="speech_delay" style="background: #174475" data-type="number" class=" translate">
+                      speech_delay</th>
+                    <th data-buttons="edit" style="background: #174475; width: 40px" class=""></th>
+                    <th data-name="opt_say_one" style="background: #174475; width: 40px" data-type="checkbox" class="">1
+                    </th>
+                    <th data-name="opt_say_two" style="background: #174475; width: 40px" data-type="checkbox" class="">2
+                    </th>
+                    <th data-name="opt_say_three" style="background: #174475; width: 40px" data-type="checkbox"
+                      class="">3
+                    </th>
+                    <th data-name="opt_say_four" style="background: #174475; width: 40px" data-type="checkbox" class="">
+                      4</th>
+                    <th data-name="opt_say_five" style="background: #174475; width: 40px" data-type="checkbox" class="">
+                      5</th>
+                    <th data-name="opt_say_six" style="background: #174475; width: 40px" data-type="checkbox" class="">6
+                    </th>
+                    <th data-name="opt_say_seven" style="background: #174475; width: 40px" data-type="checkbox"
+                      class="">7
+                    </th>
+                    <th data-name="opt_say_eigth" style="background: #174475; width: 40px" data-type="checkbox"
+                      class="">8
+                    </th>
+                    <th data-name="opt_say_nine" style="background: #174475; width: 40px" data-type="checkbox" class="">
+                      9</th>
+                    <th data-name="opt_say_nine_plus" style="background: #174475; width: 40px" data-type="checkbox"
+                      class="">9+</th>
+                    <th data-name="opt_say_zero" style="background: #174475; width: 40px" data-type="checkbox" class="">
+                      0</th>
+                    <th data-name="opt_say_count" style="background: #174475; width: 40px" data-type="checkbox"
+                      class="">
+                      time</th>
+                    <th data-name="opt_say_fire" style="background: #174475; width: 40px" data-type="checkbox" class="">
+                      one</th>
+                    <th data-name="opt_say_water" style="background: #174475; width: 40px" data-type="checkbox"
+                      class="">
+                      two</th>
+                    <th data-buttons="delete" style="background: #174475; width: 40px" class=""></th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">filter_1</i>
+            <textarea id="text_activated" class="materialize-textarea value"></textarea>
+            <label for="text_activated" class="translate">text_activated</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">filter_2</i>
+            <textarea id="text_deactivated" class="materialize-textarea value"></textarea>
+            <label for="text_deactivated" class="translate">text_deactivated</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">filter_3</i>
+            <textarea id="text_failed" class="materialize-textarea value"></textarea>
+            <label for="text_failed" class="translate">text_failed</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">filter_4</i>
+            <textarea id="text_warning" class="materialize-textarea value"></textarea>
+            <label for="text_warning" class="translate">text_warning</label>
+          </div>
+          <div class="input-field col s6 m4 l2">
+            <i class="material-icons prefix">filter_6</i>
+            <textarea id="text_alarm" class="materialize-textarea value"></textarea>
+            <label for="text_alarm" class="translate">text_alarm</label>
+          </div>
+          <div class="input-field col s3 m1 l1">
+            <select id="alarm_repeat" class="value">
+              <option value="1">1x</option>
+              <option value="2">2x</option>
+              <option value="3">3x</option>
+              <option value="4">4x</option>
+              <option value="5">5x</option>
+              <option value="6">6x</option>
+              <option value="7">7x</option>
+              <option value="8">8x</option>
+              <option value="9">9x</option>
+              <option value="10">10x</option>
+              <option value="15">15x</option>
+              <option value="20">20x</option>
+            </select>
+          </div>
+          <div class="input-field col s3 m1 l1">
+            <textarea id="text_alarm_pause" class="materialize-textarea value"></textarea>
+            <label for="text_alarm_pause" class="translate">text_alarm_pause</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">filter_7</i>
+            <textarea id="text_nightrest_beginn" class="materialize-textarea value"></textarea>
+            <label for="text_nightrest_beginn" class="translate">text_nightrest_beginn</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">filter_8</i>
+            <textarea id="text_nightrest_end" class="materialize-textarea value"></textarea>
+            <label for="text_nightrest_end" class="translate">text_nightrest_end</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">filter_9</i>
+            <textarea id="text_changes_night" class="materialize-textarea value"></textarea>
+            <label for="text_changes_night" class="translate">text_changes_night</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">filter_9_plus</i>
+            <textarea id="text_warn_begin" class="materialize-textarea value"></textarea>
+            <label for="text_warn_begin" class="translate">text_warn_begin</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">exposure_zero</i>
+            <textarea id="text_warn_end" class="materialize-textarea value"></textarea>
+            <label for="text_warn_end" class="translate">text_warn_end</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">av_timer</i>
+            <textarea id="text_countdown" class="materialize-textarea value"></textarea>
+            <label for="text_countdown" class="translate">text_countdown</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">looks_one</i>
+            <textarea id="text_one" class="materialize-textarea value"></textarea>
+            <label for="text_one" class="translate">text_one</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">looks_two</i>
+            <textarea id="text_two" class="materialize-textarea value"></textarea>
+            <label for="text_two" class="translate">text_two</label>
+          </div>
+        </div>
+      </div>
+      <div id="tab_shortcuts" class="col s12 page">
+        <div class="row">
+          <div class="col s12">
+            <div class="card-panel">
+              <span class="red-text text-darken-2 translate">important</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12" id="shorts">
+            <div class="row">
+              <div class="col s2 m1 l1 left">
+                <a class="btn-floating waves-effect waves-light blue table-button-add" id="shorts_table"><i
+                    class="material-icons">add</i></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <p class=" left translate">output</p>
+              </div>
+            </div>
+            <div class="table-values-div">
+              <table class="table-values">
+                <thead>
+                  <tr>
+                    <th data-name="enabled" style="background: #174475; width: 50px" data-type="checkbox"
+                      class=" translate">active</th>
+                    <th data-name="select_id" style="background: #174475" data-type="select"
+                      data-options="status.state_list;status.activated;status.gets_activated;status.deactivated;status.burglar_alarm;status.silent_alarm;status.siren;status.activation_failed;status.sleep;status.activated_with_warnings;status.enableable;status.sharp_inside_activated;status.siren_inside;info.notification_circuit_changes;status.alarm_flash;status.silent_flash;other_alarms.one_changes;other_alarms.two_changes"
+                      class=" translate">Name</th>
+                    <th data-name="trigger_val" style="background: #174475" data-type="select"
+                      data-options=" ;true;false;deactivated;sharp;sharp_inside;burglary;night_rest;gets_activated;activation_failed;activation_aborted"
+                      class=" translate">Trigger</th>
+                    <th data-name="name" style="background: #174475" data-type="text" class=" translate">Name</th>
+                    <th data-name="name_id" style="background: #174475" data-type="text" class=" translate">Object-ID
+                    </th>
+                    <th data-buttons="edit" style="background: #174475; width: 40px" class=" translate"></th>
+                    <th data-name="value" style="background: #174475" class=" translate">values</th>
+                    <th data-buttons="delete" style="background: #174475; width: 40px" class=" translate"></th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12" id="shorts_in">
+            <div class="row">
+              <div class="col s2 m1 l1 left">
+                <a class="btn-floating waves-effect waves-light blue table-button-add" id="shorts_in_table"><i
+                    class="material-icons">add</i></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <p class=" left translate">input</p>
+              </div>
+            </div>
+            <div class="table-values-div">
+              <table class="table-values">
+                <thead>
+                  <tr>
+                    <th data-name="enabled" style="width: 50px; background: #174475" data-type="checkbox"
+                      class=" translate">active</th>
+                    <th data-name="name" style="background: #174475" data-type="text" class=" translate">Name</th>
+                    <th data-name="name_id" style="background: #174475" data-type="text" class=" translate">Object-ID
+                    </th>
+                    <th data-buttons="edit" style="width: 40px; background: #174475" class=" translate"></th>
+                    <th data-name="trigger_val" style="width: 80px; background: #174475" data-type="select"
+                      data-options="any;ne" class=" translate">Trigger</th>
+                    <th data-name="value" style="background: #174475" class=" translate">trigger_values</th>
+                    <th data-name="select_id" style="background: #174475" data-type="select"
+                      data-options="use.activate_nightrest;use.activate_sharp_inside;use.disable;use.enable;use.enable_with_delay;use.panic;use.quit_changes"
+                      class=" translate">Name</th>
+                    <th data-buttons="delete" style="width: 40px; background: #174475" class=" translate"></th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab_words" class="col s12 page">
+        <div class="row">
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_pass" class="materialize-textarea value"></textarea>
+            <label for="log_pass" class="translate">log_pass</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_act_not" class="materialize-textarea value"></textarea>
+            <label for="log_act_not" class="translate">log_act_not</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_act" class="materialize-textarea value"></textarea>
+            <label for="log_act" class="translate">log_act</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_act_notice" class="materialize-textarea value"></textarea>
+            <label for="log_act_notice" class="translate">log_act_notice</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_act_warn" class="materialize-textarea value"></textarea>
+            <label for="log_act_warn" class="translate">log_act_warn</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_deact" class="materialize-textarea value"></textarea>
+            <label for="log_deact" class="translate">log_deact</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_warn_act" class="materialize-textarea value"></textarea>
+            <label for="log_warn_act" class="translate">log_warn_act</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_warn_deact" class="materialize-textarea value"></textarea>
+            <label for="log_warn_deact" class="translate">log_warn_deact</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_burgle" class="materialize-textarea value"></textarea>
+            <label for="log_burgle" class="translate">log_burgle</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_panic" class="materialize-textarea value"></textarea>
+            <label for="log_panic" class="translate">log_panic</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_warn" class="materialize-textarea value"></textarea>
+            <label for="log_warn" class="translate">log_warn</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_night" class="materialize-textarea value"></textarea>
+            <label for="log_night" class="translate">log_night</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_sleep_b" class="materialize-textarea value"></textarea>
+            <label for="log_sleep_b" class="translate">log_sleep_b</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_sleep_e" class="materialize-textarea value"></textarea>
+            <label for="log_sleep_e" class="translate">log_sleep_e</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_warn_b_w" class="materialize-textarea value"></textarea>
+            <label for="log_warn_b_w" class="translate">log_warn_b_w</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_nights_b_w" class="materialize-textarea value"></textarea>
+            <label for="log_nights_b_w" class="translate">log_nights_b_w</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">looks_one</i>
+            <textarea id="log_one" class="materialize-textarea value"></textarea>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">looks_two</i>
+            <textarea id="log_two" class="materialize-textarea value"></textarea>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_zone_one" class="materialize-textarea value"></textarea>
+            <label for="log_zone_one" class="translate">log_zone_one</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_zone_two" class="materialize-textarea value"></textarea>
+            <label for="log_zone_two" class="translate">log_zone_two</label>
+          </div>
+          <div class="input-field col s12 m6 l4">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_zone_three" class="materialize-textarea value"></textarea>
+            <label for="log_zone_three" class="translate">log_zone_three</label>
+          </div>
+        </div>
+      </div>
+      <div id="other_alarms" class="col s12 page">
+        <div class="row">
+          <div class="col s12">
+            <div class="card-panel">
+              <span class="red-text text-darken-2 translate">please</span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12" id="one">
+            <div class="row">
+              <div class="input-field col s12 m6 l4">
+                <i class="material-icons prefix">looks_one</i>
+                <input id="one_name" type="text" class="validate value">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s2 m1 l1 left">
+                <a class="btn-floating waves-effect waves-light blue table-button-add" id="one_table"><i
+                    class="material-icons">add</i></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="table-values-div">
+                <table class="table-values">
+                  <thead>
+                    <tr>
+                      <th data-name="enabled" style="width: 50px; background: #174475" data-type="checkbox"
+                        class=" translate">active</th>
+                      <th data-name="name" style="background: #174475" data-type="text" class=" translate">Name</th>
+                      <th data-name="name_id" style="background: #174475" data-type="text" class=" translate">
+                        Object-ID
+                      </th>
+                      <th data-name="negativ" style="width: 100px; background: #174475" data-type="checkbox"
+                        class=" translate">negativ</th>
+                      <th data-buttons="edit" style="width: 40px; background: #174475" class=" translate"></th>
+                      <th data-buttons="delete" style="width: 40px; background: #174475" class=" translate"></th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s12" id="two">
+            <div class="row">
+              <div class="input-field col s12 m6 l4">
+                <i class="material-icons prefix">looks_two</i>
+                <input id="two_name" type="text" class="validate value">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s2 m1 l1 left">
+                <a class="btn-floating waves-effect waves-light blue table-button-add" id="two_table"><i
+                    class="material-icons">add</i></a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="table-values-div">
+                <table class="table-values">
+                  <thead>
+                    <tr>
+                      <th data-name="enabled" style="background: #174475; width: 50px" data-type="checkbox"
+                        class=" translate">active</th>
+                      <th data-name="name" style="background: #174475" data-type="text" class=" translate">Name</th>
+                      <th data-name="name_id" style="background: #174475" data-type="text" class=" translate">
+                        Object-ID
+                      </th>
+                      <th data-name="negativ" style="background: #174475; width: 100px" data-type="checkbox"
+                        class=" translate">negativ</th>
+                      <th data-buttons="edit" style="background: #174475; width: 40px" class=" translate"></th>
+                      <th data-buttons="delete" style="background: #174475; width: 40px" class=" translate"></th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="zones" class="col s12 page">
+        <div class="col s12" id="zone_one">
+          <br>
+          <div class="row">
+            <div class="col s12">
+              <p class=" left translate">zone_one</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s2 m1 l1 left">
+              <a class="btn-floating waves-effect waves-light blue table-button-add" id="zone_one_table"><i
+                  class="material-icons">add</i></a>
+            </div>
+          </div>
+          <div class="table-values-div">
+            <table class="table-values">
+              <thead>
+                <tr>
+                  <th data-name="enabled" style="background: #174475; width: 50px" data-type="checkbox"
+                    class=" translate">active</th>
+                  <th data-name="name" style="background: #174475" data-type="text" class=" translate">Name</th>
+                  <th data-name="name_id" style="background: #174475" data-type="text" class=" translate">Object-ID
+                  </th>
+                  <th data-buttons="edit" style="background: #174475; width: 40px" class=""></th>
+                  <th data-name="negativ" style="background: #174475; width: 100px" data-type="checkbox"
+                    class=" translate">negativ</th>
+                  <th data-buttons="delete" style="background: #174475; width: 40px" class=""></th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+        <div class="col s12" id="zone_two">
+          <br>
+          <div class="row">
+            <div class="col s12">
+              <p class=" left translate">zone_two</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s2 m1 l1 left">
+              <a class="btn-floating waves-effect waves-light blue table-button-add" id="zone_two_table"><i
+                  class="material-icons">add</i></a>
+            </div>
+          </div>
+          <div class="table-values-div">
+            <table class="table-values">
+              <thead>
+                <tr>
+                  <th data-name="enabled" style="background: #174475; width: 50px" data-type="checkbox"
+                    class=" translate">active</th>
+                  <th data-name="name" style="background: #174475" data-type="text" class=" translate">Name</th>
+                  <th data-name="name_id" style="background: #174475" data-type="text" class=" translate">Object-ID
+                  </th>
+                  <th data-buttons="edit" style="background: #174475; width: 40px" class=""></th>
+                  <th data-name="negativ" style="background: #174475; width: 100px" data-type="checkbox"
+                    class=" translate">negativ</th>
+                  <th data-buttons="delete" style="background: #174475; width: 40px" class=""></th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+        <div class="col s12" id="zone_three">
+          <br>
+          <div class="row">
+            <div class="col s12">
+              <p class=" left translate">zone_three</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s2 m1 l1 left">
+              <a class="btn-floating waves-effect waves-light blue table-button-add" id="zone_three_table"><i
+                  class="material-icons">add</i></a>
+            </div>
+          </div>
+          <div class="table-values-div">
+            <table class="table-values">
+              <thead>
+                <tr>
+                  <th data-name="enabled" style="background: #174475; width: 50px" data-type="checkbox"
+                    class=" translate">active</th>
+                  <th data-name="name" style="background: #174475" data-type="text" class=" translate">Name</th>
+                  <th data-name="name_id" style="background: #174475" data-type="text" class=" translate">Object-ID
+                  </th>
+                  <th data-buttons="edit" style="background: #174475; width: 40px" class=""></th>
+                  <th data-name="negativ" style="background: #174475; width: 100px" data-type="checkbox"
+                    class=" translate">negativ</th>
+                  <th data-buttons="delete" style="background: #174475; width: 40px" class=""></th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div id="tab_presence" class="col s12 page">
+        <div class="row">
+          <div class="col s12" id="presence">
+            <div class="row">
+              <div class="col s12">
+                <p class=" left translate">presence_description</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s4 m2 l2">
+                <i class="material-icons prefix">edit</i>
+                <input id="presence_activate_delay" type="number" class="value">
+                <label for="presence_activate_delay" class="translate">presence_activate_delay</label>
+              </div>
+              <div class="input-field col s2 m1 l1">
+                <select id="presence_activate_delay_select" class="value">
+                  <option value="sec">sec</option>
+                  <option value="min">min</option>
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s2 m1 l1 left">
+                <a class="btn-floating waves-effect waves-light blue table-button-add" id="presence_table"><i
+                    class="material-icons">add</i></a>
+              </div>
+            </div>
+            <div class="table-values-div">
+              <table class="table-values">
+                <thead>
+                  <tr>
+                    <th data-name="enabled" style="width: 50px; background: #174475" data-type="checkbox"
+                      class="translate">active</th>
+                    <th data-name="name" data-type="text" style="background: #174475" class="translate">Name</th>
+                    <th data-name="name_id" data-type="text" style="background: #174475" class="translate">Object-ID
+                    </th>
+                    <th data-buttons="edit2" style="width: 150px; background: #174475; height: 40px"
+                      data-style="width: 150px; text-align: left"></th>
+                    <th data-buttons="edit copy up down delete" style="width: 120px; background: #174475"></th>
+                    <!-- ********************** only for temp states ********************** -->
+                    <th data-name="option_presence" data-type="text" style="width: 20%; background: #174475"></th>
+                    <th data-name="presence_time_from" data-type="text" style="width: 25%; background: #174475"></th>
+                    <th data-name="presence_time_to" data-type="text" style="width: 20%; background: #174475"></th>
+                    <th data-name="presence_length" data-type="number" style="width: 25%; background: #174475"></th>
+                    <th data-name="presence_length_select" data-type="text" style="width: 20%; background: #174475">
+                    </th>
+                    <th data-name="presence_length_shuffle" data-type="text" style="width: 20%; background: #174475">
+                    </th>
+                    <th data-name="presence_delay" data-type="number" style="width: 25%; background: #174475"></th>
+                    <th data-name="presence_delay_select" data-type="text" style="width: 20%; background: #174475">
+                    </th>
+                    <th data-name="presence_delay_shuffle" data-type="text" style="width: 20%; background: #174475">
+                    </th>
+                    <th data-name="presence_val_on" data-type="text" style="width: 25%; background: #174475"></th>
+                    <th data-name="presence_val_off" data-type="text" style="width: 25%; background: #174475"></th>
+                    <th data-name="presence_trigger_light" data-type="text" style="width: 25%; background: #174475">
+                    </th>
+                    <th data-name="presence_light_lux" data-type="text" style="width: 25%; background: #174475"></th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="m material-dialogs">
+    <div id="dialog-presence-edit" class="modal modal-fixed-footer">
+      <div class="row">
+        <div class="modal-content">
+          <div class="row">
+            <div class="col s12">
+              <h6 class="title" style="background-color:#174475;"><span class="translate">Edit Device:</span> <span
+                  id="dialogDeviceEditPresence"></span></h6>
+            </div>
+          </div>
+          <div class="col s12 page">
+            <div class="row">
+              <div class="row">
+                <div class="input-field col s12 m6 l2">
+                  <select id="option_presence" class="value">
+                    <option value="time">time</option>
+                    <option value="sunrise">sunrise</option>
+                    <option value="sunset">sunset</option>
+                    <option value="light">light</option>
+                  </select>
+                  <label class="translate">option_presence</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <div class="input-field col s12 m3 l2">
+                  <input id="presence_time_from" type="text" class="timepicker value">
+                  <label for="presence_time_from" class="translate">presence_time_from</label>
+                </div>
+                <div class="input-field col s12 m3 l2">
+                  <input id="presence_time_to" type="text" class="timepicker value">
+                  <label for="presence_time_to" class="translate">presence_time_to</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s4 m2 l2">
+                <i class="material-icons prefix">alarm_on</i>
+                <input id="presence_length" type="number" class="value">
+                <label for="presence_length" class="translate">presence_length</label>
+              </div>
+              <div class="input-field col s2 m1 l1">
+                <select id="presence_length_select" class="value">
+                  <option value="sec">sec</option>
+                  <option value="min">min</option>
+                </select>
+              </div>
+              <div class="input-field col s3 m1 l1">
+                <select id="presence_length_shuffle" class="value">
+                  <option value="1">1x</option>
+                  <option value="2">2x</option>
+                  <option value="3">3x</option>
+                  <option value="4">4x</option>
+                  <option value="5">5x</option>
+                  <option value="6">6x</option>
+                  <option value="7">7x</option>
+                  <option value="8">8x</option>
+                  <option value="9">9x</option>
+                  <option value="10">10x</option>
+                </select>
+                <label class="translate">shuffle</label>
+              </div>
+              <div class="input-field col s4 m2 l2">
+                <i class="material-icons prefix">alarm_on</i>
+                <input id="presence_delay" type="number" class="value">
+                <label for="presence_delay" class="translate">presence_delay</label>
+              </div>
+              <div class="input-field col s2 m1 l1">
+                <select id="presence_delay_select" class="value">
+                  <option value="sec">sec</option>
+                  <option value="min">min</option>
+                </select>
+              </div>
+              <div class="input-field col s3 m1 l1">
+                <select id="presence_delay_shuffle" class="value">
+                  <option value="1">1x</option>
+                  <option value="2">2x</option>
+                  <option value="3">3x</option>
+                  <option value="4">4x</option>
+                  <option value="5">5x</option>
+                  <option value="6">6x</option>
+                  <option value="7">7x</option>
+                  <option value="8">8x</option>
+                  <option value="9">9x</option>
+                  <option value="10">10x</option>
+                </select>
+                <label class="translate">shuffle</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12 m6 l4">
+                <i class="material-icons prefix">edit</i>
+                <textarea id="presence_val_on" class="materialize-textarea value"></textarea>
+                <label for="presence_val_on" class="translate">presence_val_on</label>
+              </div>
+              <div class="input-field col s12 m6 l4">
+                <i class="material-icons prefix">edit</i>
+                <textarea id="presence_val_off" class="materialize-textarea value"></textarea>
+                <label for="presence_val_off" class="translate">presence_val_off</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s6 l4 input-field">
+                <input type="text" class="value" id="presence_trigger_light" />
+                <label for="presence_trigger_light" class="translate"></label>
+                <span class="translate">presence_trigger_light</span>
+              </div>
+              <div class="col s1 m1 l1">
+                <a id="triggerLightPopup" class="btn-floating waves-effect waves-light blue"><i
+                    class="material-icons">add</i></a>
+              </div>
+              <div class="input-field col s4 m2 l2">
+                <i class="material-icons prefix">edit</i>
+                <input id="presence_light_lux" type="number" class="value">
+                <label for="presence_light_lux" class="translate">presence_light_lux</label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-green btn btn-set"><i
+            class="large material-icons left">check</i><span class="translate">Ok</span></a>
+        <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i
+            class="large material-icons left">close</i><span class="translate">Cancel</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="m material-dialogs">
+    <div id="dialog-select-member" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col s12 title"></div>
+        </div>
+        <div class="row">
+          <div class="col s12 dialog-content"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-green btn btn-set"><i
+            class="large material-icons left">check</i><span class="translate">Select</span></a>
+        <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i
+            class="large material-icons left ">close</i><span class="translate">Cancel</span></a>
+      </div>
+    </div>
+  </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,884 @@
+{
+	"common": {
+		"name": "alarm",
+		"version": "3.2.1",
+    "news": {
+      "3.2.0": {
+        "en": "Added zones, Added presence simulation, Fixed set numbers, Fixed enableable",
+        "de": "Zonen hinzugefügt, Präsenzsimulation hinzugefügt, Fixed Setzen von Zahlenwerten, Fixed aktivierbar",
+        "ru": "Добавленные зоны, Добавлена симуляция присутствия, Фиксированные наборы, Фиксированные включительные",
+        "pt": "Zonas adicionadas, Simulação de presença adicionada, números fixos, habilitado fixo",
+        "nl": "Toegevoegd zones, Toegevoegd aanwezigheidssimulatie, gefixeerde setnummers",
+        "fr": "Zones ajoutées, Ajout d'une simulation de présence, des nombres fixes",
+        "it": "Zone aggiuntive, Aggiunta simulazione di presenza, Numeri fissi impostati, Fisso abilitabile",
+        "es": "Zonas agregadas, simulación de presencia agregada, números fijos de conjunto, fijo",
+        "pl": "Obszary dodane Fixed set number (ang.)",
+        "uk": "Додані зони, Додано моделювання присутності, Фіксовані номери, Фіксовані ввімкнені",
+        "zh-cn": "增加区, 增加存在模拟、固定数量、可预测的固定人数"
+      },
+      "3.1.1": {
+        "en": "added time interval for alarm speech output",
+        "de": "zusätzliches zeitintervall für alarm-sprachausgabe",
+        "ru": "добавлен интервал времени для вывода речи тревоги",
+        "pt": "intervalo de tempo adicionado para saída de discurso de alarme",
+        "nl": "vertaling:",
+        "fr": "intervalle de temps supplémentaire pour la sortie d'alarme",
+        "it": "intervallo di tempo aggiunto per l'uscita del discorso di allarme",
+        "es": "intervalo de tiempo añadido para la salida del habla de alarma",
+        "pl": "dodać czas trwania mowy alarmowej",
+        "zh-cn": "警觉产出增加时间"
+      },
+      "3.1.0": {
+        "en": "added speech delay",
+        "de": "Sprachverzögerung hinzugefügt",
+        "ru": "добавлена задержка речи",
+        "pt": "atraso de fala adicionado",
+        "nl": "spraakvertraging toegevoegd",
+        "fr": "délai de parole ajouté",
+        "it": "aggiunto ritardo del discorso",
+        "es": "retardo de voz añadido",
+        "pl": "dodano opóźnienie mowy",
+        "zh-cn": "增加语音延迟"
+      }
+    },
+		"desc": {
+			"en": "Your own lttle alarm system",
+			"de": "Ihre eigene kleine Alarmanlage",
+			"ru": "Ваша собственная маленькая система сигнализации",
+			"pt": "Seu próprio pequeno sistema de alarme",
+			"nl": "Uw eigen kleine alarmsysteem",
+			"fr": "Votre propre petit système d'alarme",
+			"it": "Il tuo piccolo sistema di allarme",
+			"es": "Tu propio pequeño sistema de alarma",
+			"pl": "Twój własny mały system alarmowy",
+			"zh-cn": "你自己的小警报系统"
+		},
+		"authors": [
+			"misanorot <audi16v@gmx.de>"
+		],
+		"keywords": [
+			"alarm system",
+			"security",
+			"protection"
+		],
+		"license": "MIT",
+		"platform": "Javascript/Node.js",
+		"main": "main.js",
+		"icon": "alarm.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/misanorot/ioBroker.alarm/main/admin/alarm.png",
+		"readme": "https://github.com/misanorot/ioBroker.alarm/blob/main/README.md",
+		"loglevel": "info",
+		"mode": "daemon",
+		"type": "alarm",
+		"compact": true,
+		"connectionType": "local",
+		"dataSource": "poll",
+		"adminUI": {
+			"config": "materialize"
+		},
+		"dependencies": [
+			{
+				"js-controller": ">=3.3.22"
+			}
+		],
+		"globalDependencies": [
+			{
+				"admin": ">=5.0.0"
+			}
+		]
+	},
+	"native": {
+		"new_version": false,
+		"circuits": [],
+		"shorts_in": [],
+		"shorts": [],
+		"one": [],
+		"two": [],
+		"zone_one": [],
+		"zone_two": [],
+		"zone_three": [],
+		"presence": [],
+		"presence_activate_delay": 0,
+		"presence_activate_delay_select": "sec",
+		"time_activate": 10,
+		"time_alarm": 60,
+		"time_silent": 0,
+		"time_warning": 3,
+		"time_activate_select": "sec",
+		"time_alarm_select": "sec",
+		"time_silent_select": "sec",
+		"time_warning_select": "sec",
+		"alarm_flash": 2,
+		"silent_flash": 2,
+		"opt_say_night": true,
+		"opt_night_silent": false,
+		"opt_say_warn": true,
+		"opt_say_names": true,
+		"opt_say_changes": true,
+		"opt_say_warn_changes": true,
+		"opt_night": true,
+		"opt_log": true,
+		"opt_siren": false,
+		"opt_leave": false,
+		"opt_warning": false,
+		"night_from": "",
+		"night_to": "",
+		"send_alarm": true,
+		"send_alarm_inside": true,
+		"send_notification_changes": true,
+		"send_one_changes": true,
+		"send_two_changes": true,
+		"send_activation": false,
+		"send_activation_inside": false,
+		"send_activation_warnings": true,
+		"send_activation_warnings_inside": true,
+		"send_activation_warnings_night": true,
+		"send_activated_with_warnings": true,
+		"send_alarm_silent": true,
+		"send_alarm_silent_inside": true,
+		"send_failed": true,
+		"send_zone_one": true,
+		"send_zone_two": true,
+		"send_zone_three": true,
+		"sayit": [],
+		"text_activated": "Alarmanlage aktiviert",
+		"text_deactivated": "Alarmanlage deaktiviert",
+		"text_failed": "Aktivierung fehlgeschlagen",
+		"text_warning": "Es sind noch Sachen offen",
+		"text_changes": "Veränderungen erkannt",
+		"text_changes_night": "Veränderungen erkannt",
+		"text_alarm": "Verlassen Sie sofort das Haus",
+		"text_alarm_pause": 5,
+		"text_nightrest_beginn": "Nachtruhe beginnt",
+		"text_nightrest_end": "Nachtruhe beendet",
+		"text_warn_begin": "Scharf intern aktiviert",
+		"text_warn_end": "Scharf intern deaktiviert",
+		"text_countdown": "Sekunden bis zur Aktivierung",
+		"text_one": "Alarmanlage meldet einen Feueralarm:",
+		"text_two": "Alarmanlage meldet einen Wasseralarm:",
+		"password": "",
+		"sendTo": "",
+		"alarm": "",
+		"alarm_repeat": "1",
+		"changes_repeat": "1",
+		"warning": "",
+		"night": "",
+		"log_pass": "Falsches Passwort benutzt!",
+		"log_act_not": "Alarmanlage kann nicht aktiviert werden, kontrolliere:",
+		"log_act": "Alarmanlage aktiviert",
+		"log_warn_act": "Scharf innen aktiviert",
+		"log_act_warn": "Alarmanlage mit Warnungen aktiviert:",
+		"log_act_notice": "Es sind noch Sachen offen",
+		"log_deact": "Alarmanlage deaktiviert",
+		"log_warn_deact": "Scharf innen deaktiviert",
+		"log_burgle": "Alarmanlage meldet Einbruch in:",
+		"log_panic": "Alarmanlage meldet Einbruch durch Panik Schalter",
+		"log_warn": "Alarmanlage meldet eine Warnung, Veränderung bei:",
+		"log_night": "Alarmanlage meldet Veränderung während der Nachtruhe bei:",
+		"log_sleep_b": "Nachtruhe beginnt",
+		"log_sleep_e": "Nachtruhe endet",
+		"log_warn_b_w": "Scharf innen beginnt mit Warnungen:",
+		"log_nights_b_w": "Nachtruhe beginnt mit Warnungen:",
+		"log_one": "Alarmanlage meldet einen Feueralarm:",
+		"log_two": "Alarmanlage meldet einen Wasseralarm:",
+		"one_name": "Feueralarm",
+		"two_name": "Wasseralarm",
+		"log_zone_one": "Veränderungen in Zone eins",
+		"log_zone_two": "Veränderungen in Zone zwei",
+		"log_zone_three": "Veränderungen in Zone drei",
+		"opt_telegram": false,
+		"chatID": "",
+		"user": ""
+	  },
+	  "objects": [],
+	  "instanceObjects": [
+		{
+		  "_id": "zone.one",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Zone1",
+			"desc": "Changes in zone one detected",
+			"type": "boolean",
+			"def": false,
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "zone.two",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Zone2",
+			"desc": "Changes in zone two detected",
+			"type": "boolean",
+			"def": false,
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "zone.three",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Zone3",
+			"desc": "Changes in zone three detected",
+			"type": "boolean",
+			"def": false,
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.activated",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Activated",
+			"desc": "Alarm system is activated",
+			"type": "boolean",
+			"def": false,
+			"read": true,
+			"write": true
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.gets_activated",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Gets activated",
+			"desc": "Alarm system gets activated",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.deactivated",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Deactivated",
+			"desc": "Alarm system is deactivated",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.burglar_alarm",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Burglary",
+			"desc": "Alarm system signalled burglary",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.silent_alarm",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Silent alarm",
+			"desc": "Alarm system signalled burglary with silent alarm",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.siren",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Alarm siren",
+			"desc": "Alarm system has triggered the siren",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.silent_flash",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Silent flash alarm",
+			"desc": "Alarm system signalled burglary with silent alarm",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.alarm_flash",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "flash alarm",
+			"desc": "Alarm system signalled burglary",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.activation_failed",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Activation failed",
+			"desc": "Alarm system report activation failed",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.sleep",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Sleep",
+			"desc": "The automatic night rest is activated",
+			"type": "boolean",
+			"def": false,
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.activated_with_warnings",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Warnings",
+			"desc": "Alarm system activated with warnings with open things in the notification circuit",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.state",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "State",
+			"desc": "State of alarm system",
+			"type": "string",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.state_list",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "State list",
+			"desc": "State of alarm system (list)",
+			"type": "number",
+			"states": {
+			  "0": "deactivated",
+			  "1": "sharp",
+			  "2": "sharp inside",
+			  "3": "burglary",
+			  "4": "night rest",
+			  "5": "gets_activated",
+			  "6": "activation_failed",
+			  "7": "activation_aborted"
+			},
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.enableable",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Enableable",
+			"desc": "Alarm system is sharp enableable",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.activation_countdown",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Countdown",
+			"desc": "Time to activate the alarm system",
+			"type": "number",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.silent_countdown",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Silent countdown",
+			"desc": "Time to trigger the alarm system",
+			"type": "number",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.sharp_inside_activated",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Sharp inside circuit activated",
+			"desc": "Sharp inside circuit is activated",
+			"type": "boolean",
+			"def": false,
+			"read": true,
+			"write": true
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "use.list",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "List array",
+			"desc": "Use diffrent numbers for change the state of the alarm system",
+			"type": "number",
+			"states": {
+			  "0": "disable",
+			  "1": "enable",
+			  "2": "sharp inside",
+			  "3": "enable with delay",
+			  "4": "night rest"
+			},
+			"read": true,
+			"write": true
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "use.enable",
+		  "type": "state",
+		  "common": {
+			"role": "button.enable",
+			"name": "Enable",
+			"desc": "Enable the alarm system",
+			"type": "boolean",
+			"read": true,
+			"write": true
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "use.disable",
+		  "type": "state",
+		  "common": {
+			"role": "button.disable",
+			"name": "Disable",
+			"desc": "Disable the alarm system",
+			"type": "boolean",
+			"read": true,
+			"write": true
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "use.toggle_password",
+		  "type": "state",
+		  "common": {
+			"role": "switch",
+			"name": "Disable/Enable",
+			"desc": "Disable or enable the alarm system with password",
+			"type": "string",
+			"read": true,
+			"write": true
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "use.activate_nightrest",
+		  "type": "state",
+		  "common": {
+			"role": "button.activate.nightrest",
+			"name": "Activate nightrest",
+			"desc": "Activate nightrest",
+			"type": "boolean",
+			"read": true,
+			"write": true
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "use.activate_sharp_inside",
+		  "type": "state",
+		  "common": {
+			"type": "boolean",
+			"role": "button.activate.sharp_inside",
+			"name": "Activate sharp inside circuit",
+			"desc": "Activate sharp inside circuit",
+			"read": true,
+			"write": true
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "use.toggle_with_delay_and_password",
+		  "type": "state",
+		  "common": {
+			"role": "switch",
+			"name": "Disable/Enable with delay",
+			"desc": "Disable or enable the alarm system with delay time and password",
+			"type": "string",
+			"read": true,
+			"write": true
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "use.enable_with_delay",
+		  "type": "state",
+		  "common": {
+			"role": "button.enable",
+			"name": "Enable with delay",
+			"desc": "Enable the alarm system with delay time",
+			"type": "boolean",
+			"read": true,
+			"write": true
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "use.quit_changes",
+		  "type": "state",
+		  "common": {
+			"role": "button.quit",
+			"name": "Quit changes",
+			"desc": "Quit changes during night rest and sharp inside",
+			"type": "boolean",
+			"read": true,
+			"write": true
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "use.panic",
+		  "type": "state",
+		  "common": {
+			"role": "button.panic",
+			"name": "Panic",
+			"desc": "Panic button to burgle the alarm system",
+			"type": "boolean",
+			"read": true,
+			"write": true
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "presence.on_off",
+		  "type": "state",
+		  "common": {
+			"role": "switch",
+			"name": "Presence simulation",
+			"desc": "Use presence simulation at sharp",
+			"type": "boolean",
+			"def": false,
+			"read": true,
+			"write": true
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "homekit.TargetState",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "List array",
+			"desc": "Use diffrent numbers for change the state of the alarm system (TargetState)",
+			"type": "number",
+			"states": {
+			  "0": "stayArm",
+			  "1": "awayArm",
+			  "2": "nightArm",
+			  "3": "disarmed"
+			},
+			"read": true,
+			"write": true
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "homekit.CurrentState",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "State list",
+			"desc": "State of alarm system (CurrentState)",
+			"type": "number",
+			"states": {
+			  "0": "stayArm",
+			  "1": "awayArm",
+			  "2": "nightArm",
+			  "3": "disarmed",
+			  "4": "triggered"
+			},
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "info.wrong_password",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Wrong password",
+			"desc": "Wrong password used",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "status.siren_inside",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Sharp inside siren",
+			"desc": "Changes in sharp inside circuit detected",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "info.notification_circuit_changes",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Changes notification circuit",
+			"desc": "Changes in notification circuit detected",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "info.notification_circuit_list",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Notification list",
+			"desc": "Notification list at sharp, sharp inside and night rest",
+			"type": "string",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "info.alarm_circuit_list",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Alarm list",
+			"desc": "Alarm circuit list.",
+			"type": "string",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "info.sharp_inside_circuit_list",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Sharp inside list",
+			"desc": "Sharp inside circuit list.",
+			"type": "string",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "info.notification_circuit_list_html",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Notification list",
+			"desc": "Notification list at sharp, sharp inside and night rest",
+			"type": "string",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "info.alarm_circuit_list_html",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Alarm list",
+			"desc": "Alarm circuit list.",
+			"type": "string",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "info.sharp_inside_circuit_list_html",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Sharp inside list",
+			"desc": "Sharp inside circuit list.",
+			"type": "string",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "info.log_today",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "logs today",
+			"desc": "all logs for today",
+			"type": "string",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "info.log",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "last log",
+			"desc": "the last log that was oned",
+			"type": "string",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "other_alarms.one_changes",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Changes one",
+			"desc": "Signalled changes in other alarm one",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "other_alarms.one_list",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "One list",
+			"desc": "List other alarms one",
+			"type": "string",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "other_alarms.one_list_html",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "One list html",
+			"desc": "List other alarms one html",
+			"type": "string",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "other_alarms.two_changes",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Changes two",
+			"desc": "Signalled changes in other alarm two",
+			"type": "boolean",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "other_alarms.two_list",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Two list",
+			"desc": "List other alarm two",
+			"type": "string",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		},
+		{
+		  "_id": "other_alarms.two_list_html",
+		  "type": "state",
+		  "common": {
+			"role": "",
+			"name": "Two list html",
+			"desc": "List other alarms two html",
+			"type": "string",
+			"read": true,
+			"write": false
+		  },
+		  "native": {}
+		}
+	  ]
+}

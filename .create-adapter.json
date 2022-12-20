@@ -1,0 +1,45 @@
+{
+	"cli": true,
+	"target": "directory",
+	"adapterName": "alarm",
+	"title": "Alarm",
+	"description": "Your own lttle alarm system",
+	"keywords": [
+		"alarm system",
+		"security",
+		"protection"
+	],
+	"expert": "yes",
+	"features": [
+		"adapter"
+	],
+	"adminFeatures": [],
+	"type": "alarm",
+	"startMode": "daemon",
+	"connectionType": "local",
+	"dataSource": "poll",
+	"connectionIndicator": "no",
+	"language": "JavaScript",
+	"nodeVersion": "16",
+	"adminUi": "html",
+	"tools": [
+		"ESLint",
+		"type checking"
+	],
+	"i18n": "words.js",
+	"releaseScript": "yes",
+	"devServer": "yes",
+	"devServerPort": 8081,
+	"indentation": "Tab",
+	"quotes": "single",
+	"es6class": "yes",
+	"authorName": "misanorot",
+	"authorGithub": "misanorot",
+	"authorEmail": "audi16v@gmx.de",
+	"gitRemoteProtocol": "SSH",
+	"gitCommit": "no",
+	"defaultBranch": "main",
+	"license": "MIT License",
+	"dependabot": "yes",
+	"creatorVersion": "2.3.0"
+}
