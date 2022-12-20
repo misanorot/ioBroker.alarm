@@ -24,11 +24,12 @@
 
 ******************************************************************************************
 ### **WORK IN PROGRESS**
-
-### 3.2.2 (2022-12-20)
 * (misanorot) update files
 
+
 ## Changelog
+### 3.2.2 (2022-12-20)
+* (misanorot) update files
 
 #### 3.2.0 (15.10.2022)
 * (misanorot) fixed enableable
