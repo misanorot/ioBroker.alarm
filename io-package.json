@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.2.2",
+    "version": "3.2.3",
     "news": {
+      "3.2.3": {
+        "en": "update files",
+        "de": "aktualisierung von dateien",
+        "ru": "обновить файлы",
+        "pt": "arquivos de atualização",
+        "nl": "vertaling:",
+        "fr": "mettre à jour les fichiers",
+        "it": "file di aggiornamento",
+        "es": "actualizar archivos",
+        "pl": "plik aktualizacyjny",
+        "uk": "оновлення файлів",
+        "zh-cn": "更新档案"
+      },
       "3.2.2": {
         "en": "update files",
         "de": "aktualisierung von dateien",
