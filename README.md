@@ -23,14 +23,10 @@
 **[English description](docs/en/alarm_en.md)**
 
 ******************************************************************************************
-### 3.2.4 (2022-12-20)
+### **WORK IN PROGRESS**
 * (misanorot) update files
 
-### 3.2.3 (2022-12-20)
-* (misanorot) update files
 
-### 3.2.2 (2022-12-20)
-* (misanorot) update files
 
 #### 3.2.0 (15.10.2022)
 * (misanorot) fixed enableable

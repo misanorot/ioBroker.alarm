@@ -8,6 +8,7 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
+// eslint-disable-next-line no-unused-vars
 const { start } = require('repl');
 
 // Load your modules here, e.g.:
