@@ -27,12 +27,7 @@
 ## Changelog
 
 ### **WORK IN PROGRESS**
-* (misanorot) update files to last creator pattern
-* (misanorot) fixed zones
-* (misanorot) translate states names and discription
-* (misanorot) added password state for deactivation
-
-
+* (misanorot) update files
 
 #### 3.2.0 (15.10.2022)
 * (misanorot) fixed enableable
