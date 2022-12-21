@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.2.4",
+    "version": "3.2.0",
     "news": {
       "3.2.0": {
         "en": "Added zones, Added presence simulation, Fixed set numbers, Fixed enableable",
