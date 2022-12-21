@@ -743,6 +743,23 @@ class Alarm extends utils.Adapter {
 			this.countdown(true);
 			return;
 		}
+		else if (id === this.namespace + '.use.disable_password') {
+			if (state.val == '') return;
+			if (await this.checkMyPassword(state.val, 'use.disable_password') && (activated || inside)) {
+				this.countdown(false);
+				return;
+			} else {
+				this.setState('info.wrong_password', true, true, (err) => {
+					if (err) this.log.error(err);
+					this.setState(id, '', true);
+				});
+				if (log) this.log.info(`${this.config.log_pass}`);
+				this.log.debug(`Password denied ${state.val}`);
+				//this.setState('info.log', `${this.log_pass}`, true);
+				if (this.config.send_failed) this.messages(`${this.config.log_pass}`);
+				return;
+			}
+		}
 		else if (id === this.namespace + '.use.toggle_password') {
 			if (state.val == '') return;
 			if (await this.checkMyPassword(state.val, 'use.toggle_password') && !activated) {

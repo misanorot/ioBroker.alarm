@@ -24,7 +24,10 @@
 
 ******************************************************************************************
 ### **WORK IN PROGRESS**
-* (misanorot) update files
+* (misanorot) update files to last creator pattern
+* (misanorot) fixed zones
+* (misanorot) translate states names and discription
+* (misanorot) added password state for deactivation
 
 
 
