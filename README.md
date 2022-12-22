@@ -29,8 +29,7 @@
 -->
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 3.3.1 (2022-12-22)
 * (misanorot) update files to last creator pattern
 * (misanorot) fixed zones
 * (misanorot) translate states names and discription
