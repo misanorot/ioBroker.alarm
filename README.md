@@ -27,10 +27,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 3.3.2 (2022-12-22)
 * (misanorot) fixed issues
 
-## Changelog
 ### 3.3.1 (2022-12-22)
 * (misanorot) update files to last creator pattern
 * (misanorot) fixed zones

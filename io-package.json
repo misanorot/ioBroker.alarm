@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.3.1",
+    "version": "3.3.2",
     "news": {
+      "3.3.2": {
+        "en": "fixed issues",
+        "de": "feste probleme",
+        "ru": "фиксированные вопросы",
+        "pt": "problemas",
+        "nl": "_",
+        "fr": "questions fixes",
+        "it": "questioni fisse",
+        "es": "cuestiones fijas",
+        "pl": "ustalenie",
+        "uk": "виправлені питання",
+        "zh-cn": "固定问题"
+      },
       "3.3.1": {
         "en": "* update files to last creator pattern\n* fixed zones\n* translate states names and discription\n* added password state for deactivation\n\n#### 3.2.0 (15.10.2022)\n* fixed enableable\n* added presence simulation\n* added zones\n* fixed set number states",
         "de": "* aktualisieren von dateien zum letzten schöpfermuster\n* festzonen\n* übersetzen namen und discription\n* passwort-zustand zur deaktivierung hinzugefügt\n\n3,2.0 (15.10.2022)\n* feststellbar\n* zusätzliche präsenzsimulation\n* zusätzliche zonen\n* feste set-nummern",
