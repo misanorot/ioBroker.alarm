@@ -54,6 +54,20 @@
         "zh-cn": "增加语音延迟"
       }
     },
+    "title": "Alarm",
+        "titleLang": {
+          "en": "Alarm",
+          "de": "Alarm",
+          "ru": "Сигнализация",
+          "pt": "Alarme de alarme",
+          "nl": "Alarm",
+          "fr": "Alarme",
+          "it": "Allarme",
+          "es": "Alarma",
+          "pl": "Alarma",
+          "uk": "Напильник",
+          "zh-cn": "Alarm"
+        },
     "desc": {
       "en": "Your own lttle alarm system",
       "de": "Ihre eigene kleine Alarmanlage",
