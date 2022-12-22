@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.3.3",
+    "version": "3.3.4",
     "news": {
+      "3.3.4": {
+        "en": "fixed issues",
+        "de": "feste probleme",
+        "ru": "фиксированные вопросы",
+        "pt": "problemas",
+        "nl": "_",
+        "fr": "questions fixes",
+        "it": "questioni fisse",
+        "es": "cuestiones fijas",
+        "pl": "ustalenie",
+        "uk": "виправлені питання",
+        "zh-cn": "固定问题"
+      },
       "3.3.3": {
         "en": "fixed issues",
         "de": "feste probleme",
@@ -79,18 +92,6 @@
         "es": "intervalo de tiempo añadido para la salida del habla de alarma",
         "pl": "dodać czas trwania mowy alarmowej",
         "zh-cn": "警觉产出增加时间"
-      },
-      "3.1.0": {
-        "en": "added speech delay",
-        "de": "Sprachverzögerung hinzugefügt",
-        "ru": "добавлена задержка речи",
-        "pt": "atraso de fala adicionado",
-        "nl": "spraakvertraging toegevoegd",
-        "fr": "délai de parole ajouté",
-        "it": "aggiunto ritardo del discorso",
-        "es": "retardo de voz añadido",
-        "pl": "dodano opóźnienie mowy",
-        "zh-cn": "增加语音延迟"
       }
     },
     "title": "Alarm",
