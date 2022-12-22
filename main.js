@@ -213,9 +213,9 @@ class Alarm extends utils.Adapter {
 		} else inside = stateI.val;
 		if (this.config.circuits) this.split_states(this.config.circuits);
 		else this.log.info('no states configured!');
-		send_instances =  this.split_arr(this.config.sendTo);
+		send_instances = this.split_arr(this.config.sendTo);
 		this.log.debug(`Messages to: ${JSON.stringify(send_instances)}`);
-		ids_shorts_input =  this.get_short_ids(shorts_in);
+		ids_shorts_input = this.get_short_ids(shorts_in);
 		await this.get_ids();
 		await this.get_states();
 		await this.get_other_states();
@@ -291,8 +291,8 @@ class Alarm extends utils.Adapter {
 		silent_timer = null;
 		siren_timer = null;
 		silent_interval = null,
-		silent_contdown = null,
-		alarm_interval = null;
+			silent_contdown = null,
+			alarm_interval = null;
 		text_alarm_interval = null;
 		text_changes_interval = null;
 		if (activated || is_panic) {
@@ -591,7 +591,7 @@ class Alarm extends utils.Adapter {
 			if (opt_presence) {
 				presenceDelay_timer = setTimeout(() => {
 					this.setAllPresenceTimer(() => {
-						presenceInterval = setInterval(() => {this.checkPresence();}, 60000);
+						presenceInterval = setInterval(() => { this.checkPresence(); }, 60000);
 					});
 				}, this.timeMode(this.config.presence_activate_delay_select) * this.config.presence_activate_delay);
 			}
@@ -717,7 +717,7 @@ class Alarm extends utils.Adapter {
 		}
 		else if (id === this.namespace + '.use.disable_password') {
 			if (state.val == '') return;
-			if ( this.checkMyPassword(state.val, 'use.disable_password') && (activated || inside)) {
+			if (this.checkMyPassword(state.val, 'use.disable_password') && (activated || inside)) {
 				this.countdown(false);
 				return;
 			} else {
@@ -734,10 +734,10 @@ class Alarm extends utils.Adapter {
 		}
 		else if (id === this.namespace + '.use.toggle_password') {
 			if (state.val == '') return;
-			if ( this.checkMyPassword(state.val, 'use.toggle_password') && !activated) {
+			if (this.checkMyPassword(state.val, 'use.toggle_password') && !activated) {
 				this.enableSystem(id, state);
 				return;
-			} else if ( this.checkMyPassword(state.val, 'use.toggle_password') && activated) {
+			} else if (this.checkMyPassword(state.val, 'use.toggle_password') && activated) {
 				this.countdown(false);
 				//disableSystem();
 				return;
@@ -755,10 +755,10 @@ class Alarm extends utils.Adapter {
 		}
 		else if (id === this.namespace + '.use.toggle_with_delay_and_password') {
 			if (state.val == '') return;
-			if ( this.checkMyPassword(state.val, 'use.toggle_with_delay_and_password') && !activated) {
+			if (this.checkMyPassword(state.val, 'use.toggle_with_delay_and_password') && !activated) {
 				this.countdown(true);
 				return;
-			} else if ( this.checkMyPassword(state.val, 'use.toggle_with_delay_and_password') && activated) {
+			} else if (this.checkMyPassword(state.val, 'use.toggle_with_delay_and_password') && activated) {
 				this.countdown(false);
 				//disableSystem();
 				return;
@@ -786,15 +786,15 @@ class Alarm extends utils.Adapter {
 			this.leaving(id, state);
 			return;
 		}
-		if (alarm_ids.includes(id) && activated &&  this.isTrue(id, state, 'main')) {
+		if (alarm_ids.includes(id) && activated && this.isTrue(id, state, 'main')) {
 			this.burglary(id, state, this.isSilent(id));
 			return;
 		}
-		if (inside_ids.includes(id) && inside &&  this.isTrue(id, state, 'main')) {
+		if (inside_ids.includes(id) && inside && this.isTrue(id, state, 'main')) {
 			this.burglary(id, state, this.isSilent(id, true), true);
 		}
 
-		if (notification_ids.includes(id) &&  this.isTrue(id, state, 'main')) {
+		if (notification_ids.includes(id) && this.isTrue(id, state, 'main')) {
 			if (!activated && !inside && !night_rest) return;
 			const name = this.get_name(id);
 			this.setState('info.log', `${this.config.log_warn} ${name}`, true);
@@ -823,7 +823,7 @@ class Alarm extends utils.Adapter {
 				this.setState('info.notification_circuit_changes', false, true);
 			}, this.timeMode(this.config.time_warning_select) * this.config.time_warning);
 		}
-		if (one_ids.includes(id) &&  this.isTrue(id, state, 'one')) {
+		if (one_ids.includes(id) && this.isTrue(id, state, 'one')) {
 			const name = this.get_name(id, 'one');
 			let say = this.config.text_one;
 			if (log) this.log.info(`${this.config.log_one} ${name}`);
@@ -834,7 +834,7 @@ class Alarm extends utils.Adapter {
 			this.sayit(say, 12);
 			this.setState('other_alarms.one_changes', true, true);
 		}
-		if (two_ids.includes(id) &&  this.isTrue(id, state, 'two')) {
+		if (two_ids.includes(id) && this.isTrue(id, state, 'two')) {
 			const name = this.get_name(id, 'two');
 			let say = this.config.text_two;
 			if (log) this.log.info(`${this.config.log_two} ${name}`);
@@ -845,17 +845,17 @@ class Alarm extends utils.Adapter {
 			this.sayit(say, 13);
 			this.setState('other_alarms.two_changes', true, true);
 		}
-		if (zone_one_ids.includes(id) &&  this.isTrue(id, state, 'zone_one')) {
+		if (zone_one_ids.includes(id) && this.isTrue(id, state, 'zone_one')) {
 			const name = this.get_name(id, 'zone_one');
 			if (log) this.log.info(`${this.config.log_zone_one} ${name}`);
 			if (this.config.send_zone_one) this.messages(`${this.config.log_zone_one} ${name}`);
 		}
-		if (zone_two_ids.includes(id) &&  this.isTrue(id, state, 'zone_two')) {
+		if (zone_two_ids.includes(id) && this.isTrue(id, state, 'zone_two')) {
 			const name = this.get_name(id, 'zone_two');
 			if (log) this.log.info(`${this.config.log_zone_two} ${name}`);
 			if (this.config.send_zone_two) this.messages(`${this.config.log_zone_two} ${name}`);
 		}
-		if (zone_three_ids.includes(id) &&  this.isTrue(id, state, 'zone_three')) {
+		if (zone_three_ids.includes(id) && this.isTrue(id, state, 'zone_three')) {
 			const name = this.get_name(id, 'zone_three');
 			if (log) this.log.info(`${this.config.log_zone_three} ${name}`);
 			if (this.config.send_zone_three) this.messages(`${this.config.log_zone_three} ${name}`);
@@ -1684,7 +1684,7 @@ class Alarm extends utils.Adapter {
 	}
 
 	shortcuts(id, val) {
-		const change =  this.is_changed(id, val);
+		const change = this.is_changed(id, val);
 		let setVal = val;
 		if (id === 'status.state_list') {
 			switch (val) {
@@ -1823,8 +1823,8 @@ class Alarm extends utils.Adapter {
 		if (!activated || inside) {
 			return;
 		}
-		sunrise =  this.timeInRange(sunriseStr, '12:00');
-		sunset =  this.timeInRange(sunsetStr, '22:00');
+		sunrise = this.timeInRange(sunriseStr, '12:00');
+		sunset = this.timeInRange(sunsetStr, '22:00');
 		for (const item in presenceTimers) {
 			// eslint-disable-next-line no-prototype-builtins
 			if (presenceTimers.hasOwnProperty(item)) {
@@ -1834,7 +1834,7 @@ class Alarm extends utils.Adapter {
 							this.log.warn(`Please check the times when configuring attendance: ${presenceTimers[item].name_id}`);
 							return;
 						}
-						if ( this.timeInRange(presenceTimers[item].presence_time_from, presenceTimers[item].presence_time_to) && !presenceTimers[item].wasOn) {
+						if (this.timeInRange(presenceTimers[item].presence_time_from, presenceTimers[item].presence_time_to) && !presenceTimers[item].wasOn) {
 							this.log.debug(`Delay for: ${presenceTimers[item].name_id} starts ${presenceTimers[item].presence_delay}ms, because time is in range.`);
 							presenceTimers[item].wasOn = true;
 							presenceTimers[item].presenceDelayTimer = setTimeout(() => {
@@ -2033,7 +2033,7 @@ class Alarm extends utils.Adapter {
 			if (opt_presence && activated && presenceRun) {
 				this.setAllPresenceTimer(() => {
 					this.log.debug(`Restart presence timers for a new day!`);
-					presenceInterval = setInterval(() => {this.checkPresence()}, 60000);
+					presenceInterval = setInterval(() => { this.checkPresence(); }, 60000);
 				});
 			}
 		});
