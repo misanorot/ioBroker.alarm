@@ -23,9 +23,14 @@
 **[English description](docs/en/alarm_en.md)**
 
 ******************************************************************************************
+<!--
+    Placeholder for the next version (at the beginning of the line):
+    ## **WORK IN PROGRESS**
+-->
 
 ## Changelog
-### 3.3.0 (2022-12-22)
+
+## **WORK IN PROGRESS**
 * (misanorot) update files to last creator pattern
 * (misanorot) fixed zones
 * (misanorot) translate states names and discription
