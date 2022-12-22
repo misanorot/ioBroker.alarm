@@ -291,8 +291,8 @@ class Alarm extends utils.Adapter {
 		silent_timer = null;
 		siren_timer = null;
 		silent_interval = null,
-			silent_contdown = null,
-			alarm_interval = null;
+		silent_contdown = null,
+		alarm_interval = null;
 		text_alarm_interval = null;
 		text_changes_interval = null;
 		if (activated || is_panic) {
