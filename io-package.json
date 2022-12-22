@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.3.2",
+    "version": "3.3.3",
     "news": {
+      "3.3.3": {
+        "en": "fixed issues",
+        "de": "feste probleme",
+        "ru": "фиксированные вопросы",
+        "pt": "problemas",
+        "nl": "_",
+        "fr": "questions fixes",
+        "it": "questioni fisse",
+        "es": "cuestiones fijas",
+        "pl": "ustalenie",
+        "uk": "виправлені питання",
+        "zh-cn": "固定问题"
+      },
       "3.3.2": {
         "en": "fixed issues",
         "de": "feste probleme",
