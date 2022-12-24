@@ -1749,9 +1749,11 @@ class Alarm extends utils.Adapter {
 
 
 	async logging(content) {
+		this.log.warn(`LOGGING`);
 		const state = await this.getStateAsync('info.log_today').catch((e) => this.log.warn(e));
 		if (state == null) {
 			log_list = '';
+			this.setState('info.log_today', log_list, true);
 		} else {
 			log_list = state.val;
 			log_list = log_list.split('<br>');

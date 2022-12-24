@@ -27,8 +27,8 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### 3.3.4 (2022-12-22)
-* (misanorot) fixed issues
+### **WORK IN PROGRESS**
+* (misanorot) fixed issues at log today
 
 ### 3.3.1 (2022-12-22)
 * (misanorot) update files to last creator pattern
