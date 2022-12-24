@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.3.4",
+    "version": "3.3.5",
     "news": {
+      "3.3.5": {
+        "en": "fixed issues at log today",
+        "de": "feste probleme bei der anmeldung heute",
+        "ru": "фиксированные вопросы в журнале сегодня",
+        "pt": "problemas fixos no log hoje",
+        "nl": "_",
+        "fr": "des questions fixes au journal aujourd'hui",
+        "it": "problemi fissi al log oggi",
+        "es": "cuestiones fijas en el registro de hoy",
+        "pl": "aktualizacja dziennika",
+        "uk": "виправлені питання в журналі сьогодні",
+        "zh-cn": "今天逻辑上的固定问题"
+      },
       "3.3.4": {
         "en": "fixed issues",
         "de": "feste probleme",
@@ -80,18 +93,6 @@
         "pl": "Obszary dodane Fixed set number (ang.)",
         "uk": "Додані зони, Додано моделювання присутності, Фіксовані номери, Фіксовані ввімкнені",
         "zh-cn": "增加区, 增加存在模拟、固定数量、可预测的固定人数"
-      },
-      "3.1.1": {
-        "en": "added time interval for alarm speech output",
-        "de": "zusätzliches zeitintervall für alarm-sprachausgabe",
-        "ru": "добавлен интервал времени для вывода речи тревоги",
-        "pt": "intervalo de tempo adicionado para saída de discurso de alarme",
-        "nl": "vertaling:",
-        "fr": "intervalle de temps supplémentaire pour la sortie d'alarme",
-        "it": "intervallo di tempo aggiunto per l'uscita del discorso di allarme",
-        "es": "intervalo de tiempo añadido para la salida del habla de alarma",
-        "pl": "dodać czas trwania mowy alarmowej",
-        "zh-cn": "警觉产出增加时间"
       }
     },
     "title": "Alarm",
