@@ -27,6 +27,10 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (misanorot) fixed issues at night rest logs
+* (misanorot) added more logs during burglary
+
 ### 3.3.5 (2022-12-24)
 * (misanorot) fixed issues at log today
 

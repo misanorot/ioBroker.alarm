@@ -318,7 +318,11 @@ class Alarm extends utils.Adapter {
 	//################# BURGALARY ####################################################
 
 	burglary(id, _state, silent, indoor) {
-		if (burgle) return;
+		if (burgle) {
+			this.setState('info.log', `${this.config.log_burgle} ${name}`, true);
+			if (log) this.log.info(`${this.config.log_burgle} ${name}`);
+			return;
+		}
 		if (silent_timer && silent) return;
 		let count = 0;
 		const name = this.get_name(id);
@@ -1282,6 +1286,7 @@ class Alarm extends utils.Adapter {
 				this.setState('info.notification_circuit_list', names_notification, true);
 				this.setState('info.notification_circuit_list_html', this.get_name_html(ids), true);
 			} else {
+				is_notification = false;
 				names_notification = '';
 				this.setState('info.notification_circuit_list', '', true);
 				this.setState('info.notification_circuit_list_html', '', true);
@@ -1749,7 +1754,6 @@ class Alarm extends utils.Adapter {
 
 
 	async logging(content) {
-		this.log.warn(`LOGGING`);
 		const state = await this.getStateAsync('info.log_today').catch((e) => this.log.warn(e));
 		if (state == null) {
 			log_list = '';
