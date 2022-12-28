@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.3.5",
+    "version": "3.3.6",
     "news": {
+      "3.3.6": {
+        "en": "fixed issues at night rest logs\nadded more logs during burglary",
+        "de": "feste probleme bei nachtruhe logs\nweitere protokolle beim einbruch hinzugefügt",
+        "ru": "фиксированные вопросы в ночных журналах отдыха\nдобавил больше логов во время burglary",
+        "pt": "problemas fixos em registros de descanso noturnos\nadicionou mais toras durante o roubo",
+        "nl": "'s nachts rustgegevens\nvoegde meer logboeken toe tijdens inbraak",
+        "fr": "problèmes fixes dans les registres de repos de nuit\najouté plus de logs pendant le cambriolage",
+        "it": "problemi fissi nei registri di riposo notturno\naggiunto più registri durante il furto",
+        "es": "problemas fijos en los registros de descanso nocturno\nañadido más registros durante el robo",
+        "pl": "prawidłowe problemy w nocnym spoczynku\ndodano więcej logów podczas burglarii",
+        "uk": "виправлені питання в журналах нічного відпочинку\nдодано більше журналів при burglary",
+        "zh-cn": "夜间固定问题取决于逻辑\n在汉堡期间增加更多的伐木"
+      },
       "3.3.5": {
         "en": "fixed issues at log today",
         "de": "feste probleme bei der anmeldung heute",
@@ -80,19 +93,6 @@
         "pl": "- aktualizacje plików do ostatniego wzoru twórcy\n* strefa stała\n* tłumaczenie nazw stanów i poboru\n* dodano stan przepustowości do dezaktywacji\n\n###3.2.0 (15.10.2022) (ang.)\n* able to be ustabilizowane\n* dodano symulację obecności\n* dodano strefy\n* fixed set number state",
         "uk": "* оновлення файлів до останнього шаблону творця\n* фіксовані зони\n* перевести імена держав і оригінал\n* додано стан пароля для деактивації\n\n#### 3.2.0 (15.10.2022)\n* фіксована можливість\n* додано моделювання наявності\n* додані зони\n* фіксована кількість штатів",
         "zh-cn": "* 最新档案,供最后创作者使用。\n* 固定区\n* 翻译国名和国名\n* 增加启动前言。\n\n第3.2号行动(15.1022)\n* 固定可兑换\n* 增加存在模拟\n* 新增区域\n* 固定国家"
-      },
-      "3.2.0": {
-        "en": "Added zones, Added presence simulation, Fixed set numbers, Fixed enableable",
-        "de": "Zonen hinzugefügt, Präsenzsimulation hinzugefügt, Fixed Setzen von Zahlenwerten, Fixed aktivierbar",
-        "ru": "Добавленные зоны, Добавлена симуляция присутствия, Фиксированные наборы, Фиксированные включительные",
-        "pt": "Zonas adicionadas, Simulação de presença adicionada, números fixos, habilitado fixo",
-        "nl": "Toegevoegd zones, Toegevoegd aanwezigheidssimulatie, gefixeerde setnummers",
-        "fr": "Zones ajoutées, Ajout d'une simulation de présence, des nombres fixes",
-        "it": "Zone aggiuntive, Aggiunta simulazione di presenza, Numeri fissi impostati, Fisso abilitabile",
-        "es": "Zonas agregadas, simulación de presencia agregada, números fijos de conjunto, fijo",
-        "pl": "Obszary dodane Fixed set number (ang.)",
-        "uk": "Додані зони, Додано моделювання присутності, Фіксовані номери, Фіксовані ввімкнені",
-        "zh-cn": "增加区, 增加存在模拟、固定数量、可预测的固定人数"
       }
     },
     "title": "Alarm",
