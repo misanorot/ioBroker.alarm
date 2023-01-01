@@ -49,4 +49,4 @@
 ## License
 MIT License
 
-Copyright (c) 2019-2022 misanorot <audi16v@gmx.de>
+Copyright (c) 2019-2023 misanorot <audi16v@gmx.de>
