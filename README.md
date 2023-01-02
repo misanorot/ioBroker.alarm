@@ -27,9 +27,8 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 3.3.7 (2023-01-02)
 * (misanorot) fixed issues at presence light trigger
-
 
 ## License
 MIT License
