@@ -27,24 +27,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### 3.3.6 (2022-12-28)
-* (misanorot) fixed issues at night rest logs
-* (misanorot) added more logs during burglary
+### **WORK IN PROGRESS**
+* (misanorot) fixed issues at presence light trigger
 
-### 3.3.5 (2022-12-24)
-* (misanorot) fixed issues at log today
-
-### 3.3.1 (2022-12-22)
-* (misanorot) update files to last creator pattern
-* (misanorot) fixed zones
-* (misanorot) translate states names and discription
-* (misanorot) added password state for deactivation
-
-#### 3.2.0 (15.10.2022)
-* (misanorot) fixed enableable
-* (misanorot) added presence simulation
-* (misanorot) added zones
-* (misanorot) fixed set number states
 
 ## License
 MIT License

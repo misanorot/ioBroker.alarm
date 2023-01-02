@@ -1,5 +1,24 @@
 # Older changes
 
+### 3.3.6 (2022-12-28)
+* (misanorot) fixed issues at night rest logs
+* (misanorot) added more logs during burglary
+
+### 3.3.5 (2022-12-24)
+* (misanorot) fixed issues at log today
+
+### 3.3.1 (2022-12-22)
+* (misanorot) update files to last creator pattern
+* (misanorot) fixed zones
+* (misanorot) translate states names and discription
+* (misanorot) added password state for deactivation
+
+#### 3.2.0 (15.10.2022)
+* (misanorot) fixed enableable
+* (misanorot) added presence simulation
+* (misanorot) added zones
+* (misanorot) fixed set number states
+
 #### 3.1.1 (29.06.2022)
 * (MK-2001) added speech delay
 
