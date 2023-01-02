@@ -1738,7 +1738,7 @@ class Alarm extends utils.Adapter {
 
 	is_changed(id, val) {
 		if (change_ids[id] === val) {
-			this.log.debug(`No changes inside shortcuts!`);
+			this.log.debug(`No changes inside shortcuts! ${id}`);
 			return false;
 		} else {
 			change_ids[id] = val;
@@ -1825,7 +1825,7 @@ class Alarm extends utils.Adapter {
 	}
 
 
-	checkPresence() {
+	async checkPresence() {
 		if (!activated || inside) {
 			return;
 		}
@@ -1901,7 +1901,7 @@ class Alarm extends utils.Adapter {
 						break;
 					case 'light':
 						// eslint-disable-next-line no-case-declarations
-						const lightVal = this.getForeignStateAsync(presenceTimers[item].presence_trigger_light).catch((e) => {
+						const lightVal = await this.getForeignStateAsync(presenceTimers[item].presence_trigger_light).catch((e) => {
 							this.log.warn(`Check your light ID ${presenceTimers[item].name_id} in presence config! +++ ${e}`);
 							return;
 						});
