@@ -23,11 +23,13 @@
 **[English description](docs/en/alarm_en.md)**
 
 ******************************************************************************************
+## CHANGELOG
+
 <!--
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-## CHANGELOG
+
 
 ### 3.3.9 (2023-01-14)
 * (misanorot) fixed issues at burgle log
