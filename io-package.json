@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.3.7",
+    "version": "3.3.8",
     "news": {
+      "3.3.8": {
+        "en": "fixed issues at burgle log",
+        "de": "feste probleme bei burgle log",
+        "ru": "фиксированные вопросы в burgle log",
+        "pt": "problemas fixos no log de águia",
+        "nl": "vertaling:",
+        "fr": "problèmes fixes dans le journal de burgle",
+        "it": "problemi fissi a log burgle",
+        "es": "problemas fijos en el registro de burgle",
+        "pl": "prawidłowe problemy z burgle logiem",
+        "uk": "виправлені питання в burgle log",
+        "zh-cn": "堡固定问题"
+      },
       "3.3.7": {
         "en": "fixed issues at presence light trigger",
         "de": "feste probleme bei präsenzlichtauslöser",
@@ -80,19 +93,6 @@
         "pl": "ustalenie",
         "uk": "виправлені питання",
         "zh-cn": "固定问题"
-      },
-      "3.3.1": {
-        "en": "* update files to last creator pattern\n* fixed zones\n* translate states names and discription\n* added password state for deactivation\n\n#### 3.2.0 (15.10.2022)\n* fixed enableable\n* added presence simulation\n* added zones\n* fixed set number states",
-        "de": "* aktualisieren von dateien zum letzten schöpfermuster\n* festzonen\n* übersetzen namen und discription\n* passwort-zustand zur deaktivierung hinzugefügt\n\n3,2.0 (15.10.2022)\n* feststellbar\n* zusätzliche präsenzsimulation\n* zusätzliche zonen\n* feste set-nummern",
-        "ru": "* обновление файлов для последнего шаблона создателя\n* фиксированные зоны\n* перевести имена государств и описание\n* добавлено состояние пароля для деактивации\n\n#### 3.2.0 (15.10.2022)\n* фиксированный включенный\n* добавлена симуляция присутствия\n* добавленные зоны\n* фиксированный номер состояния",
-        "pt": "* atualizar arquivos para o último padrão criador\n* zonas fixas\n* traduzir nomes de estados e discription\n* estado de senha adicionado para desativação\n\n### 3.2.0 (15.10.2022)\n* habilitado fixo\n* simulação de presença adicionada\n* zonas adicionadas\n* estados de números fixos",
-        "nl": "vertaling:\n♪ fixed zones ♪\nvertaling:\nvertaling:\n\n3.2.0 (15.10.2022)\n♪ fixed enable\n♪ toegevoegd aanwezigheid simulatie ♪\n♪ toegevoegde zones ♪\n♪ fixed set nummer states ♪",
-        "fr": "* mettre à jour les fichiers de dernière création\n* zones fixes\n* traduire les noms d'états et la déscription\n* état de mot de passe ajouté pour la désactivation\n\n### 3.2.0 (15.10.2022)\n* fixe\n* simulation de présence ajoutée\n* zones ajoutées\n* nombre fixe",
-        "it": "* aggiornare i file al modello ultimo creatore\n* zone fisse\n* tradurre i nomi degli stati e la descrizione\n* stato password aggiunto per disattivazione\n\n#### 3.2.0 (15.10.2022)\n* fissa abilitabile\n* simulazione aggiuntiva della presenza\n* zone aggiunte\n* stati di numero fisso",
-        "es": "* actualizar archivos a último patrón creador\n* zonas fijas\n* traducir nombres de estados y discripción\n* estado de contraseña añadido para desactivación\n\n#### 3.2.0 (15.10.2022)\n* fija habilitable\n* simulación de presencia agregada\n* zonas agregadas\n* estados de número fijo",
-        "pl": "- aktualizacje plików do ostatniego wzoru twórcy\n* strefa stała\n* tłumaczenie nazw stanów i poboru\n* dodano stan przepustowości do dezaktywacji\n\n###3.2.0 (15.10.2022) (ang.)\n* able to be ustabilizowane\n* dodano symulację obecności\n* dodano strefy\n* fixed set number state",
-        "uk": "* оновлення файлів до останнього шаблону творця\n* фіксовані зони\n* перевести імена держав і оригінал\n* додано стан пароля для деактивації\n\n#### 3.2.0 (15.10.2022)\n* фіксована можливість\n* додано моделювання наявності\n* додані зони\n* фіксована кількість штатів",
-        "zh-cn": "* 最新档案,供最后创作者使用。\n* 固定区\n* 翻译国名和国名\n* 增加启动前言。\n\n第3.2号行动(15.1022)\n* 固定可兑换\n* 增加存在模拟\n* 新增区域\n* 固定国家"
       }
     },
     "title": "Alarm",
