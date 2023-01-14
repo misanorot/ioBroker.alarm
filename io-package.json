@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.3.8",
+    "version": "3.3.9",
     "news": {
+      "3.3.9": {
+        "en": "fixed issues at burgle log",
+        "de": "feste probleme bei burgle log",
+        "ru": "фиксированные вопросы в burgle log",
+        "pt": "problemas fixos no log de águia",
+        "nl": "vertaling:",
+        "fr": "problèmes fixes dans le journal de burgle",
+        "it": "problemi fissi a log burgle",
+        "es": "problemas fijos en el registro de burgle",
+        "pl": "prawidłowe problemy z burgle logiem",
+        "uk": "виправлені питання в burgle log",
+        "zh-cn": "堡固定问题"
+      },
       "3.3.8": {
         "en": "fixed issues at burgle log",
         "de": "feste probleme bei burgle log",
@@ -69,19 +82,6 @@
         "zh-cn": "固定问题"
       },
       "3.3.3": {
-        "en": "fixed issues",
-        "de": "feste probleme",
-        "ru": "фиксированные вопросы",
-        "pt": "problemas",
-        "nl": "_",
-        "fr": "questions fixes",
-        "it": "questioni fisse",
-        "es": "cuestiones fijas",
-        "pl": "ustalenie",
-        "uk": "виправлені питання",
-        "zh-cn": "固定问题"
-      },
-      "3.3.2": {
         "en": "fixed issues",
         "de": "feste probleme",
         "ru": "фиксированные вопросы",
