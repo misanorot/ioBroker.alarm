@@ -318,14 +318,14 @@ class Alarm extends utils.Adapter {
 	//################# BURGALARY ####################################################
 
 	burglary(id, _state, silent, indoor) {
+		let count = 0;
+		const name = this.get_name(id);
 		if (burgle) {
 			this.setState('info.log', `${this.config.log_burgle} ${name}`, true);
 			if (log) this.log.info(`${this.config.log_burgle} ${name}`);
 			return;
 		}
 		if (silent_timer && silent) return;
-		let count = 0;
-		const name = this.get_name(id);
 		this.setState('info.log', `${this.config.log_burgle} ${name}`, true);
 		if (log) this.log.info(`${this.config.log_burgle} ${name}`);
 		if (silent) {
