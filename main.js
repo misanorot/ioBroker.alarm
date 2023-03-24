@@ -1614,7 +1614,8 @@ class Alarm extends utils.Adapter {
 				}
 				this.sayit(say, 4);
 			}
-			this.sayit(say, 11);
+			if (is_alarm) setTimeout(() => {this.sayit(say, 11);}, 5000);
+			else this.sayit(say, 11);
 			this.setState('status.gets_activated', true, true);
 			this.setState('status.state', 'gets activated', true);
 			this.setState('status.state_list', 5, true);
