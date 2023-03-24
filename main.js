@@ -1604,22 +1604,15 @@ class Alarm extends utils.Adapter {
 	countdown(count) {
 		const time = this.timeMode(this.config.time_activate_select);
 		let counter = this.config.time_activate * time / 1000;
-		let say = this.config.time_activate + ' ' + this.config.text_countdown;
 		if (count && !timer && !activated) {
-			if (is_alarm && this.config.send_activation_warnings) {
-				this.messages(`${this.config.log_act_notice} ${names_alarm}`);
-				say = say + ' ' + this.config.text_warning;
+			const say = this.config.time_activate + ' ' + this.config.text_countdown;
+			if (is_alarm) {
+				if (this.config.send_activation_warnings) this.messages(`${this.config.log_act_notice} ${names_alarm}`);
+				let say = this.config.text_warning;
 				if (this.config.opt_say_names) {
 					say = say + ' ' + names_alarm;
 				}
 				this.sayit(say, 4);
-			} else if (is_alarm) {
-				let say = this.config.text_failed;
-				if (this.config.opt_say_names) {
-					say = say + ' ' + names_alarm;
-				}
-				this.sayit(say, 3);
-				return;
 			}
 			this.sayit(say, 11);
 			this.setState('status.gets_activated', true, true);
