@@ -1796,7 +1796,7 @@ class Alarm extends utils.Adapter {
 					tempObj.presence_light_lux = ele.presence_light_lux;
 					tempObj.wasOn = false;
 
-					presenceTimers[ele.id] = tempObj;
+					presenceTimers[ele.name_id] = tempObj;
 
 				} else if (!ele.enable) {
 					this.log.debug(`Presence state not used but configured: ${ele.name_id}`);
