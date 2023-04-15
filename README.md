@@ -29,6 +29,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (misanorot) fixed issue at night rest
+
 ### 3.3.10 (2023-03-31)
 * (misanorot) fixed litle speech and presence bug
 

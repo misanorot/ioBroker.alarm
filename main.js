@@ -1203,7 +1203,7 @@ class Alarm extends utils.Adapter {
 	}
 
 	sleep_begin(auto) {
-		if (night_rest) return;
+		if (night_rest || burgle) return;
 		if (auto && inside || auto && activated) {
 			this.log.warn(`Cannot set alarm system to night rest, it is sharp or sharp inside`);
 			return;
