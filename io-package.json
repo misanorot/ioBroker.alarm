@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.3.10",
+    "version": "3.3.11",
     "news": {
+      "3.3.11": {
+        "en": "fixed issue at night rest",
+        "de": "festes problem bei nachtruhe",
+        "ru": "фиксированная проблема в ночной отдых",
+        "pt": "problema fixo no descanso noturno",
+        "nl": "'s nachts rust",
+        "fr": "problème fixe au repos nocturne",
+        "it": "problema fisso al riposo notturno",
+        "es": "tema fijo en el descanso nocturno",
+        "pl": "trwały problem w nocy",
+        "uk": "виправлено проблему в нічному режимі",
+        "zh-cn": "夜间固定问题休息"
+      },
       "3.3.10": {
         "en": "fixed litle speech and presence bug",
         "de": "feste litle rede und anwesenheit fehler",
@@ -80,19 +93,6 @@
         "pl": "aktualizacja dziennika",
         "uk": "виправлені питання в журналі сьогодні",
         "zh-cn": "今天逻辑上的固定问题"
-      },
-      "3.3.4": {
-        "en": "fixed issues",
-        "de": "feste probleme",
-        "ru": "фиксированные вопросы",
-        "pt": "problemas",
-        "nl": "_",
-        "fr": "questions fixes",
-        "it": "questioni fisse",
-        "es": "cuestiones fijas",
-        "pl": "ustalenie",
-        "uk": "виправлені питання",
-        "zh-cn": "固定问题"
       }
     },
     "title": "Alarm",

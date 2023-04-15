@@ -29,7 +29,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 3.3.11 (2023-04-15)
 * (misanorot) fixed issue at night rest
 
 ### 3.3.10 (2023-03-31)
