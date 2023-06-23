@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.3.11",
+    "version": "3.3.12",
     "news": {
+      "3.3.12": {
+        "en": "fixed select-id popup and little issues on setting pages",
+        "de": "feste ausgewählte popups und kleine probleme bei der einstellung von seiten",
+        "ru": "фиксированный селективный попап и мелкие вопросы по настройке страниц",
+        "pt": "pop-up select-id fixo e pequenos problemas nas páginas de configuração",
+        "nl": "vertaling:",
+        "fr": "popup sélectif fixe et petits problèmes sur les pages de configuration",
+        "it": "popup selezionato fisso e piccoli problemi nell'impostazione delle pagine",
+        "es": "emergente selecto fijo y pequeños problemas en las páginas de configuración",
+        "pl": "zbieramy wybrane popupy i mało problemów na stronach",
+        "uk": "виправлений вибір спливаючого спливаючого та маленького питання щодо налаштування сторінок",
+        "zh-cn": "b. 固定选择的居民人数和很少的问题"
+      },
       "3.3.11": {
         "en": "fixed issue at night rest",
         "de": "festes problem bei nachtruhe",
@@ -80,19 +93,6 @@
         "pl": "prawidłowe problemy w nocnym spoczynku\ndodano więcej logów podczas burglarii",
         "uk": "виправлені питання в журналах нічного відпочинку\nдодано більше журналів при burglary",
         "zh-cn": "夜间固定问题取决于逻辑\n在汉堡期间增加更多的伐木"
-      },
-      "3.3.5": {
-        "en": "fixed issues at log today",
-        "de": "feste probleme bei der anmeldung heute",
-        "ru": "фиксированные вопросы в журнале сегодня",
-        "pt": "problemas fixos no log hoje",
-        "nl": "_",
-        "fr": "des questions fixes au journal aujourd'hui",
-        "it": "problemi fissi al log oggi",
-        "es": "cuestiones fijas en el registro de hoy",
-        "pl": "aktualizacja dziennika",
-        "uk": "виправлені питання в журналі сьогодні",
-        "zh-cn": "今天逻辑上的固定问题"
       }
     },
     "title": "Alarm",
