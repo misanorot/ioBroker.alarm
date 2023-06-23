@@ -77,17 +77,17 @@
 
       $('.tooltipped').tooltip();
       telChanging();
-      values2table('circuits', circuits, onChange, tableOnReady);
       leaving();
-      values2table('shorts_in', shorts_in, onChange, tableOnReady);
-      values2table('shorts', shorts, onChange, tableOnReady);
-      values2table('sayit', sayit, onChange, tableOnReady);
-      values2table('one', one, onChange, tableOnReady);
-      values2table('two', two, onChange, tableOnReady);
-      values2table('presence', presence, onChange, tableOnReady);
-      values2table('zone_one', zone_one, onChange, tableOnReady);
-      values2table('zone_two', zone_two, onChange, tableOnReady);
-      values2table('zone_three', zone_three, onChange, tableOnReady);
+      values2table('circuits', circuits, onChange, circuits_tableOnRady);
+      values2table('shorts_in', shorts_in, onChange, shorts_in_tableOnReady);
+      values2table('shorts', shorts, onChange, shorts_tableOnReady);
+      values2table('sayit', sayit, onChange, sayit_tableOnReady);
+      values2table('one', one, onChange, one_tableOnReady);
+      values2table('two', two, onChange, two_tableOnReady);
+      values2table('presence', presence, onChange, presence_tableOnReady);
+      values2table('zone_one', zone_one, onChange, zone_one_tableOnReady);
+      values2table('zone_two', zone_two, onChange, zone_two_tableOnReady);
+      values2table('zone_three', zone_three, onChange, zone_three_tableOnReady);
 
 
       $('#opt_leave').change(leaving);
@@ -135,126 +135,9 @@
           });
         });
       });
-      //Timepicker in Modal
-      document.addEventListener('DOMContentLoaded', function () {
-        var elems = document.querySelectorAll('.datepicker');
-        var instances = M.Datepicker.init(elems, {});
-        var elems = document.querySelectorAll('.modal');
-        var instances = M.Modal.init(elems);
-      });
-
-
-    }
-
-
-    //######  END LOAD  #######
-
-    //###########  SAVE  #########
-
-    // This will be called by the admin adapter when the user presses the save button
-    function save(callback) {
-      // example: select elements with class=value and build settings object
-      const obj = {};
-      $('.value').each(function () {
-        const $this = $(this);
-        if ($this.attr('type') === 'checkbox') {
-          obj[$this.attr('id')] = $this.prop('checked');
-        } else {
-          obj[$this.attr('id')] = $this.val();
-        }
-      });
-      obj.sendTo = chips2list('.sendTo_Chips');
-      obj.circuits = table2values('circuits');
-      obj.shorts_in = table2values('shorts_in');
-      obj.shorts = table2values('shorts');
-      obj.sayit = table2values('sayit');
-      obj.one = table2values('one');
-      obj.two = table2values('two');
-      obj.presence = table2values('presence');
-      obj.zone_one = table2values('zone_one');
-      obj.zone_two = table2values('zone_two');
-      obj.zone_three = table2values('zone_three');
-
-      obj.states = states;
-      obj.version = new_version;
-      callback(obj);
-    }
-    //##############################################
-
-    //###########  HELPERS  ###########
-
-    function version(id, callback) {
-      if (id !== 'version_button') {
-        new_version = true;
-        callback();
-      }
-      showMessage('<b>Ab Version 3.x.x, habe ich mich dazu entschieden den Alarm auch bei scharf innen auszulösen! Das verändert die Funktion des Adapters ein wenig. Es wird jetzt zwischen Sirene intern und extern unterschieden, hierzu ist zu beachten, dass es den Datenpunkt info.sharp_inside_siren nicht mehr gibt. Diesen bitte ggf. manuell löschen! Der Datenpunkt wurde durch status.siren_inside ersetzt, und entspricht der Innensirene. Es ist zu beachten, dass das auch ggf. bei den Verknüpfungen neu einzustellen ist. Möchte man dies Aussensirene auch bei innen Alarm auslösen, kann man das in den allgemeinen Einstellungen tun. <br><br> DANKE FÜR DAS VERSTÄNDNIS, ABER ICH DENKE SO IST ES LOGISCHER!</b>');
-    }
-
-    function checkTrigger(val, id) {
-      if (val === 'status.state_list') {
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=true]').prop('disabled', true);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=false]').prop('disabled', true);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=deactivated]').prop('disabled', false);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp]').prop('disabled', false);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp_inside]').prop('disabled', false);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=burgular]').prop('disabled', false);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=night_rest]').prop('disabled', false);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=gets_activated]').prop('disabled', false);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_failed]').prop('disabled', false);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_aborted]').prop('disabled', false);
-      } else {
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=true]').prop('disabled', false);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=false]').prop('disabled', false);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=deactivated]').prop('disabled', true);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp]').prop('disabled', true);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp_inside]').prop('disabled', true);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=burgular]').prop('disabled', true);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=night_rest]').prop('disabled', true);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=gets_activated]').prop('disabled', true);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_failed]').prop('disabled', true);
-        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_aborted]').prop('disabled', true);
-      }
-      $('select').select()
-    }
-
-    function telChanging() {
-      let check = document.getElementById('opt_telegram').checked;
-      if (check) {
-        $('#user').prop('disabled', false);
-        $('#chatID').prop('disabled', false);
-        $('#user').show();
-        $('#chatID').show();
-      } else {
-        $('#user').prop('disabled', true);
-        $('#chatID').prop('disabled', true);
-        $('#user').hide();
-        $('#chatID').hide();
-      }
-    }
-
-    function leaving() {
-      let check = document.getElementById('opt_leave').checked;
-      if (check) {
-        $('#circuits .table-values-div .table-values [data-name="leave"]').each(function () {
-          $(this).prop('disabled', false);
-        });
-      } else {
-        $('#circuits .table-values-div .table-values [data-name="leave"]').each(function () {
-          $(this).prop('disabled', true);
-        });
-      }
-    }
-
-    function tableOnReady() {
-
-      $('#shorts .table-values-div .table-values [data-name="select_id"]').each(function () {
-        let id = $(this).data('index');
-        let val = $(this).val();
-        checkTrigger(val, id);
-      });
 
       $('.table-button-add').on('click', function () {
+        console.log('Select ID open: ' + $(this).attr('id'));
         if ($(this).attr('id') === 'circuits_table') {
           const devices = table2values('circuits');
           let id_c = 0;
@@ -458,8 +341,120 @@
         }
       });
 
+
+      //Timepicker in Modal
+      document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.datepicker');
+        var instances = M.Datepicker.init(elems, {});
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+      });
+    }
+
+
+    //######  END LOAD  #######
+
+    //###########  SAVE  #########
+
+    // This will be called by the admin adapter when the user presses the save button
+    function save(callback) {
+      // example: select elements with class=value and build settings object
+      const obj = {};
+      $('.value').each(function () {
+        const $this = $(this);
+        if ($this.attr('type') === 'checkbox') {
+          obj[$this.attr('id')] = $this.prop('checked');
+        } else {
+          obj[$this.attr('id')] = $this.val();
+        }
+      });
+      obj.sendTo = chips2list('.sendTo_Chips');
+      obj.circuits = table2values('circuits');
+      obj.shorts_in = table2values('shorts_in');
+      obj.shorts = table2values('shorts');
+      obj.sayit = table2values('sayit');
+      obj.one = table2values('one');
+      obj.two = table2values('two');
+      obj.presence = table2values('presence');
+      obj.zone_one = table2values('zone_one');
+      obj.zone_two = table2values('zone_two');
+      obj.zone_three = table2values('zone_three');
+
+      obj.states = states;
+      obj.version = new_version;
+      callback(obj);
+    }
+    //##############################################
+
+    //###########  HELPERS  ###########
+
+    function version(id, callback) {
+      if (id !== 'version_button') {
+        new_version = true;
+        callback();
+      }
+      showMessage('<b>Ab Version 3.x.x, habe ich mich dazu entschieden den Alarm auch bei scharf innen auszulösen! Das verändert die Funktion des Adapters ein wenig. Es wird jetzt zwischen Sirene intern und extern unterschieden, hierzu ist zu beachten, dass es den Datenpunkt info.sharp_inside_siren nicht mehr gibt. Diesen bitte ggf. manuell löschen! Der Datenpunkt wurde durch status.siren_inside ersetzt, und entspricht der Innensirene. Es ist zu beachten, dass das auch ggf. bei den Verknüpfungen neu einzustellen ist. Möchte man dies Aussensirene auch bei innen Alarm auslösen, kann man das in den allgemeinen Einstellungen tun. <br><br> DANKE FÜR DAS VERSTÄNDNIS, ABER ICH DENKE SO IST ES LOGISCHER!</b>');
+    }
+
+    function checkTrigger(val, id) {
+      if (val === 'status.state_list') {
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=true]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=false]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=deactivated]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp_inside]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=burgular]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=night_rest]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=gets_activated]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_failed]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_aborted]').prop('disabled', false);
+      } else {
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=true]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=false]').prop('disabled', false);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=deactivated]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=sharp_inside]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=burgular]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=night_rest]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=gets_activated]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_failed]').prop('disabled', true);
+        $('#shorts .values-input[data-name="trigger_val"][data-index="' + id + '"] option[value=activation_aborted]').prop('disabled', true);
+      }
+      $('select').select()
+    }
+
+    function telChanging() {
+      let check = document.getElementById('opt_telegram').checked;
+      if (check) {
+        $('#user').prop('disabled', false);
+        $('#chatID').prop('disabled', false);
+        $('#user').show();
+        $('#chatID').show();
+      } else {
+        $('#user').prop('disabled', true);
+        $('#chatID').prop('disabled', true);
+        $('#user').hide();
+        $('#chatID').hide();
+      }
+    }
+
+    function leaving() {
+      let check = document.getElementById('opt_leave').checked;
+      if (check) {
+        $('#circuits .table-values-div .table-values [data-name="leave"]').each(function () {
+          $(this).prop('disabled', false);
+        });
+      } else {
+        $('#circuits .table-values-div .table-values [data-name="leave"]').each(function () {
+          $(this).prop('disabled', true);
+        });
+      }
+    }
+
+    function circuits_tableOnRady() {
       $('#circuits .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
         let id = $(this).data('index');
+        console.log('Select ID open in circuits, with id: ' + id);
         initSelectId(function (sid) {
           sid.selectId('show', $('#circuits .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
             if (newId) {
@@ -472,40 +467,12 @@
           });
         });
       });
+    }
 
-      $('#sayit .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
-        let id = $(this).data('index');
-        initSelectId(function (sid) {
-          sid.selectId('show', $('#sayit .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
-            if (newId) {
-              $('#sayit .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
-              socket.emit('getObject', newId, (err, obj) => {
-                let name = getName(obj);
-                $('#sayit .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
-              });
-            }
-          });
-        });
-      });
-
-
-      $('#shorts .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
-        let id = $(this).data('index');
-        initSelectId(function (sid) {
-          sid.selectId('show', $('#shorts .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
-            if (newId) {
-              $('#shorts .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
-              socket.emit('getObject', newId, (err, obj) => {
-                let name = getName(obj);
-                $('#shorts .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
-              });
-            }
-          });
-        });
-      });
-
+    function shorts_in_tableOnReady() {
       $('#shorts_in .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
         let id = $(this).data('index');
+        console.log('Select ID open in short_in, with id: ' + id);
         initSelectId(function (sid) {
           sid.selectId('show', $('#shorts_in .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
             if (newId) {
@@ -518,9 +485,61 @@
           });
         });
       });
+    }
 
+    function shorts_tableOnReady() {
+      $('#shorts .table-values-div .table-values [data-name="select_id"]').each(function () {
+        let id = $(this).data('index');
+        console.log('Select ID open in shorts, with id: ' + id);
+        let val = $(this).val();
+        checkTrigger(val, id);
+      });
+
+      $('#shorts .table-values-div .table-values [data-name="select_id"]').change(function () {
+        let id = $(this).data('index');
+        let val = $(this).val();
+        checkTrigger(val, id);
+      });
+
+      $('#shorts .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
+        let id = $(this).data('index');
+        console.log('Select ID open in shorts, with id: ' + id);
+        initSelectId(function (sid) {
+          sid.selectId('show', $('#shorts .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
+            if (newId) {
+              $('#shorts .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+              socket.emit('getObject', newId, (err, obj) => {
+                let name = getName(obj);
+                $('#shorts .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+              });
+            }
+          });
+        });
+      });
+    }
+
+    function sayit_tableOnReady() {
+      $('#sayit .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
+        let id = $(this).data('index');
+        console.log('Select ID open in sayit, with id: ' + id);
+        initSelectId(function (sid) {
+          sid.selectId('show', $('#sayit .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
+            if (newId) {
+              $('#sayit .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+              socket.emit('getObject', newId, (err, obj) => {
+                let name = getName(obj);
+                $('#sayit .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+              });
+            }
+          });
+        });
+      });
+    }
+
+    function one_tableOnReady() {
       $('#one .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
         let id = $(this).data('index');
+        console.log('Select ID open in one, with id: ' + id);
         initSelectId(function (sid) {
           sid.selectId('show', $('#one .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
             if (newId) {
@@ -533,8 +552,12 @@
           });
         });
       });
+    }
+
+    function two_tableOnReady() {
       $('#two .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
         let id = $(this).data('index');
+        console.log('Select ID open in two, with id: ' + id);
         initSelectId(function (sid) {
           sid.selectId('show', $('#two .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
             if (newId) {
@@ -547,10 +570,12 @@
           });
         });
       });
+    }
 
-
+    function presence_tableOnReady() {
       $('#presence .table-values-div .table-values .values-buttons[data-command="edit2"]').on('click', function () {
         let id = $(this).data('index');
+        console.log('Select ID open in presence, with id: ' + id);
         initSelectId(function (sid) {
           sid.selectId('show', $('#presence .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
             if (newId) {
@@ -563,7 +588,6 @@
           });
         });
       });
-
 
       $('#presence .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
         let id = $(this).data('index');
@@ -616,18 +640,65 @@
             $('#presence .values-input[data-name="presence_val_off"][data-index="' + id + '"]').val(new_val_off).trigger('change');
             $('#presence .values-input[data-name="presence_trigger_light"][data-index="' + id + '"]').val(new_trigger_light).trigger('change');
             $('#presence .values-input[data-name="presence_light_lux"][data-index="' + id + '"]').val(new_light_lux).trigger('change');
-
           });
         }, 20)
       });
+    }
 
-
-      $('#shorts .table-values-div .table-values [data-name="select_id"]').change(function () {
+    function zone_one_tableOnReady() {
+      $('#zone_one .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
         let id = $(this).data('index');
-        let val = $(this).val();
-        checkTrigger(val, id);
+        console.log('Select ID open in zone_one, with id: ' + id);
+        initSelectId(function (sid) {
+          sid.selectId('show', $('#zone_one .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
+            if (newId) {
+              $('#zone_one .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+              socket.emit('getObject', newId, (err, obj) => {
+                let name = getName(obj);
+                $('#zone_one .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+              });
+            }
+          });
+        });
       });
     }
+
+    function zone_two_tableOnReady() {
+      $('#zone_two .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
+        let id = $(this).data('index');
+        console.log('Select ID open in zone_two, with id: ' + id);
+        initSelectId(function (sid) {
+          sid.selectId('show', $('#zone_two .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
+            if (newId) {
+              $('#zone_two .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+              socket.emit('getObject', newId, (err, obj) => {
+                let name = getName(obj);
+                $('#zone_two .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+              });
+            }
+          });
+        });
+      });
+    }
+
+    function zone_three_tableOnReady() {
+      $('#zone_three .table-values-div .table-values .values-buttons[data-command="edit"]').on('click', function () {
+        let id = $(this).data('index');
+        console.log('Select ID open in zone_three, with id: ' + id);
+        initSelectId(function (sid) {
+          sid.selectId('show', $('#zone_three .values-input[data-name="name"][data-index="' + id + '"]').val(), (newId) => {
+            if (newId) {
+              $('#zone_three .values-input[data-name="name_id"][data-index="' + id + '"]').val(newId).trigger('change');
+              socket.emit('getObject', newId, (err, obj) => {
+                let name = getName(obj);
+                $('#zone_three .values-input[data-name="name"][data-index="' + id + '"]').val(name).trigger('change');
+              });
+            }
+          });
+        });
+      });
+    }
+
 
     function list2chips(selector, list, onChange) {
       const chips = list.split(/[,;\s]+/);
@@ -736,7 +807,6 @@
 </head>
 
 <body>
-
   <div class="m adapter-container">
     <!-- =============  WITH LOGO AND BUTTONS ============= -->
     <div id="header-area" class="row">
@@ -746,14 +816,12 @@
           <span class="h-title">Alarm</span><br />
           <span class="h-sub-title">Your own little alarm system...
         </p>
-        </p>
       </div>
     </div>
 
     <!-- ============= MAIN SECTION ============= -->
 
     <div class="row">
-
       <div class="col s12" id="tab-area">
         <ul class="tabs blue lighten-4">
           <li class="tab"><a href="#tab_settings" class="translate">general</a></li>
@@ -762,13 +830,11 @@
           <li class="tab"><a href="#tab_sayit" class="translate">sayit</a></li>
           <li class="tab"><a href="#tab_shortcuts" class="translate">shortcuts</a></li>
           <li class="tab"><a href="#tab_words" class="translate">words</a></li>
-          <li class="tab"><a href="#other_alarms" class="translate">other_alarms</a></li>
-          <li class="tab"><a href="#zones" class="translate">zones</a></li>
+          <li class="tab"><a href="#tab_other_alarms" class="translate">other_alarms</a></li>
+          <li class="tab"><a href="#tab_zones" class="translate">zones</a></li>
           <li class="tab"><a href="#tab_presence" class="translate">presence</a></li>
         </ul>
       </div>
-
-
       <div id="tab_settings" class="col s12 page">
         <div class="row">
           <div class="col s12 m2">
@@ -781,9 +847,6 @@
           </div>
           <div class="col s12 m8">
             <p class=" left translate">donat</p>
-          </div>
-          <div>
-            <a id="version_button" onclick="version(this.id)" class="pulse waves-effect waves-light btn">Version > 3</a>
           </div>
         </div>
         <div class="row">
@@ -1190,32 +1253,32 @@
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">filter_1</i>
             <textarea id="text_activated" class="materialize-textarea value"></textarea>
             <label for="text_activated" class="translate">text_activated</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">filter_2</i>
             <textarea id="text_deactivated" class="materialize-textarea value"></textarea>
             <label for="text_deactivated" class="translate">text_deactivated</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">filter_3</i>
             <textarea id="text_failed" class="materialize-textarea value"></textarea>
             <label for="text_failed" class="translate">text_failed</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">filter_4</i>
             <textarea id="text_warning" class="materialize-textarea value"></textarea>
             <label for="text_warning" class="translate">text_warning</label>
           </div>
-          <div class="input-field col s6 m4 l2">
+          <div class="input-field col s8">
             <i class="material-icons prefix">filter_6</i>
             <textarea id="text_alarm" class="materialize-textarea value"></textarea>
             <label for="text_alarm" class="translate">text_alarm</label>
           </div>
-          <div class="input-field col s3 m1 l1">
+          <div class="input-field col s2">
             <select id="alarm_repeat" class="value">
               <option value="1">1x</option>
               <option value="2">2x</option>
@@ -1231,46 +1294,46 @@
               <option value="20">20x</option>
             </select>
           </div>
-          <div class="input-field col s3 m1 l1">
+          <div class="input-field col s2">
             <textarea id="text_alarm_pause" class="materialize-textarea value"></textarea>
             <label for="text_alarm_pause" class="translate">text_alarm_pause</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">filter_7</i>
             <textarea id="text_nightrest_beginn" class="materialize-textarea value"></textarea>
             <label for="text_nightrest_beginn" class="translate">text_nightrest_beginn</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">filter_8</i>
             <textarea id="text_nightrest_end" class="materialize-textarea value"></textarea>
             <label for="text_nightrest_end" class="translate">text_nightrest_end</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">filter_9</i>
             <textarea id="text_changes_night" class="materialize-textarea value"></textarea>
             <label for="text_changes_night" class="translate">text_changes_night</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">filter_9_plus</i>
             <textarea id="text_warn_begin" class="materialize-textarea value"></textarea>
             <label for="text_warn_begin" class="translate">text_warn_begin</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">exposure_zero</i>
             <textarea id="text_warn_end" class="materialize-textarea value"></textarea>
             <label for="text_warn_end" class="translate">text_warn_end</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">av_timer</i>
             <textarea id="text_countdown" class="materialize-textarea value"></textarea>
             <label for="text_countdown" class="translate">text_countdown</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">looks_one</i>
             <textarea id="text_one" class="materialize-textarea value"></textarea>
             <label for="text_one" class="translate">text_one</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">looks_two</i>
             <textarea id="text_two" class="materialize-textarea value"></textarea>
             <label for="text_two" class="translate">text_two</label>
@@ -1361,112 +1424,112 @@
       </div>
       <div id="tab_words" class="col s12 page">
         <div class="row">
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_pass" class="materialize-textarea value"></textarea>
             <label for="log_pass" class="translate">log_pass</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_act_not" class="materialize-textarea value"></textarea>
             <label for="log_act_not" class="translate">log_act_not</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_act" class="materialize-textarea value"></textarea>
             <label for="log_act" class="translate">log_act</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_act_notice" class="materialize-textarea value"></textarea>
             <label for="log_act_notice" class="translate">log_act_notice</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_act_warn" class="materialize-textarea value"></textarea>
             <label for="log_act_warn" class="translate">log_act_warn</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_deact" class="materialize-textarea value"></textarea>
             <label for="log_deact" class="translate">log_deact</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_warn_act" class="materialize-textarea value"></textarea>
             <label for="log_warn_act" class="translate">log_warn_act</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_warn_deact" class="materialize-textarea value"></textarea>
             <label for="log_warn_deact" class="translate">log_warn_deact</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_burgle" class="materialize-textarea value"></textarea>
             <label for="log_burgle" class="translate">log_burgle</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_panic" class="materialize-textarea value"></textarea>
             <label for="log_panic" class="translate">log_panic</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_warn" class="materialize-textarea value"></textarea>
             <label for="log_warn" class="translate">log_warn</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_night" class="materialize-textarea value"></textarea>
             <label for="log_night" class="translate">log_night</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_sleep_b" class="materialize-textarea value"></textarea>
             <label for="log_sleep_b" class="translate">log_sleep_b</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_sleep_e" class="materialize-textarea value"></textarea>
             <label for="log_sleep_e" class="translate">log_sleep_e</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_warn_b_w" class="materialize-textarea value"></textarea>
             <label for="log_warn_b_w" class="translate">log_warn_b_w</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_nights_b_w" class="materialize-textarea value"></textarea>
             <label for="log_nights_b_w" class="translate">log_nights_b_w</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">looks_one</i>
             <textarea id="log_one" class="materialize-textarea value"></textarea>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">looks_two</i>
             <textarea id="log_two" class="materialize-textarea value"></textarea>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_zone_one" class="materialize-textarea value"></textarea>
             <label for="log_zone_one" class="translate">log_zone_one</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_zone_two" class="materialize-textarea value"></textarea>
             <label for="log_zone_two" class="translate">log_zone_two</label>
           </div>
-          <div class="input-field col s12 m6 l4">
+          <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>
             <textarea id="log_zone_three" class="materialize-textarea value"></textarea>
             <label for="log_zone_three" class="translate">log_zone_three</label>
           </div>
         </div>
       </div>
-      <div id="other_alarms" class="col s12 page">
+      <div id="tab_other_alarms" class="col s12 page">
         <div class="row">
           <div class="col s12">
             <div class="card-panel">
@@ -1547,7 +1610,7 @@
           </div>
         </div>
       </div>
-      <div id="zones" class="col s12 page">
+      <div id="tab_zones" class="col s12 page">
         <div class="col s12" id="zone_one">
           <br>
           <div class="row">
@@ -1708,8 +1771,24 @@
         </div>
       </div>
     </div>
-  </div>
+
   <div class="m material-dialogs">
+    <div id="dialog-select-member" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col s12 title"></div>
+        </div>
+        <div class="row">
+          <div class="col s12 dialog-content"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-green btn btn-set"><i
+            class="large material-icons left">check</i><span class="translate">Select</span></a>
+        <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i
+            class="large material-icons left ">close</i><span class="translate">Cancel</span></a>
+      </div>
+    </div>
     <div id="dialog-presence-edit" class="modal modal-fixed-footer">
       <div class="row">
         <div class="modal-content">
@@ -1839,26 +1918,7 @@
       </div>
     </div>
   </div>
-
-  <div class="m material-dialogs">
-    <div id="dialog-select-member" class="modal modal-fixed-footer">
-      <div class="modal-content">
-        <div class="row">
-          <div class="col s12 title"></div>
-        </div>
-        <div class="row">
-          <div class="col s12 dialog-content"></div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <a class="modal-action modal-close waves-effect waves-green btn btn-set"><i
-            class="large material-icons left">check</i><span class="translate">Select</span></a>
-        <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i
-            class="large material-icons left ">close</i><span class="translate">Cancel</span></a>
-      </div>
-    </div>
-  </div>
-  </div>
+</div>
 </body>
 
 </html>

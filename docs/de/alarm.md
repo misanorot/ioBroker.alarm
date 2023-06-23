@@ -182,10 +182,10 @@ Sollte die Instanz während einer aktiven Anlage neu gestartet werden, wird die 
 * **3:** Einschaltdauer in dem die ID eingeschlten bleiben soll
 * **4:** Einstellung des höchsten (1-10) Zufallsfaktors für die Zeit 
 * **5:** Zeitverzögerung nach eintreten des Modus Triggers
-* **6:** Einstellung des Zufallsfaktors für die Zeitverzögerung *(z.B. 10min * 5)* 
-* **7:** Trigger--> any = es wird bei jeder Änderung getriggert / ne = es wird nur getriggert, wenn der Wert sich geändert
-* **8:** Auswahl auf welchen Wert getriggert werden soll
-* **9:** Auswahl auf welchen internen state geschrieben werden soll
+* **6:** Wert beim Einschalten
+* **7:** Wert beim Ausschalten
+* **8:** Auswahl auf welchen internen state geschrieben werden soll
+* **9:** Auswahl ab welchen Grenzwert getriggert werden soll
 
 
 #### Modus
