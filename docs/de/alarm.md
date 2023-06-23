@@ -196,7 +196,7 @@ Sollte die Instanz während einer aktiven Anlage neu gestartet werden, wird die 
 * Licht = Bei Unterschreitung des eingestellten Lichtwertes des Triggers
 * *(die Abfrage der Trigger erfolgt minütlich)*
 
-**Eine korrekte Funktionsweise des Sonnenaufgangs und -untergangs, setzt eine richtige Konfiguration im JS Controller voraus!**
+**Für die Anwesenheitssimulation, ist eine Konfiguration des Standortes notwendig!Eine korrekte Funktionsweise des Sonnenaufgangs und -untergangs, setzt eine korrekte Angabe des Standortes voraus!**
 
 ----------------------------------------------------------------------------------------------------------------------
 
