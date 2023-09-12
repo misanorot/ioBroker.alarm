@@ -362,7 +362,7 @@ systemDictionary = {
 		'uk': 'Сек між Мсг',
 		'zh-cn': '女士'
 	},
-	'text_changes': { 'en': 'Phrase at changes sharp inside', 'de': 'Satz Veränderungen während SCHARF INTERN', 'ru': 'Фраза ночью меняется', 'pt': 'Frase no resto da noite muda', 'nl': 'Zin in nachtrust verandert', 'fr': 'Phrase au changement de repos nocturne', 'it': 'La frase durante il riposo notturno cambia', 'es': 'Frase en los cambios de descanso nocturno', 'pl': 'Zwrot w nocnym odpoczynku zmienia się', 'zh-cn': '夜间休息时的短语变化' },
+	'text_changes': { 'en': 'Phrase at changes sharp and sharp inside', 'de': 'Satz Veränderungen während SCHARF und  SCHARF INNEN', 'ru': 'Фраза ночью меняется', 'pt': 'Frase no resto da noite muda', 'nl': 'Zin in nachtrust verandert', 'fr': 'Phrase au changement de repos nocturne', 'it': 'La frase durante il riposo notturno cambia', 'es': 'Frase en los cambios de descanso nocturno', 'pl': 'Zwrot w nocnym odpoczynku zmienia się', 'zh-cn': '夜间休息时的短语变化' },
 	'text_changes_night': { 'en': 'Phrase at changes during night rest', 'de': 'Satz bei Änderungen während der Nachtruhe', 'ru': 'Фраза при переменах во время ночного отдыха', 'pt': 'Frase com alterações durante o descanso noturno', 'nl': 'Zin bij veranderingen tijdens nachtrust', 'fr': 'Phrase aux changements pendant le repos nocturne', 'it': 'Frase ai cambiamenti durante il riposo notturno', 'es': 'Frase en los cambios durante el descanso nocturno', 'pl': 'Zwroty przy zmianach podczas nocnego odpoczynku', 'zh-cn': '夜间休息时的变化短语' },
 	'text_countdown': {
 		'en': 'Time to activation',

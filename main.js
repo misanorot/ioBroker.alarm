@@ -820,8 +820,13 @@ class Alarm extends utils.Adapter {
 				}
 				this.sayit(say, 5);
 			} else if (activated) {
+				let say = this.config.text_changes;
 				if (log) this.log.info(`${this.config.log_warn} ${name}`);
 				if (this.config.send_notification_changes) this.messages(`${this.config.log_warn} ${name}`);
+				if (this.config.opt_say_names) {
+					say = say + ' ' + name;
+				}
+				this.sayit(say, 5);
 			}
 			timer_notification_changes = setTimeout(() => {
 				this.setState('info.notification_circuit_changes', false, true);
