@@ -320,6 +320,10 @@ class Alarm extends utils.Adapter {
 	burglary(id, _state, silent, indoor) {
 		let count = 0;
 		const name = this.get_name(id);
+		let say = this.config.text_alarm;
+		if (this.config.opt_say_names) {
+			say = say + ' ' + name;
+		}
 		if (burgle) {
 			this.setState('info.log', `${this.config.log_burgle} ${name}`, true);
 			if (log) this.log.info(`${this.config.log_burgle} ${name}`);
@@ -359,10 +363,10 @@ class Alarm extends utils.Adapter {
 				if (this.config.send_alarm) this.messages(`${this.config.log_burgle} ${name}`);
 				clearTimeout(silent_timer);
 				clearInterval(silent_interval);
-				this.sayit(this.config.text_alarm, 6);
+				this.sayit(say, 6);
 				text_alarm_interval = setInterval(() => {
 					if (count < alarm_repeat) {
-						this.sayit(this.config.text_alarm, 6);
+						this.sayit(say, 6);
 						count++;
 					} else {
 						clearInterval(text_alarm_interval);
@@ -397,10 +401,10 @@ class Alarm extends utils.Adapter {
 			this.clearAllPresenceTimer();
 			if (this.config.send_alarm_inside && indoor) this.messages(`${this.config.log_burgle} ${name}`);
 			if (this.config.send_alarm && !indoor) this.messages(`${this.config.log_burgle} ${name}`);
-			this.sayit(this.config.text_alarm, 6);
+			this.sayit(say, 6);
 			text_alarm_interval = setInterval(() => {
 				if (count < alarm_repeat) {
-					this.sayit(this.config.text_alarm, 6);
+					this.sayit(say, 6);
 					count++;
 				} else {
 					clearInterval(text_alarm_interval);
