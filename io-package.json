@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.3.12",
+    "version": "3.3.13",
     "news": {
+      "3.3.13": {
+        "en": "fixed #147",
+        "de": "fest #147",
+        "ru": "фиксированный #147",
+        "pt": "fixo #147",
+        "nl": "vertaling:",
+        "fr": "fixe no 147",
+        "it": "fisso #147",
+        "es": "fijo #147",
+        "pl": "#147",
+        "uk": "фіксована #147",
+        "zh-cn": "固定行动147"
+      },
       "3.3.12": {
         "en": "fixed select-id popup and little issues on setting pages",
         "de": "feste ausgewählte popups und kleine probleme bei der einstellung von seiten",
@@ -80,19 +93,6 @@
         "pl": "rzeczywiste problemy w obecności światła spustowego",
         "uk": "виправлені проблеми при наявності світлового запуску",
         "zh-cn": "b. 存在轻易事件的固定问题"
-      },
-      "3.3.6": {
-        "en": "fixed issues at night rest logs\nadded more logs during burglary",
-        "de": "feste probleme bei nachtruhe logs\nweitere protokolle beim einbruch hinzugefügt",
-        "ru": "фиксированные вопросы в ночных журналах отдыха\nдобавил больше логов во время burglary",
-        "pt": "problemas fixos em registros de descanso noturnos\nadicionou mais toras durante o roubo",
-        "nl": "'s nachts rustgegevens\nvoegde meer logboeken toe tijdens inbraak",
-        "fr": "problèmes fixes dans les registres de repos de nuit\najouté plus de logs pendant le cambriolage",
-        "it": "problemi fissi nei registri di riposo notturno\naggiunto più registri durante il furto",
-        "es": "problemas fijos en los registros de descanso nocturno\nañadido más registros durante el robo",
-        "pl": "prawidłowe problemy w nocnym spoczynku\ndodano więcej logów podczas burglarii",
-        "uk": "виправлені питання в журналах нічного відпочинку\nдодано більше журналів при burglary",
-        "zh-cn": "夜间固定问题取决于逻辑\n在汉堡期间增加更多的伐木"
       }
     },
     "title": "Alarm",
