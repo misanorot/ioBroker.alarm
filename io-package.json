@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.3.13",
+    "version": "3.4.0",
     "news": {
+      "3.4.0": {
+        "en": "fixed #168",
+        "de": "fest #168",
+        "ru": "исправлено #168",
+        "pt": "fixo #168",
+        "nl": "vertaling:",
+        "fr": "fixe #168",
+        "it": "fisso #168",
+        "es": "fijo #168",
+        "pl": "#168",
+        "uk": "фіксована #168",
+        "zh-cn": "固定编号168"
+      },
       "3.3.13": {
         "en": "fixed #147",
         "de": "fest #147",
@@ -80,19 +93,6 @@
         "pl": "prawidłowe problemy z burgle logiem",
         "uk": "виправлені питання в burgle log",
         "zh-cn": "堡固定问题"
-      },
-      "3.3.7": {
-        "en": "fixed issues at presence light trigger",
-        "de": "feste probleme bei präsenzlichtauslöser",
-        "ru": "фиксированные проблемы при наличии светового триггера",
-        "pt": "problemas fixos no gatilho de luz de presença",
-        "nl": "vertaling:",
-        "fr": "problèmes fixes à la lumière de présence",
-        "it": "problemi fissi alla presenza di trigger leggero",
-        "es": "problemas fijos en el gatillo de luz presencial",
-        "pl": "rzeczywiste problemy w obecności światła spustowego",
-        "uk": "виправлені проблеми при наявності світлового запуску",
-        "zh-cn": "b. 存在轻易事件的固定问题"
       }
     },
     "title": "Alarm",
