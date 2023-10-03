@@ -859,9 +859,10 @@
           "2": "sharp inside",
           "3": "burglary",
           "4": "night rest",
-          "5": "gets_activated",
-          "6": "activation_failed",
-          "7": "activation_aborted"
+          "5": "gets activated",
+          "6": "activation failed",
+          "7": "activation aborted",
+          "8": "silent alarm"
         },
         "read": true,
         "write": false

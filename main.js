@@ -335,6 +335,7 @@ class Alarm extends utils.Adapter {
 		if (silent) {
 			this.setState('status.silent_alarm', true, true);
 			this.setState('status.state', 'silent alarm', true);
+			this.setState('status.state_list', 8, true);
 			if (this.config.send_alarm_silent_inside && indoor) this.messages(`${this.config.log_burgle} ${name}`);
 			if (this.config.send_alarm_silent && !indoor) this.messages(`${this.config.log_burgle} ${name}`);
 			if (this.config.silent_flash > 0) {
