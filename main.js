@@ -1964,20 +1964,16 @@ class Alarm extends utils.Adapter {
 
 
 	getAstro() {
-		try {
-			this.getForeignObject('system.config', 'state', (err, obj) => {
-				if (obj && obj.common && obj.common.longitude && obj.common.latitude) {
-					const longitude = obj.common.longitude;
-					const latitude = obj.common.latitude;
-					this.log.debug(`longitude: ${longitude} | latitude: ${latitude}`);
-					this.setSun(longitude, latitude);
-				} else {
-					this.log.error('System location settings cannot be called up. Please check configuration!');
-				}
-			});
-		} catch (err) {
-			this.log.warn('System location settings cannot be called up. Please check configuration!');
-		}
+		this.getForeignObject('system.config', (err, obj) => {
+			if (obj && obj.common && obj.common.longitude && obj.common.latitude) {
+				const longitude = obj.common.longitude;
+				const latitude = obj.common.latitude;
+				this.log.debug(`longitude: ${longitude} | latitude: ${latitude}`);
+				this.setSun(longitude, latitude);
+			} else {
+				this.log.error('System location settings cannot be called up. Please check configuration!');
+			}
+		});
 	}
 
 	async setSun(longitude, latitude) {
