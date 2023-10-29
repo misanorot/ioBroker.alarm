@@ -29,7 +29,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
- ### **WORK IN PROGRESS**
+### **WORK IN PROGRESS**
 * (misanorot) fixed astro at presence simulation (jsControler 5.x???)
 
 ### 3.4.0 (2023-10-03)
