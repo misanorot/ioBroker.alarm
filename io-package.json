@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.4.0",
+    "version": "3.4.1",
     "news": {
+      "3.4.1": {
+        "en": "fixed astro at presence simulation (jsControler 5.x???)",
+        "de": "fester Astro bei Präsenzsimulation (jsControler 5.x?)",
+        "ru": "фиксированная астро при наличии симуляции (jsControler 5.x?)",
+        "pt": "astro fixo na simulação de presença (jsControler 5.x?)",
+        "nl": "gerepareerd astro bij aanwezigheidssimulatie (jsControler 5.x)",
+        "fr": "astro fixe à la simulation de présence (jsControler 5.x?)",
+        "it": "astro fisso alla simulazione di presenza (jsControler 5.x?)",
+        "es": "astro fijo en simulación de presencia (jsControler 5.x?)",
+        "pl": "stworzona gwiazda w symulacji (jsControler 5.x?)",
+        "uk": "фіксована астро при наявності моделювання (jsControler 5.x?)",
+        "zh-cn": "固定在场的模拟(jsControler 5.x?)"
+      },
       "3.4.0": {
         "en": "fixed #168",
         "de": "fest #168",
@@ -69,19 +82,6 @@
         "zh-cn": "固定的利词和存在 bug"
       },
       "3.3.9": {
-        "en": "fixed issues at burgle log",
-        "de": "feste probleme bei burgle log",
-        "ru": "фиксированные вопросы в burgle log",
-        "pt": "problemas fixos no log de águia",
-        "nl": "vertaling:",
-        "fr": "problèmes fixes dans le journal de burgle",
-        "it": "problemi fissi a log burgle",
-        "es": "problemas fijos en el registro de burgle",
-        "pl": "prawidłowe problemy z burgle logiem",
-        "uk": "виправлені питання в burgle log",
-        "zh-cn": "堡固定问题"
-      },
-      "3.3.8": {
         "en": "fixed issues at burgle log",
         "de": "feste probleme bei burgle log",
         "ru": "фиксированные вопросы в burgle log",
