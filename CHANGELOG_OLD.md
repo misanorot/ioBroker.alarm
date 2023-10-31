@@ -9,6 +9,12 @@
 ### 3.3.11 (2023-04-15)
 * (misanorot) fixed issue at night rest
 
+### 3.3.10 (2023-03-31)
+* (misanorot) fixed litle speech and presence bug
+
+### 3.3.9 (2023-01-14)
+* (misanorot) fixed issues at burgle log
+
 ### 3.3.6 (2022-12-28)
 * (misanorot) fixed issues at night rest logs
 * (misanorot) added more logs during burglary
