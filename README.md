@@ -29,7 +29,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 3.4.2 (2023-10-31)
 * (misanorot) added enhancement #170
 
 ### 3.4.1 (2023-10-29)
@@ -39,6 +39,12 @@
 * (misanorot) fixed #168
 
 **[older changelogs](CHANGELOG_OLD.md)**
+
+### 3.3.10 (2023-03-31)
+* (misanorot) fixed litle speech and presence bug
+
+### 3.3.9 (2023-01-14)
+* (misanorot) fixed issues at burgle log
 
 ## License
 MIT License

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.4.1",
+    "version": "3.4.2",
     "news": {
+      "3.4.2": {
+        "en": "added enhancement #170",
+        "de": "erweiterung #170",
+        "ru": "добавлено улучшение #170",
+        "pt": "melhoria adicionada #170",
+        "nl": "verbetering #170",
+        "fr": "amélioration ajoutée #170",
+        "it": "aggiunto miglioramento #170",
+        "es": "mejora agregada #170",
+        "pl": "dodał także poprawkę #170",
+        "uk": "додано підвищення #170",
+        "zh-cn": "增援行动170"
+      },
       "3.4.1": {
         "en": "fixed astro at presence simulation (jsControler 5.x???)",
         "de": "fester Astro bei Präsenzsimulation (jsControler 5.x?)",
@@ -80,19 +93,6 @@
         "pl": "stałe przemówienie i obecność bugu",
         "uk": "виправлений лайт мова і наявність помилок",
         "zh-cn": "固定的利词和存在 bug"
-      },
-      "3.3.9": {
-        "en": "fixed issues at burgle log",
-        "de": "feste probleme bei burgle log",
-        "ru": "фиксированные вопросы в burgle log",
-        "pt": "problemas fixos no log de águia",
-        "nl": "vertaling:",
-        "fr": "problèmes fixes dans le journal de burgle",
-        "it": "problemi fissi a log burgle",
-        "es": "problemas fijos en el registro de burgle",
-        "pl": "prawidłowe problemy z burgle logiem",
-        "uk": "виправлені питання в burgle log",
-        "zh-cn": "堡固定问题"
       }
     },
     "title": "Alarm",

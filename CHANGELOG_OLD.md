@@ -132,11 +132,5 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
-## 3.3.10 (2023-03-31)
-* (misanorot) fixed litle speech and presence bug
-
-## 3.3.9 (2023-01-14)
-* (misanorot) fixed issues at burgle log
-
 ## 3.3.7 (2023-01-02)
 * (misanorot) fixed issues at presence light trigger
