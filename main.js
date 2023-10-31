@@ -1848,95 +1848,95 @@ class Alarm extends utils.Adapter {
 				switch (presenceTimers[item].option_presence) {
 					case 'time':
 						if (presenceTimers[item].presence_time_from == '' || presenceTimers[item].presence_time_to == '') {
-							this.log.warn(`Please check the times when configuring attendance: ${presenceTimers[item].name_id}`);
+							this.log.warn(`Please check the times when configuring attendance: ${presenceTimers[item].name} -- ${presenceTimers[item].name_id} `);
 							return;
 						}
 						if (this.timeInRange(presenceTimers[item].presence_time_from, presenceTimers[item].presence_time_to) && !presenceTimers[item].wasOn) {
-							this.log.debug(`Delay for: ${presenceTimers[item].name_id} starts ${presenceTimers[item].presence_delay}ms, because time is in range.`);
+							this.log.debug(`Delay for: ${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  starts ${presenceTimers[item].presence_delay}ms, because time is in range.`);
 							presenceTimers[item].wasOn = true;
 							presenceTimers[item].presenceDelayTimer = setTimeout(() => {
-								this.log.debug(`Delay for: ${presenceTimers[item].name_id} ends and switch ON ${presenceTimers[item].presence_length}ms.`);
+								this.log.debug(`Delay for: ${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  ends and switch ON ${presenceTimers[item].presence_length}ms.`);
 								this.setForeignState(presenceTimers[item].name_id, this.bools(presenceTimers[item].presence_val_on), (err) => {
 									if (err) this.log.warn(`Cannot set state: ${err}`);
 								});
 								presenceTimers[item].presenceLengthTimer = setTimeout(() => {
-									this.log.debug(`Switch ON for: ${presenceTimers[item].name_id} ends and switch OFF.`);
+									this.log.debug(`Switch ON for: ${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  ends and switch OFF.`);
 									this.setForeignState(presenceTimers[item].name_id, this.bools(presenceTimers[item].presence_val_off), (err) => {
 										if (err) this.log.warn(`Cannot set state: ${err}`);
 									});
 								}, presenceTimers[item].presence_length);
 							}, presenceTimers[item].presence_delay);
 						} else {
-							this.log.debug(`${presenceTimers[item].name_id} was ON or is not in time range`);
+							this.log.debug(`${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  was ON or is not in time range`);
 						}
 						break;
 					case 'sunrise':
 						if (sunrise && !presenceTimers[item].wasOn) {
-							this.log.debug(`Delay for: ${presenceTimers[item].name_id} starts ${presenceTimers[item].presence_delay}ms, by sunrise`);
+							this.log.debug(`Delay for: ${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  starts ${presenceTimers[item].presence_delay}ms, by sunrise`);
 							presenceTimers[item].wasOn = true;
 							presenceTimers[item].presenceDelayTimer = setTimeout(() => {
-								this.log.debug(`Delay for: ${presenceTimers[item].name_id} ends and switch ON ${presenceTimers[item].presence_length}ms.`);
+								this.log.debug(`Delay for: ${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  ends and switch ON ${presenceTimers[item].presence_length}ms.`);
 								this.setForeignState(presenceTimers[item].name_id, this.bools(presenceTimers[item].presence_val_on), (err) => {
 									if (err) this.log.warn(`Cannot set state: ${err}`);
 								});
 								presenceTimers[item].presenceLengthTimer = setTimeout(() => {
-									this.log.debug(`Switch ON for: ${presenceTimers[item].name_id} ends and switch OFF.`);
+									this.log.debug(`Switch ON for: ${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  ends and switch OFF.`);
 									this.setForeignState(presenceTimers[item].name_id, this.bools(presenceTimers[item].presence_val_off), (err) => {
 										if (err) this.log.warn(`Cannot set state: ${err}`);
 									});
 								}, presenceTimers[item].presence_length);
 							}, presenceTimers[item].presence_delay);
 						} else {
-							this.log.debug(`${presenceTimers[item].name_id} was ON or is no sunrise`);
+							this.log.debug(`${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  was ON or is no sunrise`);
 						}
 						break;
 					case 'sunset':
 						if (sunset && !presenceTimers[item].wasOn) {
-							this.log.debug(`Delay for: ${presenceTimers[item].name_id} starts ${presenceTimers[item].presence_delay}ms, by sunset`);
+							this.log.debug(`Delay for: ${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  starts ${presenceTimers[item].presence_delay}ms, by sunset`);
 							presenceTimers[item].wasOn = true;
 							presenceTimers[item].presenceDelayTimer = setTimeout(() => {
-								this.log.debug(`Delay for: ${presenceTimers[item].name_id} ends and switch ON ${presenceTimers[item].presence_length}ms.`);
+								this.log.debug(`Delay for: ${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  ends and switch ON ${presenceTimers[item].presence_length}ms.`);
 								this.setForeignState(presenceTimers[item].name_id, this.bools(presenceTimers[item].presence_val_on), (err) => {
 									if (err) this.log.warn(`Cannot set state: ${err}`);
 								});
 								presenceTimers[item].presenceLengthTimer = setTimeout(() => {
-									this.log.debug(`Switch ON for: ${presenceTimers[item].name_id} ends and switch OFF.`);
+									this.log.debug(`Switch ON for: ${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  ends and switch OFF.`);
 									this.setForeignState(presenceTimers[item].name_id, this.bools(presenceTimers[item].presence_val_off), (err) => {
 										if (err) this.log.warn(`Cannot set state: ${err}`);
 									});
 								}, presenceTimers[item].presence_length);
 							}, presenceTimers[item].presence_delay);
 						} else {
-							this.log.debug(`${presenceTimers[item].name_id} was ON or is no sunset`);
+							this.log.debug(`${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  was ON or is no sunset`);
 						}
 						break;
 					case 'light':
 						// eslint-disable-next-line no-case-declarations
 						const lightVal = await this.getForeignStateAsync(presenceTimers[item].presence_trigger_light).catch((e) => {
-							this.log.warn(`Check your light ID ${presenceTimers[item].name_id} in presence config! +++ ${e}`);
+							this.log.warn(`Check your light ID ${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  in presence config! +++ ${e}`);
 							return;
 						});
 						if (lightVal.val < presenceTimers[item].presence_light_lux && !presenceTimers[item].wasOn) {
-							this.log.debug(`Delay for: ${presenceTimers[item].name_id} starts ${presenceTimers[item].presence_delay}ms, because light value is exceeded`);
+							this.log.debug(`Delay for: ${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  starts ${presenceTimers[item].presence_delay}ms, because light value is not under the limit.`);
 							presenceTimers[item].wasOn = true;
 							presenceTimers[item].presenceDelayTimer = setTimeout(() => {
-								this.log.debug(`Delay for: ${presenceTimers[item].name_id} ends and switch ON ${presenceTimers[item].presence_length}ms.`);
+								this.log.debug(`Delay for: ${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  ends and switch ON ${presenceTimers[item].presence_length}ms.`);
 								this.setForeignState(presenceTimers[item].name_id, this.bools(presenceTimers[item].presence_val_on), (err) => {
 									if (err) this.log.warn(`Cannot set state: ${err}`);
 								});
 								presenceTimers[item].presenceLengthTimer = setTimeout(() => {
-									this.log.debug(`Switch ON for: ${presenceTimers[item].name_id} ends and switch OFF.`);
+									this.log.debug(`Switch ON for: ${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  ends and switch OFF.`);
 									this.setForeignState(presenceTimers[item].name_id, this.bools(presenceTimers[item].presence_val_off), (err) => {
 										if (err) this.log.warn(`Cannot set state: ${err}`);
 									});
 								}, presenceTimers[item].presence_length);
 							}, presenceTimers[item].presence_delay);
 						} else {
-							this.log.debug(`${presenceTimers[item].name_id} was ON or light value is not exceeded`);
+							this.log.debug(`${presenceTimers[item].name} -- ${presenceTimers[item].name_id}  was ON or light value is not under the limit.`);
 						}
 						break;
 					default:
-						this.log.warn(`Please check presence configuration for: ${presenceTimers[item].name_id}, value: ${presenceTimers[item].option_presence}`);
+						this.log.warn(`Please check presence configuration for: ${presenceTimers[item].name} -- ${presenceTimers[item].name_id} , value: ${presenceTimers[item].option_presence}`);
 				}
 			}
 		}

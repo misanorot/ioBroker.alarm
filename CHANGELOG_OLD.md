@@ -1,5 +1,14 @@
 # Older changes
 
+### 3.3.13 (2023-09-19)
+* (misanorot) fixed #147
+
+### 3.3.12 (2023-06-23)
+* (misanorot) fixed select-id popup and little issues on setting pages
+
+### 3.3.11 (2023-04-15)
+* (misanorot) fixed issue at night rest
+
 ### 3.3.6 (2022-12-28)
 * (misanorot) fixed issues at night rest logs
 * (misanorot) added more logs during burglary
