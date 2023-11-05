@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.4.2",
+    "version": "3.4.3",
     "news": {
+      "3.4.3": {
+        "en": "added silent_alarm (state list) to shortcuts",
+        "de": "stumm_alarm (stateliste) zu shortcuts hinzugefügt",
+        "ru": "добавлено quiet_alarm (список состояния) на shortcuts",
+        "pt": "adicionado silent_alarm (lista de estado) para atalhos",
+        "nl": "vertaling:",
+        "fr": "added silent_alarm (state list) to shortcuts",
+        "it": "aggiunto silent_alarm (elenco di stato) alle scorciatoie",
+        "es": "añadido silencio_alarma (lista de estado) a atajos",
+        "pl": "dodał cichą listę (listę stanową) do skrótów",
+        "uk": "додано безшумний_алматичний список (державний список) для ярликів",
+        "zh-cn": "补充沉默:沉默(国家名单)"
+      },
       "3.4.2": {
         "en": "added enhancement #170",
         "de": "erweiterung #170",
@@ -80,19 +93,6 @@
         "pl": "trwały problem w nocy",
         "uk": "виправлено проблему в нічному режимі",
         "zh-cn": "夜间固定问题休息"
-      },
-      "3.3.10": {
-        "en": "fixed litle speech and presence bug",
-        "de": "feste litle rede und anwesenheit fehler",
-        "ru": "исправлена лиловая речь и ошибка присутствия",
-        "pt": "discurso de linho fixo e bug presença",
-        "nl": "_",
-        "fr": "discours fixe et bug de présence",
-        "it": "discorso fisso e bug di presenza",
-        "es": "discurso de litio fijo y error de presencia",
-        "pl": "stałe przemówienie i obecność bugu",
-        "uk": "виправлений лайт мова і наявність помилок",
-        "zh-cn": "固定的利词和存在 bug"
       }
     },
     "title": "Alarm",
