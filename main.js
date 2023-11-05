@@ -1728,6 +1728,9 @@ class Alarm extends utils.Adapter {
 				case 7:
 					setVal = 'activation_aborted';
 					break;
+				case 8:
+					setVal = 'silent_alarm';
+					break;
 				default:
 					setVal = val;
 					this.log.warn(`Wrong list state at shortcuts: ${val}`);
