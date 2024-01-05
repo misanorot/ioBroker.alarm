@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.4.3",
+    "version": "3.5.0",
     "news": {
+      "3.5.0": {
+        "en": "added activation aborted speech output",
+        "de": "zusätzliche aktivierung abgebrochene sprachausgabe",
+        "ru": "добавленная активация прерванный выход речи",
+        "pt": "adicionada ativação abortada saída de fala",
+        "nl": "toegevoegde activering afgebroken spraakuitvoer",
+        "fr": "ajout d'une sortie vocale avortée d'activation",
+        "it": "attivazione aggiunta abortire uscita del discorso",
+        "es": "añadida activación abortada discurso salida",
+        "pl": "dodana aktywacja przerwane wyjście mowy",
+        "uk": "додана активація прискореного виходу мови",
+        "zh-cn": "添加激活中止的语音输出"
+      },
       "3.4.3": {
         "en": "added silent_alarm (state list) to shortcuts",
         "de": "stumm_alarm (stateliste) zu shortcuts hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "zbieramy wybrane popupy i mało problemów na stronach",
         "uk": "виправлений вибір спливаючого спливаючого та маленького питання щодо налаштування сторінок",
         "zh-cn": "b. 固定选择的居民人数和很少的问题"
-      },
-      "3.3.11": {
-        "en": "fixed issue at night rest",
-        "de": "festes problem bei nachtruhe",
-        "ru": "фиксированная проблема в ночной отдых",
-        "pt": "problema fixo no descanso noturno",
-        "nl": "'s nachts rust",
-        "fr": "problème fixe au repos nocturne",
-        "it": "problema fisso al riposo notturno",
-        "es": "tema fijo en el descanso nocturno",
-        "pl": "trwały problem w nocy",
-        "uk": "виправлено проблему в нічному режимі",
-        "zh-cn": "夜间固定问题休息"
       }
     },
     "title": "Alarm",

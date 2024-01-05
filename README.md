@@ -29,8 +29,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 3.5.0 (2024-01-05)
 * (misanorot) added activation aborted speech output
 
 ### 3.4.3 (2023-11-05)
@@ -46,9 +45,6 @@
 * (misanorot) fixed #168
 
 **[older changelogs](CHANGELOG_OLD.md)**
-
-### 3.3.7 (2023-01-02)
-* (misanorot) fixed issues at presence light trigger
 
 ## License
 MIT License
