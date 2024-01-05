@@ -207,6 +207,7 @@
                 });
                 $('#sayit .values-input[data-name="opt_say_one"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
                 $('#sayit .values-input[data-name="opt_say_two"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
+                $('#sayit .values-input[data-name="opt_say_aborted"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
                 $('#sayit .values-input[data-name="opt_say_three"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
                 $('#sayit .values-input[data-name="opt_say_four"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
                 $('#sayit .values-input[data-name="opt_say_five"][data-index="' + id_say + '"]').prop("checked", true).trigger('change');
@@ -1216,6 +1217,9 @@
                     </th>
                     <th data-name="opt_say_two" style="background: #174475; width: 40px" data-type="checkbox" class="">2
                     </th>
+                    <th data-name="opt_say_aborted" style="background: #174475; width: 40px" data-type="checkbox"
+                      class="">
+                      x</th>
                     <th data-name="opt_say_three" style="background: #174475; width: 40px" data-type="checkbox"
                       class="">3
                     </th>
@@ -1262,6 +1266,11 @@
             <i class="material-icons prefix">filter_2</i>
             <textarea id="text_deactivated" class="materialize-textarea value"></textarea>
             <label for="text_deactivated" class="translate">text_deactivated</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">highlight_off</i>
+            <textarea id="text_aborted" class="materialize-textarea value"></textarea>
+            <label for="text_aborted" class="translate">text_aborted</label>
           </div>
           <div class="input-field col s12">
             <i class="material-icons prefix">filter_3</i>
@@ -1458,6 +1467,11 @@
             <i class="material-icons prefix">edit</i>
             <textarea id="log_deact" class="materialize-textarea value"></textarea>
             <label for="log_deact" class="translate">log_deact</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">edit</i>
+            <textarea id="log_aborted" class="materialize-textarea value"></textarea>
+            <label for="log_aborted" class="translate">log_aborted</label>
           </div>
           <div class="input-field col s12">
             <i class="material-icons prefix">edit</i>

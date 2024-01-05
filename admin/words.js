@@ -49,18 +49,6 @@ systemDictionary = {
 		'pl': 'cichy alarm ostry w środku',
 		'zh-cn': '静音报警尖锐内部'
 	},
-	'speech_delay': {
-		'en': 'delay (sec)',
-		'de': 'Verzögerung (Sek.)',
-		'ru': 'задержка (сек)',
-		'pt': 'atraso (s)',
-		'nl': 'vertraging (sec)',
-		'fr': 'délai (sec)',
-		'it': 'ritardo (sec)',
-		'es': 'retraso (seg)',
-		'pl': 'opóźnienie (sek)',
-		'zh-cn': '延迟（秒）'
-	},
 	'disabled': { 'en': 'disabled', 'de': 'deaktiviert', 'ru': 'отключен', 'pt': 'Desativado', 'nl': 'invalide', 'fr': 'désactivée', 'it': 'Disabilitato', 'es': 'discapacitado', 'pl': 'wyłączone', 'zh-cn': '残' },
 	'donat': {
 		'en': "I'm not a professional developer and this is a private project, the development takes place in my spare time, if you want to support this you can thank me with a donation under PayPal. You are also welcome to send me feature requests for future versions of the adapter.",
@@ -103,6 +91,18 @@ systemDictionary = {
 		'es': 'dejar',
 		'pl': 'Zostawić',
 		'zh-cn': '离开'
+	},
+	'log_aborted': {'en': 'Activation aborted',
+		'de': 'Aktivierung abgebrochen',
+		'ru': 'Активация прервана',
+		'pt': 'Ativação abortada',
+		'nl': 'Activering afgebroken',
+		'fr': 'Activation interrompue',
+		'it': 'Attivazione annullata',
+		'es': 'Activación abortada',
+		'pl': 'Przerwana aktywacja',
+		'uk': 'Активація',
+		'zh-cn': '激活中止'
 	},
 	'log_act': { 'en': 'Activated', 'de': 'Aktiviert', 'ru': 'активированная', 'pt': 'ativado', 'nl': 'Geactiveerd', 'fr': 'Activé', 'it': 'attivato', 'es': 'Activado', 'pl': 'Aktywowany', 'zh-cn': '活性' },
 	'log_act_not': { 'en': 'Can not activate', 'de': 'Kann nicht aktiviert werden', 'ru': 'Не может активировать', 'pt': 'Não é possível ativar', 'nl': 'Kan niet activeren', 'fr': "Impossible d'activer", 'it': 'Impossibile attivare', 'es': 'No se puede activar', 'pl': 'Nie można aktywować', 'zh-cn': '无法激活' },
@@ -346,7 +346,32 @@ systemDictionary = {
 		'pl': 'częstotliwość światła błyskowego przy cichym alarmie',
 		'zh-cn': '静音时出现闪光灯频率'
 	},
+	'speech_delay': {
+		'en': 'delay',
+		'de': 'verzögerung',
+		'ru': 'отсрочка',
+		'pt': 'atraso',
+		'nl': 'vertraging',
+		'fr': 'retard',
+		'it': 'ritardo',
+		'es': 'demora',
+		'pl': 'opóźnienie',
+		'uk': 'затримка',
+		'zh-cn': '延迟'
+	},
 	'states': { 'en': 'monitoring', 'de': 'Überwachung', 'ru': 'состояния', 'pt': 'Estados', 'nl': 'Staten', 'fr': 'États', 'it': 'stati', 'es': 'Estados', 'pl': 'Stany Zjednoczone', 'zh-cn': '状态' },
+	'text_aborted': {'en': 'Activation aborted',
+		'de': 'Aktivierung abgebrochen',
+		'ru': 'Активация прервана',
+		'pt': 'Ativação abortada',
+		'nl': 'Activering afgebroken',
+		'fr': 'Activation interrompue',
+		'it': 'Attivazione annullata',
+		'es': 'Activación abortada',
+		'pl': 'Przerwana aktywacja',
+		'uk': 'Активація',
+		'zh-cn': '激活中止'
+	},
 	'text_activated': { 'en': 'Phrase after activation', 'de': 'Satz nach Aktivierung', 'ru': 'Фраза после активации', 'pt': 'Frase após ativação', 'nl': 'Zin na activering', 'fr': 'Phrase après activation', 'it': "Frase dopo l'attivazione", 'es': 'Frase después de la activación', 'pl': 'Zdanie po aktywacji', 'zh-cn': '激活后的短语' },
 	'text_alarm': { 'en': 'Phrase at burgle', 'de': 'Satz bei Einbruch', 'ru': 'Фраза в бургле', 'pt': 'Frase no burgle', 'nl': 'Zin in inbraak', 'fr': 'Phrase à burgle', 'it': 'Frase al burgle', 'es': 'Frase en Burgle', 'pl': 'Zdanie w burgle', 'zh-cn': '在burgle的短语' },
 	'text_alarm_pause': {

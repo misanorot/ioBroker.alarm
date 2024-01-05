@@ -1059,6 +1059,11 @@ class Alarm extends utils.Adapter {
 								this.speechOutput(ele.name_id, message, ele.speech_delay);
 							}
 							break;
+						case 14:
+							if (ele.opt_say_aborted) {
+								this.speechOutput(ele.name_id, message, ele.speech_delay);
+							}
+							break;
 						default:
 							this.log.debug(`no speech output!`);
 					}
@@ -1652,6 +1657,8 @@ class Alarm extends utils.Adapter {
 				this.setState('status.activation_countdown', null, true);
 				this.setState('status.gets_activated', false, true);
 				this.setState('status.state_list', 7, true);
+				this.sayit(this.config.text_aborted, 14);
+				if (log) this.log.info(`${this.config.log_aborted}`);
 			}
 			this.disableSystem();
 		}
