@@ -157,9 +157,11 @@ Sollte es erforderlich sein die Einzelnen States nicht auf *true*, sondern auf *
 
 ### Tab Zonen
 
-Zur freien Konfiguration stehen 3 Zonen. Diese dienen in der Regel zur Überwachung und Benachrichtigung von niederwertigen Bereichen, wie z.B. eine Stallung oder ähnliches. Diese 3 Zonen fungieren unabhängig von der Überwachung der eigentlichen Hauptkreise. Sollte man diese jedoch in den Hauptkreis integrieren wollen, ist dies möglich in dem man den jeweiligen state der Zone *z. B. alarm.X.zone.one* in den Hauptkreis einfügt. 
+Zur freien Konfiguration stehen 3 Zonen. Diese dienen in der Regel zur Überwachung und Benachrichtigung von niederwertigen Bereichen, wie z.B. eine Stallung oder ähnliches. Diese 3 Zonen fungieren unabhängig von der Überwachung der eigentlichen Hauptkreise. Sollte man diese jedoch in den Hauptkreis integrieren wollen, ist dies möglich in dem man den jeweiligen state der Zone *z. B. alarm.X.zone.one* in den Hauptkreis (Tab Überwachung) einfügt. Dies hat aber zur Folge, dass die Meldung der entsprechenden Zonen ignoriert werden.
 
+Über den state *alarm.x.zone.one_on_off*, hat man die Möglichkeit, jederzeit ohne einen Adapter Neustart die Zone zu de- bzw. aktivieren! Dies bringt die Möglichkeit mit sich, z. B. Bewegungsmelder variabler in den Hauptkreis einzubinden. 
 
+*Merke: Bei Integration in den Hauptkreis, werden Diese auch bei Deaktivierung in den Listen angezeigt* 
 ----------------------------------------------------------------------------------------------------------------------
 
 ### Tab Anwesenheit

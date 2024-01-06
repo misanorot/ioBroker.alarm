@@ -378,6 +378,120 @@
       "native": {}
     },
     {
+      "_id": "zone.one_on_off",
+      "type": "state",
+      "common": {
+        "role": "switch",
+        "name": {
+          "en": "Zone one",
+          "de": "Gebiet eins",
+          "ru": "Зона одна",
+          "pt": "Zona um",
+          "nl": "Zone één",
+          "fr": "Zone 1",
+          "it": "Zona",
+          "es": "Zona 1",
+          "pl": "Strefa jednej strefy",
+          "uk": "Зона один",
+          "zh-cn": "第一部分"
+        },
+        "desc": {
+         "en": "Enable zone one",
+         "de": "Zone eins aktivieren",
+         "ru": "Включить зону один",
+         "pt": "Habilitar uma zona",
+         "nl": "Zone één inschakelen",
+         "fr": "Activer la zone un",
+         "it": "Abilitare la zona uno",
+         "es": "Zona 1",
+         "pl": "Włącz strefę 1",
+         "uk": "Увімкнути зону",
+         "zh-cn": "启用第一区"
+        },
+        "type": "boolean",
+        "def": true,
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "zone.two_on_off",
+      "type": "state",
+      "common": {
+        "role": "switch",
+        "name": {
+          "en": "Zone two",
+          "de": "Gebiet zwei",
+          "ru": "Зона 2",
+          "pt": "Zona dois",
+          "nl": "Zone twee",
+          "fr": "Zone deux",
+          "it": "Zona due",
+          "es": "Zona dos",
+          "pl": "Strefa 2",
+          "uk": "Зона 2",
+          "zh-cn": "第二部分"
+        },
+        "desc": {
+          "en": "Enable zone two",
+          "de": "Zone zwei aktivieren",
+          "ru": "Включить зону два",
+          "pt": "Ativar zona dois",
+          "nl": "Zone twee inschakelen",
+          "fr": "Activer la zone deux",
+          "it": "Zona due",
+          "es": "Zona 2",
+          "pl": "Włącz strefę drugą",
+          "uk": "Увімкнути зону 2",
+          "zh-cn": "启用二区"
+        },
+        "type": "boolean",
+        "def": true,
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "zone.three_on_off",
+      "type": "state",
+      "common": {
+        "role": "switch",
+        "name": {
+          "en": "Zone three",
+          "de": "Gebiet drei",
+          "ru": "Зона три",
+          "pt": "Zona três",
+          "nl": "Zone drie",
+          "fr": "Zone trois",
+          "it": "Zona tre",
+          "es": "Zona tres",
+          "pl": "Strefa 3",
+          "uk": "Зона три",
+          "zh-cn": "第三部分"
+        },
+        "desc": {
+          "en": "Enable zone three",
+          "de": "Zone drei aktivieren",
+          "ru": "Включить зону три",
+          "pt": "Habilitar a zona três",
+          "nl": "Zone drie inschakelen",
+          "fr": "Activer la zone trois",
+          "it": "Zona tre",
+          "es": "Zona habilitada 3",
+          "pl": "Włącz strefę trzecią",
+          "uk": "Увімкнути зону три",
+          "zh-cn": "启用三区"
+        },
+        "type": "boolean",
+        "def": true,
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
       "_id": "status.activated",
       "type": "state",
       "common": {

@@ -63,7 +63,10 @@ let is_alarm = false,
 
 const change_ids = {};
 
-let opt_presence = false;
+let opt_presence = false,
+	opt_one = true,
+	opt_two = true,
+	opt_three = true;
 
 let activated = false,
 	night_rest = false,
@@ -201,6 +204,21 @@ class Alarm extends utils.Adapter {
 			opt_presence = false;
 			this.setState('presence.on_off', false, true);
 		} else opt_presence = stateP.val;
+		const stateOne = await this.getStateAsync('zone.one_on_off').catch((e) => this.log.warn(e));
+		if (stateOne == null) {
+			opt_one = false;
+			this.setState('zone.one_on_off', false, true);
+		} else opt_one = stateOne.val;
+		const stateTwo = await this.getStateAsync('zone.two_on_off').catch((e) => this.log.warn(e));
+		if (stateTwo == null) {
+			opt_two = false;
+			this.setState('zone.two_on_off', false, true);
+		} else opt_two = stateTwo.val;
+		const stateThree = await this.getStateAsync('zone.three_on_off').catch((e) => this.log.warn(e));
+		if (stateThree == null) {
+			opt_three = false;
+			this.setState('zone.three_on_off', false, true);
+		} else opt_three = stateThree.val;
 		const stateS = await this.getStateAsync('status.sleep').catch((e) => this.log.warn(e));
 		if (stateS == null) {
 			night_rest = false;
@@ -613,6 +631,18 @@ class Alarm extends utils.Adapter {
 			}
 			return;
 		}
+		else if (id === this.namespace + '.zone.one_on_off') {
+			opt_one = state.val;
+			return;
+		}
+		else if (id === this.namespace + '.zone.two_on_off') {
+			opt_two = state.val;
+			return;
+		}
+		else if (id === this.namespace + '.zone.three_on_off') {
+			opt_three = state.val;
+			return;
+		}
 		else if (id === this.namespace + '.status.sleep') {
 			//  night_rest = state.val;
 			this.shortcuts('status.sleep', state.val);
@@ -796,14 +826,17 @@ class Alarm extends utils.Adapter {
 			return;
 		}
 		if (alarm_ids.includes(id) && activated && this.isTrue(id, state, 'main')) {
+			if (!this.zone(id)) return;
 			this.burglary(id, state, this.isSilent(id));
 			return;
 		}
 		if (inside_ids.includes(id) && inside && this.isTrue(id, state, 'main')) {
+			if (!this.zone(id)) return;
 			this.burglary(id, state, this.isSilent(id, true), true);
 		}
 
 		if (notification_ids.includes(id) && this.isTrue(id, state, 'main')) {
+			if (!this.zone(id)) return;
 			if (!activated && !inside && !night_rest) return;
 			const name = this.get_name(id);
 			this.setState('info.log', `${this.config.log_warn} ${name}`, true);
@@ -860,16 +893,19 @@ class Alarm extends utils.Adapter {
 			this.setState('other_alarms.two_changes', true, true);
 		}
 		if (zone_one_ids.includes(id) && this.isTrue(id, state, 'zone_one')) {
+			if (!opt_one) return;
 			const name = this.get_name(id, 'zone_one');
 			if (log) this.log.info(`${this.config.log_zone_one} ${name}`);
 			if (this.config.send_zone_one) this.messages(`${this.config.log_zone_one} ${name}`);
 		}
 		if (zone_two_ids.includes(id) && this.isTrue(id, state, 'zone_two')) {
+			if (!opt_two) return;
 			const name = this.get_name(id, 'zone_two');
 			if (log) this.log.info(`${this.config.log_zone_two} ${name}`);
 			if (this.config.send_zone_two) this.messages(`${this.config.log_zone_two} ${name}`);
 		}
 		if (zone_three_ids.includes(id) && this.isTrue(id, state, 'zone_three')) {
+			if (!opt_three) return;
 			const name = this.get_name(id, 'zone_three');
 			if (log) this.log.info(`${this.config.log_zone_three} ${name}`);
 			if (this.config.send_zone_three) this.messages(`${this.config.log_zone_three} ${name}`);
@@ -944,6 +980,7 @@ class Alarm extends utils.Adapter {
 		this.subscribeStates('use.*');
 		this.subscribeStates('status.*');
 		this.subscribeStates('presence.*');
+		this.subscribeStates('zone.*');
 		this.subscribeStates('homekit.TargetState');
 	}
 	//##############################################################################
@@ -1075,6 +1112,22 @@ class Alarm extends utils.Adapter {
 	//##############################################################################
 
 	//################# HELPERS ####################################################
+
+	zone(id) {
+		if (id === this.namespace + '.zone.one') {
+			if (opt_one) return true;
+			else return false;
+		}
+		if (id === this.namespace + '.zone.two') {
+			if (opt_two) return true;
+			else return false;
+		}
+		if (id === this.namespace + '.zone.three') {
+			if (opt_three) return true;
+			else return false;
+		}
+		return true;
+	}
 
 	alarmSiren() {
 		this.setState('status.siren', true, true);
