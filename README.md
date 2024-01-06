@@ -29,7 +29,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 3.6.0 (2024-01-06)
 * (misanorot) added new zone functions ON/OFF /  Please check the readme
 
 ### 3.5.0 (2024-01-05)
@@ -43,11 +43,6 @@
 
 ### 3.4.1 (2023-10-29)
 * (misanorot) fixed astro at presence simulation (jsControler 5.x???)
-
-### 3.4.0 (2023-10-03)
-* (misanorot) fixed #168
-
-**[older changelogs](CHANGELOG_OLD.md)**
 
 ## License
 MIT License

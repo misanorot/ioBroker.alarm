@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.5.0",
+    "version": "3.6.0",
     "news": {
+      "3.6.0": {
+        "en": "added new zone functions ON/OFF /  Please check the readme",
+        "de": "neue Zonenfunktionen ON/OFF / Bitte überprüfen Sie das Readme",
+        "ru": "дополнительные функции зоны ON/OFF / Пожалуйста, проверяйте считыватель",
+        "pt": "adicionado novas funções de zona ON/OFF / Por favor, verifique o readme",
+        "nl": "toegevoegde nieuwe zonefuncties AAN/UIT / Controleer de readme",
+        "fr": "ajout de nouvelles fonctions de zone ON/OFF / Veuillez vérifier la lecture",
+        "it": "aggiunto nuove funzioni zona ON/OFF / Si prega di controllare il readme",
+        "es": "nuevas funciones de zona ON/OFF / Por favor, compruebe el readme",
+        "pl": "dodano nowe funkcje strefy ON / OFF / Proszę sprawdzić readme",
+        "uk": "додано нові функції зони ON/OFF / Будь ласка, перевірте",
+        "zh-cn": "添加新区域函数 ON/OFF / 请检查 readme"
+      },
       "3.5.0": {
         "en": "added activation aborted speech output",
         "de": "zusätzliche aktivierung abgebrochene sprachausgabe",
@@ -80,19 +93,6 @@
         "pl": "#147",
         "uk": "фіксована #147",
         "zh-cn": "固定行动147"
-      },
-      "3.3.12": {
-        "en": "fixed select-id popup and little issues on setting pages",
-        "de": "feste ausgewählte popups und kleine probleme bei der einstellung von seiten",
-        "ru": "фиксированный селективный попап и мелкие вопросы по настройке страниц",
-        "pt": "pop-up select-id fixo e pequenos problemas nas páginas de configuração",
-        "nl": "vertaling:",
-        "fr": "popup sélectif fixe et petits problèmes sur les pages de configuration",
-        "it": "popup selezionato fisso e piccoli problemi nell'impostazione delle pagine",
-        "es": "emergente selecto fijo y pequeños problemas en las páginas de configuración",
-        "pl": "zbieramy wybrane popupy i mało problemów na stronach",
-        "uk": "виправлений вибір спливаючого спливаючого та маленького питання щодо налаштування сторінок",
-        "zh-cn": "b. 固定选择的居民人数和很少的问题"
       }
     },
     "title": "Alarm",
@@ -396,17 +396,17 @@
           "zh-cn": "第一部分"
         },
         "desc": {
-         "en": "Enable zone one",
-         "de": "Zone eins aktivieren",
-         "ru": "Включить зону один",
-         "pt": "Habilitar uma zona",
-         "nl": "Zone één inschakelen",
-         "fr": "Activer la zone un",
-         "it": "Abilitare la zona uno",
-         "es": "Zona 1",
-         "pl": "Włącz strefę 1",
-         "uk": "Увімкнути зону",
-         "zh-cn": "启用第一区"
+          "en": "Enable zone one",
+          "de": "Zone eins aktivieren",
+          "ru": "Включить зону один",
+          "pt": "Habilitar uma zona",
+          "nl": "Zone één inschakelen",
+          "fr": "Activer la zone un",
+          "it": "Abilitare la zona uno",
+          "es": "Zona 1",
+          "pl": "Włącz strefę 1",
+          "uk": "Увімкнути зону",
+          "zh-cn": "启用第一区"
         },
         "type": "boolean",
         "def": true,

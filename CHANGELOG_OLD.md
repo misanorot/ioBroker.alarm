@@ -138,5 +138,10 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 3.4.0 (2023-10-03)
+* (misanorot) fixed #168
+
+**[older changelogs](CHANGELOG_OLD.md)**
+
 ## 3.3.7 (2023-01-02)
 * (misanorot) fixed issues at presence light trigger
