@@ -30,7 +30,7 @@
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-* (misanorot) added new zone functions ON/OFF
+* (misanorot) added new zone functions ON/OFF /  Please check the readme
 
 ### 3.5.0 (2024-01-05)
 * (misanorot) added activation aborted speech output
