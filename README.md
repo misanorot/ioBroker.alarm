@@ -29,8 +29,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 3.6.1 (2024-06-19)
 * (misanorot) fixed presence at burgle
 
 ### 3.6.0 (2024-01-06)
@@ -44,9 +43,6 @@
 
 ### 3.4.2 (2023-10-31)
 * (misanorot) added enhancement #170
-
-### 3.4.1 (2023-10-29)
-* (misanorot) fixed astro at presence simulation (jsControler 5.x???)
 
 ## License
 MIT License

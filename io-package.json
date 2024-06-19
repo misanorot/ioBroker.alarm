@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.6.0",
+    "version": "3.6.1",
     "news": {
+      "3.6.1": {
+        "en": "fixed presence at burgle",
+        "de": "feste anwesenheit bei burgle",
+        "ru": "постоянное присутствие в бургле",
+        "pt": "presença fixa em águia",
+        "nl": "vaste aanwezigheid bij burgle",
+        "fr": "présence fixe au burgle",
+        "it": "presenza fissa a burgle",
+        "es": "presencia fija en burgle",
+        "pl": "stała obecność w punkcie wgłębienia",
+        "uk": "фіксована присутність в burgle",
+        "zh-cn": "旋转时的固定存在"
+      },
       "3.6.0": {
         "en": "added new zone functions ON/OFF /  Please check the readme",
         "de": "neue Zonenfunktionen ON/OFF / Bitte überprüfen Sie das Readme",
@@ -80,19 +93,6 @@
         "pl": "#168",
         "uk": "фіксована #168",
         "zh-cn": "固定编号168"
-      },
-      "3.3.13": {
-        "en": "fixed #147",
-        "de": "fest #147",
-        "ru": "фиксированный #147",
-        "pt": "fixo #147",
-        "nl": "vertaling:",
-        "fr": "fixe no 147",
-        "it": "fisso #147",
-        "es": "fijo #147",
-        "pl": "#147",
-        "uk": "фіксована #147",
-        "zh-cn": "固定行动147"
       }
     },
     "title": "Alarm",
