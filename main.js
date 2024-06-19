@@ -382,6 +382,7 @@ class Alarm extends utils.Adapter {
 				if (this.config.send_alarm) this.messages(`${this.config.log_burgle} ${name}`);
 				clearTimeout(silent_timer);
 				clearInterval(silent_interval);
+				this.clearAllPresenceTimer();
 				this.sayit(say, 6);
 				text_alarm_interval = setInterval(() => {
 					if (count < alarm_repeat) {

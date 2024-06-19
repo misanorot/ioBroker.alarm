@@ -29,6 +29,10 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+* (misanorot) fixed presence at burgle
+
 ### 3.6.0 (2024-01-06)
 * (misanorot) added new zone functions ON/OFF /  Please check the readme
 
