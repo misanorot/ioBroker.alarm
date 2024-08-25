@@ -11,14 +11,15 @@
   "keywords": [
     "alarm system",
     "security",
-    "protection"
+    "protection",
+    "ioBroker"
   ],
   "repository": {
     "type": "git",
     "url": "git@github.com:misanorot/ioBroker.alarm.git"
   },
   "engines": {
-    "node": ">= 16"
+    "node": ">= 18"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.1.6",

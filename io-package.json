@@ -95,7 +95,6 @@
         "zh-cn": "固定编号168"
       }
     },
-    "title": "Alarm",
     "titleLang": {
       "en": "Alarm",
       "de": "Alarm",
@@ -119,6 +118,7 @@
       "it": "Il tuo piccolo sistema di allarme",
       "es": "Tu propio pequeño sistema de alarma",
       "pl": "Twój własny mały system alarmowy",
+      "uk": "Ваша власна маленька система сигналізації",
       "zh-cn": "你自己的小警报系统"
     },
     "authors": [
@@ -129,9 +129,8 @@
       "security",
       "protection"
     ],
-    "license": "MIT",
+    "licenseInformation": "MIT",
     "platform": "Javascript/Node.js",
-    "main": "main.js",
     "icon": "alarm.png",
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/misanorot/ioBroker.alarm/master/admin/alarm.png",
@@ -140,6 +139,7 @@
     "mode": "daemon",
     "type": "alarm",
     "compact": true,
+    "tier": 2,
     "connectionType": "local",
     "dataSource": "poll",
     "adminUI": {
@@ -147,7 +147,7 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=3.3.22"
+        "js-controller": ">=4.0.24"
       }
     ],
     "globalDependencies": [
