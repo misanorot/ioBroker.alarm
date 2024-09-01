@@ -1422,7 +1422,7 @@ class Alarm extends utils.Adapter {
 
 
 	checkMyPassword(pass, id) {
-		if (this.config.password === pass) {
+		if (pass == this.config.password) {
 			this.log.debug(`Password accept`);
 			this.setState('info.wrong_password', false, true, (err) => {
 				if (err) this.log.error(err);

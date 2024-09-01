@@ -29,6 +29,11 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+* (misanorot) updated iob checker issues
+* (misanorot) fixed disable password state
+
 ### 3.6.1 (2024-06-19)
 * (misanorot) fixed presence at burgle
 

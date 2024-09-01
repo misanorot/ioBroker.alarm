@@ -157,6 +157,12 @@
       {
         "admin": ">=5.0.0"
       }
+    ],
+    "protectedNative": [
+      "password"
+    ],
+    "encryptedNative": [
+      "password"
     ]
   },
   "native": {
@@ -1296,7 +1302,7 @@
       "_id": "use.disable_password",
       "type": "state",
       "common": {
-        "role": "button",
+        "role": "switch",
         "name": {
           "en": "Disable with password",
           "de": "Mit Passwort deaktivieren",
