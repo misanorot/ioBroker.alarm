@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.6.1",
+    "version": "3.6.2",
     "news": {
+      "3.6.2": {
+        "en": "updated iob checker issues\nfixed disable password state",
+        "de": "aktualisierte iob checker probleme\nfester passwortzustand",
+        "ru": "обновленные вопросы проверки iob\nфиксированное отключенное состояние пароля",
+        "pt": "problemas de verificação iob atualizados\nestado de senha de desabilitação fixa",
+        "nl": "bijgewerkte iob-checkerproblemen\nvaste wachtwoordstatus uitschakelen",
+        "fr": "problèmes de vérification iob mis à jour\ndésactivé l'état du mot de passe",
+        "it": "aggiornato problemi di controllo iob\nfisso disabilitare lo stato della password",
+        "es": "actualizados problemas de comprobación de iob\nestado de contraseña deshabilitado fijo",
+        "pl": "zaktualizowane problemy z sprawdzaniem iob\nstałe wyłączenie stanu hasła",
+        "uk": "оновлені питання перевірки iob\nфіксований стан пароля",
+        "zh-cn": "更新iob检查器问题\n固定禁用密码状态"
+      },
       "3.6.1": {
         "en": "fixed presence at burgle",
         "de": "feste anwesenheit bei burgle",
@@ -80,19 +93,6 @@
         "pl": "stworzona gwiazda w symulacji (jsControler 5.x?)",
         "uk": "фіксована астро при наявності моделювання (jsControler 5.x?)",
         "zh-cn": "固定在场的模拟(jsControler 5.x?)"
-      },
-      "3.4.0": {
-        "en": "fixed #168",
-        "de": "fest #168",
-        "ru": "исправлено #168",
-        "pt": "fixo #168",
-        "nl": "vertaling:",
-        "fr": "fixe #168",
-        "it": "fisso #168",
-        "es": "fijo #168",
-        "pl": "#168",
-        "uk": "фіксована #168",
-        "zh-cn": "固定编号168"
       }
     },
     "titleLang": {

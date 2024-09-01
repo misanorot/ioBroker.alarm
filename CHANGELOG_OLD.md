@@ -138,6 +138,9 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 3.4.2 (2023-10-31)
+* (misanorot) added enhancement #170
+
 ## 3.4.1 (2023-10-29)
 * (misanorot) fixed astro at presence simulation (jsControler 5.x???)
 
