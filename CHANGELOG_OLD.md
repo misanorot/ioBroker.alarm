@@ -138,6 +138,9 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 3.4.3 (2023-11-05)
+* (misanorot) added silent_alarm (state list) to shortcuts
+
 ## 3.4.2 (2023-10-31)
 * (misanorot) added enhancement #170
 

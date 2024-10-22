@@ -29,7 +29,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 3.6.3 (2024-10-22)
 * (misanorot) fixed issue #256 responsive design
 
 ### 3.6.2 (2024-09-01)
@@ -44,9 +44,6 @@
 
 ### 3.5.0 (2024-01-05)
 * (misanorot) added activation aborted speech output
-
-### 3.4.3 (2023-11-05)
-* (misanorot) added silent_alarm (state list) to shortcuts
 
 ## License
 MIT License

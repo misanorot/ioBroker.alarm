@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.6.2",
+    "version": "3.6.3",
     "news": {
+      "3.6.3": {
+        "en": "fixed issue #256 responsive design",
+        "de": "fixe ausgabe #256 responsive design",
+        "ru": "фиксированный выпуск #256 отзывчивый дизайн",
+        "pt": "problema fixo #256 design responsivo",
+        "nl": "vast probleem #256 responsief ontwerp",
+        "fr": "problème fixe n°256",
+        "it": "problema fisso #256 responsive design",
+        "es": "edición fija #256 diseño sensible",
+        "pl": "stałe wydanie # 256 reagujący projekt",
+        "uk": "виправлено проблему #256 адаптивний дизайн",
+        "zh-cn": "256号响应设计"
+      },
       "3.6.2": {
         "en": "updated iob checker issues\nfixed disable password state",
         "de": "aktualisierte iob checker probleme\nfester passwortzustand",
@@ -80,19 +93,6 @@
         "pl": "dodał także poprawkę #170",
         "uk": "додано підвищення #170",
         "zh-cn": "增援行动170"
-      },
-      "3.4.1": {
-        "en": "fixed astro at presence simulation (jsControler 5.x???)",
-        "de": "fester Astro bei Präsenzsimulation (jsControler 5.x?)",
-        "ru": "фиксированная астро при наличии симуляции (jsControler 5.x?)",
-        "pt": "astro fixo na simulação de presença (jsControler 5.x?)",
-        "nl": "gerepareerd astro bij aanwezigheidssimulatie (jsControler 5.x)",
-        "fr": "astro fixe à la simulation de présence (jsControler 5.x?)",
-        "it": "astro fisso alla simulazione di presenza (jsControler 5.x?)",
-        "es": "astro fijo en simulación de presencia (jsControler 5.x?)",
-        "pl": "stworzona gwiazda w symulacji (jsControler 5.x?)",
-        "uk": "фіксована астро при наявності моделювання (jsControler 5.x?)",
-        "zh-cn": "固定在场的模拟(jsControler 5.x?)"
       }
     },
     "titleLang": {
