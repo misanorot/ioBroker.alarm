@@ -29,8 +29,8 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### 3.6.3 (2024-10-22)
-* (misanorot) fixed issue #256 responsive design
+### **WORK IN PROGRESS**
+* (simatec) fixed issue #256 responsive design
 
 ### 3.6.2 (2024-09-01)
 * (misanorot) updated iob checker issues
