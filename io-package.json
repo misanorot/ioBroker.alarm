@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.6.3",
+    "version": "3.6.4",
     "news": {
+      "3.6.4": {
+        "en": "fixed issue #256 responsive design",
+        "de": "fixe ausgabe #256 responsive design",
+        "ru": "фиксированный выпуск #256 отзывчивый дизайн",
+        "pt": "problema fixo #256 design responsivo",
+        "nl": "vast probleem #256 responsief ontwerp",
+        "fr": "problème fixe n°256",
+        "it": "problema fisso #256 responsive design",
+        "es": "edición fija #256 diseño sensible",
+        "pl": "stałe wydanie # 256 reagujący projekt",
+        "uk": "виправлено проблему #256 адаптивний дизайн",
+        "zh-cn": "256号响应设计"
+      },
       "3.6.3": {
         "en": "fixed issue #256 responsive design",
         "de": "fixe ausgabe #256 responsive design",
@@ -80,19 +93,6 @@
         "pl": "dodał cichą listę (listę stanową) do skrótów",
         "uk": "додано безшумний_алматичний список (державний список) для ярликів",
         "zh-cn": "补充沉默:沉默(国家名单)"
-      },
-      "3.4.2": {
-        "en": "added enhancement #170",
-        "de": "erweiterung #170",
-        "ru": "добавлено улучшение #170",
-        "pt": "melhoria adicionada #170",
-        "nl": "verbetering #170",
-        "fr": "amélioration ajoutée #170",
-        "it": "aggiunto miglioramento #170",
-        "es": "mejora agregada #170",
-        "pl": "dodał także poprawkę #170",
-        "uk": "додано підвищення #170",
-        "zh-cn": "增援行动170"
       }
     },
     "titleLang": {

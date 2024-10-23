@@ -29,7 +29,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 3.6.4 (2024-10-23)
 * (simatec) fixed issue #256 responsive design
 
 ### 3.6.2 (2024-09-01)
