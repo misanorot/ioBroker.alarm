@@ -29,6 +29,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (misanorot) fixed Firefox scrolling issue #266
+
 ### 3.6.4 (2024-10-23)
 * (simatec) fixed issue #256 responsive design
 

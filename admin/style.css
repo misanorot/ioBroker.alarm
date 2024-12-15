@@ -314,3 +314,14 @@ body {
 .adapter-body {
     overflow: hidden;
 }
+
+/* Only for Firefox */
+@supports (-moz-appearance: none) {
+    .adapter-body {
+        overflow: hidden;
+    }
+    
+    .m .page {
+        height: calc(100vh - 180px);
+    }
+}
