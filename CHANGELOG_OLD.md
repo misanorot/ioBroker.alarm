@@ -138,6 +138,9 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 3.5.0 (2024-01-05)
+* (misanorot) added activation aborted speech output
+
 ## 3.4.3 (2023-11-05)
 * (misanorot) added silent_alarm (state list) to shortcuts
 

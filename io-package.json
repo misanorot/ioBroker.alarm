@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.6.4",
+    "version": "3.6.5",
     "news": {
+      "3.6.5": {
+        "en": "fixed Firefox scrolling issue #266",
+        "de": "fix Firefox Scrolling Ausgabe #266",
+        "ru": "#266",
+        "pt": "corrigido o problema de rolagem do Firefox #266",
+        "nl": "vast Firefox scrollen probleem #266",
+        "fr": "correction Firefox défilement problème #266",
+        "it": "risolto Firefox problema di scorrimento #266",
+        "es": "edición fija de desplazamiento de Firefox #266",
+        "pl": "stały problem przewijania Firefox # 266",
+        "uk": "виправлено помилку Firefox #266",
+        "zh-cn": "固定 Firefox 滚动问题# 266"
+      },
       "3.6.4": {
         "en": "fixed issue #256 responsive design",
         "de": "fixe ausgabe #256 responsive design",
@@ -80,19 +93,6 @@
         "pl": "dodana aktywacja przerwane wyjście mowy",
         "uk": "додана активація прискореного виходу мови",
         "zh-cn": "添加激活中止的语音输出"
-      },
-      "3.4.3": {
-        "en": "added silent_alarm (state list) to shortcuts",
-        "de": "stumm_alarm (stateliste) zu shortcuts hinzugefügt",
-        "ru": "добавлено quiet_alarm (список состояния) на shortcuts",
-        "pt": "adicionado silent_alarm (lista de estado) para atalhos",
-        "nl": "vertaling:",
-        "fr": "added silent_alarm (state list) to shortcuts",
-        "it": "aggiunto silent_alarm (elenco di stato) alle scorciatoie",
-        "es": "añadido silencio_alarma (lista de estado) a atajos",
-        "pl": "dodał cichą listę (listę stanową) do skrótów",
-        "uk": "додано безшумний_алматичний список (державний список) для ярликів",
-        "zh-cn": "补充沉默:沉默(国家名单)"
       }
     },
     "titleLang": {
