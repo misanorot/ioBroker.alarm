@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.6.5",
+    "version": "3.6.6",
     "news": {
+      "3.6.6": {
+        "en": "ESlint 9  #267",
+        "de": "ESlint 9 #267",
+        "ru": "9 #267",
+        "pt": "ESlint 9 #267",
+        "nl": "ESlint 9 #267",
+        "fr": "ESlint 9 #267",
+        "it": "ESlint 9 #267",
+        "es": "ESlint 9 #267",
+        "pl": "ESlint 9 # 267",
+        "uk": "ESlint 9 #267",
+        "zh-cn": "ESlint 9 # 267 (英语)"
+      },
       "3.6.5": {
         "en": "fixed Firefox scrolling issue #266",
         "de": "fix Firefox Scrolling Ausgabe #266",
@@ -80,19 +93,6 @@
         "pl": "dodano nowe funkcje strefy ON / OFF / Proszę sprawdzić readme",
         "uk": "додано нові функції зони ON/OFF / Будь ласка, перевірте",
         "zh-cn": "添加新区域函数 ON/OFF / 请检查 readme"
-      },
-      "3.5.0": {
-        "en": "added activation aborted speech output",
-        "de": "zusätzliche aktivierung abgebrochene sprachausgabe",
-        "ru": "добавленная активация прерванный выход речи",
-        "pt": "adicionada ativação abortada saída de fala",
-        "nl": "toegevoegde activering afgebroken spraakuitvoer",
-        "fr": "ajout d'une sortie vocale avortée d'activation",
-        "it": "attivazione aggiunta abortire uscita del discorso",
-        "es": "añadida activación abortada discurso salida",
-        "pl": "dodana aktywacja przerwane wyjście mowy",
-        "uk": "додана активація прискореного виходу мови",
-        "zh-cn": "添加激活中止的语音输出"
       }
     },
     "titleLang": {

@@ -138,6 +138,9 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 3.6.0 (2024-01-06)
+* (misanorot) added new zone functions ON/OFF /  Please check the readme
+
 ## 3.5.0 (2024-01-05)
 * (misanorot) added activation aborted speech output
 
