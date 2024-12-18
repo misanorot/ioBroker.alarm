@@ -8,8 +8,7 @@
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
 
-// @ts-ignore
-const { start } = require('repl');
+//const { start } = require('repl');
 
 // Load your modules here, e.g.:
 // const fs = require("fs");
