@@ -29,6 +29,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (misanorot) ESlint 9  #267
+
 ### 3.6.5 (2024-12-15)
 * (misanorot) fixed Firefox scrolling issue #266
 
