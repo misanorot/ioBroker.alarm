@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.6.6",
+    "version": "3.6.7",
     "news": {
+      "3.6.7": {
+        "en": "ESlint 9  #267",
+        "de": "ESlint 9 #267",
+        "ru": "9 #267",
+        "pt": "ESlint 9 #267",
+        "nl": "ESlint 9 #267",
+        "fr": "ESlint 9 #267",
+        "it": "ESlint 9 #267",
+        "es": "ESlint 9 #267",
+        "pl": "ESlint 9 # 267",
+        "uk": "ESlint 9 #267",
+        "zh-cn": "ESlint 9 # 267 (英语)"
+      },
       "3.6.6": {
         "en": "ESlint 9  #267",
         "de": "ESlint 9 #267",
@@ -80,19 +93,6 @@
         "pl": "stała obecność w punkcie wgłębienia",
         "uk": "фіксована присутність в burgle",
         "zh-cn": "旋转时的固定存在"
-      },
-      "3.6.0": {
-        "en": "added new zone functions ON/OFF /  Please check the readme",
-        "de": "neue Zonenfunktionen ON/OFF / Bitte überprüfen Sie das Readme",
-        "ru": "дополнительные функции зоны ON/OFF / Пожалуйста, проверяйте считыватель",
-        "pt": "adicionado novas funções de zona ON/OFF / Por favor, verifique o readme",
-        "nl": "toegevoegde nieuwe zonefuncties AAN/UIT / Controleer de readme",
-        "fr": "ajout de nouvelles fonctions de zone ON/OFF / Veuillez vérifier la lecture",
-        "it": "aggiunto nuove funzioni zona ON/OFF / Si prega di controllare il readme",
-        "es": "nuevas funciones de zona ON/OFF / Por favor, compruebe el readme",
-        "pl": "dodano nowe funkcje strefy ON / OFF / Proszę sprawdzić readme",
-        "uk": "додано нові функції зони ON/OFF / Будь ласка, перевірте",
-        "zh-cn": "添加新区域函数 ON/OFF / 请检查 readme"
       }
     },
     "titleLang": {
