@@ -16,19 +16,6 @@
         "uk": "ESlint 9 #267",
         "zh-cn": "ESlint 9 # 267 (英语)"
       },
-      "3.6.6": {
-        "en": "ESlint 9  #267",
-        "de": "ESlint 9 #267",
-        "ru": "9 #267",
-        "pt": "ESlint 9 #267",
-        "nl": "ESlint 9 #267",
-        "fr": "ESlint 9 #267",
-        "it": "ESlint 9 #267",
-        "es": "ESlint 9 #267",
-        "pl": "ESlint 9 # 267",
-        "uk": "ESlint 9 #267",
-        "zh-cn": "ESlint 9 # 267 (英语)"
-      },
       "3.6.5": {
         "en": "fixed Firefox scrolling issue #266",
         "de": "fix Firefox Scrolling Ausgabe #266",
