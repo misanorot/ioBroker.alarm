@@ -29,8 +29,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 3.6.8 (2025-01-08)
 * (misanorot) protect password
 
 ### 3.6.7 (2024-12-18)
@@ -45,9 +44,6 @@
 ### 3.6.2 (2024-09-01)
 * (misanorot) updated iob checker issues
 * (misanorot) fixed disable password state
-
-### 3.6.1 (2024-06-19)
-* (misanorot) fixed presence at burgle
 
 ## License
 MIT License
