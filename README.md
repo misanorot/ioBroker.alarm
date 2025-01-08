@@ -27,8 +27,12 @@
 
 <!--
     Placeholder for the next version (at the beginning of the line):
-
+### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+* (misanorot) protect passwort
+
 ### 3.6.7 (2024-12-18)
 * (misanorot) ESlint 9  #267
 

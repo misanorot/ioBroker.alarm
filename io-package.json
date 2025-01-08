@@ -144,7 +144,8 @@
       {
         "admin": ">=5.0.0"
       }
-    ],
+    ]
+    ,
     "protectedNative": [
       "password"
     ],
@@ -152,6 +153,12 @@
       "password"
     ]
   },
+  "protectedNative": [
+    "password"
+  ],
+  "encryptedNative": [
+    "password"
+  ],
   "native": {
     "new_version": false,
     "circuits": [],
