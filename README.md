@@ -31,7 +31,7 @@
 -->
 
 ### **WORK IN PROGRESS**
-* (misanorot) protect passwort
+* (misanorot) protect password
 
 ### 3.6.7 (2024-12-18)
 * (misanorot) ESlint 9  #267
