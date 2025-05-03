@@ -29,6 +29,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (misanorot) node 20 require
+
 ### 3.6.8 (2025-01-08)
 * (misanorot) protect password
 
