@@ -138,6 +138,10 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 3.6.2 (2024-09-01)
+* (misanorot) updated iob checker issues
+* (misanorot) fixed disable password state
+
 ## 3.6.1 (2024-06-19)
 * (misanorot) fixed presence at burgle
 

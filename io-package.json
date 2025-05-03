@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.6.8",
+    "version": "3.7.0",
     "news": {
+      "3.7.0": {
+        "en": "node 20 require",
+        "de": "knoten 20 erfordern",
+        "ru": "узел 20 требует",
+        "pt": "node 20 exigir",
+        "nl": "node 20 nodig",
+        "fr": "noeud 20 nécessaire",
+        "it": "nodo 20 richiedono",
+        "es": "nodo 20",
+        "pl": "węzeł 20 wymaga",
+        "uk": "вузол 20 потрібно",
+        "zh-cn": "节点 20 需要"
+      },
       "3.6.8": {
         "en": "protect password",
         "de": "schützen passwort",
@@ -80,19 +93,6 @@
         "pl": "zaktualizowane problemy z sprawdzaniem iob\nstałe wyłączenie stanu hasła",
         "uk": "оновлені питання перевірки iob\nфіксований стан пароля",
         "zh-cn": "更新iob检查器问题\n固定禁用密码状态"
-      },
-      "3.6.1": {
-        "en": "fixed presence at burgle",
-        "de": "feste anwesenheit bei burgle",
-        "ru": "постоянное присутствие в бургле",
-        "pt": "presença fixa em águia",
-        "nl": "vaste aanwezigheid bij burgle",
-        "fr": "présence fixe au burgle",
-        "it": "presenza fissa a burgle",
-        "es": "presencia fija en burgle",
-        "pl": "stała obecność w punkcie wgłębienia",
-        "uk": "фіксована присутність в burgle",
-        "zh-cn": "旋转时的固定存在"
       }
     },
     "titleLang": {
