@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.7.1",
+    "version": "3.7.2",
     "news": {
+      "3.7.2": {
+        "en": "update packages",
+        "de": "update-pakete",
+        "ru": "обновление пакетов",
+        "pt": "atualizar pacotes",
+        "nl": "pakketten bijwerken",
+        "fr": "mettre à jour les paquets",
+        "it": "pacchetti di aggiornamento",
+        "es": "actualizar paquetes",
+        "pl": "aktualizacja pakietów",
+        "uk": "оновлення пакетів",
+        "zh-cn": "更新软件包"
+      },
       "3.7.1": {
         "en": "update packages",
         "de": "update-pakete",
@@ -69,19 +82,6 @@
         "zh-cn": "固定 Firefox 滚动问题# 266"
       },
       "3.6.4": {
-        "en": "fixed issue #256 responsive design",
-        "de": "fixe ausgabe #256 responsive design",
-        "ru": "фиксированный выпуск #256 отзывчивый дизайн",
-        "pt": "problema fixo #256 design responsivo",
-        "nl": "vast probleem #256 responsief ontwerp",
-        "fr": "problème fixe n°256",
-        "it": "problema fisso #256 responsive design",
-        "es": "edición fija #256 diseño sensible",
-        "pl": "stałe wydanie # 256 reagujący projekt",
-        "uk": "виправлено проблему #256 адаптивний дизайн",
-        "zh-cn": "256号响应设计"
-      },
-      "3.6.3": {
         "en": "fixed issue #256 responsive design",
         "de": "fixe ausgabe #256 responsive design",
         "ru": "фиксированный выпуск #256 отзывчивый дизайн",
