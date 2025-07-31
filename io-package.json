@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.7.0",
+    "version": "3.7.1",
     "news": {
+      "3.7.1": {
+        "en": "update packages",
+        "de": "update-pakete",
+        "ru": "обновление пакетов",
+        "pt": "atualizar pacotes",
+        "nl": "pakketten bijwerken",
+        "fr": "mettre à jour les paquets",
+        "it": "pacchetti di aggiornamento",
+        "es": "actualizar paquetes",
+        "pl": "aktualizacja pakietów",
+        "uk": "оновлення пакетів",
+        "zh-cn": "更新软件包"
+      },
       "3.7.0": {
         "en": "node 20 require",
         "de": "knoten 20 erfordern",
@@ -80,19 +93,6 @@
         "pl": "stałe wydanie # 256 reagujący projekt",
         "uk": "виправлено проблему #256 адаптивний дизайн",
         "zh-cn": "256号响应设计"
-      },
-      "3.6.2": {
-        "en": "updated iob checker issues\nfixed disable password state",
-        "de": "aktualisierte iob checker probleme\nfester passwortzustand",
-        "ru": "обновленные вопросы проверки iob\nфиксированное отключенное состояние пароля",
-        "pt": "problemas de verificação iob atualizados\nestado de senha de desabilitação fixa",
-        "nl": "bijgewerkte iob-checkerproblemen\nvaste wachtwoordstatus uitschakelen",
-        "fr": "problèmes de vérification iob mis à jour\ndésactivé l'état du mot de passe",
-        "it": "aggiornato problemi di controllo iob\nfisso disabilitare lo stato della password",
-        "es": "actualizados problemas de comprobación de iob\nestado de contraseña deshabilitado fijo",
-        "pl": "zaktualizowane problemy z sprawdzaniem iob\nstałe wyłączenie stanu hasła",
-        "uk": "оновлені питання перевірки iob\nфіксований стан пароля",
-        "zh-cn": "更新iob检查器问题\n固定禁用密码状态"
       }
     },
     "titleLang": {

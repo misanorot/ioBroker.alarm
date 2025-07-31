@@ -29,7 +29,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 3.7.1 (2025-07-31)
 * (misanorot) update packages
 
 ### 3.7.0 (2025-05-03)
@@ -43,9 +43,6 @@
 
 ### 3.6.5 (2024-12-15)
 * (misanorot) fixed Firefox scrolling issue #266
-
-### 3.6.4 (2024-10-23)
-* (simatec) fixed issue #256 responsive design
 
 ## License
 MIT License

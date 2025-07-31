@@ -138,6 +138,9 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 3.6.4 (2024-10-23)
+* (simatec) fixed issue #256 responsive design
+
 ## 3.6.2 (2024-09-01)
 * (misanorot) updated iob checker issues
 * (misanorot) fixed disable password state

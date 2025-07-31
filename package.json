@@ -1,6 +1,6 @@
 {
   "name": "iobroker.alarm",
-  "version": "3.7.0",
+  "version": "3.7.1",
   "description": "Your own lttle alarm system",
   "author": {
     "name": "misanorot",
@@ -48,9 +48,6 @@
     "proxyquire": "^2.1.3",
     "sinon": "^21.0.0",
     "sinon-chai": "^4.0.0",
-    "typescript": "~5.8.3",
-    "sinon": "^21.0.0",
-    "sinon-chai": "^3.7.0",
     "typescript": "~5.8.3"
   },
   "main": "main.js",
