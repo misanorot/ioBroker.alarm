@@ -22,7 +22,7 @@
     "node": ">= 20"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^3.2.3",
+    "@iobroker/adapter-core": "^3.3.1",
     "node-schedule": "^2.1.1",
     "suncalc2": "^1.8.1"
   },
@@ -32,7 +32,7 @@
     "@alcalzone/release-script-plugin-license": "^3.7.0",
     "@alcalzone/release-script-plugin-manual-review": "^3.7.0",
     "@iobroker/adapter-dev": "^1.4.0",
-    "@iobroker/eslint-config": "^2.0.2",
+    "@iobroker/eslint-config": "^2.0.3",
     "@iobroker/testing": "^5.0.4",
     "@tsconfig/node16": "^16.1.4",
     "@types/chai": "^5.2.2",
