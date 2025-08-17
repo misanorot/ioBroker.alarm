@@ -29,7 +29,8 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### 3.7.2 (2025-07-31)
+
+### **WORK IN PROGRESS**
 * (misanorot) update packages
 
 ### 3.7.0 (2025-05-03)
