@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.7.4",
+    "version": "3.7.5",
     "news": {
+      "3.7.5": {
+        "en": "update packages",
+        "de": "update-pakete",
+        "ru": "обновление пакетов",
+        "pt": "atualizar pacotes",
+        "nl": "pakketten bijwerken",
+        "fr": "mettre à jour les paquets",
+        "it": "pacchetti di aggiornamento",
+        "es": "actualizar paquetes",
+        "pl": "aktualizacja pakietów",
+        "uk": "оновлення пакетів",
+        "zh-cn": "更新软件包"
+      },
       "3.7.4": {
         "en": "update packages",
         "de": "update-pakete",
