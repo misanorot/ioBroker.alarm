@@ -29,6 +29,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (misanorot) update packages
+
 ### 3.7.4 (2025-08-17)
 * (misanorot) update packages
 
