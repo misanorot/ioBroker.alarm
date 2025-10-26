@@ -138,6 +138,9 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 3.6.7 (2024-12-18)
+* (misanorot) ESlint 9  #267
+
 ## 3.6.5 (2024-12-15)
 * (misanorot) fixed Firefox scrolling issue #266
 
