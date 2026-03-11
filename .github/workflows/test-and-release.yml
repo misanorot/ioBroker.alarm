@@ -51,7 +51,7 @@ jobs:
           # Uncomment the following line if your adapter cannot be installed using 'npm ci'
           # install-command: 'npm install'
 
-# TODO: To enable automatic npm releases, create a token on npmjs.org 
+# TODO: To enable automatic npm releases, create a token on npmjs.org
 # Enter this token as a GitHub secret (with name NPM_TOKEN) in the repository options
 # Then uncomment the following block:
 
@@ -67,7 +67,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-#    # Write permissions are required to create Github releases
+#    # Write permissions are required to create GitHub releases
     permissions:
       contents: write
       id-token: write

@@ -3,6 +3,9 @@
 !.vscode/
 !.github/
 
+# Build output
+build/
+
 *.code-workspace
 node_modules
 nbproject
