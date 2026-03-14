@@ -1,2315 +1,2316 @@
 {
-  "common": {
-    "name": "alarm",
-    "version": "3.7.6",
-    "news": {
-      "3.7.6": {
-        "en": "update npm progress",
-        "de": "aktualisierung npm fortschritt",
-        "ru": "обновление npm",
-        "pt": "atualizar o progresso do npm",
-        "nl": "npm-voortgang bijwerken",
-        "fr": "mise à jour des progrès de npm",
-        "it": "aggiornamento npm",
-        "es": "actualización npm progreso",
-        "pl": "aktualizacja postępu npm",
-        "uk": "оновлення npm прогрес",
-        "zh-cn": "更新 npm 进度"
-      },
-      "3.7.5": {
-        "en": "update packages",
-        "de": "update-pakete",
-        "ru": "обновление пакетов",
-        "pt": "atualizar pacotes",
-        "nl": "pakketten bijwerken",
-        "fr": "mettre à jour les paquets",
-        "it": "pacchetti di aggiornamento",
-        "es": "actualizar paquetes",
-        "pl": "aktualizacja pakietów",
-        "uk": "оновлення пакетів",
-        "zh-cn": "更新软件包"
-      },
-      "3.7.4": {
-        "en": "update packages",
-        "de": "update-pakete",
-        "ru": "обновление пакетов",
-        "pt": "atualizar pacotes",
-        "nl": "pakketten bijwerken",
-        "fr": "mettre à jour les paquets",
-        "it": "pacchetti di aggiornamento",
-        "es": "actualizar paquetes",
-        "pl": "aktualizacja pakietów",
-        "uk": "оновлення пакетів",
-        "zh-cn": "更新软件包"
-      },
-      "3.7.0": {
-        "en": "node 20 require",
-        "de": "knoten 20 erfordern",
-        "ru": "узел 20 требует",
-        "pt": "node 20 exigir",
-        "nl": "node 20 nodig",
-        "fr": "noeud 20 nécessaire",
-        "it": "nodo 20 richiedono",
-        "es": "nodo 20",
-        "pl": "węzeł 20 wymaga",
-        "uk": "вузол 20 потрібно",
-        "zh-cn": "节点 20 需要"
-      },
-      "3.6.8": {
-        "en": "protect password",
-        "de": "schützen passwort",
-        "ru": "защитить пароль",
-        "pt": "proteger a senha",
-        "nl": "wachtwoord beschermen",
-        "fr": "protéger le mot de passe",
-        "it": "proteggere la password",
-        "es": "proteger contraseña",
-        "pl": "ochrona hasła",
-        "uk": "захист пароля",
-        "zh-cn": "保护密码"
-      },
-      "3.6.7": {
-        "en": "ESlint 9  #267",
-        "de": "ESlint 9 #267",
-        "ru": "9 #267",
-        "pt": "ESlint 9 #267",
-        "nl": "ESlint 9 #267",
-        "fr": "ESlint 9 #267",
-        "it": "ESlint 9 #267",
-        "es": "ESlint 9 #267",
-        "pl": "ESlint 9 # 267",
-        "uk": "ESlint 9 #267",
-        "zh-cn": "ESlint 9 # 267 (英语)"
-      },
-      "3.6.5": {
-        "en": "fixed Firefox scrolling issue #266",
-        "de": "fix Firefox Scrolling Ausgabe #266",
-        "ru": "#266",
-        "pt": "corrigido o problema de rolagem do Firefox #266",
-        "nl": "vast Firefox scrollen probleem #266",
-        "fr": "correction Firefox défilement problème #266",
-        "it": "risolto Firefox problema di scorrimento #266",
-        "es": "edición fija de desplazamiento de Firefox #266",
-        "pl": "stały problem przewijania Firefox # 266",
-        "uk": "виправлено помилку Firefox #266",
-        "zh-cn": "固定 Firefox 滚动问题# 266"
-      }
+    "common": {
+        "name": "alarm",
+        "version": "3.7.6",
+        "news": {
+            "3.7.6": {
+                "en": "update npm progress",
+                "de": "aktualisierung npm fortschritt",
+                "ru": "обновление npm",
+                "pt": "atualizar o progresso do npm",
+                "nl": "npm-voortgang bijwerken",
+                "fr": "mise à jour des progrès de npm",
+                "it": "aggiornamento npm",
+                "es": "actualización npm progreso",
+                "pl": "aktualizacja postępu npm",
+                "uk": "оновлення npm прогрес",
+                "zh-cn": "更新 npm 进度"
+            },
+            "3.7.5": {
+                "en": "update packages",
+                "de": "update-pakete",
+                "ru": "обновление пакетов",
+                "pt": "atualizar pacotes",
+                "nl": "pakketten bijwerken",
+                "fr": "mettre à jour les paquets",
+                "it": "pacchetti di aggiornamento",
+                "es": "actualizar paquetes",
+                "pl": "aktualizacja pakietów",
+                "uk": "оновлення пакетів",
+                "zh-cn": "更新软件包"
+            },
+            "3.7.4": {
+                "en": "update packages",
+                "de": "update-pakete",
+                "ru": "обновление пакетов",
+                "pt": "atualizar pacotes",
+                "nl": "pakketten bijwerken",
+                "fr": "mettre à jour les paquets",
+                "it": "pacchetti di aggiornamento",
+                "es": "actualizar paquetes",
+                "pl": "aktualizacja pakietów",
+                "uk": "оновлення пакетів",
+                "zh-cn": "更新软件包"
+            },
+            "3.7.0": {
+                "en": "node 20 require",
+                "de": "knoten 20 erfordern",
+                "ru": "узел 20 требует",
+                "pt": "node 20 exigir",
+                "nl": "node 20 nodig",
+                "fr": "noeud 20 nécessaire",
+                "it": "nodo 20 richiedono",
+                "es": "nodo 20",
+                "pl": "węzeł 20 wymaga",
+                "uk": "вузол 20 потрібно",
+                "zh-cn": "节点 20 需要"
+            },
+            "3.6.8": {
+                "en": "protect password",
+                "de": "schützen passwort",
+                "ru": "защитить пароль",
+                "pt": "proteger a senha",
+                "nl": "wachtwoord beschermen",
+                "fr": "protéger le mot de passe",
+                "it": "proteggere la password",
+                "es": "proteger contraseña",
+                "pl": "ochrona hasła",
+                "uk": "захист пароля",
+                "zh-cn": "保护密码"
+            },
+            "3.6.7": {
+                "en": "ESlint 9  #267",
+                "de": "ESlint 9 #267",
+                "ru": "9 #267",
+                "pt": "ESlint 9 #267",
+                "nl": "ESlint 9 #267",
+                "fr": "ESlint 9 #267",
+                "it": "ESlint 9 #267",
+                "es": "ESlint 9 #267",
+                "pl": "ESlint 9 # 267",
+                "uk": "ESlint 9 #267",
+                "zh-cn": "ESlint 9 # 267 (英语)"
+            },
+            "3.6.5": {
+                "en": "fixed Firefox scrolling issue #266",
+                "de": "fix Firefox Scrolling Ausgabe #266",
+                "ru": "#266",
+                "pt": "corrigido o problema de rolagem do Firefox #266",
+                "nl": "vast Firefox scrollen probleem #266",
+                "fr": "correction Firefox défilement problème #266",
+                "it": "risolto Firefox problema di scorrimento #266",
+                "es": "edición fija de desplazamiento de Firefox #266",
+                "pl": "stały problem przewijania Firefox # 266",
+                "uk": "виправлено помилку Firefox #266",
+                "zh-cn": "固定 Firefox 滚动问题# 266"
+            }
+        },
+        "titleLang": {
+            "en": "Alarm",
+            "de": "Alarm",
+            "ru": "Сигнализация",
+            "pt": "Alarme de alarme",
+            "nl": "Alarm",
+            "fr": "Alarme",
+            "it": "Allarme",
+            "es": "Alarma",
+            "pl": "Alarma",
+            "uk": "Напильник",
+            "zh-cn": "Alarm"
+        },
+        "desc": {
+            "en": "Your own lttle alarm system",
+            "de": "Ihre eigene kleine Alarmanlage",
+            "ru": "Ваша собственная маленькая система сигнализации",
+            "pt": "Seu próprio pequeno sistema de alarme",
+            "nl": "Uw eigen kleine alarmsysteem",
+            "fr": "Votre propre petit système d'alarme",
+            "it": "Il tuo piccolo sistema di allarme",
+            "es": "Tu propio pequeño sistema de alarma",
+            "pl": "Twój własny mały system alarmowy",
+            "uk": "Ваша власна маленька система сигналізації",
+            "zh-cn": "你自己的小警报系统"
+        },
+        "authors": ["misanorot <audi16v@gmx.de>"],
+        "keywords": ["alarm system", "security", "protection"],
+        "licenseInformation": {
+            "license": "MIT",
+            "type": "free"
+        },
+        "platform": "Javascript/Node.js",
+        "icon": "alarm.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/misanorot/ioBroker.alarm/master/admin/alarm.png",
+        "readme": "https://github.com/misanorot/ioBroker.alarm/blob/master/README.md",
+        "loglevel": "info",
+        "mode": "daemon",
+        "type": "alarm",
+        "compact": true,
+        "tier": 2,
+        "connectionType": "local",
+        "dataSource": "poll",
+        "adminUI": {
+            "config": "json"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=6.0.11"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=7.6.17"
+            }
+        ]
     },
-    "titleLang": {
-      "en": "Alarm",
-      "de": "Alarm",
-      "ru": "Сигнализация",
-      "pt": "Alarme de alarme",
-      "nl": "Alarm",
-      "fr": "Alarme",
-      "it": "Allarme",
-      "es": "Alarma",
-      "pl": "Alarma",
-      "uk": "Напильник",
-      "zh-cn": "Alarm"
+    "protectedNative": ["password"],
+    "encryptedNative": ["password"],
+    "native": {
+        "new_version": false,
+        "circuits": [],
+        "shorts_in": [],
+        "shorts": [],
+        "one": [],
+        "two": [],
+        "zone_one": [],
+        "zone_two": [],
+        "zone_three": [],
+        "presence": [],
+        "presence_activate_delay": 0,
+        "presence_activate_delay_select": "sec",
+        "time_activate": 10,
+        "time_alarm": 60,
+        "time_silent": 0,
+        "time_warning": 3,
+        "time_activate_select": "sec",
+        "time_alarm_select": "sec",
+        "time_silent_select": "sec",
+        "time_warning_select": "sec",
+        "alarm_flash": 2,
+        "silent_flash": 2,
+        "opt_say_night": true,
+        "opt_night_silent": false,
+        "opt_say_warn": true,
+        "opt_say_names": true,
+        "opt_say_changes": true,
+        "opt_say_warn_changes": true,
+        "opt_night": true,
+        "opt_log": true,
+        "opt_siren": false,
+        "opt_leave": false,
+        "opt_warning": false,
+        "night_from": "",
+        "night_to": "",
+        "send_alarm": true,
+        "send_alarm_inside": true,
+        "send_notification_changes": true,
+        "send_one_changes": true,
+        "send_two_changes": true,
+        "send_activation": false,
+        "send_activation_inside": false,
+        "send_activation_warnings": true,
+        "send_activation_warnings_inside": true,
+        "send_activation_warnings_night": true,
+        "send_activated_with_warnings": true,
+        "send_alarm_silent": true,
+        "send_alarm_silent_inside": true,
+        "send_failed": true,
+        "send_zone_one": true,
+        "send_zone_two": true,
+        "send_zone_three": true,
+        "sayit": [],
+        "text_activated": "Alarmanlage aktiviert",
+        "text_deactivated": "Alarmanlage deaktiviert",
+        "text_failed": "Aktivierung fehlgeschlagen",
+        "text_warning": "Es sind noch Sachen offen",
+        "text_changes": "Veränderungen erkannt",
+        "text_changes_night": "Veränderungen erkannt",
+        "text_alarm": "Verlassen Sie sofort das Haus",
+        "text_alarm_pause": 5,
+        "text_nightrest_beginn": "Nachtruhe beginnt",
+        "text_nightrest_end": "Nachtruhe beendet",
+        "text_warn_begin": "Scharf intern aktiviert",
+        "text_warn_end": "Scharf intern deaktiviert",
+        "text_countdown": "Sekunden bis zur Aktivierung",
+        "text_one": "Alarmanlage meldet einen Feueralarm:",
+        "text_two": "Alarmanlage meldet einen Wasseralarm:",
+        "text_aborted": "Aktivierung abgebrochen",
+        "password": "",
+        "sendTo": "",
+        "alarm": "",
+        "alarm_repeat": "1",
+        "changes_repeat": "1",
+        "warning": "",
+        "night": "",
+        "log_pass": "Falsches Passwort benutzt!",
+        "log_act_not": "Alarmanlage kann nicht aktiviert werden, kontrolliere:",
+        "log_act": "Alarmanlage aktiviert",
+        "log_warn_act": "Scharf innen aktiviert",
+        "log_act_warn": "Alarmanlage mit Warnungen aktiviert:",
+        "log_act_notice": "Es sind noch Sachen offen",
+        "log_deact": "Alarmanlage deaktiviert",
+        "log_warn_deact": "Scharf innen deaktiviert",
+        "log_burgle": "Alarmanlage meldet Einbruch in:",
+        "log_panic": "Alarmanlage meldet Einbruch durch Panik Schalter",
+        "log_warn": "Alarmanlage meldet eine Warnung, Veränderung bei:",
+        "log_night": "Alarmanlage meldet Veränderung während der Nachtruhe bei:",
+        "log_sleep_b": "Nachtruhe beginnt",
+        "log_sleep_e": "Nachtruhe endet",
+        "log_warn_b_w": "Scharf innen beginnt mit Warnungen:",
+        "log_nights_b_w": "Nachtruhe beginnt mit Warnungen:",
+        "log_one": "Alarmanlage meldet einen Feueralarm:",
+        "log_two": "Alarmanlage meldet einen Wasseralarm:",
+        "log_aborted": "Aktivierung abgebrochen",
+        "one_name": "Feueralarm",
+        "two_name": "Wasseralarm",
+        "log_zone_one": "Veränderungen in Zone eins",
+        "log_zone_two": "Veränderungen in Zone zwei",
+        "log_zone_three": "Veränderungen in Zone drei",
+        "opt_telegram": false,
+        "chatID": "",
+        "user": ""
     },
-    "desc": {
-      "en": "Your own lttle alarm system",
-      "de": "Ihre eigene kleine Alarmanlage",
-      "ru": "Ваша собственная маленькая система сигнализации",
-      "pt": "Seu próprio pequeno sistema de alarme",
-      "nl": "Uw eigen kleine alarmsysteem",
-      "fr": "Votre propre petit système d'alarme",
-      "it": "Il tuo piccolo sistema di allarme",
-      "es": "Tu propio pequeño sistema de alarma",
-      "pl": "Twój własny mały system alarmowy",
-      "uk": "Ваша власна маленька система сигналізації",
-      "zh-cn": "你自己的小警报系统"
-    },
-    "authors": [
-      "misanorot <audi16v@gmx.de>"
-    ],
-    "keywords": [
-      "alarm system",
-      "security",
-      "protection"
-    ],
-    "licenseInformation": {
-      "license": "MIT",
-      "type": "free"
-    },
-    "platform": "Javascript/Node.js",
-    "icon": "alarm.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/misanorot/ioBroker.alarm/master/admin/alarm.png",
-    "readme": "https://github.com/misanorot/ioBroker.alarm/blob/master/README.md",
-    "loglevel": "info",
-    "mode": "daemon",
-    "type": "alarm",
-    "compact": true,
-    "tier": 2,
-    "connectionType": "local",
-    "dataSource": "poll",
-    "adminUI": {
-      "config": "json"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=6.0.11"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=7.6.17"
-      }
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "zone.one",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Zone one",
+                    "de": "Gebiet eins",
+                    "ru": "Зона одна",
+                    "pt": "Zona um",
+                    "nl": "Zone één",
+                    "fr": "Zone 1",
+                    "it": "Zona",
+                    "es": "Zona 1",
+                    "pl": "Strefa jednej strefy",
+                    "uk": "Зона один",
+                    "zh-cn": "第一部分"
+                },
+                "desc": {
+                    "en": "Changes in zone one detected",
+                    "de": "Änderungen in Zone eins erkannt",
+                    "ru": "Изменения в зоне один обнаружен",
+                    "pt": "Alterações na zona um detectada",
+                    "nl": "Veranderingen in zone één ontdekt",
+                    "fr": "Changements dans la zone 1 détectés",
+                    "it": "Cambiamenti nella zona uno rilevato",
+                    "es": "Cambios en la zona 1 detectados",
+                    "pl": "Zmiany w strefie jeden wykryty",
+                    "uk": "Зміни в зоні",
+                    "zh-cn": "一所发现区的变化"
+                },
+                "type": "boolean",
+                "def": false,
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "zone.two",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Zone two",
+                    "de": "Gebiet zwei",
+                    "ru": "Зона 2",
+                    "pt": "Zona dois",
+                    "nl": "Zone twee",
+                    "fr": "Zone deux",
+                    "it": "Zona due",
+                    "es": "Zona dos",
+                    "pl": "Strefa 2",
+                    "uk": "Зона 2",
+                    "zh-cn": "第二部分"
+                },
+                "desc": {
+                    "en": "Changes in zone two detected",
+                    "de": "Veränderungen in Zone zwei erkannt",
+                    "ru": "Изменения в зоне две обнаруженные",
+                    "pt": "Alterações na zona dois detectadas",
+                    "nl": "Veranderingen in zone twee ontdekt",
+                    "fr": "Changements dans la zone 2 détectés",
+                    "it": "Variazioni nella zona due rilevate",
+                    "es": "Cambios en la zona dos detectados",
+                    "pl": "Zmiany w strefie dwóch wykrytych",
+                    "uk": "Зміни в зоні",
+                    "zh-cn": "发现的两区的变化"
+                },
+                "type": "boolean",
+                "def": false,
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "zone.three",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Zone three",
+                    "de": "Gebiet drei",
+                    "ru": "Зона три",
+                    "pt": "Zona três",
+                    "nl": "Zone drie",
+                    "fr": "Zone trois",
+                    "it": "Zona tre",
+                    "es": "Zona tres",
+                    "pl": "Strefa 3",
+                    "uk": "Зона три",
+                    "zh-cn": "第三部分"
+                },
+                "desc": {
+                    "en": "Changes in zone three detected",
+                    "de": "Veränderungen in Zone drei erkannt",
+                    "ru": "Изменения в зоне 3 обнаружены",
+                    "pt": "Alterações na zona três detectadas",
+                    "nl": "Veranderingen in zone drie ontdekt",
+                    "fr": "Changements dans la zone 3 détectés",
+                    "it": "Variazioni nella zona tre rilevate",
+                    "es": "Cambios en la zona tres detectados",
+                    "pl": "Zmiany w strefie 3 wykryte",
+                    "uk": "Зміни в зоні трьох виявлених",
+                    "zh-cn": "三区的变化"
+                },
+                "type": "boolean",
+                "def": false,
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "zone.one_on_off",
+            "type": "state",
+            "common": {
+                "role": "switch",
+                "name": {
+                    "en": "Zone one",
+                    "de": "Gebiet eins",
+                    "ru": "Зона одна",
+                    "pt": "Zona um",
+                    "nl": "Zone één",
+                    "fr": "Zone 1",
+                    "it": "Zona",
+                    "es": "Zona 1",
+                    "pl": "Strefa jednej strefy",
+                    "uk": "Зона один",
+                    "zh-cn": "第一部分"
+                },
+                "desc": {
+                    "en": "Enable zone one",
+                    "de": "Zone eins aktivieren",
+                    "ru": "Включить зону один",
+                    "pt": "Habilitar uma zona",
+                    "nl": "Zone één inschakelen",
+                    "fr": "Activer la zone un",
+                    "it": "Abilitare la zona uno",
+                    "es": "Zona 1",
+                    "pl": "Włącz strefę 1",
+                    "uk": "Увімкнути зону",
+                    "zh-cn": "启用第一区"
+                },
+                "type": "boolean",
+                "def": true,
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "zone.two_on_off",
+            "type": "state",
+            "common": {
+                "role": "switch",
+                "name": {
+                    "en": "Zone two",
+                    "de": "Gebiet zwei",
+                    "ru": "Зона 2",
+                    "pt": "Zona dois",
+                    "nl": "Zone twee",
+                    "fr": "Zone deux",
+                    "it": "Zona due",
+                    "es": "Zona dos",
+                    "pl": "Strefa 2",
+                    "uk": "Зона 2",
+                    "zh-cn": "第二部分"
+                },
+                "desc": {
+                    "en": "Enable zone two",
+                    "de": "Zone zwei aktivieren",
+                    "ru": "Включить зону два",
+                    "pt": "Ativar zona dois",
+                    "nl": "Zone twee inschakelen",
+                    "fr": "Activer la zone deux",
+                    "it": "Zona due",
+                    "es": "Zona 2",
+                    "pl": "Włącz strefę drugą",
+                    "uk": "Увімкнути зону 2",
+                    "zh-cn": "启用二区"
+                },
+                "type": "boolean",
+                "def": true,
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "zone.three_on_off",
+            "type": "state",
+            "common": {
+                "role": "switch",
+                "name": {
+                    "en": "Zone three",
+                    "de": "Gebiet drei",
+                    "ru": "Зона три",
+                    "pt": "Zona três",
+                    "nl": "Zone drie",
+                    "fr": "Zone trois",
+                    "it": "Zona tre",
+                    "es": "Zona tres",
+                    "pl": "Strefa 3",
+                    "uk": "Зона три",
+                    "zh-cn": "第三部分"
+                },
+                "desc": {
+                    "en": "Enable zone three",
+                    "de": "Zone drei aktivieren",
+                    "ru": "Включить зону три",
+                    "pt": "Habilitar a zona três",
+                    "nl": "Zone drie inschakelen",
+                    "fr": "Activer la zone trois",
+                    "it": "Zona tre",
+                    "es": "Zona habilitada 3",
+                    "pl": "Włącz strefę trzecią",
+                    "uk": "Увімкнути зону три",
+                    "zh-cn": "启用三区"
+                },
+                "type": "boolean",
+                "def": true,
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.activated",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Activated",
+                    "de": "Aktiviert",
+                    "ru": "Активация",
+                    "pt": "Activado",
+                    "nl": "Activatie",
+                    "fr": "Activé",
+                    "it": "Attivato",
+                    "es": "Activado",
+                    "pl": "Aktywizacja",
+                    "uk": "Активоване",
+                    "zh-cn": "法 律"
+                },
+                "desc": {
+                    "en": "Alarm system is activated",
+                    "de": "Alarmanlage aktiviert",
+                    "ru": "Система сигнализации активирована",
+                    "pt": "Sistema de alarme é ativado",
+                    "nl": "Het alarmsysteem is geactiveerd",
+                    "fr": "Système d'alarme activé",
+                    "it": "Il sistema di allarme è attivato",
+                    "es": "Sistema de alarma activado",
+                    "pl": "System Alarma jest aktywowany",
+                    "uk": "Система сигналізації активується",
+                    "zh-cn": "启动一个申报制度"
+                },
+                "type": "boolean",
+                "def": false,
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.gets_activated",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Gets activated",
+                    "de": "Wird aktiviert",
+                    "ru": "Получить активирован",
+                    "pt": "Activar-se",
+                    "nl": "Wordt geactiveerd",
+                    "fr": "Active",
+                    "it": "Attivazione",
+                    "es": "Se activa",
+                    "pl": "Gets activated",
+                    "uk": "Gets активований",
+                    "zh-cn": "Gets启动"
+                },
+                "desc": {
+                    "en": "Alarm system gets activated",
+                    "de": "Alarmsystem wird aktiviert",
+                    "ru": "Система сигнализации активируется",
+                    "pt": "Sistema de alarme é ativado",
+                    "nl": "Het alarmsysteem wordt geactiveerd",
+                    "fr": "Le système d'alarme est activé",
+                    "it": "Sistema di allarme si attiva",
+                    "es": "El sistema de alarma se activa",
+                    "pl": "System Alarma aktywowany",
+                    "uk": "Система сигналізації активується",
+                    "zh-cn": "Alarm系统启用"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.deactivated",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Deactivated",
+                    "de": "Deaktiviert",
+                    "ru": "Деактивирован",
+                    "pt": "Desativado",
+                    "nl": "Deactiveer",
+                    "fr": "Désactivation",
+                    "it": "Disattivato",
+                    "es": "Desactivado",
+                    "pl": "Dezaktywować",
+                    "uk": "Деактивований",
+                    "zh-cn": "修改"
+                },
+                "desc": {
+                    "en": "Alarm system is deactivated",
+                    "de": "Alarmanlage deaktiviert",
+                    "ru": "Система сигнализации деактивирована",
+                    "pt": "Sistema de alarme é desativado",
+                    "nl": "Alarmsysteem gedeactiveerd",
+                    "fr": "Le système d ' alarme est désactivé",
+                    "it": "Il sistema di allarme è disattivato",
+                    "es": "El sistema de alarma está desactivado",
+                    "pl": "System Alarma jest deaktywowany",
+                    "uk": "Система сигналізації деактивується",
+                    "zh-cn": "宣 言"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.burglar_alarm",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Burglary",
+                    "de": "Einbruch",
+                    "ru": "Бургляр",
+                    "pt": "Burglary",
+                    "nl": "Burglary",
+                    "fr": "Burglary",
+                    "it": "Burglary",
+                    "es": "Burglary",
+                    "pl": "Burglaria",
+                    "uk": "Бургларі",
+                    "zh-cn": "伯格"
+                },
+                "desc": {
+                    "en": "Alarm system signalled burglary",
+                    "de": "Alarmanlage signalisiert Einbruch",
+                    "ru": "Сигнализированная сигнализация",
+                    "pt": "Sistema de alarme sinalizado roubo",
+                    "nl": "Alarmsysteem gesignaleerd inbraak",
+                    "fr": "Alarm system signaled burglary",
+                    "it": "Sistema di allarme segnalato furto",
+                    "es": "Sistema de alarma señalizado robo",
+                    "pl": "System Alarma sygnalizował burglarię",
+                    "uk": "Система сигналізації сигналізованого бордюру",
+                    "zh-cn": "Alarm系统的信号"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.silent_alarm",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Silent alarm",
+                    "de": "Stiller Alarm",
+                    "ru": "Тихая тревога",
+                    "pt": "Alarme silencioso",
+                    "nl": "Stil alarm",
+                    "fr": "Alarme silencieux",
+                    "it": "Allarme silenzioso",
+                    "es": "Silent alarm",
+                    "pl": "Silent alarm",
+                    "uk": "Сильна сигналізація",
+                    "zh-cn": "声音"
+                },
+                "desc": {
+                    "en": "Alarm system signalled burglary with silent alarm",
+                    "de": "Alarmanlage signalisiert Einbruch mit stillem Alarm",
+                    "ru": "Сигнализированная сигнализация с сигнализацией",
+                    "pt": "Sistema de alarme sinalizado roubo com alarme silencioso",
+                    "nl": "Alarmsysteem gesignaleerd inbraak met stil alarm",
+                    "fr": "Système d'alarme signalé cambriolage avec alarme silencieuse",
+                    "it": "Sistema di allarme segnalato furto con allarme silenzioso",
+                    "es": "Sistema de alarma señalizado robo con alarma silenciosa",
+                    "pl": "System alarmowy sygnalizował włamanie z cichym alarmem",
+                    "uk": "Система сигналізації сигналізованого бордюру з безшумною сигналізацією",
+                    "zh-cn": "宣 言"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.siren",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Alarm siren",
+                    "de": "Alarm Sirene",
+                    "ru": "Сирена тревоги",
+                    "pt": "Sirene de alarme",
+                    "nl": "Alarm sirene",
+                    "fr": "Alarm siren",
+                    "it": "Sirena di allarme",
+                    "es": "Alarm siren",
+                    "pl": "Alarma",
+                    "uk": "Стрілка сигналу",
+                    "zh-cn": "Alarm兄弟"
+                },
+                "desc": {
+                    "en": "Alarm system has triggered the siren",
+                    "de": "Alarmanlage hat die Sirene ausgelöst",
+                    "ru": "Система сигнализации вызвала сирена",
+                    "pt": "Sistema de alarme desencadeou a sirene",
+                    "nl": "Het alarmsysteem heeft de sirene geactiveerd",
+                    "fr": "Le système d'alarme a déclenché la sirène",
+                    "it": "Il sistema di allarme ha innescato la sirena",
+                    "es": "El sistema de alarma ha activado la sirena",
+                    "pl": "System Alarma wystrzelił syrenę syrenową",
+                    "uk": "Система сигналізації спрацьовувала",
+                    "zh-cn": "宣布制度触发了兄弟姐妹。"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.silent_flash",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Silent light alarm",
+                    "de": "Stiller Lichtalarm",
+                    "ru": "Молочная сигнализация",
+                    "pt": "Alarme de luz silencioso",
+                    "nl": "Stil licht alarm",
+                    "fr": "Alarme lumineuse silencieux",
+                    "it": "Allarme luminoso silenzioso",
+                    "es": "Alarma de luz silenciosa",
+                    "pl": "Silent light alarm",
+                    "uk": "Сильна сигналізація світла",
+                    "zh-cn": "声音"
+                },
+                "desc": {
+                    "en": "Alarm system signalled burglary with silent alarm",
+                    "de": "Alarmanlage signalisiert Einbruch mit stillem Alarm",
+                    "ru": "Сигнализированная сигнализация с сигнализацией",
+                    "pt": "Sistema de alarme sinalizado roubo com alarme silencioso",
+                    "nl": "Alarmsysteem gesignaleerd inbraak met stil alarm",
+                    "fr": "Système d'alarme signalé cambriolage avec alarme silencieuse",
+                    "it": "Sistema di allarme segnalato furto con allarme silenzioso",
+                    "es": "Sistema de alarma señalizado robo con alarma silenciosa",
+                    "pl": "System alarmowy sygnalizował włamanie z cichym alarmem",
+                    "uk": "Система сигналізації сигналізованого бордюру з безшумною сигналізацією",
+                    "zh-cn": "宣 言"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.alarm_flash",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Light alarm",
+                    "de": "Lichtalarm",
+                    "ru": "Световая сигнализация",
+                    "pt": "Alarme de luz",
+                    "nl": "Licht alarm",
+                    "fr": "Alarme lumineuse",
+                    "it": "Allarme luminoso",
+                    "es": "Alarma de luz",
+                    "pl": "Light alarm",
+                    "uk": "Легка сигналізація",
+                    "zh-cn": "明 警"
+                },
+                "desc": {
+                    "en": "Alarm system signalled burglary",
+                    "de": "Alarmanlage signalisiert Einbruch",
+                    "ru": "Сигнализированная сигнализация",
+                    "pt": "Sistema de alarme sinalizado roubo",
+                    "nl": "Alarmsysteem gesignaleerd inbraak",
+                    "fr": "Alarm system signaled burglary",
+                    "it": "Sistema di allarme segnalato furto",
+                    "es": "Sistema de alarma señalizado robo",
+                    "pl": "System Alarma sygnalizował burglarię",
+                    "uk": "Система сигналізації сигналізованого бордюру",
+                    "zh-cn": "Alarm系统的信号"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.activation_failed",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Activation failed",
+                    "de": "Aktivierung fehlgeschlagen",
+                    "ru": "Активация не удалось",
+                    "pt": "Ativação falhou",
+                    "nl": "Activatie faalde",
+                    "fr": "Activation échouée",
+                    "it": "Attivazione fallita",
+                    "es": "La activación falló",
+                    "pl": "Aktywność nie powiodła się",
+                    "uk": "Активація",
+                    "zh-cn": "未采取行动"
+                },
+                "desc": {
+                    "en": "Alarm system report activation failed",
+                    "de": "Alarmanlage Meldung Aktivierung fehlgeschlagen",
+                    "ru": "Аларм система сообщение активация не удалось",
+                    "pt": "A ativação do relatório do sistema de alarme falhou",
+                    "nl": "Alarmsysteem melding faalde",
+                    "fr": "Défaut d ' activation du système d ' alarme",
+                    "it": "Attivazione del rapporto del sistema di allarme",
+                    "es": "La activación del informe del sistema de alarma falló",
+                    "pl": "Raport ubezpieczeniowy Alarma nie powiódł się",
+                    "uk": "Активація звіту про систему сигналізації",
+                    "zh-cn": "Alarm系统报告启动失败"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.sleep",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Night rest",
+                    "de": "Nachtruhe",
+                    "ru": "Ночной отдых",
+                    "pt": "O resto da noite",
+                    "nl": "Welterusten",
+                    "fr": "Nuit repos",
+                    "it": "Riposo notturno",
+                    "es": "Descanso nocturno",
+                    "pl": "Night rest",
+                    "uk": "Нічний відпочинок",
+                    "zh-cn": "注"
+                },
+                "desc": {
+                    "en": "The automatic night rest is activated",
+                    "de": "Die automatische Nachtruhe ist aktiviert",
+                    "ru": "Автоматический ночной отдых активирован",
+                    "pt": "O resto da noite automática é ativado",
+                    "nl": "De automatische nachtrust is geactiveerd",
+                    "fr": "Le repos automatique de nuit est activé",
+                    "it": "Il riposo notturno automatico è attivato",
+                    "es": "El descanso nocturno automático está activado",
+                    "pl": "Odpoczynek automatycznej nocy jest aktywowany",
+                    "uk": "Автоматичний нічний відпочинок активується",
+                    "zh-cn": "自动夜间休息被动。"
+                },
+                "type": "boolean",
+                "def": false,
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.activated_with_warnings",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Activated with warnings",
+                    "de": "Aktiviert mit Warnungen",
+                    "ru": "Активируется с предупреждениями",
+                    "pt": "Activado com avisos",
+                    "nl": "Geactiveerd met waarschuwingen",
+                    "fr": "Activated with warnings",
+                    "it": "Attivato con avvisi",
+                    "es": "Activado con advertencias",
+                    "pl": "Uchwalony z ostrzeżeniem",
+                    "uk": "Активоване попередження",
+                    "zh-cn": "A. 发出警告"
+                },
+                "desc": {
+                    "en": "Alarm system activated with warnings",
+                    "de": "Alarmanlage aktiviert mit Warnungen",
+                    "ru": "Сигнализация активирована с предупреждениями",
+                    "pt": "Sistema de alarme ativado com avisos",
+                    "nl": "Alarmsysteem geactiveerd met waarschuwingen",
+                    "fr": "Système d'alarme activé avec avertissements",
+                    "it": "Sistema di allarme attivato con avvisi",
+                    "es": "Sistema de alarma activado con advertencias",
+                    "pl": "System Alarma aktywowany za pomocą ostrzeżeń",
+                    "uk": "Система сигналізації активована з попередженнями",
+                    "zh-cn": "发出警告的宣示系统"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.state",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "State",
+                    "de": "Status",
+                    "ru": "Состояние",
+                    "pt": "Estado",
+                    "nl": "Staat",
+                    "fr": "État",
+                    "it": "Stato",
+                    "es": "Estado",
+                    "pl": "Stan",
+                    "uk": "Стан",
+                    "zh-cn": "国家"
+                },
+                "desc": {
+                    "en": "State of alarm system",
+                    "de": "Zustand der Alarmanlage",
+                    "ru": "Состояние системы сигнализации",
+                    "pt": "Estado do sistema de alarme",
+                    "nl": "Staat van alarmsysteem",
+                    "fr": "Système d ' alarme",
+                    "it": "Stato del sistema di allarme",
+                    "es": "Sistema de alarma",
+                    "pl": "Stan alarmowy",
+                    "uk": "Стан сигналізації",
+                    "zh-cn": "国家警觉系统"
+                },
+                "type": "string",
+                "states": {
+                    "deactivated": "deactivated",
+                    "sharp": "sharp",
+                    "activated with warnings": "activated with warnings",
+                    "silent alarm": "silent alarm",
+                    "burgle": "burgle",
+                    "sharp inside": "sharp inside",
+                    "night rest": "night rest",
+                    "gets activated": "gets activated",
+                    "activation failed": "activation failed"
+                },
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.state_list",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "State",
+                    "de": "Zustand",
+                    "ru": "Государство",
+                    "pt": "Estado",
+                    "nl": "Staats State",
+                    "fr": "État",
+                    "it": "Stato",
+                    "es": "Estado",
+                    "pl": "Państwo",
+                    "uk": "Стан",
+                    "zh-cn": "国家"
+                },
+                "desc": {
+                    "en": "State of alarm system (list)",
+                    "de": "Zustand der Alarmanlage (Liste)",
+                    "ru": "Состояние системы сигнализации (список)",
+                    "pt": "Estado do sistema de alarme (lista)",
+                    "nl": "Staat van alarmsysteem (lijst)",
+                    "fr": "Système d ' alarme (liste)",
+                    "it": "Sistema di allarme (elenco)",
+                    "es": "Sistema de alarma (lista)",
+                    "pl": "State of alarm system (lista) (ang.)",
+                    "uk": "Стан сигналізації (список)",
+                    "zh-cn": "国家警觉系统(名单)"
+                },
+                "type": "number",
+                "states": {
+                    "0": "deactivated",
+                    "1": "sharp",
+                    "2": "sharp inside",
+                    "3": "burglary",
+                    "4": "night rest",
+                    "5": "gets activated",
+                    "6": "activation failed",
+                    "7": "activation aborted",
+                    "8": "silent alarm"
+                },
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.enableable",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Enableable",
+                    "de": "Aktivierbar",
+                    "ru": "Включить",
+                    "pt": "Habilitar",
+                    "nl": "In staat",
+                    "fr": "Enableable",
+                    "it": "Abilitare",
+                    "es": "Hable",
+                    "pl": "Zdolny",
+                    "uk": "Увімкнути",
+                    "zh-cn": "可选"
+                },
+                "desc": {
+                    "en": "Alarm system is sharp enableable",
+                    "de": "Alarmanlage ist scharf aktivierbar",
+                    "ru": "Система сигнализации острая включительная",
+                    "pt": "Sistema de alarme é ativado afiado",
+                    "nl": "Alarmsysteem is scherp in staat",
+                    "fr": "Le système d'alarme est activé",
+                    "it": "Il sistema di allarme è affilato abilitabile",
+                    "es": "El sistema de alarma es afilado",
+                    "pl": "System alarmowy",
+                    "uk": "Система сигналізації є чіткою ввімкненою",
+                    "zh-cn": "A. 明确可实现的制度"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.activation_countdown",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Countdown",
+                    "de": "Countdown",
+                    "ru": "Отсчет",
+                    "pt": "Contagem",
+                    "nl": "Aftellen",
+                    "fr": "Compte à rebours",
+                    "it": "Conteggio",
+                    "es": "Cuenta atrás",
+                    "pl": "Countdown",
+                    "uk": "Відправити",
+                    "zh-cn": "倒数"
+                },
+                "desc": {
+                    "en": "Time to activate the alarm system",
+                    "de": "Zeit zur Aktivierung der Alarmanlage",
+                    "ru": "Время активации системы сигнализации",
+                    "pt": "Tempo para ativar o sistema de alarme",
+                    "nl": "Tijd om het alarmsysteem te activeren",
+                    "fr": "Temps d'activation du système d'alarme",
+                    "it": "Tempo di attivare il sistema di allarme",
+                    "es": "Hora de activar el sistema de alarma",
+                    "pl": "Czas na działanie systemu alarmowego",
+                    "uk": "Час активізації системи сигналізації",
+                    "zh-cn": "D. 采取行动时"
+                },
+                "type": "number",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.silent_countdown",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Silent alarm countdown",
+                    "de": "Stiller Alarm Countdown",
+                    "ru": "Тихий отсчет тревоги",
+                    "pt": "Contagem de alarme silencioso",
+                    "nl": "Stil alarm afgaan",
+                    "fr": "Compte d'alarme silencieux",
+                    "it": "Conto di allarme silenzioso",
+                    "es": "Cuenta de alarma silenciosa",
+                    "pl": "Silent alarm countdown",
+                    "uk": "Відлік сигналізації",
+                    "zh-cn": "沉默警戒"
+                },
+                "desc": {
+                    "en": "Time to trigger the alarm system to silent alarm",
+                    "de": "Zeit zum Auslösen der Alarmanlage in stillen Alarm",
+                    "ru": "Время вызвать систему сигнализации для молчаливой тревоги",
+                    "pt": "Tempo para ativar o sistema de alarme para alarme silencioso",
+                    "nl": "Tijd om het alarmsysteem te activeren tot stil alarm",
+                    "fr": "Temps de déclencher le système d'alarme à l'alarme silencieuse",
+                    "it": "Tempo di attivare il sistema di allarme per allarme silenzioso",
+                    "es": "Hora de activar el sistema de alarma para alarma silenciosa",
+                    "pl": "Czas na alarm do tłumienia alarmu",
+                    "uk": "Час запуску системи сигналізації для німої сигналізації",
+                    "zh-cn": "D. 发出警报系统的时刻"
+                },
+                "type": "number",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.sharp_inside_activated",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Sharp inside activated",
+                    "de": "Sharp innen aktiviert",
+                    "ru": "Sharp внутри активирован",
+                    "pt": "Afiado dentro ativado",
+                    "nl": "Scherp van binnen",
+                    "fr": "Sharp inside enabled",
+                    "it": "Attivato all'interno",
+                    "es": "Afilar dentro activado",
+                    "pl": "Sharp wewnątrz aktywowany",
+                    "uk": "Хмарно активоване",
+                    "zh-cn": "A. 内在的利润"
+                },
+                "desc": {
+                    "en": "Sharp inside activated",
+                    "de": "Scharf innen aktiviert",
+                    "ru": "Sharp внутри активирован",
+                    "pt": "Afiado dentro ativado",
+                    "nl": "Scherp van binnen",
+                    "fr": "Sharp inside enabled",
+                    "it": "Attivato all'interno",
+                    "es": "Afilar dentro activado",
+                    "pl": "Sharp wewnątrz aktywowany",
+                    "uk": "Хмарно активоване",
+                    "zh-cn": "A. 内在的利润"
+                },
+                "type": "boolean",
+                "def": false,
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "use.list",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "List array",
+                    "de": "Listenfeld",
+                    "ru": "Список массивов",
+                    "pt": "Lista de arrays",
+                    "nl": "List Array",
+                    "fr": "Liste tableau",
+                    "it": "Elenco array",
+                    "es": "List array",
+                    "pl": "Tablica",
+                    "uk": "Список масивів",
+                    "zh-cn": "名单"
+                },
+                "desc": {
+                    "en": "Use diffrent numbers to change the state of the alarm system",
+                    "de": "Verwenden Sie verschiedene Zahlen, um den Zustand der Alarmanlage zu ändern",
+                    "ru": "Используйте различные номера для изменения состояния системы сигнализации",
+                    "pt": "Use números diffrent para alterar o estado do sistema de alarme",
+                    "nl": "Gebruik diffrent nummers om de staat van het alarmsysteem te veranderen",
+                    "fr": "Utilisez les numéros diffrents pour modifier l'état du système d'alarme",
+                    "it": "Utilizzare numeri diffrenti per modificare lo stato del sistema di allarme",
+                    "es": "Use números diffrent para cambiar el estado del sistema de alarma",
+                    "pl": "Wykorzystywanie liczb rozproszonych w celu zmiany stanu alarmowego",
+                    "uk": "Використовуйте дифрактивні номери для зміни стану системи сигналізації",
+                    "zh-cn": "A. 利用可观的数字改变警觉系统的状况"
+                },
+                "type": "number",
+                "states": {
+                    "0": "disable",
+                    "1": "enable",
+                    "2": "sharp inside",
+                    "3": "enable with delay",
+                    "4": "night rest"
+                },
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "use.enable",
+            "type": "state",
+            "common": {
+                "role": "button.enable",
+                "name": {
+                    "en": "Enable",
+                    "de": "Aktivieren",
+                    "ru": "Включить",
+                    "pt": "Habilitar",
+                    "nl": "In staat",
+                    "fr": "Active",
+                    "it": "Abilitare",
+                    "es": "Habilitación",
+                    "pl": "Pełny",
+                    "uk": "Увімкнути",
+                    "zh-cn": "附录"
+                },
+                "desc": {
+                    "en": "Enable the alarm system",
+                    "de": "Alarmanlage aktivieren",
+                    "ru": "Включите систему сигнализации",
+                    "pt": "Activar o sistema de alarme",
+                    "nl": "Het alarmsysteem invoeren",
+                    "fr": "Activer le système d'alarme",
+                    "it": "Abilitare il sistema di allarme",
+                    "es": "Activar el sistema de alarma",
+                    "pl": "System alarmowy",
+                    "uk": "Увімкнути систему сигналізації",
+                    "zh-cn": "警报系统"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "use.disable",
+            "type": "state",
+            "common": {
+                "role": "button.disable",
+                "name": {
+                    "en": "Disable",
+                    "de": "Deaktivieren",
+                    "ru": "Отключить",
+                    "pt": "Deficiência",
+                    "nl": "Talen",
+                    "fr": "Désactive",
+                    "it": "Disattivare",
+                    "es": "Discapacidad",
+                    "pl": "Dyskretny",
+                    "uk": "Вимкнути",
+                    "zh-cn": "缺点"
+                },
+                "desc": {
+                    "en": "Disable the alarm system",
+                    "de": "Alarmanlage deaktivieren",
+                    "ru": "Отключить систему сигнализации",
+                    "pt": "Desativar o sistema de alarme",
+                    "nl": "Het alarmsysteem uitschakelen",
+                    "fr": "Désactiver le système d'alarme",
+                    "it": "Disattivare il sistema di allarme",
+                    "es": "Desactivar el sistema de alarma",
+                    "pl": "System alarmowy",
+                    "uk": "Відключення системи сигналізації",
+                    "zh-cn": "震惊制度"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "use.toggle_password",
+            "type": "state",
+            "common": {
+                "role": "switch",
+                "name": {
+                    "en": "Disable / Enable with password",
+                    "de": "Deaktivieren / Aktivieren mit Passwort",
+                    "ru": "Отключить / Включить с паролем",
+                    "pt": "Desativar / Ativar com senha",
+                    "nl": "In staat met wachtwoord",
+                    "fr": "Désactiver / Activer le mot de passe",
+                    "it": "Disabilitare / Attivare con password",
+                    "es": "Desactivar / Habilitar con contraseña",
+                    "pl": "Niezdolny / Enable with passwordword",
+                    "uk": "Увімкнути / Увімкнути пароль",
+                    "zh-cn": "A. 可区分/可采用密码"
+                },
+                "desc": {
+                    "en": "Disable or enable the alarm system with password",
+                    "de": "Deaktivieren oder aktivieren Sie die Alarmanlage mit Passwort",
+                    "ru": "Отключите или включите систему сигнализации с паролем",
+                    "pt": "Desativar ou ativar o sistema de alarme com senha",
+                    "nl": "Het alarmsysteem met een wachtwoord",
+                    "fr": "Désactiver ou activer le système d'alarme avec mot de passe",
+                    "it": "Disattivare o abilitare il sistema di allarme con password",
+                    "es": "Desactivar o activar el sistema de alarma con contraseña",
+                    "pl": "Niezdolny lub umożliwiany system alarmowy z hasłami",
+                    "uk": "Увімкніть або ввімкніть систему сигналізації паролем",
+                    "zh-cn": "可以纠正或使警报系统有密码"
+                },
+                "type": "string",
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "use.disable_password",
+            "type": "state",
+            "common": {
+                "role": "switch",
+                "name": {
+                    "en": "Disable with password",
+                    "de": "Mit Passwort deaktivieren",
+                    "ru": "Отключить с паролем",
+                    "pt": "Desativar com senha",
+                    "nl": "Vertaling:",
+                    "fr": "Désactive avec mot de passe",
+                    "it": "Disattivare con password",
+                    "es": "Desactivar con contraseña",
+                    "pl": "Niezdolny do przemówienia",
+                    "uk": "Вимкніть пароль",
+                    "zh-cn": "评 注"
+                },
+                "desc": {
+                    "en": "Disable the alarm system with password",
+                    "de": "Alarmanlage mit Passwort deaktivieren",
+                    "ru": "Отключить систему сигнализации с паролем",
+                    "pt": "Desativar o sistema de alarme com senha",
+                    "nl": "Leg het alarmsysteem uit met wachtwoord",
+                    "fr": "Désactiver le système d'alarme avec mot de passe",
+                    "it": "Disattivare il sistema di allarme con password",
+                    "es": "Desactivar el sistema de alarma con contraseña",
+                    "pl": "Niezdolny system alarmowy z hasłem haseł",
+                    "uk": "Вимкніть систему сигналізації паролем",
+                    "zh-cn": "A. 警觉系统有密码"
+                },
+                "type": "string",
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "use.activate_nightrest",
+            "type": "state",
+            "common": {
+                "role": "button.activate.nightrest",
+                "name": {
+                    "en": "Activate nightrest",
+                    "de": "Nachtruhe aktivieren",
+                    "ru": "Активировать ночные ремни",
+                    "pt": "Ativar descanso noturno",
+                    "nl": "Activeer nachtrustreren",
+                    "fr": "Activer la nuit",
+                    "it": "Attivare il riposo notturno",
+                    "es": "Activar el descanso nocturno",
+                    "pl": "Activated Nightrest (ang.)",
+                    "uk": "Активувати ніч",
+                    "zh-cn": "夜间活动"
+                },
+                "desc": {
+                    "en": "Activate nightrest",
+                    "de": "Nachtruhe aktivieren",
+                    "ru": "Активировать ночные ремни",
+                    "pt": "Ativar descanso noturno",
+                    "nl": "Activeer nachtrustreren",
+                    "fr": "Activer la nuit",
+                    "it": "Attivare il riposo notturno",
+                    "es": "Activar el descanso nocturno",
+                    "pl": "Activated Nightrest (ang.)",
+                    "uk": "Активувати ніч",
+                    "zh-cn": "夜间活动"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "use.activate_sharp_inside",
+            "type": "state",
+            "common": {
+                "type": "boolean",
+                "role": "button.activate.sharp_inside",
+                "name": {
+                    "en": "Activate sharp inside",
+                    "de": "Scharf innen aktivieren",
+                    "ru": "Активировать резкое внутри",
+                    "pt": "Ativar afiado dentro",
+                    "nl": "Activeer scherp van binnen",
+                    "fr": "Activer l'intérieur",
+                    "it": "Attivare l'interno affilato",
+                    "es": "Activar hacia dentro",
+                    "pl": "Aktywna ostrość wewnątrz",
+                    "uk": "Активувати гострий всередині",
+                    "zh-cn": "B. 内部的行为"
+                },
+                "desc": {
+                    "en": "Activate sharp inside",
+                    "de": "Scharf innen aktivieren",
+                    "ru": "Активировать резкое внутри",
+                    "pt": "Ativar afiado dentro",
+                    "nl": "Activeer scherp van binnen",
+                    "fr": "Activer l'intérieur",
+                    "it": "Attivare l'interno affilato",
+                    "es": "Activar hacia dentro",
+                    "pl": "Aktywna ostrość wewnątrz",
+                    "uk": "Активувати гострий всередині",
+                    "zh-cn": "B. 内部的行为"
+                },
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "use.toggle_with_delay_and_password",
+            "type": "state",
+            "common": {
+                "role": "switch",
+                "name": {
+                    "en": "Disable / Enable with delay",
+                    "de": "Deaktivieren / Aktivieren mit Verzögerung",
+                    "ru": "Отключить / Включить с задержкой",
+                    "pt": "Desativar / Habilitar com atraso",
+                    "nl": "Vertaling:",
+                    "fr": "Désactiver / Activer avec retard",
+                    "it": "Disabilitare / Abilitare con ritardo",
+                    "es": "Desactivar / Habilitar con retraso",
+                    "pl": "Niezdolny / z opóźnieniem",
+                    "uk": "Вимкнути / Увімкнути з затримкою",
+                    "zh-cn": "A. 可立即纠正/可采"
+                },
+                "desc": {
+                    "en": "Disable or enable the alarm system with delay time and password",
+                    "de": "Deaktivieren oder aktivieren Sie die Alarmanlage mit Verzögerungszeit und Passwort",
+                    "ru": "Отключите или включите систему сигнализации с временем задержки и паролем",
+                    "pt": "Desativar ou ativar o sistema de alarme com tempo de atraso e senha",
+                    "nl": "Het alarmsysteem inschakelen met vertragingstijd en wachtwoord",
+                    "fr": "Désactiver ou activer le système d'alarme avec délai et mot de passe",
+                    "it": "Disattivare o abilitare il sistema di allarme con tempo di ritardo e password",
+                    "es": "Desactivar o activar el sistema de alarma con tiempo de demora y contraseña",
+                    "pl": "Niezdolny lub umożliwiany system alarmowy z opóźnionym czasem i hasłem",
+                    "uk": "Увімкніть або ввімкніть систему сигналізації з часом затримки та паролем",
+                    "zh-cn": "警觉或使警报系统拖延时间和密码"
+                },
+                "type": "string",
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "use.enable_with_delay",
+            "type": "state",
+            "common": {
+                "role": "button.enable",
+                "name": {
+                    "en": "Enable with delay",
+                    "de": "Mit Verzögerung aktivieren",
+                    "ru": "Включить с задержкой",
+                    "pt": "Habilitar com atraso",
+                    "nl": "Enthousiast",
+                    "fr": "Activer le délai",
+                    "it": "Abilitare il ritardo",
+                    "es": "Habilitación con demora",
+                    "pl": "Z opóźnieniem",
+                    "uk": "Увімкніть затримку",
+                    "zh-cn": "拖延"
+                },
+                "desc": {
+                    "en": "Enable the alarm system with delay time",
+                    "de": "Alarmanlage mit Verzögerungszeit aktivieren",
+                    "ru": "Включите систему сигнализации с временем задержки",
+                    "pt": "Habilite o sistema de alarme com tempo de atraso",
+                    "nl": "Het alarmsysteem met vertraging",
+                    "fr": "Activer le système d'alarme avec le temps de retard",
+                    "it": "Abilitare il sistema di allarme con il tempo di ritardo",
+                    "es": "Permitir el sistema de alarma con tiempo de demora",
+                    "pl": "System alarmowy z opóźnieniem czasowym",
+                    "uk": "Увімкнути систему сигналізації з часом затримки",
+                    "zh-cn": "及时建立警报系统"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "use.quit_changes",
+            "type": "state",
+            "common": {
+                "role": "button.quit",
+                "name": {
+                    "en": "Quit changes",
+                    "de": "Veränderungen quittieren",
+                    "ru": "Тихие изменения",
+                    "pt": "Desistir de mudanças",
+                    "nl": "Stop met veranderingen",
+                    "fr": "Changements",
+                    "it": "Smettere di cambiare",
+                    "es": "Deja de cambiar",
+                    "pl": "Zmiana",
+                    "uk": "Зміна запитів",
+                    "zh-cn": "B. 基调"
+                },
+                "desc": {
+                    "en": "Quit changes during night rest and sharp inside",
+                    "de": "Veränderungen während der Nachtruhe und scharf innen quittieren",
+                    "ru": "Тихие изменения во время ночного отдыха и острые внутри",
+                    "pt": "Desistir mudanças durante o descanso noturno e afiado dentro",
+                    "nl": "Stop met wisselen tijdens nachtrust en scherp van binnen",
+                    "fr": "Changements tranquilles pendant le repos de nuit et aiguisé à l'intérieur",
+                    "it": "Smettere i cambiamenti durante il riposo notturno e affilato all'interno",
+                    "es": "Deja de cambiar durante el descanso nocturno y agudo dentro",
+                    "pl": "Zmiany w nocy na odpoczynek i ostrym wewnątrz",
+                    "uk": "Передача змін під час нічного відпочинку та різкого всередині",
+                    "zh-cn": "夜间期间的基调和暴乱"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "use.panic",
+            "type": "state",
+            "common": {
+                "role": "button.panic",
+                "name": {
+                    "en": "Panic alarm",
+                    "de": "Panikalarm",
+                    "ru": "Паническая сигнализация",
+                    "pt": "Alarme de pânico",
+                    "nl": "Paniek alarm",
+                    "fr": "Alarme panique",
+                    "it": "Allarme panico",
+                    "es": "Alarma de pánico",
+                    "pl": "Alarm paniczny",
+                    "uk": "Панічна сигналізація",
+                    "zh-cn": "泛警"
+                },
+                "desc": {
+                    "en": "Panic button to burgle the alarm system",
+                    "de": "Panik-Taste, um die Alarmanlage auszulösen",
+                    "ru": "Panic button to burgle система сигнализации",
+                    "pt": "Botão de pânico para agitar o sistema de alarme",
+                    "nl": "Panische knop om het alarmsysteem in te breken",
+                    "fr": "Bouton panoramique pour enfouir le système d'alarme",
+                    "it": "Pulsante di panico per il sistema di allarme",
+                    "es": "Botón de pánico para burgle el sistema de alarma",
+                    "pl": "Przycisk Paniczny do włamania systemu alarmowego",
+                    "uk": "Панічна кнопка для burgle сигналізації",
+                    "zh-cn": "宽泛但有说服力的系统"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "presence.on_off",
+            "type": "state",
+            "common": {
+                "role": "switch",
+                "name": {
+                    "en": "Presence simulation",
+                    "de": "Präsenzsimulation",
+                    "ru": "Симуляция присутствия",
+                    "pt": "Simulação de presença",
+                    "nl": "Druk simulatie",
+                    "fr": "Simulation de présence",
+                    "it": "Simulazione di presenza",
+                    "es": "Simulación de presencia",
+                    "pl": "Symulacja Presence",
+                    "uk": "Моделювання присутності",
+                    "zh-cn": "评 注"
+                },
+                "desc": {
+                    "en": "Use presence simulation at sharp",
+                    "de": "Präsenzsimulation verwenden (bei scharf)",
+                    "ru": "Используйте симуляцию присутствия при резком",
+                    "pt": "Use a simulação de presença em ponto",
+                    "nl": "Gebruik aanwezigheidssimulatie",
+                    "fr": "Utiliser la simulation de présence à vif",
+                    "it": "Utilizzare la simulazione di presenza affilato",
+                    "es": "Utilizar simulación de presencia afilada",
+                    "pl": "Użycie symulacji na ostrym poziomie",
+                    "uk": "Використання моделювання присутності при гострому",
+                    "zh-cn": "使用存在模拟"
+                },
+                "type": "boolean",
+                "def": false,
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "homekit.TargetState",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "List array",
+                    "de": "Listenfeld",
+                    "ru": "Список массивов",
+                    "pt": "Lista de arrays",
+                    "nl": "List Array",
+                    "fr": "Liste tableau",
+                    "it": "Elenco array",
+                    "es": "List array",
+                    "pl": "Tablica",
+                    "uk": "Список масивів",
+                    "zh-cn": "名单"
+                },
+                "desc": {
+                    "en": "Use diffrent numbers for change the state of the alarm system (TargetState)",
+                    "de": "Verwenden Sie diffrent Zahlen für den Zustand des Alarmsystems (TargetState)",
+                    "ru": "Используйте различные номера для изменения состояния системы сигнализации (TargetState)",
+                    "pt": "Use números diffrent para alterar o estado do sistema de alarme (TargetState)",
+                    "nl": "Gebruik diffrent nummers om de staat van het alarmsysteem te veranderen",
+                    "fr": "Utilisez les numéros diffrents pour changer l'état du système d'alarme (TargetState)",
+                    "it": "Utilizzare numeri diffrenti per modificare lo stato del sistema di allarme (TargetState)",
+                    "es": "Use números diffrent para cambiar el estado del sistema de alarma (Estado de emergencia)",
+                    "pl": "Wykorzystywanie liczb rozproszonych w celu zmiany stanu alarmowego (TargetState)",
+                    "uk": "Використовуйте дифрактивні номери для зміни стану системи сигналізації (TargetState)",
+                    "zh-cn": "3. 利用可减少数量来改变警报系统的状况(目标国)"
+                },
+                "type": "number",
+                "states": {
+                    "0": "stayArm",
+                    "1": "awayArm",
+                    "2": "nightArm",
+                    "3": "disarmed"
+                },
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "homekit.CurrentState",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "State (list)",
+                    "de": "Status (Liste)",
+                    "ru": "Штат (список)",
+                    "pt": "Estado (lista)",
+                    "nl": "Staat",
+                    "fr": "État (liste)",
+                    "it": "Stato (elenco)",
+                    "es": "Estado (lista)",
+                    "pl": "State (lista) (ang.)",
+                    "uk": "Стан (лист)",
+                    "zh-cn": "国家(名单)"
+                },
+                "desc": {
+                    "en": "State of alarm system (CurrentState)",
+                    "de": "Zustand des Alarmsystems (CurrentState)",
+                    "ru": "Состояние системы сигнализации (CurrentState)",
+                    "pt": "Estado do sistema de alarme (CurrentState)",
+                    "nl": "Staat van alarmsysteem (CurrentState)",
+                    "fr": "State of alarm system (CurrentState)",
+                    "it": "Sistema di allarme (CurrentState)",
+                    "es": "State of alarm system (CurrentState)",
+                    "pl": "State of alarm system (ang.)",
+                    "uk": "Стан сигналізації (CurrentState)",
+                    "zh-cn": "国家警觉系统"
+                },
+                "type": "number",
+                "states": {
+                    "0": "stayArm",
+                    "1": "awayArm",
+                    "2": "nightArm",
+                    "3": "disarmed",
+                    "4": "triggered"
+                },
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.wrong_password",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Wrong password",
+                    "de": "Falsches Passwort",
+                    "ru": "Неправильный пароль",
+                    "pt": "Palavra-passe errada",
+                    "nl": "Verkeerde wachtwoord",
+                    "fr": "Mot de passe faux",
+                    "it": "Password sbagliata",
+                    "es": "Contraseña incorrecta",
+                    "pl": "Wrong password",
+                    "uk": "Пароля",
+                    "zh-cn": "Wrong密码"
+                },
+                "desc": {
+                    "en": "Wrong password used",
+                    "de": "Falsches Passwort verwendet",
+                    "ru": "Неправильный пароль",
+                    "pt": "Senha errada usada",
+                    "nl": "Verkeerde wachtwoord",
+                    "fr": "Mot de passe faux utilisé",
+                    "it": "Password sbagliata utilizzata",
+                    "es": "Contraseña incorrecta usada",
+                    "pl": "Wrong password",
+                    "uk": "Увімкнути пароль",
+                    "zh-cn": "所用密码"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "status.siren_inside",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Sharp inside siren",
+                    "de": "Sirene scharf innen",
+                    "ru": "Sharp внутри сирены",
+                    "pt": "Afiado dentro de sirene",
+                    "nl": "Sharp in sirene",
+                    "fr": "Sharp inside siren",
+                    "it": "Sirena interna affilata",
+                    "es": "Afilar dentro de la sirena",
+                    "pl": "Sharp inside a syrena",
+                    "uk": "Товсті всередині сірки",
+                    "zh-cn": "西藏"
+                },
+                "desc": {
+                    "en": "State siren sharp inside ",
+                    "de": "Status Sirene scharf innen",
+                    "ru": "Государственная сирена острая внутри",
+                    "pt": "Estado sirene afiada dentro",
+                    "nl": "Staats sirene scherp van binnen",
+                    "fr": "Sirène de l ' État",
+                    "it": "Sirena di stato tagliente dentro",
+                    "es": "State siren sharp inside",
+                    "pl": "Krążek w środku",
+                    "uk": "Стрий струмінь легень всередині",
+                    "zh-cn": "国家山地"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.notification_circuit_changes",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Changes notification circuit",
+                    "de": "Änderung Benachrichtigungskreis",
+                    "ru": "Изменить схему уведомлений",
+                    "pt": "Altera o circuito de notificação",
+                    "nl": "Veranderingsinformatie",
+                    "fr": "Changements de circuit de notification",
+                    "it": "Cambia il circuito di notifica",
+                    "es": "Cambios circuito de notificación",
+                    "pl": "Zmiana powiadomień",
+                    "uk": "Зміна схеми сповіщення",
+                    "zh-cn": "通知渠道的变化"
+                },
+                "desc": {
+                    "en": "Changes in notification circuit detected",
+                    "de": "Änderungen in der Benachrichtigungskreis erkannt",
+                    "ru": "Изменения в схеме уведомлений обнаружены",
+                    "pt": "Alterações no circuito de notificação detectado",
+                    "nl": "Veranderingen in de inrichtingscircuit ontdekt",
+                    "fr": "Changements dans le circuit de notification détecté",
+                    "it": "Modifiche del circuito di notifica rilevate",
+                    "es": "Cambios en el circuito de notificación detectados",
+                    "pl": "Zmiany w obwodach notyfikacyjnych wykryte",
+                    "uk": "Зміни у виявленні повідомлення",
+                    "zh-cn": "发现的通知渠道的变化"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.notification_circuit_list",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "List notifications",
+                    "de": "Liste Benachrichtigungen",
+                    "ru": "Список уведомлений",
+                    "pt": "Notificações de lista",
+                    "nl": "List berichten",
+                    "fr": "Liste des notifications",
+                    "it": "Elenco delle notifiche",
+                    "es": "Notificaciones de listas",
+                    "pl": "Lista powiadomień",
+                    "uk": "Список повідомлень",
+                    "zh-cn": "名单通知"
+                },
+                "desc": {
+                    "en": "Notification list at sharp, sharp inside and night rest",
+                    "de": "Benachrichtigungsliste bei scharf, scharf innen und Nachtruhe",
+                    "ru": "Список уведомлений при резком, резком внутри и ночного отдыха",
+                    "pt": "Lista de notificações em afiado, afiado dentro e noite",
+                    "nl": "Vermeldingslijst bij scherp, scherp binnen en nachtrust",
+                    "fr": "Liste des notifications à l'intérieur et au repos nocturne",
+                    "it": "Elenco di notificazione acuto, affilato dentro e riposo notturno",
+                    "es": "Lista de notificaciones en agudo, agudo dentro y noche de descanso",
+                    "pl": "Uwaga na ostrym wewnętrznym i nocnym spoczynku",
+                    "uk": "Список повідомлень при гострому, гострому внутрішньому та нічному відпочинку",
+                    "zh-cn": "内和夜间通知清单"
+                },
+                "type": "string",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.alarm_circuit_list",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "List alarm circuit",
+                    "de": "Liste Alarmkreis",
+                    "ru": "Список сигнализации цепи",
+                    "pt": "Lista de circuito de alarme",
+                    "nl": "List alarm circuit",
+                    "fr": "Circuit d'alarme",
+                    "it": "Elenco circuito di allarme",
+                    "es": "Circuito de alarma",
+                    "pl": "System alarmowy",
+                    "uk": "Список схема сигналізації",
+                    "zh-cn": "名单警示"
+                },
+                "desc": {
+                    "en": "Alarm circuit list",
+                    "de": "Alarmkreisliste",
+                    "ru": "Список будильников",
+                    "pt": "Lista de circuitos de alarme",
+                    "nl": "Alarm circuit",
+                    "fr": "Liste des circuits d ' alarme",
+                    "it": "Elenco dei circuiti di allarme",
+                    "es": "Lista de circuitos de alarma",
+                    "pl": "Lista okręgów Alarm",
+                    "uk": "Список схем сигналізації",
+                    "zh-cn": "通知"
+                },
+                "type": "string",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.sharp_inside_circuit_list",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "List sharp inside",
+                    "de": "Liste scharf innen",
+                    "ru": "Список острый внутри",
+                    "pt": "Lista afiada dentro",
+                    "nl": "List scherp van binnen",
+                    "fr": "Liste nette à l ' intérieur",
+                    "it": "Elenco taglienti interni",
+                    "es": "List sharp inside",
+                    "pl": "Ostry",
+                    "uk": "Список гострий всередині",
+                    "zh-cn": "名单"
+                },
+                "desc": {
+                    "en": "List sharp inside",
+                    "de": "Liste scharf innen",
+                    "ru": "Список острый внутри",
+                    "pt": "Lista afiada dentro",
+                    "nl": "List scherp van binnen",
+                    "fr": "Liste nette à l ' intérieur",
+                    "it": "Elenco taglienti interni",
+                    "es": "List sharp inside",
+                    "pl": "Ostry",
+                    "uk": "Список гострий всередині",
+                    "zh-cn": "名单"
+                },
+                "type": "string",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.notification_circuit_list_html",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "List notifications",
+                    "de": "Liste Benachrichtigungen",
+                    "ru": "Список уведомлений",
+                    "pt": "Notificações de lista",
+                    "nl": "List berichten",
+                    "fr": "Liste des notifications",
+                    "it": "Elenco delle notifiche",
+                    "es": "Notificaciones de listas",
+                    "pl": "Lista powiadomień",
+                    "uk": "Список повідомлень",
+                    "zh-cn": "名单通知"
+                },
+                "desc": {
+                    "en": "Notification list at sharp, sharp inside and night rest",
+                    "de": "Benachrichtigungsliste bei scharf, scharf innen und Nachtruhe",
+                    "ru": "Список уведомлений при резком, резком внутри и ночного отдыха",
+                    "pt": "Lista de notificações em afiado, afiado dentro e noite",
+                    "nl": "Vermeldingslijst bij scherp, scherp binnen en nachtrust",
+                    "fr": "Liste des notifications à l'intérieur et au repos nocturne",
+                    "it": "Elenco di notificazione acuto, affilato dentro e riposo notturno",
+                    "es": "Lista de notificaciones en agudo, agudo dentro y noche de descanso",
+                    "pl": "Uwaga na ostrym wewnętrznym i nocnym spoczynku",
+                    "uk": "Список повідомлень при гострому, гострому внутрішньому та нічному відпочинку",
+                    "zh-cn": "内和夜间通知清单"
+                },
+                "type": "string",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.alarm_circuit_list_html",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "List alarm circuit",
+                    "de": "Liste Alarmkreis",
+                    "ru": "Список сигнализации цепи",
+                    "pt": "Lista de circuito de alarme",
+                    "nl": "List alarm circuit",
+                    "fr": "Circuit d'alarme",
+                    "it": "Elenco circuito di allarme",
+                    "es": "Circuito de alarma",
+                    "pl": "System alarmowy",
+                    "uk": "Список схема сигналізації",
+                    "zh-cn": "名单警示"
+                },
+                "desc": {
+                    "en": "Alarm circuit list",
+                    "de": "Alarmkreisliste",
+                    "ru": "Список будильников",
+                    "pt": "Lista de circuitos de alarme",
+                    "nl": "Alarm circuit",
+                    "fr": "Liste des circuits d ' alarme",
+                    "it": "Elenco dei circuiti di allarme",
+                    "es": "Lista de circuitos de alarma",
+                    "pl": "Lista okręgów Alarm",
+                    "uk": "Список схем сигналізації",
+                    "zh-cn": "通知"
+                },
+                "type": "string",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.sharp_inside_circuit_list_html",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "List sharp inside",
+                    "de": "Liste scharf innen",
+                    "ru": "Список острый внутри",
+                    "pt": "Lista afiada dentro",
+                    "nl": "List scherp van binnen",
+                    "fr": "Liste nette à l ' intérieur",
+                    "it": "Elenco taglienti interni",
+                    "es": "List sharp inside",
+                    "pl": "Ostry",
+                    "uk": "Список гострий всередині",
+                    "zh-cn": "名单"
+                },
+                "desc": {
+                    "en": "List sharp inside",
+                    "de": "Liste scharf innen",
+                    "ru": "Список острый внутри",
+                    "pt": "Lista afiada dentro",
+                    "nl": "List scherp van binnen",
+                    "fr": "Liste nette à l ' intérieur",
+                    "it": "Elenco taglienti interni",
+                    "es": "List sharp inside",
+                    "pl": "Ostry",
+                    "uk": "Список гострий всередині",
+                    "zh-cn": "名单"
+                },
+                "type": "string",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.log_today",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Logs today",
+                    "de": "Logs heute",
+                    "ru": "Логи сегодня",
+                    "pt": "Logs hoje",
+                    "nl": "Lags vandaag",
+                    "fr": "Logs aujourd'hui",
+                    "it": "Logs oggi",
+                    "es": "Logros hoy",
+                    "pl": "Logos dzisiejszy",
+                    "uk": "Журнали сьогодні",
+                    "zh-cn": "今天的后勤"
+                },
+                "desc": {
+                    "en": "All logs for today",
+                    "de": "Alle Protokolle für heute",
+                    "ru": "Все журналы на сегодня",
+                    "pt": "Todos os registos para hoje",
+                    "nl": "Alle logboeken voor vandaag",
+                    "fr": "Tous les journaux pour aujourd'hui",
+                    "it": "Tutti i registri per oggi",
+                    "es": "Todos los registros para hoy",
+                    "pl": "Wszystkie logi do dziś",
+                    "uk": "Всі журнали сьогодні",
+                    "zh-cn": "今天的所有逻辑"
+                },
+                "type": "string",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.log",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "Last log",
+                    "de": "Letzter Eintrag",
+                    "ru": "Последний лог",
+                    "pt": "Último registo",
+                    "nl": "Laatste logboek",
+                    "fr": "Dernière connexion",
+                    "it": "Ultimo log",
+                    "es": "Último registro",
+                    "pl": "Dziennik",
+                    "uk": "Увійти",
+                    "zh-cn": "最后文件"
+                },
+                "desc": {
+                    "en": "The last log that was oned",
+                    "de": "Das letzte Log, das aufgegeben wurde",
+                    "ru": "Последний лог, который был включен",
+                    "pt": "O último registo que foi ligado",
+                    "nl": "Het laatste logboek dat op stond",
+                    "fr": "Le dernier journal qui a été suré",
+                    "it": "L'ultimo registro che è stato acceso",
+                    "es": "El último registro que fue grabado",
+                    "pl": "Ostatnim polem, który był na nim",
+                    "uk": "Останній журнал, який був",
+                    "zh-cn": "最后一个逻辑是经过审议的。"
+                },
+                "type": "string",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "other_alarms.one_changes",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "List changes",
+                    "de": "Liste Änderungen",
+                    "ru": "Список изменений",
+                    "pt": "Alterações de lista",
+                    "nl": "List veranderingen",
+                    "fr": "Modifications de la liste",
+                    "it": "Modifica dell'elenco",
+                    "es": "Cambios de lista",
+                    "pl": "Zmienić",
+                    "uk": "Список змін",
+                    "zh-cn": "名单变动"
+                },
+                "desc": {
+                    "en": "Signal changes in other alarm one",
+                    "de": "Signaländerungen in anderen Alarm eins",
+                    "ru": "Сигнал меняется в другой сигнализации",
+                    "pt": "Alterações de sinal em outro alarme um",
+                    "nl": "Signale veranderingen in andere alarm één",
+                    "fr": "Changements de signal dans l'autre alarme",
+                    "it": "Cambiamenti di segnale in un altro allarme",
+                    "es": "Cambios de señal en otra alarma uno",
+                    "pl": "Zmiana sygnału w innym alarmie",
+                    "uk": "Сигнальні зміни в іншій сигналізації",
+                    "zh-cn": "B. 其他震惊的明显变化"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "other_alarms.one_list",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "List",
+                    "de": "Liste",
+                    "ru": "Список",
+                    "pt": "Lista",
+                    "nl": "List",
+                    "fr": "Liste",
+                    "it": "Elenco",
+                    "es": "Lista",
+                    "pl": "Lista",
+                    "uk": "Список",
+                    "zh-cn": "名单"
+                },
+                "desc": {
+                    "en": "List other alarms one",
+                    "de": "Liste andere Alarme eins",
+                    "ru": "Список других тревог один",
+                    "pt": "Listar outros alarmes um",
+                    "nl": "Laat andere alarmen één",
+                    "fr": "Liste d'autres alarmes une",
+                    "it": "Elenca altri allarmi uno",
+                    "es": "Listar otras alarmas uno",
+                    "pl": "Lista alarmów",
+                    "uk": "Список інших сигналів",
+                    "zh-cn": "名单"
+                },
+                "type": "string",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "other_alarms.one_list_html",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "List html",
+                    "de": "Liste html",
+                    "ru": "Список html",
+                    "pt": "Listar HTML",
+                    "nl": "List HTMI",
+                    "fr": "List html",
+                    "it": "Elenco html",
+                    "es": "Lista html",
+                    "pl": "Lista",
+                    "uk": "Список html",
+                    "zh-cn": "名单.html"
+                },
+                "desc": {
+                    "en": "List other alarms one",
+                    "de": "Liste andere Alarme eins",
+                    "ru": "Список других тревог один",
+                    "pt": "Listar outros alarmes um",
+                    "nl": "Laat andere alarmen één",
+                    "fr": "Liste d'autres alarmes une",
+                    "it": "Elenca altri allarmi uno",
+                    "es": "Listar otras alarmas uno",
+                    "pl": "Lista alarmów",
+                    "uk": "Список інших сигналів",
+                    "zh-cn": "名单"
+                },
+                "type": "string",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "other_alarms.two_changes",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "List changes",
+                    "de": "Liste Änderungen",
+                    "ru": "Список изменений",
+                    "pt": "Alterações de lista",
+                    "nl": "List veranderingen",
+                    "fr": "Modifications de la liste",
+                    "it": "Modifica dell'elenco",
+                    "es": "Cambios de lista",
+                    "pl": "Zmienić",
+                    "uk": "Список змін",
+                    "zh-cn": "名单变动"
+                },
+                "desc": {
+                    "en": "Signal changes in other alarm two",
+                    "de": "Signaländerungen in anderen Alarm zwei",
+                    "ru": "Сигнал изменения в другой сигнализации два",
+                    "pt": "Alterações de sinal em outro alarme dois",
+                    "nl": "Signaal verandert in andere alarm twee",
+                    "fr": "Changements de signal dans l'autre alarme deux",
+                    "it": "Cambiamenti di segnale in altri allarmi due",
+                    "es": "Cambios de señal en otra alarma dos",
+                    "pl": "Zmiana sygnału w innym alarmie dwa",
+                    "uk": "Зміни сигналу в інших сигналах",
+                    "zh-cn": "其他警觉的明显变化"
+                },
+                "type": "boolean",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "other_alarms.two_list",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "List",
+                    "de": "Liste",
+                    "ru": "Список",
+                    "pt": "Lista",
+                    "nl": "List",
+                    "fr": "Liste",
+                    "it": "Elenco",
+                    "es": "Lista",
+                    "pl": "Lista",
+                    "uk": "Список",
+                    "zh-cn": "名单"
+                },
+                "desc": {
+                    "en": "List other alarm two",
+                    "de": "Liste andere Alarm zwei",
+                    "ru": "Список другой сигнал тревоги два",
+                    "pt": "Lista outro alarme dois",
+                    "nl": "Laat andere alarm twee",
+                    "fr": "Autre alarme",
+                    "it": "Elenco altri allarmi due",
+                    "es": "Lista otra alarma dos",
+                    "pl": "2 alarmy",
+                    "uk": "Список інших сигналів",
+                    "zh-cn": "名单"
+                },
+                "type": "string",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "other_alarms.two_list_html",
+            "type": "state",
+            "common": {
+                "role": "",
+                "name": {
+                    "en": "List html",
+                    "de": "Liste html",
+                    "ru": "Список html",
+                    "pt": "Listar HTML",
+                    "nl": "List HTMI",
+                    "fr": "List html",
+                    "it": "Elenco html",
+                    "es": "Lista html",
+                    "pl": "Lista",
+                    "uk": "Список html",
+                    "zh-cn": "名单.html"
+                },
+                "desc": {
+                    "en": "List other alarm two",
+                    "de": "Liste andere Alarm zwei",
+                    "ru": "Список другой сигнал тревоги два",
+                    "pt": "Lista outro alarme dois",
+                    "nl": "Laat andere alarm twee",
+                    "fr": "Autre alarme",
+                    "it": "Elenco altri allarmi due",
+                    "es": "Lista otra alarma dos",
+                    "pl": "2 alarmy",
+                    "uk": "Список інших сигналів",
+                    "zh-cn": "名单"
+                },
+                "type": "string",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        }
     ]
-  },
-  "protectedNative": [
-    "password"
-  ],
-  "encryptedNative": [
-    "password"
-  ],
-  "native": {
-    "new_version": false,
-    "circuits": [],
-    "shorts_in": [],
-    "shorts": [],
-    "one": [],
-    "two": [],
-    "zone_one": [],
-    "zone_two": [],
-    "zone_three": [],
-    "presence": [],
-    "presence_activate_delay": 0,
-    "presence_activate_delay_select": "sec",
-    "time_activate": 10,
-    "time_alarm": 60,
-    "time_silent": 0,
-    "time_warning": 3,
-    "time_activate_select": "sec",
-    "time_alarm_select": "sec",
-    "time_silent_select": "sec",
-    "time_warning_select": "sec",
-    "alarm_flash": 2,
-    "silent_flash": 2,
-    "opt_say_night": true,
-    "opt_night_silent": false,
-    "opt_say_warn": true,
-    "opt_say_names": true,
-    "opt_say_changes": true,
-    "opt_say_warn_changes": true,
-    "opt_night": true,
-    "opt_log": true,
-    "opt_siren": false,
-    "opt_leave": false,
-    "opt_warning": false,
-    "night_from": "",
-    "night_to": "",
-    "send_alarm": true,
-    "send_alarm_inside": true,
-    "send_notification_changes": true,
-    "send_one_changes": true,
-    "send_two_changes": true,
-    "send_activation": false,
-    "send_activation_inside": false,
-    "send_activation_warnings": true,
-    "send_activation_warnings_inside": true,
-    "send_activation_warnings_night": true,
-    "send_activated_with_warnings": true,
-    "send_alarm_silent": true,
-    "send_alarm_silent_inside": true,
-    "send_failed": true,
-    "send_zone_one": true,
-    "send_zone_two": true,
-    "send_zone_three": true,
-    "sayit": [],
-    "text_activated": "Alarmanlage aktiviert",
-    "text_deactivated": "Alarmanlage deaktiviert",
-    "text_failed": "Aktivierung fehlgeschlagen",
-    "text_warning": "Es sind noch Sachen offen",
-    "text_changes": "Veränderungen erkannt",
-    "text_changes_night": "Veränderungen erkannt",
-    "text_alarm": "Verlassen Sie sofort das Haus",
-    "text_alarm_pause": 5,
-    "text_nightrest_beginn": "Nachtruhe beginnt",
-    "text_nightrest_end": "Nachtruhe beendet",
-    "text_warn_begin": "Scharf intern aktiviert",
-    "text_warn_end": "Scharf intern deaktiviert",
-    "text_countdown": "Sekunden bis zur Aktivierung",
-    "text_one": "Alarmanlage meldet einen Feueralarm:",
-    "text_two": "Alarmanlage meldet einen Wasseralarm:",
-    "text_aborted": "Aktivierung abgebrochen",
-    "password": "",
-    "sendTo": "",
-    "alarm": "",
-    "alarm_repeat": "1",
-    "changes_repeat": "1",
-    "warning": "",
-    "night": "",
-    "log_pass": "Falsches Passwort benutzt!",
-    "log_act_not": "Alarmanlage kann nicht aktiviert werden, kontrolliere:",
-    "log_act": "Alarmanlage aktiviert",
-    "log_warn_act": "Scharf innen aktiviert",
-    "log_act_warn": "Alarmanlage mit Warnungen aktiviert:",
-    "log_act_notice": "Es sind noch Sachen offen",
-    "log_deact": "Alarmanlage deaktiviert",
-    "log_warn_deact": "Scharf innen deaktiviert",
-    "log_burgle": "Alarmanlage meldet Einbruch in:",
-    "log_panic": "Alarmanlage meldet Einbruch durch Panik Schalter",
-    "log_warn": "Alarmanlage meldet eine Warnung, Veränderung bei:",
-    "log_night": "Alarmanlage meldet Veränderung während der Nachtruhe bei:",
-    "log_sleep_b": "Nachtruhe beginnt",
-    "log_sleep_e": "Nachtruhe endet",
-    "log_warn_b_w": "Scharf innen beginnt mit Warnungen:",
-    "log_nights_b_w": "Nachtruhe beginnt mit Warnungen:",
-    "log_one": "Alarmanlage meldet einen Feueralarm:",
-    "log_two": "Alarmanlage meldet einen Wasseralarm:",
-    "log_aborted": "Aktivierung abgebrochen",
-    "one_name": "Feueralarm",
-    "two_name": "Wasseralarm",
-    "log_zone_one": "Veränderungen in Zone eins",
-    "log_zone_two": "Veränderungen in Zone zwei",
-    "log_zone_three": "Veränderungen in Zone drei",
-    "opt_telegram": false,
-    "chatID": "",
-    "user": ""
-  },
-  "objects": [],
-  "instanceObjects": [
-    {
-      "_id": "zone.one",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Zone one",
-          "de": "Gebiet eins",
-          "ru": "Зона одна",
-          "pt": "Zona um",
-          "nl": "Zone één",
-          "fr": "Zone 1",
-          "it": "Zona",
-          "es": "Zona 1",
-          "pl": "Strefa jednej strefy",
-          "uk": "Зона один",
-          "zh-cn": "第一部分"
-        },
-        "desc": {
-          "en": "Changes in zone one detected",
-          "de": "Änderungen in Zone eins erkannt",
-          "ru": "Изменения в зоне один обнаружен",
-          "pt": "Alterações na zona um detectada",
-          "nl": "Veranderingen in zone één ontdekt",
-          "fr": "Changements dans la zone 1 détectés",
-          "it": "Cambiamenti nella zona uno rilevato",
-          "es": "Cambios en la zona 1 detectados",
-          "pl": "Zmiany w strefie jeden wykryty",
-          "uk": "Зміни в зоні",
-          "zh-cn": "一所发现区的变化"
-        },
-        "type": "boolean",
-        "def": false,
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "zone.two",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Zone two",
-          "de": "Gebiet zwei",
-          "ru": "Зона 2",
-          "pt": "Zona dois",
-          "nl": "Zone twee",
-          "fr": "Zone deux",
-          "it": "Zona due",
-          "es": "Zona dos",
-          "pl": "Strefa 2",
-          "uk": "Зона 2",
-          "zh-cn": "第二部分"
-        },
-        "desc": {
-          "en": "Changes in zone two detected",
-          "de": "Veränderungen in Zone zwei erkannt",
-          "ru": "Изменения в зоне две обнаруженные",
-          "pt": "Alterações na zona dois detectadas",
-          "nl": "Veranderingen in zone twee ontdekt",
-          "fr": "Changements dans la zone 2 détectés",
-          "it": "Variazioni nella zona due rilevate",
-          "es": "Cambios en la zona dos detectados",
-          "pl": "Zmiany w strefie dwóch wykrytych",
-          "uk": "Зміни в зоні",
-          "zh-cn": "发现的两区的变化"
-        },
-        "type": "boolean",
-        "def": false,
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "zone.three",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Zone three",
-          "de": "Gebiet drei",
-          "ru": "Зона три",
-          "pt": "Zona três",
-          "nl": "Zone drie",
-          "fr": "Zone trois",
-          "it": "Zona tre",
-          "es": "Zona tres",
-          "pl": "Strefa 3",
-          "uk": "Зона три",
-          "zh-cn": "第三部分"
-        },
-        "desc": {
-          "en": "Changes in zone three detected",
-          "de": "Veränderungen in Zone drei erkannt",
-          "ru": "Изменения в зоне 3 обнаружены",
-          "pt": "Alterações na zona três detectadas",
-          "nl": "Veranderingen in zone drie ontdekt",
-          "fr": "Changements dans la zone 3 détectés",
-          "it": "Variazioni nella zona tre rilevate",
-          "es": "Cambios en la zona tres detectados",
-          "pl": "Zmiany w strefie 3 wykryte",
-          "uk": "Зміни в зоні трьох виявлених",
-          "zh-cn": "三区的变化"
-        },
-        "type": "boolean",
-        "def": false,
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "zone.one_on_off",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": {
-          "en": "Zone one",
-          "de": "Gebiet eins",
-          "ru": "Зона одна",
-          "pt": "Zona um",
-          "nl": "Zone één",
-          "fr": "Zone 1",
-          "it": "Zona",
-          "es": "Zona 1",
-          "pl": "Strefa jednej strefy",
-          "uk": "Зона один",
-          "zh-cn": "第一部分"
-        },
-        "desc": {
-          "en": "Enable zone one",
-          "de": "Zone eins aktivieren",
-          "ru": "Включить зону один",
-          "pt": "Habilitar uma zona",
-          "nl": "Zone één inschakelen",
-          "fr": "Activer la zone un",
-          "it": "Abilitare la zona uno",
-          "es": "Zona 1",
-          "pl": "Włącz strefę 1",
-          "uk": "Увімкнути зону",
-          "zh-cn": "启用第一区"
-        },
-        "type": "boolean",
-        "def": true,
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "zone.two_on_off",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": {
-          "en": "Zone two",
-          "de": "Gebiet zwei",
-          "ru": "Зона 2",
-          "pt": "Zona dois",
-          "nl": "Zone twee",
-          "fr": "Zone deux",
-          "it": "Zona due",
-          "es": "Zona dos",
-          "pl": "Strefa 2",
-          "uk": "Зона 2",
-          "zh-cn": "第二部分"
-        },
-        "desc": {
-          "en": "Enable zone two",
-          "de": "Zone zwei aktivieren",
-          "ru": "Включить зону два",
-          "pt": "Ativar zona dois",
-          "nl": "Zone twee inschakelen",
-          "fr": "Activer la zone deux",
-          "it": "Zona due",
-          "es": "Zona 2",
-          "pl": "Włącz strefę drugą",
-          "uk": "Увімкнути зону 2",
-          "zh-cn": "启用二区"
-        },
-        "type": "boolean",
-        "def": true,
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "zone.three_on_off",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": {
-          "en": "Zone three",
-          "de": "Gebiet drei",
-          "ru": "Зона три",
-          "pt": "Zona três",
-          "nl": "Zone drie",
-          "fr": "Zone trois",
-          "it": "Zona tre",
-          "es": "Zona tres",
-          "pl": "Strefa 3",
-          "uk": "Зона три",
-          "zh-cn": "第三部分"
-        },
-        "desc": {
-          "en": "Enable zone three",
-          "de": "Zone drei aktivieren",
-          "ru": "Включить зону три",
-          "pt": "Habilitar a zona três",
-          "nl": "Zone drie inschakelen",
-          "fr": "Activer la zone trois",
-          "it": "Zona tre",
-          "es": "Zona habilitada 3",
-          "pl": "Włącz strefę trzecią",
-          "uk": "Увімкнути зону три",
-          "zh-cn": "启用三区"
-        },
-        "type": "boolean",
-        "def": true,
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.activated",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Activated",
-          "de": "Aktiviert",
-          "ru": "Активация",
-          "pt": "Activado",
-          "nl": "Activatie",
-          "fr": "Activé",
-          "it": "Attivato",
-          "es": "Activado",
-          "pl": "Aktywizacja",
-          "uk": "Активоване",
-          "zh-cn": "法 律"
-        },
-        "desc": {
-          "en": "Alarm system is activated",
-          "de": "Alarmanlage aktiviert",
-          "ru": "Система сигнализации активирована",
-          "pt": "Sistema de alarme é ativado",
-          "nl": "Het alarmsysteem is geactiveerd",
-          "fr": "Système d'alarme activé",
-          "it": "Il sistema di allarme è attivato",
-          "es": "Sistema de alarma activado",
-          "pl": "System Alarma jest aktywowany",
-          "uk": "Система сигналізації активується",
-          "zh-cn": "启动一个申报制度"
-        },
-        "type": "boolean",
-        "def": false,
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.gets_activated",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Gets activated",
-          "de": "Wird aktiviert",
-          "ru": "Получить активирован",
-          "pt": "Activar-se",
-          "nl": "Wordt geactiveerd",
-          "fr": "Active",
-          "it": "Attivazione",
-          "es": "Se activa",
-          "pl": "Gets activated",
-          "uk": "Gets активований",
-          "zh-cn": "Gets启动"
-        },
-        "desc": {
-          "en": "Alarm system gets activated",
-          "de": "Alarmsystem wird aktiviert",
-          "ru": "Система сигнализации активируется",
-          "pt": "Sistema de alarme é ativado",
-          "nl": "Het alarmsysteem wordt geactiveerd",
-          "fr": "Le système d'alarme est activé",
-          "it": "Sistema di allarme si attiva",
-          "es": "El sistema de alarma se activa",
-          "pl": "System Alarma aktywowany",
-          "uk": "Система сигналізації активується",
-          "zh-cn": "Alarm系统启用"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.deactivated",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Deactivated",
-          "de": "Deaktiviert",
-          "ru": "Деактивирован",
-          "pt": "Desativado",
-          "nl": "Deactiveer",
-          "fr": "Désactivation",
-          "it": "Disattivato",
-          "es": "Desactivado",
-          "pl": "Dezaktywować",
-          "uk": "Деактивований",
-          "zh-cn": "修改"
-        },
-        "desc": {
-          "en": "Alarm system is deactivated",
-          "de": "Alarmanlage deaktiviert",
-          "ru": "Система сигнализации деактивирована",
-          "pt": "Sistema de alarme é desativado",
-          "nl": "Alarmsysteem gedeactiveerd",
-          "fr": "Le système d ' alarme est désactivé",
-          "it": "Il sistema di allarme è disattivato",
-          "es": "El sistema de alarma está desactivado",
-          "pl": "System Alarma jest deaktywowany",
-          "uk": "Система сигналізації деактивується",
-          "zh-cn": "宣 言"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.burglar_alarm",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Burglary",
-          "de": "Einbruch",
-          "ru": "Бургляр",
-          "pt": "Burglary",
-          "nl": "Burglary",
-          "fr": "Burglary",
-          "it": "Burglary",
-          "es": "Burglary",
-          "pl": "Burglaria",
-          "uk": "Бургларі",
-          "zh-cn": "伯格"
-        },
-        "desc": {
-          "en": "Alarm system signalled burglary",
-          "de": "Alarmanlage signalisiert Einbruch",
-          "ru": "Сигнализированная сигнализация",
-          "pt": "Sistema de alarme sinalizado roubo",
-          "nl": "Alarmsysteem gesignaleerd inbraak",
-          "fr": "Alarm system signaled burglary",
-          "it": "Sistema di allarme segnalato furto",
-          "es": "Sistema de alarma señalizado robo",
-          "pl": "System Alarma sygnalizował burglarię",
-          "uk": "Система сигналізації сигналізованого бордюру",
-          "zh-cn": "Alarm系统的信号"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.silent_alarm",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Silent alarm",
-          "de": "Stiller Alarm",
-          "ru": "Тихая тревога",
-          "pt": "Alarme silencioso",
-          "nl": "Stil alarm",
-          "fr": "Alarme silencieux",
-          "it": "Allarme silenzioso",
-          "es": "Silent alarm",
-          "pl": "Silent alarm",
-          "uk": "Сильна сигналізація",
-          "zh-cn": "声音"
-        },
-        "desc": {
-          "en": "Alarm system signalled burglary with silent alarm",
-          "de": "Alarmanlage signalisiert Einbruch mit stillem Alarm",
-          "ru": "Сигнализированная сигнализация с сигнализацией",
-          "pt": "Sistema de alarme sinalizado roubo com alarme silencioso",
-          "nl": "Alarmsysteem gesignaleerd inbraak met stil alarm",
-          "fr": "Système d'alarme signalé cambriolage avec alarme silencieuse",
-          "it": "Sistema di allarme segnalato furto con allarme silenzioso",
-          "es": "Sistema de alarma señalizado robo con alarma silenciosa",
-          "pl": "System alarmowy sygnalizował włamanie z cichym alarmem",
-          "uk": "Система сигналізації сигналізованого бордюру з безшумною сигналізацією",
-          "zh-cn": "宣 言"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.siren",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Alarm siren",
-          "de": "Alarm Sirene",
-          "ru": "Сирена тревоги",
-          "pt": "Sirene de alarme",
-          "nl": "Alarm sirene",
-          "fr": "Alarm siren",
-          "it": "Sirena di allarme",
-          "es": "Alarm siren",
-          "pl": "Alarma",
-          "uk": "Стрілка сигналу",
-          "zh-cn": "Alarm兄弟"
-        },
-        "desc": {
-          "en": "Alarm system has triggered the siren",
-          "de": "Alarmanlage hat die Sirene ausgelöst",
-          "ru": "Система сигнализации вызвала сирена",
-          "pt": "Sistema de alarme desencadeou a sirene",
-          "nl": "Het alarmsysteem heeft de sirene geactiveerd",
-          "fr": "Le système d'alarme a déclenché la sirène",
-          "it": "Il sistema di allarme ha innescato la sirena",
-          "es": "El sistema de alarma ha activado la sirena",
-          "pl": "System Alarma wystrzelił syrenę syrenową",
-          "uk": "Система сигналізації спрацьовувала",
-          "zh-cn": "宣布制度触发了兄弟姐妹。"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.silent_flash",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Silent light alarm",
-          "de": "Stiller Lichtalarm",
-          "ru": "Молочная сигнализация",
-          "pt": "Alarme de luz silencioso",
-          "nl": "Stil licht alarm",
-          "fr": "Alarme lumineuse silencieux",
-          "it": "Allarme luminoso silenzioso",
-          "es": "Alarma de luz silenciosa",
-          "pl": "Silent light alarm",
-          "uk": "Сильна сигналізація світла",
-          "zh-cn": "声音"
-        },
-        "desc": {
-          "en": "Alarm system signalled burglary with silent alarm",
-          "de": "Alarmanlage signalisiert Einbruch mit stillem Alarm",
-          "ru": "Сигнализированная сигнализация с сигнализацией",
-          "pt": "Sistema de alarme sinalizado roubo com alarme silencioso",
-          "nl": "Alarmsysteem gesignaleerd inbraak met stil alarm",
-          "fr": "Système d'alarme signalé cambriolage avec alarme silencieuse",
-          "it": "Sistema di allarme segnalato furto con allarme silenzioso",
-          "es": "Sistema de alarma señalizado robo con alarma silenciosa",
-          "pl": "System alarmowy sygnalizował włamanie z cichym alarmem",
-          "uk": "Система сигналізації сигналізованого бордюру з безшумною сигналізацією",
-          "zh-cn": "宣 言"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.alarm_flash",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Light alarm",
-          "de": "Lichtalarm",
-          "ru": "Световая сигнализация",
-          "pt": "Alarme de luz",
-          "nl": "Licht alarm",
-          "fr": "Alarme lumineuse",
-          "it": "Allarme luminoso",
-          "es": "Alarma de luz",
-          "pl": "Light alarm",
-          "uk": "Легка сигналізація",
-          "zh-cn": "明 警"
-        },
-        "desc": {
-          "en": "Alarm system signalled burglary",
-          "de": "Alarmanlage signalisiert Einbruch",
-          "ru": "Сигнализированная сигнализация",
-          "pt": "Sistema de alarme sinalizado roubo",
-          "nl": "Alarmsysteem gesignaleerd inbraak",
-          "fr": "Alarm system signaled burglary",
-          "it": "Sistema di allarme segnalato furto",
-          "es": "Sistema de alarma señalizado robo",
-          "pl": "System Alarma sygnalizował burglarię",
-          "uk": "Система сигналізації сигналізованого бордюру",
-          "zh-cn": "Alarm系统的信号"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.activation_failed",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Activation failed",
-          "de": "Aktivierung fehlgeschlagen",
-          "ru": "Активация не удалось",
-          "pt": "Ativação falhou",
-          "nl": "Activatie faalde",
-          "fr": "Activation échouée",
-          "it": "Attivazione fallita",
-          "es": "La activación falló",
-          "pl": "Aktywność nie powiodła się",
-          "uk": "Активація",
-          "zh-cn": "未采取行动"
-        },
-        "desc": {
-          "en": "Alarm system report activation failed",
-          "de": "Alarmanlage Meldung Aktivierung fehlgeschlagen",
-          "ru": "Аларм система сообщение активация не удалось",
-          "pt": "A ativação do relatório do sistema de alarme falhou",
-          "nl": "Alarmsysteem melding faalde",
-          "fr": "Défaut d ' activation du système d ' alarme",
-          "it": "Attivazione del rapporto del sistema di allarme",
-          "es": "La activación del informe del sistema de alarma falló",
-          "pl": "Raport ubezpieczeniowy Alarma nie powiódł się",
-          "uk": "Активація звіту про систему сигналізації",
-          "zh-cn": "Alarm系统报告启动失败"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.sleep",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Night rest",
-          "de": "Nachtruhe",
-          "ru": "Ночной отдых",
-          "pt": "O resto da noite",
-          "nl": "Welterusten",
-          "fr": "Nuit repos",
-          "it": "Riposo notturno",
-          "es": "Descanso nocturno",
-          "pl": "Night rest",
-          "uk": "Нічний відпочинок",
-          "zh-cn": "注"
-        },
-        "desc": {
-          "en": "The automatic night rest is activated",
-          "de": "Die automatische Nachtruhe ist aktiviert",
-          "ru": "Автоматический ночной отдых активирован",
-          "pt": "O resto da noite automática é ativado",
-          "nl": "De automatische nachtrust is geactiveerd",
-          "fr": "Le repos automatique de nuit est activé",
-          "it": "Il riposo notturno automatico è attivato",
-          "es": "El descanso nocturno automático está activado",
-          "pl": "Odpoczynek automatycznej nocy jest aktywowany",
-          "uk": "Автоматичний нічний відпочинок активується",
-          "zh-cn": "自动夜间休息被动。"
-        },
-        "type": "boolean",
-        "def": false,
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.activated_with_warnings",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Activated with warnings",
-          "de": "Aktiviert mit Warnungen",
-          "ru": "Активируется с предупреждениями",
-          "pt": "Activado com avisos",
-          "nl": "Geactiveerd met waarschuwingen",
-          "fr": "Activated with warnings",
-          "it": "Attivato con avvisi",
-          "es": "Activado con advertencias",
-          "pl": "Uchwalony z ostrzeżeniem",
-          "uk": "Активоване попередження",
-          "zh-cn": "A. 发出警告"
-        },
-        "desc": {
-          "en": "Alarm system activated with warnings",
-          "de": "Alarmanlage aktiviert mit Warnungen",
-          "ru": "Сигнализация активирована с предупреждениями",
-          "pt": "Sistema de alarme ativado com avisos",
-          "nl": "Alarmsysteem geactiveerd met waarschuwingen",
-          "fr": "Système d'alarme activé avec avertissements",
-          "it": "Sistema di allarme attivato con avvisi",
-          "es": "Sistema de alarma activado con advertencias",
-          "pl": "System Alarma aktywowany za pomocą ostrzeżeń",
-          "uk": "Система сигналізації активована з попередженнями",
-          "zh-cn": "发出警告的宣示系统"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.state",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "State",
-          "de": "Status",
-          "ru": "Государство",
-          "pt": "Estado",
-          "nl": "Staats State",
-          "fr": "État",
-          "it": "Stato",
-          "es": "Estado",
-          "pl": "Państwo",
-          "uk": "Стан",
-          "zh-cn": "国家"
-        },
-        "desc": {
-          "en": "State of alarm system",
-          "de": "Zustand der Alarmanlage",
-          "ru": "Состояние системы сигнализации",
-          "pt": "Estado do sistema de alarme",
-          "nl": "Staat van alarmsysteem",
-          "fr": "Système d ' alarme",
-          "it": "Stato del sistema di allarme",
-          "es": "Sistema de alarma",
-          "pl": "Stan alarmowy",
-          "uk": "Стан сигналізації",
-          "zh-cn": "国家警觉系统"
-        },
-        "type": "string",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.state_list",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "State",
-          "de": "Zustand",
-          "ru": "Государство",
-          "pt": "Estado",
-          "nl": "Staats State",
-          "fr": "État",
-          "it": "Stato",
-          "es": "Estado",
-          "pl": "Państwo",
-          "uk": "Стан",
-          "zh-cn": "国家"
-        },
-        "desc": {
-          "en": "State of alarm system (list)",
-          "de": "Zustand der Alarmanlage (Liste)",
-          "ru": "Состояние системы сигнализации (список)",
-          "pt": "Estado do sistema de alarme (lista)",
-          "nl": "Staat van alarmsysteem (lijst)",
-          "fr": "Système d ' alarme (liste)",
-          "it": "Sistema di allarme (elenco)",
-          "es": "Sistema de alarma (lista)",
-          "pl": "State of alarm system (lista) (ang.)",
-          "uk": "Стан сигналізації (список)",
-          "zh-cn": "国家警觉系统(名单)"
-        },
-        "type": "number",
-        "states": {
-          "0": "deactivated",
-          "1": "sharp",
-          "2": "sharp inside",
-          "3": "burglary",
-          "4": "night rest",
-          "5": "gets activated",
-          "6": "activation failed",
-          "7": "activation aborted",
-          "8": "silent alarm"
-        },
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.enableable",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Enableable",
-          "de": "Aktivierbar",
-          "ru": "Включить",
-          "pt": "Habilitar",
-          "nl": "In staat",
-          "fr": "Enableable",
-          "it": "Abilitare",
-          "es": "Hable",
-          "pl": "Zdolny",
-          "uk": "Увімкнути",
-          "zh-cn": "可选"
-        },
-        "desc": {
-          "en": "Alarm system is sharp enableable",
-          "de": "Alarmanlage ist scharf aktivierbar",
-          "ru": "Система сигнализации острая включительная",
-          "pt": "Sistema de alarme é ativado afiado",
-          "nl": "Alarmsysteem is scherp in staat",
-          "fr": "Le système d'alarme est activé",
-          "it": "Il sistema di allarme è affilato abilitabile",
-          "es": "El sistema de alarma es afilado",
-          "pl": "System alarmowy",
-          "uk": "Система сигналізації є чіткою ввімкненою",
-          "zh-cn": "A. 明确可实现的制度"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.activation_countdown",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Countdown",
-          "de": "Countdown",
-          "ru": "Отсчет",
-          "pt": "Contagem",
-          "nl": "Aftellen",
-          "fr": "Compte à rebours",
-          "it": "Conteggio",
-          "es": "Cuenta atrás",
-          "pl": "Countdown",
-          "uk": "Відправити",
-          "zh-cn": "倒数"
-        },
-        "desc": {
-          "en": "Time to activate the alarm system",
-          "de": "Zeit zur Aktivierung der Alarmanlage",
-          "ru": "Время активации системы сигнализации",
-          "pt": "Tempo para ativar o sistema de alarme",
-          "nl": "Tijd om het alarmsysteem te activeren",
-          "fr": "Temps d'activation du système d'alarme",
-          "it": "Tempo di attivare il sistema di allarme",
-          "es": "Hora de activar el sistema de alarma",
-          "pl": "Czas na działanie systemu alarmowego",
-          "uk": "Час активізації системи сигналізації",
-          "zh-cn": "D. 采取行动时"
-        },
-        "type": "number",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.silent_countdown",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Silent alarm countdown",
-          "de": "Stiller Alarm Countdown",
-          "ru": "Тихий отсчет тревоги",
-          "pt": "Contagem de alarme silencioso",
-          "nl": "Stil alarm afgaan",
-          "fr": "Compte d'alarme silencieux",
-          "it": "Conto di allarme silenzioso",
-          "es": "Cuenta de alarma silenciosa",
-          "pl": "Silent alarm countdown",
-          "uk": "Відлік сигналізації",
-          "zh-cn": "沉默警戒"
-        },
-        "desc": {
-          "en": "Time to trigger the alarm system to silent alarm",
-          "de": "Zeit zum Auslösen der Alarmanlage in stillen Alarm",
-          "ru": "Время вызвать систему сигнализации для молчаливой тревоги",
-          "pt": "Tempo para ativar o sistema de alarme para alarme silencioso",
-          "nl": "Tijd om het alarmsysteem te activeren tot stil alarm",
-          "fr": "Temps de déclencher le système d'alarme à l'alarme silencieuse",
-          "it": "Tempo di attivare il sistema di allarme per allarme silenzioso",
-          "es": "Hora de activar el sistema de alarma para alarma silenciosa",
-          "pl": "Czas na alarm do tłumienia alarmu",
-          "uk": "Час запуску системи сигналізації для німої сигналізації",
-          "zh-cn": "D. 发出警报系统的时刻"
-        },
-        "type": "number",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.sharp_inside_activated",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Sharp inside activated",
-          "de": "Sharp innen aktiviert",
-          "ru": "Sharp внутри активирован",
-          "pt": "Afiado dentro ativado",
-          "nl": "Scherp van binnen",
-          "fr": "Sharp inside enabled",
-          "it": "Attivato all'interno",
-          "es": "Afilar dentro activado",
-          "pl": "Sharp wewnątrz aktywowany",
-          "uk": "Хмарно активоване",
-          "zh-cn": "A. 内在的利润"
-        },
-        "desc": {
-          "en": "Sharp inside activated",
-          "de": "Scharf innen aktiviert",
-          "ru": "Sharp внутри активирован",
-          "pt": "Afiado dentro ativado",
-          "nl": "Scherp van binnen",
-          "fr": "Sharp inside enabled",
-          "it": "Attivato all'interno",
-          "es": "Afilar dentro activado",
-          "pl": "Sharp wewnątrz aktywowany",
-          "uk": "Хмарно активоване",
-          "zh-cn": "A. 内在的利润"
-        },
-        "type": "boolean",
-        "def": false,
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.list",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "List array",
-          "de": "Listenfeld",
-          "ru": "Список массивов",
-          "pt": "Lista de arrays",
-          "nl": "List Array",
-          "fr": "Liste tableau",
-          "it": "Elenco array",
-          "es": "List array",
-          "pl": "Tablica",
-          "uk": "Список масивів",
-          "zh-cn": "名单"
-        },
-        "desc": {
-          "en": "Use diffrent numbers to change the state of the alarm system",
-          "de": "Verwenden Sie verschiedene Zahlen, um den Zustand der Alarmanlage zu ändern",
-          "ru": "Используйте различные номера для изменения состояния системы сигнализации",
-          "pt": "Use números diffrent para alterar o estado do sistema de alarme",
-          "nl": "Gebruik diffrent nummers om de staat van het alarmsysteem te veranderen",
-          "fr": "Utilisez les numéros diffrents pour modifier l'état du système d'alarme",
-          "it": "Utilizzare numeri diffrenti per modificare lo stato del sistema di allarme",
-          "es": "Use números diffrent para cambiar el estado del sistema de alarma",
-          "pl": "Wykorzystywanie liczb rozproszonych w celu zmiany stanu alarmowego",
-          "uk": "Використовуйте дифрактивні номери для зміни стану системи сигналізації",
-          "zh-cn": "A. 利用可观的数字改变警觉系统的状况"
-        },
-        "type": "number",
-        "states": {
-          "0": "disable",
-          "1": "enable",
-          "2": "sharp inside",
-          "3": "enable with delay",
-          "4": "night rest"
-        },
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.enable",
-      "type": "state",
-      "common": {
-        "role": "button.enable",
-        "name": {
-          "en": "Enable",
-          "de": "Aktivieren",
-          "ru": "Включить",
-          "pt": "Habilitar",
-          "nl": "In staat",
-          "fr": "Active",
-          "it": "Abilitare",
-          "es": "Habilitación",
-          "pl": "Pełny",
-          "uk": "Увімкнути",
-          "zh-cn": "附录"
-        },
-        "desc": {
-          "en": "Enable the alarm system",
-          "de": "Alarmanlage aktivieren",
-          "ru": "Включите систему сигнализации",
-          "pt": "Activar o sistema de alarme",
-          "nl": "Het alarmsysteem invoeren",
-          "fr": "Activer le système d'alarme",
-          "it": "Abilitare il sistema di allarme",
-          "es": "Activar el sistema de alarma",
-          "pl": "System alarmowy",
-          "uk": "Увімкнути систему сигналізації",
-          "zh-cn": "警报系统"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.disable",
-      "type": "state",
-      "common": {
-        "role": "button.disable",
-        "name": {
-          "en": "Disable",
-          "de": "Deaktivieren",
-          "ru": "Отключить",
-          "pt": "Deficiência",
-          "nl": "Talen",
-          "fr": "Désactive",
-          "it": "Disattivare",
-          "es": "Discapacidad",
-          "pl": "Dyskretny",
-          "uk": "Вимкнути",
-          "zh-cn": "缺点"
-        },
-        "desc": {
-          "en": "Disable the alarm system",
-          "de": "Alarmanlage deaktivieren",
-          "ru": "Отключить систему сигнализации",
-          "pt": "Desativar o sistema de alarme",
-          "nl": "Het alarmsysteem uitschakelen",
-          "fr": "Désactiver le système d'alarme",
-          "it": "Disattivare il sistema di allarme",
-          "es": "Desactivar el sistema de alarma",
-          "pl": "System alarmowy",
-          "uk": "Відключення системи сигналізації",
-          "zh-cn": "震惊制度"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.toggle_password",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": {
-          "en": "Disable / Enable with password",
-          "de": "Deaktivieren / Aktivieren mit Passwort",
-          "ru": "Отключить / Включить с паролем",
-          "pt": "Desativar / Ativar com senha",
-          "nl": "In staat met wachtwoord",
-          "fr": "Désactiver / Activer le mot de passe",
-          "it": "Disabilitare / Attivare con password",
-          "es": "Desactivar / Habilitar con contraseña",
-          "pl": "Niezdolny / Enable with passwordword",
-          "uk": "Увімкнути / Увімкнути пароль",
-          "zh-cn": "A. 可区分/可采用密码"
-        },
-        "desc": {
-          "en": "Disable or enable the alarm system with password",
-          "de": "Deaktivieren oder aktivieren Sie die Alarmanlage mit Passwort",
-          "ru": "Отключите или включите систему сигнализации с паролем",
-          "pt": "Desativar ou ativar o sistema de alarme com senha",
-          "nl": "Het alarmsysteem met een wachtwoord",
-          "fr": "Désactiver ou activer le système d'alarme avec mot de passe",
-          "it": "Disattivare o abilitare il sistema di allarme con password",
-          "es": "Desactivar o activar el sistema de alarma con contraseña",
-          "pl": "Niezdolny lub umożliwiany system alarmowy z hasłami",
-          "uk": "Увімкніть або ввімкніть систему сигналізації паролем",
-          "zh-cn": "可以纠正或使警报系统有密码"
-        },
-        "type": "string",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.disable_password",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": {
-          "en": "Disable with password",
-          "de": "Mit Passwort deaktivieren",
-          "ru": "Отключить с паролем",
-          "pt": "Desativar com senha",
-          "nl": "Vertaling:",
-          "fr": "Désactive avec mot de passe",
-          "it": "Disattivare con password",
-          "es": "Desactivar con contraseña",
-          "pl": "Niezdolny do przemówienia",
-          "uk": "Вимкніть пароль",
-          "zh-cn": "评 注"
-        },
-        "desc": {
-          "en": "Disable the alarm system with password",
-          "de": "Alarmanlage mit Passwort deaktivieren",
-          "ru": "Отключить систему сигнализации с паролем",
-          "pt": "Desativar o sistema de alarme com senha",
-          "nl": "Leg het alarmsysteem uit met wachtwoord",
-          "fr": "Désactiver le système d'alarme avec mot de passe",
-          "it": "Disattivare il sistema di allarme con password",
-          "es": "Desactivar el sistema de alarma con contraseña",
-          "pl": "Niezdolny system alarmowy z hasłem haseł",
-          "uk": "Вимкніть систему сигналізації паролем",
-          "zh-cn": "A. 警觉系统有密码"
-        },
-        "type": "string",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.activate_nightrest",
-      "type": "state",
-      "common": {
-        "role": "button.activate.nightrest",
-        "name": {
-          "en": "Activate nightrest",
-          "de": "Nachtruhe aktivieren",
-          "ru": "Активировать ночные ремни",
-          "pt": "Ativar descanso noturno",
-          "nl": "Activeer nachtrustreren",
-          "fr": "Activer la nuit",
-          "it": "Attivare il riposo notturno",
-          "es": "Activar el descanso nocturno",
-          "pl": "Activated Nightrest (ang.)",
-          "uk": "Активувати ніч",
-          "zh-cn": "夜间活动"
-        },
-        "desc": {
-          "en": "Activate nightrest",
-          "de": "Nachtruhe aktivieren",
-          "ru": "Активировать ночные ремни",
-          "pt": "Ativar descanso noturno",
-          "nl": "Activeer nachtrustreren",
-          "fr": "Activer la nuit",
-          "it": "Attivare il riposo notturno",
-          "es": "Activar el descanso nocturno",
-          "pl": "Activated Nightrest (ang.)",
-          "uk": "Активувати ніч",
-          "zh-cn": "夜间活动"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.activate_sharp_inside",
-      "type": "state",
-      "common": {
-        "type": "boolean",
-        "role": "button.activate.sharp_inside",
-        "name": {
-          "en": "Activate sharp inside",
-          "de": "Scharf innen aktivieren",
-          "ru": "Активировать резкое внутри",
-          "pt": "Ativar afiado dentro",
-          "nl": "Activeer scherp van binnen",
-          "fr": "Activer l'intérieur",
-          "it": "Attivare l'interno affilato",
-          "es": "Activar hacia dentro",
-          "pl": "Aktywna ostrość wewnątrz",
-          "uk": "Активувати гострий всередині",
-          "zh-cn": "B. 内部的行为"
-        },
-        "desc": {
-          "en": "Activate sharp inside",
-          "de": "Scharf innen aktivieren",
-          "ru": "Активировать резкое внутри",
-          "pt": "Ativar afiado dentro",
-          "nl": "Activeer scherp van binnen",
-          "fr": "Activer l'intérieur",
-          "it": "Attivare l'interno affilato",
-          "es": "Activar hacia dentro",
-          "pl": "Aktywna ostrość wewnątrz",
-          "uk": "Активувати гострий всередині",
-          "zh-cn": "B. 内部的行为"
-        },
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.toggle_with_delay_and_password",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": {
-          "en": "Disable / Enable with delay",
-          "de": "Deaktivieren / Aktivieren mit Verzögerung",
-          "ru": "Отключить / Включить с задержкой",
-          "pt": "Desativar / Habilitar com atraso",
-          "nl": "Vertaling:",
-          "fr": "Désactiver / Activer avec retard",
-          "it": "Disabilitare / Abilitare con ritardo",
-          "es": "Desactivar / Habilitar con retraso",
-          "pl": "Niezdolny / z opóźnieniem",
-          "uk": "Вимкнути / Увімкнути з затримкою",
-          "zh-cn": "A. 可立即纠正/可采"
-        },
-        "desc": {
-          "en": "Disable or enable the alarm system with delay time and password",
-          "de": "Deaktivieren oder aktivieren Sie die Alarmanlage mit Verzögerungszeit und Passwort",
-          "ru": "Отключите или включите систему сигнализации с временем задержки и паролем",
-          "pt": "Desativar ou ativar o sistema de alarme com tempo de atraso e senha",
-          "nl": "Het alarmsysteem inschakelen met vertragingstijd en wachtwoord",
-          "fr": "Désactiver ou activer le système d'alarme avec délai et mot de passe",
-          "it": "Disattivare o abilitare il sistema di allarme con tempo di ritardo e password",
-          "es": "Desactivar o activar el sistema de alarma con tiempo de demora y contraseña",
-          "pl": "Niezdolny lub umożliwiany system alarmowy z opóźnionym czasem i hasłem",
-          "uk": "Увімкніть або ввімкніть систему сигналізації з часом затримки та паролем",
-          "zh-cn": "警觉或使警报系统拖延时间和密码"
-        },
-        "type": "string",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.enable_with_delay",
-      "type": "state",
-      "common": {
-        "role": "button.enable",
-        "name": {
-          "en": "Enable with delay",
-          "de": "Mit Verzögerung aktivieren",
-          "ru": "Включить с задержкой",
-          "pt": "Habilitar com atraso",
-          "nl": "Enthousiast",
-          "fr": "Activer le délai",
-          "it": "Abilitare il ritardo",
-          "es": "Habilitación con demora",
-          "pl": "Z opóźnieniem",
-          "uk": "Увімкніть затримку",
-          "zh-cn": "拖延"
-        },
-        "desc": {
-          "en": "Enable the alarm system with delay time",
-          "de": "Alarmanlage mit Verzögerungszeit aktivieren",
-          "ru": "Включите систему сигнализации с временем задержки",
-          "pt": "Habilite o sistema de alarme com tempo de atraso",
-          "nl": "Het alarmsysteem met vertraging",
-          "fr": "Activer le système d'alarme avec le temps de retard",
-          "it": "Abilitare il sistema di allarme con il tempo di ritardo",
-          "es": "Permitir el sistema de alarma con tiempo de demora",
-          "pl": "System alarmowy z opóźnieniem czasowym",
-          "uk": "Увімкнути систему сигналізації з часом затримки",
-          "zh-cn": "及时建立警报系统"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.quit_changes",
-      "type": "state",
-      "common": {
-        "role": "button.quit",
-        "name": {
-          "en": "Quit changes",
-          "de": "Veränderungen quittieren",
-          "ru": "Тихие изменения",
-          "pt": "Desistir de mudanças",
-          "nl": "Stop met veranderingen",
-          "fr": "Changements",
-          "it": "Smettere di cambiare",
-          "es": "Deja de cambiar",
-          "pl": "Zmiana",
-          "uk": "Зміна запитів",
-          "zh-cn": "B. 基调"
-        },
-        "desc": {
-          "en": "Quit changes during night rest and sharp inside",
-          "de": "Veränderungen während der Nachtruhe und scharf innen quittieren",
-          "ru": "Тихие изменения во время ночного отдыха и острые внутри",
-          "pt": "Desistir mudanças durante o descanso noturno e afiado dentro",
-          "nl": "Stop met wisselen tijdens nachtrust en scherp van binnen",
-          "fr": "Changements tranquilles pendant le repos de nuit et aiguisé à l'intérieur",
-          "it": "Smettere i cambiamenti durante il riposo notturno e affilato all'interno",
-          "es": "Deja de cambiar durante el descanso nocturno y agudo dentro",
-          "pl": "Zmiany w nocy na odpoczynek i ostrym wewnątrz",
-          "uk": "Передача змін під час нічного відпочинку та різкого всередині",
-          "zh-cn": "夜间期间的基调和暴乱"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "use.panic",
-      "type": "state",
-      "common": {
-        "role": "button.panic",
-        "name": {
-          "en": "Panic alarm",
-          "de": "Panikalarm",
-          "ru": "Паническая сигнализация",
-          "pt": "Alarme de pânico",
-          "nl": "Paniek alarm",
-          "fr": "Alarme panique",
-          "it": "Allarme panico",
-          "es": "Alarma de pánico",
-          "pl": "Alarm paniczny",
-          "uk": "Панічна сигналізація",
-          "zh-cn": "泛警"
-        },
-        "desc": {
-          "en": "Panic button to burgle the alarm system",
-          "de": "Panik-Taste, um die Alarmanlage auszulösen",
-          "ru": "Panic button to burgle система сигнализации",
-          "pt": "Botão de pânico para agitar o sistema de alarme",
-          "nl": "Panische knop om het alarmsysteem in te breken",
-          "fr": "Bouton panoramique pour enfouir le système d'alarme",
-          "it": "Pulsante di panico per il sistema di allarme",
-          "es": "Botón de pánico para burgle el sistema de alarma",
-          "pl": "Przycisk Paniczny do włamania systemu alarmowego",
-          "uk": "Панічна кнопка для burgle сигналізації",
-          "zh-cn": "宽泛但有说服力的系统"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "presence.on_off",
-      "type": "state",
-      "common": {
-        "role": "switch",
-        "name": {
-          "en": "Presence simulation",
-          "de": "Präsenzsimulation",
-          "ru": "Симуляция присутствия",
-          "pt": "Simulação de presença",
-          "nl": "Druk simulatie",
-          "fr": "Simulation de présence",
-          "it": "Simulazione di presenza",
-          "es": "Simulación de presencia",
-          "pl": "Symulacja Presence",
-          "uk": "Моделювання присутності",
-          "zh-cn": "评 注"
-        },
-        "desc": {
-          "en": "Use presence simulation at sharp",
-          "de": "Präsenzsimulation verwenden (bei scharf)",
-          "ru": "Используйте симуляцию присутствия при резком",
-          "pt": "Use a simulação de presença em ponto",
-          "nl": "Gebruik aanwezigheidssimulatie",
-          "fr": "Utiliser la simulation de présence à vif",
-          "it": "Utilizzare la simulazione di presenza affilato",
-          "es": "Utilizar simulación de presencia afilada",
-          "pl": "Użycie symulacji na ostrym poziomie",
-          "uk": "Використання моделювання присутності при гострому",
-          "zh-cn": "使用存在模拟"
-        },
-        "type": "boolean",
-        "def": false,
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "homekit.TargetState",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "List array",
-          "de": "Listenfeld",
-          "ru": "Список массивов",
-          "pt": "Lista de arrays",
-          "nl": "List Array",
-          "fr": "Liste tableau",
-          "it": "Elenco array",
-          "es": "List array",
-          "pl": "Tablica",
-          "uk": "Список масивів",
-          "zh-cn": "名单"
-        },
-        "desc": {
-          "en": "Use diffrent numbers for change the state of the alarm system (TargetState)",
-          "de": "Verwenden Sie diffrent Zahlen für den Zustand des Alarmsystems (TargetState)",
-          "ru": "Используйте различные номера для изменения состояния системы сигнализации (TargetState)",
-          "pt": "Use números diffrent para alterar o estado do sistema de alarme (TargetState)",
-          "nl": "Gebruik diffrent nummers om de staat van het alarmsysteem te veranderen",
-          "fr": "Utilisez les numéros diffrents pour changer l'état du système d'alarme (TargetState)",
-          "it": "Utilizzare numeri diffrenti per modificare lo stato del sistema di allarme (TargetState)",
-          "es": "Use números diffrent para cambiar el estado del sistema de alarma (Estado de emergencia)",
-          "pl": "Wykorzystywanie liczb rozproszonych w celu zmiany stanu alarmowego (TargetState)",
-          "uk": "Використовуйте дифрактивні номери для зміни стану системи сигналізації (TargetState)",
-          "zh-cn": "3. 利用可减少数量来改变警报系统的状况(目标国)"
-        },
-        "type": "number",
-        "states": {
-          "0": "stayArm",
-          "1": "awayArm",
-          "2": "nightArm",
-          "3": "disarmed"
-        },
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "homekit.CurrentState",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "State (list)",
-          "de": "Status (Liste)",
-          "ru": "Штат (список)",
-          "pt": "Estado (lista)",
-          "nl": "Staat",
-          "fr": "État (liste)",
-          "it": "Stato (elenco)",
-          "es": "Estado (lista)",
-          "pl": "State (lista) (ang.)",
-          "uk": "Стан (лист)",
-          "zh-cn": "国家(名单)"
-        },
-        "desc": {
-          "en": "State of alarm system (CurrentState)",
-          "de": "Zustand des Alarmsystems (CurrentState)",
-          "ru": "Состояние системы сигнализации (CurrentState)",
-          "pt": "Estado do sistema de alarme (CurrentState)",
-          "nl": "Staat van alarmsysteem (CurrentState)",
-          "fr": "State of alarm system (CurrentState)",
-          "it": "Sistema di allarme (CurrentState)",
-          "es": "State of alarm system (CurrentState)",
-          "pl": "State of alarm system (ang.)",
-          "uk": "Стан сигналізації (CurrentState)",
-          "zh-cn": "国家警觉系统"
-        },
-        "type": "number",
-        "states": {
-          "0": "stayArm",
-          "1": "awayArm",
-          "2": "nightArm",
-          "3": "disarmed",
-          "4": "triggered"
-        },
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.wrong_password",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Wrong password",
-          "de": "Falsches Passwort",
-          "ru": "Неправильный пароль",
-          "pt": "Palavra-passe errada",
-          "nl": "Verkeerde wachtwoord",
-          "fr": "Mot de passe faux",
-          "it": "Password sbagliata",
-          "es": "Contraseña incorrecta",
-          "pl": "Wrong password",
-          "uk": "Пароля",
-          "zh-cn": "Wrong密码"
-        },
-        "desc": {
-          "en": "Wrong password used",
-          "de": "Falsches Passwort verwendet",
-          "ru": "Неправильный пароль",
-          "pt": "Senha errada usada",
-          "nl": "Verkeerde wachtwoord",
-          "fr": "Mot de passe faux utilisé",
-          "it": "Password sbagliata utilizzata",
-          "es": "Contraseña incorrecta usada",
-          "pl": "Wrong password",
-          "uk": "Увімкнути пароль",
-          "zh-cn": "所用密码"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "status.siren_inside",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Sharp inside siren",
-          "de": "Sirene scharf innen",
-          "ru": "Sharp внутри сирены",
-          "pt": "Afiado dentro de sirene",
-          "nl": "Sharp in sirene",
-          "fr": "Sharp inside siren",
-          "it": "Sirena interna affilata",
-          "es": "Afilar dentro de la sirena",
-          "pl": "Sharp inside a syrena",
-          "uk": "Товсті всередині сірки",
-          "zh-cn": "西藏"
-        },
-        "desc": {
-          "en": "State siren sharp inside ",
-          "de": "Status Sirene scharf innen",
-          "ru": "Государственная сирена острая внутри",
-          "pt": "Estado sirene afiada dentro",
-          "nl": "Staats sirene scherp van binnen",
-          "fr": "Sirène de l ' État",
-          "it": "Sirena di stato tagliente dentro",
-          "es": "State siren sharp inside",
-          "pl": "Krążek w środku",
-          "uk": "Стрий струмінь легень всередині",
-          "zh-cn": "国家山地"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.notification_circuit_changes",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Changes notification circuit",
-          "de": "Änderung Benachrichtigungskreis",
-          "ru": "Изменить схему уведомлений",
-          "pt": "Altera o circuito de notificação",
-          "nl": "Veranderingsinformatie",
-          "fr": "Changements de circuit de notification",
-          "it": "Cambia il circuito di notifica",
-          "es": "Cambios circuito de notificación",
-          "pl": "Zmiana powiadomień",
-          "uk": "Зміна схеми сповіщення",
-          "zh-cn": "通知渠道的变化"
-        },
-        "desc": {
-          "en": "Changes in notification circuit detected",
-          "de": "Änderungen in der Benachrichtigungskreis erkannt",
-          "ru": "Изменения в схеме уведомлений обнаружены",
-          "pt": "Alterações no circuito de notificação detectado",
-          "nl": "Veranderingen in de inrichtingscircuit ontdekt",
-          "fr": "Changements dans le circuit de notification détecté",
-          "it": "Modifiche del circuito di notifica rilevate",
-          "es": "Cambios en el circuito de notificación detectados",
-          "pl": "Zmiany w obwodach notyfikacyjnych wykryte",
-          "uk": "Зміни у виявленні повідомлення",
-          "zh-cn": "发现的通知渠道的变化"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.notification_circuit_list",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "List notifications",
-          "de": "Liste Benachrichtigungen",
-          "ru": "Список уведомлений",
-          "pt": "Notificações de lista",
-          "nl": "List berichten",
-          "fr": "Liste des notifications",
-          "it": "Elenco delle notifiche",
-          "es": "Notificaciones de listas",
-          "pl": "Lista powiadomień",
-          "uk": "Список повідомлень",
-          "zh-cn": "名单通知"
-        },
-        "desc": {
-          "en": "Notification list at sharp, sharp inside and night rest",
-          "de": "Benachrichtigungsliste bei scharf, scharf innen und Nachtruhe",
-          "ru": "Список уведомлений при резком, резком внутри и ночного отдыха",
-          "pt": "Lista de notificações em afiado, afiado dentro e noite",
-          "nl": "Vermeldingslijst bij scherp, scherp binnen en nachtrust",
-          "fr": "Liste des notifications à l'intérieur et au repos nocturne",
-          "it": "Elenco di notificazione acuto, affilato dentro e riposo notturno",
-          "es": "Lista de notificaciones en agudo, agudo dentro y noche de descanso",
-          "pl": "Uwaga na ostrym wewnętrznym i nocnym spoczynku",
-          "uk": "Список повідомлень при гострому, гострому внутрішньому та нічному відпочинку",
-          "zh-cn": "内和夜间通知清单"
-        },
-        "type": "string",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.alarm_circuit_list",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "List alarm circuit",
-          "de": "Liste Alarmkreis",
-          "ru": "Список сигнализации цепи",
-          "pt": "Lista de circuito de alarme",
-          "nl": "List alarm circuit",
-          "fr": "Circuit d'alarme",
-          "it": "Elenco circuito di allarme",
-          "es": "Circuito de alarma",
-          "pl": "System alarmowy",
-          "uk": "Список схема сигналізації",
-          "zh-cn": "名单警示"
-        },
-        "desc": {
-          "en": "Alarm circuit list",
-          "de": "Alarmkreisliste",
-          "ru": "Список будильников",
-          "pt": "Lista de circuitos de alarme",
-          "nl": "Alarm circuit",
-          "fr": "Liste des circuits d ' alarme",
-          "it": "Elenco dei circuiti di allarme",
-          "es": "Lista de circuitos de alarma",
-          "pl": "Lista okręgów Alarm",
-          "uk": "Список схем сигналізації",
-          "zh-cn": "通知"
-        },
-        "type": "string",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.sharp_inside_circuit_list",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "List sharp inside",
-          "de": "Liste scharf innen",
-          "ru": "Список острый внутри",
-          "pt": "Lista afiada dentro",
-          "nl": "List scherp van binnen",
-          "fr": "Liste nette à l ' intérieur",
-          "it": "Elenco taglienti interni",
-          "es": "List sharp inside",
-          "pl": "Ostry",
-          "uk": "Список гострий всередині",
-          "zh-cn": "名单"
-        },
-        "desc": {
-          "en": "List sharp inside",
-          "de": "Liste scharf innen",
-          "ru": "Список острый внутри",
-          "pt": "Lista afiada dentro",
-          "nl": "List scherp van binnen",
-          "fr": "Liste nette à l ' intérieur",
-          "it": "Elenco taglienti interni",
-          "es": "List sharp inside",
-          "pl": "Ostry",
-          "uk": "Список гострий всередині",
-          "zh-cn": "名单"
-        },
-        "type": "string",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.notification_circuit_list_html",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "List notifications",
-          "de": "Liste Benachrichtigungen",
-          "ru": "Список уведомлений",
-          "pt": "Notificações de lista",
-          "nl": "List berichten",
-          "fr": "Liste des notifications",
-          "it": "Elenco delle notifiche",
-          "es": "Notificaciones de listas",
-          "pl": "Lista powiadomień",
-          "uk": "Список повідомлень",
-          "zh-cn": "名单通知"
-        },
-        "desc": {
-          "en": "Notification list at sharp, sharp inside and night rest",
-          "de": "Benachrichtigungsliste bei scharf, scharf innen und Nachtruhe",
-          "ru": "Список уведомлений при резком, резком внутри и ночного отдыха",
-          "pt": "Lista de notificações em afiado, afiado dentro e noite",
-          "nl": "Vermeldingslijst bij scherp, scherp binnen en nachtrust",
-          "fr": "Liste des notifications à l'intérieur et au repos nocturne",
-          "it": "Elenco di notificazione acuto, affilato dentro e riposo notturno",
-          "es": "Lista de notificaciones en agudo, agudo dentro y noche de descanso",
-          "pl": "Uwaga na ostrym wewnętrznym i nocnym spoczynku",
-          "uk": "Список повідомлень при гострому, гострому внутрішньому та нічному відпочинку",
-          "zh-cn": "内和夜间通知清单"
-        },
-        "type": "string",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.alarm_circuit_list_html",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "List alarm circuit",
-          "de": "Liste Alarmkreis",
-          "ru": "Список сигнализации цепи",
-          "pt": "Lista de circuito de alarme",
-          "nl": "List alarm circuit",
-          "fr": "Circuit d'alarme",
-          "it": "Elenco circuito di allarme",
-          "es": "Circuito de alarma",
-          "pl": "System alarmowy",
-          "uk": "Список схема сигналізації",
-          "zh-cn": "名单警示"
-        },
-        "desc": {
-          "en": "Alarm circuit list",
-          "de": "Alarmkreisliste",
-          "ru": "Список будильников",
-          "pt": "Lista de circuitos de alarme",
-          "nl": "Alarm circuit",
-          "fr": "Liste des circuits d ' alarme",
-          "it": "Elenco dei circuiti di allarme",
-          "es": "Lista de circuitos de alarma",
-          "pl": "Lista okręgów Alarm",
-          "uk": "Список схем сигналізації",
-          "zh-cn": "通知"
-        },
-        "type": "string",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.sharp_inside_circuit_list_html",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "List sharp inside",
-          "de": "Liste scharf innen",
-          "ru": "Список острый внутри",
-          "pt": "Lista afiada dentro",
-          "nl": "List scherp van binnen",
-          "fr": "Liste nette à l ' intérieur",
-          "it": "Elenco taglienti interni",
-          "es": "List sharp inside",
-          "pl": "Ostry",
-          "uk": "Список гострий всередині",
-          "zh-cn": "名单"
-        },
-        "desc": {
-          "en": "List sharp inside",
-          "de": "Liste scharf innen",
-          "ru": "Список острый внутри",
-          "pt": "Lista afiada dentro",
-          "nl": "List scherp van binnen",
-          "fr": "Liste nette à l ' intérieur",
-          "it": "Elenco taglienti interni",
-          "es": "List sharp inside",
-          "pl": "Ostry",
-          "uk": "Список гострий всередині",
-          "zh-cn": "名单"
-        },
-        "type": "string",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.log_today",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Logs today",
-          "de": "Logs heute",
-          "ru": "Логи сегодня",
-          "pt": "Logs hoje",
-          "nl": "Lags vandaag",
-          "fr": "Logs aujourd'hui",
-          "it": "Logs oggi",
-          "es": "Logros hoy",
-          "pl": "Logos dzisiejszy",
-          "uk": "Журнали сьогодні",
-          "zh-cn": "今天的后勤"
-        },
-        "desc": {
-          "en": "All logs for today",
-          "de": "Alle Protokolle für heute",
-          "ru": "Все журналы на сегодня",
-          "pt": "Todos os registos para hoje",
-          "nl": "Alle logboeken voor vandaag",
-          "fr": "Tous les journaux pour aujourd'hui",
-          "it": "Tutti i registri per oggi",
-          "es": "Todos los registros para hoy",
-          "pl": "Wszystkie logi do dziś",
-          "uk": "Всі журнали сьогодні",
-          "zh-cn": "今天的所有逻辑"
-        },
-        "type": "string",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.log",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "Last log",
-          "de": "Letzter Eintrag",
-          "ru": "Последний лог",
-          "pt": "Último registo",
-          "nl": "Laatste logboek",
-          "fr": "Dernière connexion",
-          "it": "Ultimo log",
-          "es": "Último registro",
-          "pl": "Dziennik",
-          "uk": "Увійти",
-          "zh-cn": "最后文件"
-        },
-        "desc": {
-          "en": "The last log that was oned",
-          "de": "Das letzte Log, das aufgegeben wurde",
-          "ru": "Последний лог, который был включен",
-          "pt": "O último registo que foi ligado",
-          "nl": "Het laatste logboek dat op stond",
-          "fr": "Le dernier journal qui a été suré",
-          "it": "L'ultimo registro che è stato acceso",
-          "es": "El último registro que fue grabado",
-          "pl": "Ostatnim polem, który był na nim",
-          "uk": "Останній журнал, який був",
-          "zh-cn": "最后一个逻辑是经过审议的。"
-        },
-        "type": "string",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "other_alarms.one_changes",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "List changes",
-          "de": "Liste Änderungen",
-          "ru": "Список изменений",
-          "pt": "Alterações de lista",
-          "nl": "List veranderingen",
-          "fr": "Modifications de la liste",
-          "it": "Modifica dell'elenco",
-          "es": "Cambios de lista",
-          "pl": "Zmienić",
-          "uk": "Список змін",
-          "zh-cn": "名单变动"
-        },
-        "desc": {
-          "en": "Signal changes in other alarm one",
-          "de": "Signaländerungen in anderen Alarm eins",
-          "ru": "Сигнал меняется в другой сигнализации",
-          "pt": "Alterações de sinal em outro alarme um",
-          "nl": "Signale veranderingen in andere alarm één",
-          "fr": "Changements de signal dans l'autre alarme",
-          "it": "Cambiamenti di segnale in un altro allarme",
-          "es": "Cambios de señal en otra alarma uno",
-          "pl": "Zmiana sygnału w innym alarmie",
-          "uk": "Сигнальні зміни в іншій сигналізації",
-          "zh-cn": "B. 其他震惊的明显变化"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "other_alarms.one_list",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "List",
-          "de": "Liste",
-          "ru": "Список",
-          "pt": "Lista",
-          "nl": "List",
-          "fr": "Liste",
-          "it": "Elenco",
-          "es": "Lista",
-          "pl": "Lista",
-          "uk": "Список",
-          "zh-cn": "名单"
-        },
-        "desc": {
-          "en": "List other alarms one",
-          "de": "Liste andere Alarme eins",
-          "ru": "Список других тревог один",
-          "pt": "Listar outros alarmes um",
-          "nl": "Laat andere alarmen één",
-          "fr": "Liste d'autres alarmes une",
-          "it": "Elenca altri allarmi uno",
-          "es": "Listar otras alarmas uno",
-          "pl": "Lista alarmów",
-          "uk": "Список інших сигналів",
-          "zh-cn": "名单"
-        },
-        "type": "string",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "other_alarms.one_list_html",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "List html",
-          "de": "Liste html",
-          "ru": "Список html",
-          "pt": "Listar HTML",
-          "nl": "List HTMI",
-          "fr": "List html",
-          "it": "Elenco html",
-          "es": "Lista html",
-          "pl": "Lista",
-          "uk": "Список html",
-          "zh-cn": "名单.html"
-        },
-        "desc": {
-          "en": "List other alarms one",
-          "de": "Liste andere Alarme eins",
-          "ru": "Список других тревог один",
-          "pt": "Listar outros alarmes um",
-          "nl": "Laat andere alarmen één",
-          "fr": "Liste d'autres alarmes une",
-          "it": "Elenca altri allarmi uno",
-          "es": "Listar otras alarmas uno",
-          "pl": "Lista alarmów",
-          "uk": "Список інших сигналів",
-          "zh-cn": "名单"
-        },
-        "type": "string",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "other_alarms.two_changes",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "List changes",
-          "de": "Liste Änderungen",
-          "ru": "Список изменений",
-          "pt": "Alterações de lista",
-          "nl": "List veranderingen",
-          "fr": "Modifications de la liste",
-          "it": "Modifica dell'elenco",
-          "es": "Cambios de lista",
-          "pl": "Zmienić",
-          "uk": "Список змін",
-          "zh-cn": "名单变动"
-        },
-        "desc": {
-          "en": "Signal changes in other alarm two",
-          "de": "Signaländerungen in anderen Alarm zwei",
-          "ru": "Сигнал изменения в другой сигнализации два",
-          "pt": "Alterações de sinal em outro alarme dois",
-          "nl": "Signaal verandert in andere alarm twee",
-          "fr": "Changements de signal dans l'autre alarme deux",
-          "it": "Cambiamenti di segnale in altri allarmi due",
-          "es": "Cambios de señal en otra alarma dos",
-          "pl": "Zmiana sygnału w innym alarmie dwa",
-          "uk": "Зміни сигналу в інших сигналах",
-          "zh-cn": "其他警觉的明显变化"
-        },
-        "type": "boolean",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "other_alarms.two_list",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "List",
-          "de": "Liste",
-          "ru": "Список",
-          "pt": "Lista",
-          "nl": "List",
-          "fr": "Liste",
-          "it": "Elenco",
-          "es": "Lista",
-          "pl": "Lista",
-          "uk": "Список",
-          "zh-cn": "名单"
-        },
-        "desc": {
-          "en": "List other alarm two",
-          "de": "Liste andere Alarm zwei",
-          "ru": "Список другой сигнал тревоги два",
-          "pt": "Lista outro alarme dois",
-          "nl": "Laat andere alarm twee",
-          "fr": "Autre alarme",
-          "it": "Elenco altri allarmi due",
-          "es": "Lista otra alarma dos",
-          "pl": "2 alarmy",
-          "uk": "Список інших сигналів",
-          "zh-cn": "名单"
-        },
-        "type": "string",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "other_alarms.two_list_html",
-      "type": "state",
-      "common": {
-        "role": "",
-        "name": {
-          "en": "List html",
-          "de": "Liste html",
-          "ru": "Список html",
-          "pt": "Listar HTML",
-          "nl": "List HTMI",
-          "fr": "List html",
-          "it": "Elenco html",
-          "es": "Lista html",
-          "pl": "Lista",
-          "uk": "Список html",
-          "zh-cn": "名单.html"
-        },
-        "desc": {
-          "en": "List other alarm two",
-          "de": "Liste andere Alarm zwei",
-          "ru": "Список другой сигнал тревоги два",
-          "pt": "Lista outro alarme dois",
-          "nl": "Laat andere alarm twee",
-          "fr": "Autre alarme",
-          "it": "Elenco altri allarmi due",
-          "es": "Lista otra alarma dos",
-          "pl": "2 alarmy",
-          "uk": "Список інших сигналів",
-          "zh-cn": "名单"
-        },
-        "type": "string",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    }
-  ]
 }

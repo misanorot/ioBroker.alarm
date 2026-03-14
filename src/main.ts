@@ -1,7 +1,9 @@
 import * as utils from '@iobroker/adapter-core';
 import * as schedule from 'node-schedule';
 import SunCalc from 'suncalc2';
+
 import type {
+    SayItRow,
     AlarmAdapterConfig,
     CircuitRow,
     OtherAlarmRow,
@@ -10,6 +12,125 @@ import type {
     ShortsRow,
     ZoneRow,
 } from './types';
+
+type STATUS_STATE_VALUES =
+    | 'deactivated'
+    | 'sharp'
+    | 'activated with warnings'
+    | 'silent alarm'
+    | 'burgle'
+    | 'sharp inside'
+    | 'night rest'
+    | 'gets activated'
+    | 'activation failed';
+const STATUS_STATE: Record<string, STATUS_STATE_VALUES> = {
+    deactivated: 'deactivated',
+    sharp: 'sharp',
+    activated_with_warnings: 'activated with warnings',
+    silent_alarm: 'silent alarm',
+    burgle: 'burgle',
+    sharp_inside: 'sharp inside',
+    night_rest: 'night rest',
+    gets_activated: 'gets activated',
+    activation_failed: 'activation failed',
+};
+
+type STATE_LIST_VALUES =
+    | 'deactivated'
+    | 'sharp'
+    | 'sharp_inside'
+    | 'burglary'
+    | 'night_rest'
+    | 'gets_activated'
+    | 'activation_failed'
+    | 'activation_aborted'
+    | 'silent_alarm';
+const STATE_LIST: Record<STATE_LIST_VALUES, number> = {
+    deactivated: 0,
+    sharp: 1,
+    sharp_inside: 2,
+    burglary: 3,
+    night_rest: 4,
+    gets_activated: 5,
+    activation_failed: 6,
+    activation_aborted: 7,
+    silent_alarm: 8,
+};
+
+const STATE_LIST_NAMES: Record<number, STATE_LIST_VALUES> = {};
+for (const [key, value] of Object.entries(STATE_LIST)) {
+    STATE_LIST_NAMES[value] = key as STATE_LIST_VALUES;
+}
+
+type USE_LIST_VALUES = 'deactivated' | 'sharp' | 'sharp_inside' | 'activate_with_delay' | 'night_rest';
+const USE_LIST: Record<USE_LIST_VALUES, number> = {
+    deactivated: 0,
+    sharp: 1,
+    sharp_inside: 2,
+    activate_with_delay: 3,
+    night_rest: 4,
+};
+
+type HOMEKIT_STATE_VALUES = 'stay_arm' | 'away_arm' | 'night_arm' | 'disarmed' | 'alarm_triggered';
+const HOMEKIT_STATE: Record<HOMEKIT_STATE_VALUES, number> = {
+    stay_arm: 0,
+    away_arm: 1,
+    night_arm: 2,
+    disarmed: 3,
+    alarm_triggered: 4,
+};
+
+type SAY_PHRASE_VALUES =
+    | 'sharp_inside_deactivated'
+    | 'activated'
+    | 'deactivated'
+    | 'activation_failed'
+    | 'warnings'
+    | 'changes'
+    | 'alarm'
+    | 'night_rest_begins'
+    | 'night_rest_ends'
+    | 'changes_night'
+    | 'sharp_inside_activated'
+    | 'countdown'
+    | 'fire'
+    | 'water'
+    | 'aborted';
+const SAY_PHRASE: Record<SAY_PHRASE_VALUES, number> = {
+    sharp_inside_deactivated: 0,
+    activated: 1,
+    deactivated: 2,
+    activation_failed: 3,
+    warnings: 4,
+    changes: 5,
+    alarm: 6,
+    night_rest_begins: 7,
+    night_rest_ends: 8,
+    changes_night: 9,
+    sharp_inside_activated: 10,
+    countdown: 11,
+    fire: 12,
+    water: 13,
+    aborted: 14,
+};
+
+const SAY_PHRASE_OPTIONS: Record<number, keyof SayItRow> = {
+    [SAY_PHRASE.sharp_inside_deactivated]: 'opt_say_zero',
+    [SAY_PHRASE.activated]: 'opt_say_one',
+    [SAY_PHRASE.deactivated]: 'opt_say_two',
+    [SAY_PHRASE.activation_failed]: 'opt_say_three',
+    [SAY_PHRASE.warnings]: 'opt_say_four',
+    [SAY_PHRASE.changes]: 'opt_say_five',
+    [SAY_PHRASE.alarm]: 'opt_say_six',
+    [SAY_PHRASE.night_rest_begins]: 'opt_say_seven',
+    [SAY_PHRASE.night_rest_ends]: 'opt_say_eigth',
+    [SAY_PHRASE.changes_night]: 'opt_say_nine',
+    [SAY_PHRASE.sharp_inside_activated]: 'opt_say_nine_plus',
+    [SAY_PHRASE.countdown]: 'opt_say_count',
+    [SAY_PHRASE.fire]: 'opt_say_fire',
+    [SAY_PHRASE.water]: 'opt_say_water',
+    [SAY_PHRASE.aborted]: 'opt_say_aborted',
+};
 
 type PresenceTimer = {
     nameID: string;
@@ -299,13 +420,13 @@ class Alarm extends utils.Adapter {
                 this.messages(`${this.config.log_act_not} ${this.namesAlarm}`);
             }
             await this.setStateAsync('status.activation_failed', true, true);
-            await this.setStateAsync('status.state_list', 6, true);
-            await this.setStateAsync('status.state', 'activation failed', true);
-            await this.setStateAsync('use.list', 0, true);
+            await this.setStateAsync('status.state_list', STATE_LIST.activation_failed, true);
+            await this.setStateAsync('status.state', STATUS_STATE.activation_failed, true);
+            await this.setStateAsync('use.list', USE_LIST.deactivated, true);
             if (this.config.opt_say_names) {
                 say = `${say} ${this.namesAlarm}`;
             }
-            this.sayIt(say, 3);
+            this.sayIt(say, SAY_PHRASE.activation_failed);
             return;
         }
         await this.insideEnds();
@@ -314,14 +435,14 @@ class Alarm extends utils.Adapter {
         await this.setStateAsync('status.activated', true, true);
         await this.setStateAsync('status.deactivated', false, true);
         await this.setStateAsync('status.activation_failed', false, true);
-        await this.setStateAsync('status.state', 'sharp', true);
-        await this.setStateAsync('status.state_list', 1, true);
-        await this.setStateAsync('homekit.CurrentState', 1, true);
-        await this.setStateAsync('homekit.TargetState', 1, true);
-        await this.setStateAsync('use.list', 1, true);
+        await this.setStateAsync('status.state', STATUS_STATE.sharp, true);
+        await this.setStateAsync('status.state_list', STATE_LIST.sharp, true);
+        await this.setStateAsync('homekit.CurrentState', HOMEKIT_STATE.away_arm, true);
+        await this.setStateAsync('homekit.TargetState', HOMEKIT_STATE.away_arm, true);
+        await this.setStateAsync('use.list', USE_LIST.sharp, true);
         if (this.isAlarm) {
             await this.setStateAsync('status.activated_with_warnings', true, true);
-            await this.setStateAsync('status.state', 'activated with warnings', true);
+            await this.setStateAsync('status.state', STATUS_STATE.activated_with_warnings, true);
             await this.setStateAsync('info.log', `${this.config.log_act_warn} ${this.namesAlarm}`, true);
             if (this.optLog) {
                 this.log.info(`${this.config.log_act_warn} ${this.namesAlarm}`);
@@ -334,7 +455,7 @@ class Alarm extends utils.Adapter {
             if (this.optLog) {
                 this.log.info(`${this.config.log_act}`);
             }
-            this.sayIt(this.config.text_activated, 1);
+            this.sayIt(this.config.text_activated, SAY_PHRASE.activated);
             if (this.config.send_activation) {
                 this.messages(`${this.config.log_act}`);
             }
@@ -382,7 +503,7 @@ class Alarm extends utils.Adapter {
         if (this.activated || this.isPanic) {
             this.isPanic = false;
             await this.setStateAsync('info.log', `${this.config.log_deact}`, true);
-            this.sayIt(this.config.text_deactivated, 2);
+            this.sayIt(this.config.text_deactivated, SAY_PHRASE.deactivated);
             if (this.optLog) {
                 this.log.info(`${this.config.log_deact}`);
             }
@@ -425,8 +546,8 @@ class Alarm extends utils.Adapter {
         }
         if (silent) {
             await this.setStateAsync('status.silent_alarm', true, true);
-            await this.setStateAsync('status.state', 'silent alarm', true);
-            await this.setStateAsync('status.state_list', 8, true);
+            await this.setStateAsync('status.state', STATUS_STATE.silent_alarm, true);
+            await this.setStateAsync('status.state_list', STATE_LIST.silent_alarm, true);
             if (this.config.send_alarm_silent_inside && indoor) {
                 this.messages(`${this.config.log_burgle} ${name}`);
             }
@@ -472,10 +593,10 @@ class Alarm extends utils.Adapter {
                         this.silentInterval = null;
                     }
                     this.clearAllPresenceTimer();
-                    this.sayIt(say, 6);
+                    this.sayIt(say, SAY_PHRASE.alarm);
                     this.textAlarmInterval = setInterval(() => {
                         if (count < this.alarmRepeat) {
-                            this.sayIt(say, 6);
+                            this.sayIt(say, SAY_PHRASE.alarm);
                             count++;
                         } else {
                             if (this.textAlarmInterval) {
@@ -504,9 +625,9 @@ class Alarm extends utils.Adapter {
                         await this.alarmSiren();
                         this.alarmFlash();
                     }
-                    await this.setStateAsync('status.state', 'burgle', true);
-                    await this.setStateAsync('status.state_list', 3, true);
-                    await this.setStateAsync('homekit.CurrentState', 4, true);
+                    await this.setStateAsync('status.state', STATUS_STATE.burgle, true);
+                    await this.setStateAsync('status.state_list', STATE_LIST.burglary, true);
+                    await this.setStateAsync('homekit.CurrentState', HOMEKIT_STATE.alarm_triggered, true);
                 },
                 this.timeMode(this.config.time_silent_select) * this.config.time_silent,
             );
@@ -531,10 +652,10 @@ class Alarm extends utils.Adapter {
             if (this.config.send_alarm && !indoor) {
                 this.messages(`${this.config.log_burgle} ${name}`);
             }
-            this.sayIt(say, 6);
+            this.sayIt(say, SAY_PHRASE.alarm);
             this.textAlarmInterval = setInterval(() => {
                 if (count < this.alarmRepeat) {
-                    this.sayIt(say, 6);
+                    this.sayIt(say, SAY_PHRASE.alarm);
                     count++;
                 } else {
                     if (this.textAlarmInterval) {
@@ -563,9 +684,9 @@ class Alarm extends utils.Adapter {
                 await this.alarmSiren();
                 this.alarmFlash();
             }
-            await this.setStateAsync('status.state', 'burgle', true);
-            await this.setStateAsync('status.state_list', 3, true);
-            await this.setStateAsync('homekit.CurrentState', 4, true);
+            await this.setStateAsync('status.state', STATUS_STATE.burgle, true);
+            await this.setStateAsync('status.state_list', STATE_LIST.burglary, true);
+            await this.setStateAsync('homekit.CurrentState', HOMEKIT_STATE.alarm_triggered, true);
             this.sirenTimer = setTimeout(
                 async () => {
                     await this.setStateAsync('status.siren', false, true);
@@ -589,10 +710,10 @@ class Alarm extends utils.Adapter {
         if (this.config.send_alarm) {
             this.messages(`${this.config.log_panic}`);
         }
-        this.sayIt(this.config.text_alarm, 6);
+        this.sayIt(this.config.text_alarm, SAY_PHRASE.alarm);
         this.textAlarmInterval = setInterval(() => {
             if (count < this.alarmRepeat) {
-                this.sayIt(this.config.text_alarm, 6);
+                this.sayIt(this.config.text_alarm, SAY_PHRASE.alarm);
                 count++;
             } else {
                 if (this.textAlarmInterval) {
@@ -616,9 +737,9 @@ class Alarm extends utils.Adapter {
             }, this.config.alarm_flash * 1000);
         }
         await this.setStateAsync('status.siren', true, true);
-        await this.setStateAsync('status.state', 'burgle', true);
-        await this.setStateAsync('status.state_list', 3, true);
-        await this.setStateAsync('homekit.CurrentState', 4, true);
+        await this.setStateAsync('status.state', STATUS_STATE.burgle, true);
+        await this.setStateAsync('status.state_list', STATE_LIST.burglary, true);
+        await this.setStateAsync('homekit.CurrentState', HOMEKIT_STATE.alarm_triggered, true);
         this.sirenTimer = setTimeout(
             async () => {
                 this.sirenTimer = null;
@@ -701,21 +822,21 @@ class Alarm extends utils.Adapter {
         }
         if (id === `${this.namespace}.use.list`) {
             switch (state.val) {
-                case 0:
+                case USE_LIST.deactivated:
                     await this.countdown(false);
                     break;
-                case 1:
+                case USE_LIST.sharp:
                     if (!this.activated) {
                         await this.enableSystem(id, state);
                     }
                     break;
-                case 2:
+                case USE_LIST.sharp_inside:
                     await this.insideBegins();
                     break;
-                case 3:
+                case USE_LIST.activate_with_delay:
                     await this.countdown(true);
                     break;
-                case 4:
+                case USE_LIST.night_rest:
                     await this.sleepBegin();
                     break;
                 default:
@@ -726,18 +847,18 @@ class Alarm extends utils.Adapter {
         }
         if (id === `${this.namespace}.homekit.TargetState`) {
             switch (state.val) {
-                case 0:
+                case HOMEKIT_STATE.stay_arm:
                     await this.insideBegins();
                     break;
-                case 1:
+                case HOMEKIT_STATE.away_arm:
                     if (!this.activated) {
                         await this.enableSystem(id, state);
                     }
                     break;
-                case 2:
+                case HOMEKIT_STATE.night_arm:
                     await this.sleepBegin();
                     break;
-                case 3:
+                case HOMEKIT_STATE.disarmed:
                     await this.countdown(false);
                     break;
                 default:
@@ -1027,7 +1148,7 @@ class Alarm extends utils.Adapter {
                 if (this.config.opt_say_names) {
                     say = `${say} ${name}`;
                 }
-                this.sayIt(say, 9);
+                this.sayIt(say, SAY_PHRASE.changes_night);
             } else if (this.inside) {
                 let say = this.config.text_changes;
                 if (this.optLog) {
@@ -1039,7 +1160,7 @@ class Alarm extends utils.Adapter {
                 if (this.config.opt_say_names) {
                     say = `${say} ${name}`;
                 }
-                this.sayIt(say, 5);
+                this.sayIt(say, SAY_PHRASE.changes);
             } else if (this.activated) {
                 let say = this.config.text_changes;
                 if (this.optLog) {
@@ -1051,7 +1172,7 @@ class Alarm extends utils.Adapter {
                 if (this.config.opt_say_names) {
                     say = `${say} ${name}`;
                 }
-                this.sayIt(say, 5);
+                this.sayIt(say, SAY_PHRASE.changes);
             }
             this.timerNotificationChanges = setTimeout(
                 async () => {
@@ -1073,7 +1194,7 @@ class Alarm extends utils.Adapter {
             if (this.config.opt_say_names) {
                 say = `${say} ${name}`;
             }
-            this.sayIt(say, 12);
+            this.sayIt(say, SAY_PHRASE.fire);
             await this.setStateAsync('other_alarms.one_changes', true, true);
         }
         if (this.twoIds.includes(id) && this.isTrue(id, state, 'two')) {
@@ -1088,7 +1209,7 @@ class Alarm extends utils.Adapter {
             if (this.config.opt_say_names) {
                 say = `${say} ${name}`;
             }
-            this.sayIt(say, 13);
+            this.sayIt(say, SAY_PHRASE.water);
             await this.setStateAsync('other_alarms.two_changes', true, true);
         }
         if (this.zoneOneIds.includes(id) && this.isTrue(id, state, 'zone_one')) {
@@ -1241,84 +1362,13 @@ class Alarm extends utils.Adapter {
         }
         ttsInstance?.forEach(ele => {
             if (ele.enabled) {
-                switch (optVal) {
-                    case 1:
-                        if (ele.opt_say_one) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    case 2:
-                        if (ele.opt_say_two) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    case 3:
-                        if (ele.opt_say_three) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    case 4:
-                        if (ele.opt_say_four) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    case 5:
-                        if (ele.opt_say_five) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    case 6:
-                        if (ele.opt_say_six) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    case 7:
-                        if (ele.opt_say_seven) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    case 8:
-                        if (ele.opt_say_eigth) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    case 9:
-                        if (ele.opt_say_nine) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    case 10:
-                        if (ele.opt_say_nine_plus) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    case 0:
-                        if (ele.opt_say_zero) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    case 11:
-                        if (ele.opt_say_count) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    case 12:
-                        if (ele.opt_say_fire) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    case 13:
-                        if (ele.opt_say_water) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    case 14:
-                        if (ele.opt_say_aborted) {
-                            this.speechOutput(ele.name_id, message, ele.speech_delay);
-                        }
-                        break;
-                    default:
-                        this.log.debug(`no speech output!`);
+                const optKey = SAY_PHRASE_OPTIONS[optVal];
+                if (optKey) {
+                    if (ele[optKey]) {
+                        this.speechOutput(ele.name_id, message, ele.speech_delay);
+                    }
+                } else {
+                    this.log.debug(`no speech output!`);
                 }
             }
         });
@@ -1367,11 +1417,11 @@ class Alarm extends utils.Adapter {
 
     private async disableStates(): Promise<void> {
         await this.setStateAsync('status.deactivated', true, true);
-        await this.setStateAsync('status.state', 'deactivated', true);
-        await this.setStateAsync('status.state_list', 0, true);
-        await this.setStateAsync('homekit.CurrentState', 3, true);
-        await this.setStateAsync('homekit.TargetState', 3, true);
-        await this.setStateAsync('use.list', 0, true);
+        await this.setStateAsync('status.state', STATUS_STATE.deactivated, true);
+        await this.setStateAsync('status.state_list', STATE_LIST.deactivated, true);
+        await this.setStateAsync('homekit.CurrentState', HOMEKIT_STATE.disarmed, true);
+        await this.setStateAsync('homekit.TargetState', HOMEKIT_STATE.disarmed, true);
+        await this.setStateAsync('use.list', USE_LIST.deactivated, true);
         await this.setStateAsync('status.siren_inside', false, true);
         await this.setStateAsync('status.siren', false, true);
         await this.setStateAsync('info.notification_circuit_changes', false, true);
@@ -1454,7 +1504,7 @@ class Alarm extends utils.Adapter {
                 if (this.config.opt_say_names) {
                     say = `${say} ${this.namesInside}`;
                 }
-                this.sayIt(say, 4);
+                this.sayIt(say, SAY_PHRASE.warnings);
             } else {
                 await this.setStateAsync('info.log', `${this.config.log_warn_act}`, true);
                 if (this.optLog) {
@@ -1463,14 +1513,14 @@ class Alarm extends utils.Adapter {
                 if (this.config.send_activation_inside) {
                     this.messages(`${this.config.log_warn_act}`);
                 }
-                this.sayIt(this.config.text_warn_begin, 10);
+                this.sayIt(this.config.text_warn_begin, SAY_PHRASE.sharp_inside_activated);
             }
             await this.setStateAsync('status.sharp_inside_activated', true, true);
-            await this.setStateAsync('status.state', 'sharp inside', true);
-            await this.setStateAsync('status.state_list', 2, true);
-            await this.setStateAsync('homekit.CurrentState', 0, true);
-            await this.setStateAsync('homekit.TargetState', 0, true);
-            await this.setStateAsync('use.list', 2, true);
+            await this.setStateAsync('status.state', STATUS_STATE.sharp_inside, true);
+            await this.setStateAsync('status.state_list', STATE_LIST.sharp_inside, true);
+            await this.setStateAsync('homekit.CurrentState', HOMEKIT_STATE.stay_arm, true);
+            await this.setStateAsync('homekit.TargetState', HOMEKIT_STATE.stay_arm, true);
+            await this.setStateAsync('use.list', USE_LIST.sharp_inside, true);
             await this.setStateAsync('status.activated', false, true);
             await this.setStateAsync('status.deactivated', false, true);
         }
@@ -1493,7 +1543,7 @@ class Alarm extends utils.Adapter {
                 if (this.config.send_activation_inside) {
                     this.messages(`${this.config.log_warn_deact}`);
                 }
-                this.sayIt(this.config.text_warn_end, 0);
+                this.sayIt(this.config.text_warn_end, SAY_PHRASE.sharp_inside_deactivated);
                 await this.setStateAsync('status.sharp_inside_activated', false, true);
                 await this.disableStates();
             }
@@ -1516,13 +1566,13 @@ class Alarm extends utils.Adapter {
         }
         await this.setStateAsync('info.log', `${this.config.log_sleep_b}`, true);
         if (!this.isNotification) {
-            this.sayIt(this.config.text_nightrest_beginn, 7);
+            this.sayIt(this.config.text_nightrest_beginn, SAY_PHRASE.night_rest_begins);
         }
-        await this.setStateAsync('status.state', 'night rest', true);
-        await this.setStateAsync('status.state_list', 4, true);
-        await this.setStateAsync('homekit.CurrentState', 2, true);
-        await this.setStateAsync('homekit.TargetState', 2, true);
-        await this.setStateAsync('use.list', 4, true);
+        await this.setStateAsync('status.state', STATUS_STATE.night_rest, true);
+        await this.setStateAsync('status.state_list', STATE_LIST.night_rest, true);
+        await this.setStateAsync('homekit.CurrentState', HOMEKIT_STATE.night_arm, true);
+        await this.setStateAsync('homekit.TargetState', HOMEKIT_STATE.night_arm, true);
+        await this.setStateAsync('use.list', USE_LIST.night_rest, true);
         if (this.isNotification) {
             let say = this.config.text_warning;
             if (this.config.send_activation_warnings_night) {
@@ -1535,7 +1585,7 @@ class Alarm extends utils.Adapter {
             if (this.config.opt_say_names) {
                 say = `${say} ${this.namesNotification}`;
             }
-            this.sayIt(say, 4);
+            this.sayIt(say, SAY_PHRASE.warnings);
         }
     }
 
@@ -1544,16 +1594,16 @@ class Alarm extends utils.Adapter {
             this.nightRest = false;
             if (off) {
                 await this.setStateAsync('info.log', `${this.config.log_sleep_e}`, true);
-                this.sayIt(this.config.text_nightrest_end, 8);
+                this.sayIt(this.config.text_nightrest_end, SAY_PHRASE.night_rest_ends);
                 if (this.optLog) {
                     this.log.info(`${this.config.log_sleep_e}`);
                 }
-                await this.setStateAsync('status.state', 'deactivated', true);
+                await this.setStateAsync('status.state', STATUS_STATE.deactivated, true);
                 if (!this.inside) {
-                    await this.setStateAsync('status.state_list', 0, true);
-                    await this.setStateAsync('homekit.CurrentState', 3, true);
-                    await this.setStateAsync('homekit.TargetState', 3, true);
-                    await this.setStateAsync('use.list', 0, true);
+                    await this.setStateAsync('status.state_list', STATE_LIST.deactivated, true);
+                    await this.setStateAsync('homekit.CurrentState', HOMEKIT_STATE.disarmed, true);
+                    await this.setStateAsync('homekit.TargetState', HOMEKIT_STATE.disarmed, true);
+                    await this.setStateAsync('use.list', USE_LIST.deactivated, true);
                 }
             }
         }
@@ -2072,16 +2122,16 @@ class Alarm extends utils.Adapter {
                 if (this.config.opt_say_names) {
                     warnSay = `${warnSay} ${this.namesAlarm}`;
                 }
-                this.sayIt(warnSay, 4);
+                this.sayIt(warnSay, SAY_PHRASE.warnings);
             }
             if (this.isAlarm) {
-                setTimeout(() => this.sayIt(say, 11), 5000);
+                setTimeout(() => this.sayIt(say, SAY_PHRASE.countdown), 5000);
             } else {
-                this.sayIt(say, 11);
+                this.sayIt(say, SAY_PHRASE.countdown);
             }
             await this.setStateAsync('status.gets_activated', true, true);
-            await this.setStateAsync('status.state', 'gets activated', true);
-            await this.setStateAsync('status.state_list', 5, true);
+            await this.setStateAsync('status.state', STATUS_STATE.gets_activated, true);
+            await this.setStateAsync('status.state_list', STATE_LIST.gets_activated, true);
             this.timer = setInterval(async () => {
                 if (counter > 0) {
                     counter--;
@@ -2106,8 +2156,8 @@ class Alarm extends utils.Adapter {
                 this.timer = null;
                 await this.setStateAsync('status.activation_countdown', null, true);
                 await this.setStateAsync('status.gets_activated', false, true);
-                await this.setStateAsync('status.state_list', 7, true);
-                this.sayIt(this.config.text_aborted, 14);
+                await this.setStateAsync('status.state_list', STATE_LIST.activation_aborted, true);
+                this.sayIt(this.config.text_aborted, SAY_PHRASE.aborted);
                 if (this.optLog) {
                     this.log.info(`${this.config.log_aborted}`);
                 }
@@ -2198,37 +2248,12 @@ class Alarm extends utils.Adapter {
         const change = this.isChanged(id, val);
         let setVal = val;
         if (id === 'status.state_list') {
-            switch (val) {
-                case 0:
-                    setVal = 'deactivated';
-                    break;
-                case 1:
-                    setVal = 'sharp';
-                    break;
-                case 2:
-                    setVal = 'sharp_inside';
-                    break;
-                case 3:
-                    setVal = 'burglary';
-                    break;
-                case 4:
-                    setVal = 'night_rest';
-                    break;
-                case 5:
-                    setVal = 'gets_activated';
-                    break;
-                case 6:
-                    setVal = 'activation_failed';
-                    break;
-                case 7:
-                    setVal = 'activation_aborted';
-                    break;
-                case 8:
-                    setVal = 'silent_alarm';
-                    break;
-                default:
-                    setVal = val;
-                    this.log.warn(`Wrong list state at shortcuts: ${val}`);
+            const name = STATE_LIST_NAMES[val as number];
+            if (name) {
+                setVal = name;
+            } else {
+                setVal = val;
+                this.log.warn(`Wrong list state at shortcuts: ${val}`);
             }
         }
         if (this.shorts && change) {
