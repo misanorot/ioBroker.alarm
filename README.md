@@ -29,6 +29,13 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (@GermanBluefox) Adapter was migrated to TypeScript
+* (@GermanBluefox) GUI was migrated to JsonConfig
+* (@GermanBluefox) Refactor code and remove duplicated methods
+* (@GermanBluefox) Added option repeat writing of state values
+* (@GermanBluefox) Added option to retrigger the alarm if already triggered
+
 ### 3.7.6 (2025-10-26)
 * (misanorot) update npm progress
 

@@ -6,6 +6,26 @@
             "type": "panel",
             "label": "general",
             "items": {
+                "_paypal": {
+                    "type": "staticImage",
+                    "sm": 4,
+                    "md": 1,
+                    "src": "https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif",
+                    "href": "https://www.paypal.com/donate?hosted_button_id=BXTYTYW3D5MRU",
+                    "text": "PayPal",
+                    "icon": "payment",
+                    "button": true,
+                    "variant": "outlined",
+                    "newLine": true
+                },
+                "_donat": {
+                    "type": "staticText",
+                    "sm": 8,
+                    "md": 11,
+                    "text": "donat",
+                    "style": { "fontSize": "small", "opacity": 0.7 }
+                },
+
                 "_infoGeneral": {
                     "type": "infoBox",
                     "text": "info_general",
@@ -419,18 +439,21 @@
                             "type": "checkbox",
                             "attr": "enabled",
                             "title": "active",
+                            "tooltip": "tt_enabled",
                             "width": "50px",
                             "default": true
                         },
                         {
                             "type": "text",
                             "attr": "name",
-                            "title": "Name"
+                            "title": "Name",
+                            "tooltip": "tt_name"
                         },
                         {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
+                            "tooltip": "tt_name_id",
                             "filter": {
                                 "type": "state"
                             }
@@ -439,42 +462,49 @@
                             "type": "checkbox",
                             "attr": "negativ",
                             "title": "negativ",
+                            "tooltip": "tt_negativ",
                             "width": "80px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "alarm",
                             "title": "alarm",
+                            "tooltip": "tt_alarm",
                             "width": "80px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "delay",
                             "title": "delay",
+                            "tooltip": "tt_delay",
                             "width": "80px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "leave",
                             "title": "leave",
+                            "tooltip": "tt_leave",
                             "width": "80px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "warning",
                             "title": "inside",
+                            "tooltip": "tt_inside",
                             "width": "80px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "delay_inside",
                             "title": "delay_inside",
+                            "tooltip": "tt_delay_inside",
                             "width": "80px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "night",
                             "title": "notification",
+                            "tooltip": "tt_notification",
                             "width": "100px"
                         }
                     ]
@@ -544,18 +574,21 @@
                             "type": "checkbox",
                             "attr": "enabled",
                             "title": "active",
+                            "tooltip": "tt_enabled",
                             "width": "50px",
                             "default": true
                         },
                         {
                             "type": "text",
                             "attr": "name",
-                            "title": "Name"
+                            "title": "Name",
+                            "tooltip": "tt_name"
                         },
                         {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
+                            "tooltip": "tt_name_id",
                             "filter": {
                                 "type": "state"
                             }
@@ -564,96 +597,112 @@
                             "type": "number",
                             "attr": "speech_delay",
                             "title": "speech_delay",
+                            "tooltip": "tt_speech_delay",
                             "width": "70px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_one",
                             "title": { "en": "1" },
+                            "tooltip": "tt_say_1",
                             "width": "40px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_two",
                             "title": { "en": "2" },
+                            "tooltip": "tt_say_2",
                             "width": "40px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_aborted",
                             "title": { "en": "x" },
+                            "tooltip": "tt_say_x",
                             "width": "40px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_three",
                             "title": { "en": "3" },
+                            "tooltip": "tt_say_3",
                             "width": "40px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_four",
                             "title": { "en": "4" },
+                            "tooltip": "tt_say_4",
                             "width": "40px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_five",
                             "title": { "en": "5" },
+                            "tooltip": "tt_say_5",
                             "width": "40px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_six",
                             "title": { "en": "6" },
+                            "tooltip": "tt_say_6",
                             "width": "40px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_seven",
                             "title": { "en": "7" },
+                            "tooltip": "tt_say_7",
                             "width": "40px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_eigth",
                             "title": { "en": "8" },
+                            "tooltip": "tt_say_8",
                             "width": "40px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_nine",
                             "title": { "en": "9" },
+                            "tooltip": "tt_say_9",
                             "width": "40px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_nine_plus",
                             "title": { "en": "9+" },
+                            "tooltip": "tt_say_9plus",
                             "width": "40px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_zero",
                             "title": { "en": "0" },
+                            "tooltip": "tt_say_0",
                             "width": "40px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_count",
                             "title": { "en": "time" },
+                            "tooltip": "tt_say_time",
                             "width": "50px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_fire",
                             "title": { "en": "one" },
+                            "tooltip": "tt_say_fire",
                             "width": "50px"
                         },
                         {
                             "type": "checkbox",
                             "attr": "opt_say_water",
                             "title": { "en": "two" },
+                            "tooltip": "tt_say_water",
                             "width": "50px"
                         }
                     ]
@@ -799,6 +848,7 @@
                             "type": "checkbox",
                             "attr": "enabled",
                             "title": "active",
+                            "tooltip": "tt_enabled",
                             "width": "50px",
                             "default": true
                         },
@@ -806,6 +856,7 @@
                             "type": "select",
                             "attr": "select_id",
                             "title": "Name",
+                            "tooltip": "tt_short_select",
                             "options": [
                                 { "label": "status.state_list", "value": "status.state_list", "description": "desc_select_state_list" },
                                 { "label": "status.activated", "value": "status.activated", "description": "desc_select_activated" },
@@ -833,6 +884,7 @@
                             "type": "select",
                             "attr": "trigger_val",
                             "title": "Trigger",
+                            "tooltip": "tt_short_trigger",
                             "options": [
                                 { "label": "--", "value": "" },
                                 { "label": "true", "value": "true", "hidden": "data.select_id === 'status.state_list'", "description": "desc_trigger_true" },
@@ -853,12 +905,14 @@
                         {
                             "type": "text",
                             "attr": "name",
-                            "title": "Name"
+                            "title": "Name",
+                            "tooltip": "tt_name"
                         },
                         {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
+                            "tooltip": "tt_short_name_id",
                             "filter": {
                                 "type": "state"
                             }
@@ -866,7 +920,25 @@
                         {
                             "type": "text",
                             "attr": "value",
-                            "title": "values"
+                            "title": "values",
+                            "tooltip": "tt_short_value"
+                        },
+                        {
+                            "type": "number",
+                            "attr": "repeat_write",
+                            "title": "repeat_write",
+                            "tooltip": "repeat_write_tooltip",
+                            "width": "80px",
+                            "min": 0,
+                            "default": 0
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "retrigger",
+                            "title": "retrigger",
+                            "tooltip": "retrigger_tooltip",
+                            "width": "80px",
+                            "hidden": "data.select_id === 'status.state_list' || data.select_id === 'status.activated' || data.select_id === 'status.gets_activated' || data.select_id === 'status.deactivated' || data.select_id === 'status.activation_failed' || data.select_id === 'status.sleep' || data.select_id === 'status.activated_with_warnings' || data.select_id === 'status.enableable' || data.select_id === 'status.sharp_inside_activated'"
                         }
                     ]
                 },
@@ -886,18 +958,21 @@
                             "type": "checkbox",
                             "attr": "enabled",
                             "title": "active",
+                            "tooltip": "tt_enabled",
                             "width": "50px",
                             "default": true
                         },
                         {
                             "type": "text",
                             "attr": "name",
-                            "title": "Name"
+                            "title": "Name",
+                            "tooltip": "tt_name"
                         },
                         {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
+                            "tooltip": "tt_shortin_name_id",
                             "filter": {
                                 "type": "state"
                             }
@@ -906,6 +981,7 @@
                             "type": "select",
                             "attr": "trigger_val",
                             "title": "trigger_mode",
+                            "tooltip": "tt_shortin_trigger_mode",
                             "options": [
                                 { "label": "any", "value": "Any update", "description": "desc_trigger_mode_any" },
                                 { "label": "ne", "value": "Change", "description": "desc_trigger_mode_ne" }
@@ -917,12 +993,14 @@
                         {
                             "type": "text",
                             "attr": "value",
-                            "title": "trigger_values"
+                            "title": "trigger_values",
+                            "tooltip": "tt_shortin_value"
                         },
                         {
                             "type": "select",
                             "attr": "select_id",
                             "title": "Name",
+                            "tooltip": "tt_shortin_select",
                             "options": [
                                 { "label": "use.activate_nightrest", "value": "use.activate_nightrest", "description": "desc_use_activate_nightrest" },
                                 { "label": "use.activate_sharp_inside", "value": "use.activate_sharp_inside", "description": "desc_use_activate_sharp_inside" },
@@ -1093,18 +1171,21 @@
                             "type": "checkbox",
                             "attr": "enabled",
                             "title": "active",
+                            "tooltip": "tt_enabled",
                             "width": "50px",
                             "default": true
                         },
                         {
                             "type": "text",
                             "attr": "name",
-                            "title": "Name"
+                            "title": "Name",
+                            "tooltip": "tt_name"
                         },
                         {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
+                            "tooltip": "tt_name_id",
                             "filter": {
                                 "type": "state"
                             }
@@ -1113,6 +1194,7 @@
                             "type": "checkbox",
                             "attr": "negativ",
                             "title": "negativ",
+                            "tooltip": "tt_negativ",
                             "width": "80px"
                         }
                     ]
@@ -1137,18 +1219,21 @@
                             "type": "checkbox",
                             "attr": "enabled",
                             "title": "active",
+                            "tooltip": "tt_enabled",
                             "width": "50px",
                             "default": true
                         },
                         {
                             "type": "text",
                             "attr": "name",
-                            "title": "Name"
+                            "title": "Name",
+                            "tooltip": "tt_name"
                         },
                         {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
+                            "tooltip": "tt_name_id",
                             "filter": {
                                 "type": "state"
                             }
@@ -1157,6 +1242,7 @@
                             "type": "checkbox",
                             "attr": "negativ",
                             "title": "negativ",
+                            "tooltip": "tt_negativ",
                             "width": "80px"
                         }
                     ]
@@ -1187,18 +1273,21 @@
                             "type": "checkbox",
                             "attr": "enabled",
                             "title": "active",
+                            "tooltip": "tt_enabled",
                             "width": "50px",
                             "default": true
                         },
                         {
                             "type": "text",
                             "attr": "name",
-                            "title": "Name"
+                            "title": "Name",
+                            "tooltip": "tt_name"
                         },
                         {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
+                            "tooltip": "tt_name_id",
                             "filter": {
                                 "type": "state"
                             }
@@ -1207,6 +1296,7 @@
                             "type": "checkbox",
                             "attr": "negativ",
                             "title": "negativ",
+                            "tooltip": "tt_negativ",
                             "width": "80px"
                         }
                     ]
@@ -1227,18 +1317,21 @@
                             "type": "checkbox",
                             "attr": "enabled",
                             "title": "active",
+                            "tooltip": "tt_enabled",
                             "width": "50px",
                             "default": true
                         },
                         {
                             "type": "text",
                             "attr": "name",
-                            "title": "Name"
+                            "title": "Name",
+                            "tooltip": "tt_name"
                         },
                         {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
+                            "tooltip": "tt_name_id",
                             "filter": {
                                 "type": "state"
                             }
@@ -1247,6 +1340,7 @@
                             "type": "checkbox",
                             "attr": "negativ",
                             "title": "negativ",
+                            "tooltip": "tt_negativ",
                             "width": "80px"
                         }
                     ]
@@ -1267,18 +1361,21 @@
                             "type": "checkbox",
                             "attr": "enabled",
                             "title": "active",
+                            "tooltip": "tt_enabled",
                             "width": "50px",
                             "default": true
                         },
                         {
                             "type": "text",
                             "attr": "name",
-                            "title": "Name"
+                            "title": "Name",
+                            "tooltip": "tt_name"
                         },
                         {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
+                            "tooltip": "tt_name_id",
                             "filter": {
                                 "type": "state"
                             }
@@ -1287,6 +1384,7 @@
                             "type": "checkbox",
                             "attr": "negativ",
                             "title": "negativ",
+                            "tooltip": "tt_negativ",
                             "width": "80px"
                         }
                     ]
@@ -1337,18 +1435,21 @@
                             "type": "checkbox",
                             "attr": "enabled",
                             "title": "active",
+                            "tooltip": "tt_enabled",
                             "width": "50px",
                             "default": true
                         },
                         {
                             "type": "text",
                             "attr": "name",
-                            "title": "Name"
+                            "title": "Name",
+                            "tooltip": "tt_name"
                         },
                         {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
+                            "tooltip": "tt_name_id",
                             "filter": {
                                 "type": "state"
                             }
@@ -1357,6 +1458,7 @@
                             "type": "select",
                             "attr": "option_presence",
                             "title": "option_presence",
+                            "tooltip": "tt_presence_mode",
                             "options": [
                                 { "label": "time", "value": "time" },
                                 { "label": "sunrise", "value": "sunrise" },
@@ -1370,24 +1472,28 @@
                             "type": "text",
                             "attr": "presence_time_from",
                             "title": "presence_time_from",
+                            "tooltip": "tt_presence_time_from",
                             "width": "80px"
                         },
                         {
                             "type": "text",
                             "attr": "presence_time_to",
                             "title": "presence_time_to",
+                            "tooltip": "tt_presence_time_to",
                             "width": "80px"
                         },
                         {
                             "type": "number",
                             "attr": "presence_length",
                             "title": "presence_length",
+                            "tooltip": "tt_presence_length",
                             "width": "70px"
                         },
                         {
                             "type": "select",
                             "attr": "presence_length_select",
                             "title": "presence_length_select",
+                            "tooltip": "tt_presence_length_unit",
                             "style": { "marginTop": "16px" },
                             "options": [
                                 { "label": "sec", "value": "sec" },
@@ -1401,18 +1507,21 @@
                             "type": "number",
                             "attr": "presence_length_shuffle",
                             "title": "presence_length_shuffle",
+                            "tooltip": "tt_presence_length_shuffle",
                             "width": "70px"
                         },
                         {
                             "type": "number",
                             "attr": "presence_delay",
                             "title": "presence_delay",
+                            "tooltip": "tt_presence_delay",
                             "width": "70px"
                         },
                         {
                             "type": "select",
                             "attr": "presence_delay_select",
                             "title": "presence_delay_select",
+                            "tooltip": "tt_presence_delay_unit",
                             "style": { "marginTop": "16px" },
                             "options": [
                                 { "label": "sec", "value": "sec" },
@@ -1426,30 +1535,35 @@
                             "type": "number",
                             "attr": "presence_delay_shuffle",
                             "title": "presence_delay_shuffle",
+                            "tooltip": "tt_presence_delay_shuffle",
                             "width": "70px"
                         },
                         {
                             "type": "text",
                             "attr": "presence_val_on",
                             "title": "presence_val_on",
+                            "tooltip": "tt_presence_val_on",
                             "width": "70px"
                         },
                         {
                             "type": "text",
                             "attr": "presence_val_off",
                             "title": "presence_val_off",
+                            "tooltip": "tt_presence_val_off",
                             "width": "70px"
                         },
                         {
                             "type": "text",
                             "attr": "presence_trigger_light",
                             "title": "presence_trigger_light",
+                            "tooltip": "tt_presence_trigger_light",
                             "width": "100px"
                         },
                         {
                             "type": "number",
                             "attr": "presence_light_lux",
                             "title": "presence_light_lux",
+                            "tooltip": "tt_presence_light_lux",
                             "width": "70px"
                         }
                     ]

@@ -122,6 +122,10 @@ export interface ShortsRow {
     name_id: string;
     /** The value to write to the target state when triggered. */
     value: string;
+    /** Number of seconds to repeatedly write the value (0 = disabled). Writes once per second for the configured duration. */
+    repeat_write: number;
+    /** Whether to re-trigger the shortcut even if the monitored state value has not changed. */
+    retrigger: boolean;
 }
 
 /**
