@@ -149,6 +149,21 @@ type PresenceTimer = {
     wasOn: boolean;
 };
 
+type TableName = 'main' | 'one' | 'two' | 'zone_one' | 'zone_two' | 'zone_three';
+
+/**
+ * Matches a pattern against a state ID.
+ * If the pattern contains `*`, it is converted to a RegExp (with `.` escaped and `*` → `.*`).
+ * Otherwise, performs a direct string comparison.
+ */
+function matchId(pattern: string, stateId: string): boolean {
+    if (pattern.includes('*')) {
+        const escaped = pattern.replace(/\./g, '\\.').replace(/\*/g, '.*');
+        return new RegExp(`^${escaped}$`).test(stateId);
+    }
+    return pattern === stateId;
+}
+
 /**
  * Home alarm system adapter for ioBroker.
  *
@@ -252,50 +267,73 @@ class Alarm extends utils.Adapter {
     private onUnload(callback: () => void): void {
         try {
             this.log.info('cleaned everything up...');
-            this.scheduleFrom.cancel();
-            this.scheduleTo.cancel();
-            this.scheduleReset.cancel();
-            if (this.timer) {
-                clearInterval(this.timer);
-                this.timer = null;
-            }
-            if (this.silentTimer) {
-                clearTimeout(this.silentTimer);
-                this.silentTimer = null;
-            }
+            this.scheduleFrom?.cancel();
+            this.scheduleTo?.cancel();
+            this.scheduleReset?.cancel();
+            this.clearAllTimers();
             if (this.speechTimeout) {
                 clearTimeout(this.speechTimeout);
                 this.speechTimeout = null;
-            }
-            if (this.sirenTimer) {
-                clearTimeout(this.sirenTimer);
-                this.sirenTimer = null;
-            }
-            if (this.silentInterval) {
-                clearInterval(this.silentInterval);
-                this.silentInterval = null;
-            }
-            if (this.silentCountdown) {
-                clearInterval(this.silentCountdown);
-                this.silentCountdown = null;
-            }
-            if (this.alarmInterval) {
-                clearInterval(this.alarmInterval);
-                this.alarmInterval = null;
-            }
-            if (this.textAlarmInterval) {
-                clearInterval(this.textAlarmInterval);
-                this.textAlarmInterval = null;
-            }
-            if (this.textChangesInterval) {
-                clearInterval(this.textChangesInterval);
-                this.textChangesInterval = null;
             }
             this.clearAllPresenceTimer();
             callback();
         } catch (e) {
             this.log.debug(String(e));
             callback();
+        }
+    }
+
+    /**
+     * Clears all alarm-related timers and intervals.
+     * Used by both {@link onUnload} and {@link disableSystem} to avoid duplication.
+     */
+    private clearAllTimers(): void {
+        if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
+        if (this.silentTimer) {
+            clearTimeout(this.silentTimer);
+            this.silentTimer = null;
+        }
+        if (this.sirenTimer) {
+            clearTimeout(this.sirenTimer);
+            this.sirenTimer = null;
+        }
+        if (this.silentInterval) {
+            clearInterval(this.silentInterval);
+            this.silentInterval = null;
+        }
+        if (this.silentCountdown) {
+            clearInterval(this.silentCountdown);
+            this.silentCountdown = null;
+        }
+        if (this.alarmInterval) {
+            clearInterval(this.alarmInterval);
+            this.alarmInterval = null;
+        }
+        if (this.textAlarmInterval) {
+            clearInterval(this.textAlarmInterval);
+            this.textAlarmInterval = null;
+        }
+        if (this.textChangesInterval) {
+            clearInterval(this.textChangesInterval);
+            this.textChangesInterval = null;
+        }
+    }
+
+    private async handleWrongPassword(id: string): Promise<void> {
+        try {
+            await this.setStateAsync('info.wrong_password', true, true);
+        } catch (err) {
+            this.log.error(err as unknown as string);
+        }
+        await this.setStateAsync(id, '', true);
+        if (this.optLog) {
+            this.log.info(`${this.config.log_pass}`);
+        }
+        if (this.config.send_failed) {
+            this.messages(`${this.config.log_pass}`);
         }
     }
 
@@ -464,42 +502,8 @@ class Alarm extends utils.Adapter {
 
     private async disableSystem(): Promise<void> {
         this.burgle = false;
-        if (this.silentTimer) {
-            clearTimeout(this.silentTimer);
-            this.silentTimer = null;
-        }
-        if (this.sirenTimer) {
-            clearTimeout(this.sirenTimer);
-            this.sirenTimer = null;
-        }
-        if (this.silentInterval) {
-            clearInterval(this.silentInterval);
-            this.silentInterval = null;
-        }
-        if (this.silentCountdown) {
-            clearInterval(this.silentCountdown);
-            this.silentCountdown = null;
-        }
-        if (this.alarmInterval) {
-            clearInterval(this.alarmInterval);
-            this.alarmInterval = null;
-        }
-        if (this.textAlarmInterval) {
-            clearInterval(this.textAlarmInterval);
-            this.textAlarmInterval = null;
-        }
-        if (this.textChangesInterval) {
-            clearInterval(this.textChangesInterval);
-            this.textChangesInterval = null;
-        }
+        this.clearAllTimers();
         this.clearAllPresenceTimer();
-        this.silentTimer = null;
-        this.sirenTimer = null;
-        this.silentInterval = null;
-        this.silentCountdown = null;
-        this.alarmInterval = null;
-        this.textAlarmInterval = null;
-        this.textChangesInterval = null;
         if (this.activated || this.isPanic) {
             this.isPanic = false;
             await this.setStateAsync('info.log', `${this.config.log_deact}`, true);
@@ -524,7 +528,6 @@ class Alarm extends utils.Adapter {
     }
 
     private async burglary(id: string, _state: ioBroker.State, silent: boolean, indoor?: boolean): Promise<void> {
-        let count = 0;
         const name = this.getName(id);
         let say = this.config.text_alarm;
         if (this.config.opt_say_names) {
@@ -593,41 +596,7 @@ class Alarm extends utils.Adapter {
                         this.silentInterval = null;
                     }
                     this.clearAllPresenceTimer();
-                    this.sayIt(say, SAY_PHRASE.alarm);
-                    this.textAlarmInterval = setInterval(() => {
-                        if (count < this.alarmRepeat) {
-                            this.sayIt(say, SAY_PHRASE.alarm);
-                            count++;
-                        } else {
-                            if (this.textAlarmInterval) {
-                                clearInterval(this.textAlarmInterval);
-                                this.textAlarmInterval = null;
-                            }
-                        }
-                    }, this.config.text_alarm_pause * 1000);
-                    await this.setStateAsync('status.burglar_alarm', true, true);
-                    await this.setStateAsync('status.silent_alarm', false, true);
-                    await this.setStateAsync('status.silent_flash', false, true);
-                    await this.setStateAsync('status.siren_inside', true, true);
-                    this.sirenInsideTimer = setTimeout(
-                        async () => {
-                            this.sirenInsideTimer = null;
-                            await this.setStateAsync('status.siren_inside', false, true);
-                        },
-                        this.timeMode(this.config.time_warning_select) * this.config.time_warning,
-                    );
-                    if (this.config.opt_siren && indoor) {
-                        await this.alarmSiren();
-                        this.alarmFlash();
-                    }
-                    if (!indoor) {
-                        await this.setStateAsync('status.siren', true, true);
-                        await this.alarmSiren();
-                        this.alarmFlash();
-                    }
-                    await this.setStateAsync('status.state', STATUS_STATE.burgle, true);
-                    await this.setStateAsync('status.state_list', STATE_LIST.burglary, true);
-                    await this.setStateAsync('homekit.CurrentState', HOMEKIT_STATE.alarm_triggered, true);
+                    await this.escalateBurglary(say, indoor);
                 },
                 this.timeMode(this.config.time_silent_select) * this.config.time_silent,
             );
@@ -652,41 +621,7 @@ class Alarm extends utils.Adapter {
             if (this.config.send_alarm && !indoor) {
                 this.messages(`${this.config.log_burgle} ${name}`);
             }
-            this.sayIt(say, SAY_PHRASE.alarm);
-            this.textAlarmInterval = setInterval(() => {
-                if (count < this.alarmRepeat) {
-                    this.sayIt(say, SAY_PHRASE.alarm);
-                    count++;
-                } else {
-                    if (this.textAlarmInterval) {
-                        clearInterval(this.textAlarmInterval);
-                        this.textAlarmInterval = null;
-                    }
-                }
-            }, this.config.text_alarm_pause * 1000);
-            await this.setStateAsync('status.burglar_alarm', true, true);
-            await this.setStateAsync('status.silent_alarm', false, true);
-            await this.setStateAsync('status.silent_flash', false, true);
-            await this.setStateAsync('status.siren_inside', true, true);
-            this.sirenInsideTimer = setTimeout(
-                async () => {
-                    this.sirenInsideTimer = null;
-                    await this.setStateAsync('status.siren_inside', false, true);
-                },
-                this.timeMode(this.config.time_warning_select) * this.config.time_warning,
-            );
-            if (this.config.opt_siren && indoor) {
-                await this.alarmSiren();
-                this.alarmFlash();
-            }
-            if (!indoor) {
-                await this.setStateAsync('status.siren', true, true);
-                await this.alarmSiren();
-                this.alarmFlash();
-            }
-            await this.setStateAsync('status.state', STATUS_STATE.burgle, true);
-            await this.setStateAsync('status.state_list', STATE_LIST.burglary, true);
-            await this.setStateAsync('homekit.CurrentState', HOMEKIT_STATE.alarm_triggered, true);
+            await this.escalateBurglary(say, indoor);
             this.sirenTimer = setTimeout(
                 async () => {
                     await this.setStateAsync('status.siren', false, true);
@@ -698,6 +633,49 @@ class Alarm extends utils.Adapter {
                 this.timeMode(this.config.time_alarm_select) * this.config.time_alarm,
             );
         }
+    }
+
+    /**
+     * Shared burglary escalation: activates speech, sirens, flash, and alarm states.
+     * Called by both silent (after delay) and non-silent burglary paths.
+     */
+    private async escalateBurglary(say: string, indoor?: boolean): Promise<void> {
+        let count = 0;
+        this.sayIt(say, SAY_PHRASE.alarm);
+        this.textAlarmInterval = setInterval(() => {
+            if (count < this.alarmRepeat) {
+                this.sayIt(say, SAY_PHRASE.alarm);
+                count++;
+            } else {
+                if (this.textAlarmInterval) {
+                    clearInterval(this.textAlarmInterval);
+                    this.textAlarmInterval = null;
+                }
+            }
+        }, this.config.text_alarm_pause * 1000);
+        await this.setStateAsync('status.burglar_alarm', true, true);
+        await this.setStateAsync('status.silent_alarm', false, true);
+        await this.setStateAsync('status.silent_flash', false, true);
+        await this.setStateAsync('status.siren_inside', true, true);
+        this.sirenInsideTimer = setTimeout(
+            async () => {
+                this.sirenInsideTimer = null;
+                await this.setStateAsync('status.siren_inside', false, true);
+            },
+            this.timeMode(this.config.time_warning_select) * this.config.time_warning,
+        );
+        if (this.config.opt_siren && indoor) {
+            await this.alarmSiren();
+            this.alarmFlash();
+        }
+        if (!indoor) {
+            await this.setStateAsync('status.siren', true, true);
+            await this.alarmSiren();
+            this.alarmFlash();
+        }
+        await this.setStateAsync('status.state', STATUS_STATE.burgle, true);
+        await this.setStateAsync('status.state_list', STATE_LIST.burglary, true);
+        await this.setStateAsync('homekit.CurrentState', HOMEKIT_STATE.alarm_triggered, true);
     }
 
     private async panic(): Promise<void> {
@@ -750,76 +728,42 @@ class Alarm extends utils.Adapter {
     }
 
     private async change(id: string, state: ioBroker.State): Promise<void> {
-        let isNotChange = false;
-        for (const i in this.states) {
-            if (i === id) {
-                if (this.states[id] === state.val) {
-                    isNotChange = true;
-                    break;
-                }
-                this.states[id] = state.val;
-                await this.refreshLists();
-                this.log.debug(`Inside states, state change: ${id} val: ${state.val}`);
-            }
+        let isChanged = false;
+        if (id in this.states && this.states[id] !== state.val) {
+            isChanged = true;
+            this.states[id] = state.val;
+            this.log.debug(`Inside states, state change: ${id} val: ${state.val}`);
         }
-        for (const i in this.oneStates) {
-            if (i === id) {
-                if (this.oneStates[id] === state.val) {
-                    isNotChange = true;
-                    break;
-                }
-                this.oneStates[id] = state.val;
-                await this.refreshLists();
-                this.log.debug(`Inside one, state change: ${id} val: ${state.val}`);
-            }
+        if (id in this.oneStates && this.oneStates[id] !== state.val) {
+            isChanged = true;
+            this.oneStates[id] = state.val;
+            this.log.debug(`Inside one, state change: ${id} val: ${state.val}`);
         }
-        for (const i in this.twoStates) {
-            if (i === id) {
-                if (this.twoStates[id] === state.val) {
-                    isNotChange = true;
-                    break;
-                }
-                this.twoStates[id] = state.val;
-                await this.refreshLists();
-                this.log.debug(`Inside two, state change: ${id} val: ${state.val}`);
-            }
+        if (id in this.twoStates && this.twoStates[id] !== state.val) {
+            isChanged = true;
+            this.twoStates[id] = state.val;
+            this.log.debug(`Inside two, state change: ${id} val: ${state.val}`);
         }
-        for (const i in this.zoneOneStates) {
-            if (i === id) {
-                if (this.zoneOneStates[id] === state.val) {
-                    isNotChange = true;
-                    break;
-                }
-                this.zoneOneStates[id] = state.val;
-                await this.refreshLists();
-                this.log.debug(`Inside zone_one, state change: ${id} val: ${state.val}`);
-            }
+        if (id in this.zoneOneStates && this.zoneOneStates[id] !== state.val) {
+            isChanged = true;
+            this.zoneOneStates[id] = state.val;
+            this.log.debug(`Inside zone_one, state change: ${id} val: ${state.val}`);
         }
-        for (const i in this.zoneTwoStates) {
-            if (i === id) {
-                if (this.zoneTwoStates[id] === state.val) {
-                    isNotChange = true;
-                    break;
-                }
-                this.zoneTwoStates[id] = state.val;
-                await this.refreshLists();
-                this.log.debug(`Inside zone_two, state change: ${id} val: ${state.val}`);
-            }
+        if (id in this.zoneTwoStates && this.zoneTwoStates[id] !== state.val) {
+            isChanged = true;
+            this.zoneTwoStates[id] = state.val;
+            this.log.debug(`Inside zone_two, state change: ${id} val: ${state.val}`);
         }
-        for (const i in this.zoneThreeStates) {
-            if (i === id) {
-                if (this.zoneThreeStates[id] === state.val) {
-                    isNotChange = true;
-                    break;
-                }
-                this.zoneThreeStates[id] = state.val;
-                await this.refreshLists();
-                this.log.debug(`Inside zone_three, state change: ${id} val: ${state.val}`);
-            }
+        if (id in this.zoneThreeStates && this.zoneThreeStates[id] !== state.val) {
+            isChanged = true;
+            this.zoneThreeStates[id] = state.val;
+            this.log.debug(`Inside zone_three, state change: ${id} val: ${state.val}`);
         }
-        if (isNotChange) {
+        if (!isChanged) {
             return;
         }
+        await this.refreshLists();
+
         if (id === `${this.namespace}.use.list`) {
             switch (state.val) {
                 case USE_LIST.deactivated:
@@ -904,36 +848,18 @@ class Alarm extends utils.Adapter {
             this.optThree = state.val;
             return;
         }
-        if (id === `${this.namespace}.status.sleep`) {
-            this.shortcuts('status.sleep', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.status.gets_activated`) {
-            this.shortcuts('status.gets_activated', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.status.state_list`) {
-            this.shortcuts('status.state_list', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.status.sharp_inside_activated`) {
-            this.shortcuts('status.sharp_inside_activated', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.status.silent_alarm`) {
-            this.shortcuts('status.silent_alarm', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.status.alarm_flash`) {
-            this.shortcuts('status.alarm_flash', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.status.enableable`) {
-            this.shortcuts('status.enableable', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.status.silent_flash`) {
-            this.shortcuts('status.silent_flash', state.val);
+        const SHORTCUT_FORWARD_STATES: Set<string> = new Set([
+            'status.sleep', 'status.gets_activated', 'status.state_list',
+            'status.sharp_inside_activated', 'status.silent_alarm', 'status.alarm_flash',
+            'status.enableable', 'status.silent_flash', 'status.deactivated',
+            'status.burglar_alarm', 'status.siren', 'status.activation_failed',
+            'status.activated_with_warnings', 'status.activation_countdown',
+            'status.state', 'status.siren_inside', 'info.notification_circuit_changes',
+            'other_alarms.one_changes', 'other_alarms.two_changes',
+        ]);
+        const localId = id.startsWith(`${this.namespace}.`) ? id.slice(this.namespace.length + 1) : '';
+        if (SHORTCUT_FORWARD_STATES.has(localId)) {
+            this.shortcuts(localId, state.val);
             return;
         }
         if (id === `${this.namespace}.use.quit_changes`) {
@@ -950,50 +876,6 @@ class Alarm extends utils.Adapter {
             await this.setStateAsync('info.notification_circuit_changes', false, true);
             await this.setStateAsync('other_alarms.one_changes', false, true);
             await this.setStateAsync('other_alarms.two_changes', false, true);
-            return;
-        }
-        if (id === `${this.namespace}.status.deactivated`) {
-            this.shortcuts('status.deactivated', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.status.burglar_alarm`) {
-            this.shortcuts('status.burglar_alarm', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.status.siren`) {
-            this.shortcuts('status.siren', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.status.activation_failed`) {
-            this.shortcuts('status.activation_failed', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.status.activated_with_warnings`) {
-            this.shortcuts('status.activated_with_warnings', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.status.activation_countdown`) {
-            this.shortcuts('status.activation_countdown', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.status.state`) {
-            this.shortcuts('status.state', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.status.siren_inside`) {
-            this.shortcuts('status.siren_inside', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.info.notification_circuit_changes`) {
-            this.shortcuts('info.notification_circuit_changes', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.other_alarms.one_changes`) {
-            this.shortcuts('other_alarms.one_changes', state.val);
-            return;
-        }
-        if (id === `${this.namespace}.other_alarms.two_changes`) {
-            this.shortcuts('other_alarms.two_changes', state.val);
             return;
         }
         if (id === `${this.namespace}.use.enable` && state.val) {
@@ -1021,79 +903,40 @@ class Alarm extends utils.Adapter {
             return;
         }
         if (id === `${this.namespace}.use.disable_password`) {
-            if (state.val == '') {
+            if (!state.val) {
                 return;
             }
             if ((await this.checkMyPassword(state.val, 'use.disable_password')) && (this.activated || this.inside)) {
                 await this.countdown(false);
                 return;
             }
-            try {
-                await this.setStateAsync('info.wrong_password', true, true);
-            } catch (err) {
-                this.log.error(err as unknown as string);
-            }
-            await this.setStateAsync(id, '', true);
-            if (this.optLog) {
-                this.log.info(`${this.config.log_pass}`);
-            }
-            this.log.debug(`Password denied ${state.val}`);
-            if (this.config.send_failed) {
-                this.messages(`${this.config.log_pass}`);
-            }
+            await this.handleWrongPassword(id);
             return;
         }
         if (id === `${this.namespace}.use.toggle_password`) {
             if (state.val == '') {
                 return;
             }
-            if ((await this.checkMyPassword(state.val, 'use.toggle_password')) && !this.activated) {
-                await this.enableSystem(id, state);
+            if (await this.checkMyPassword(state.val, 'use.toggle_password')) {
+                if (this.activated) {
+                    await this.countdown(false);
+                } else {
+                    await this.enableSystem(id, state);
+                }
                 return;
-            } else if ((await this.checkMyPassword(state.val, 'use.toggle_password')) && this.activated) {
-                await this.countdown(false);
-                return;
             }
-            try {
-                await this.setStateAsync('info.wrong_password', true, true);
-            } catch (err) {
-                this.log.error(err as unknown as string);
-            }
-            await this.setStateAsync(id, '', true);
-            if (this.optLog) {
-                this.log.info(`${this.config.log_pass}`);
-            }
-            this.log.debug(`Password denied ${state.val}`);
-            if (this.config.send_failed) {
-                this.messages(`${this.config.log_pass}`);
-            }
+            await this.handleWrongPassword(id);
             return;
         }
         if (id === `${this.namespace}.use.toggle_with_delay_and_password`) {
             if (state.val == '') {
                 return;
             }
-            if ((await this.checkMyPassword(state.val, 'use.toggle_with_delay_and_password')) && !this.activated) {
-                await this.countdown(true);
+            if (await this.checkMyPassword(state.val, 'use.toggle_with_delay_and_password')) {
+                await this.countdown(this.activated ? false : true);
                 return;
             }
-            if ((await this.checkMyPassword(state.val, 'use.toggle_with_delay_and_password')) && this.activated) {
-                await this.countdown(false);
-                return;
-            }
-            try {
-                await this.setStateAsync('info.wrong_password', true, true);
-            } catch (err) {
-                this.log.error(err as unknown as string);
-            }
-            await this.setStateAsync(id, '', true);
-            if (this.optLog) {
-                this.log.info(`${this.config.log_pass}`);
-            }
-            this.log.debug(`Password denied ${state.val}`);
-            if (this.config.send_failed) {
-                this.messages(`${this.config.log_pass}`);
-            }
+            await this.handleWrongPassword(id);
             return;
         }
         if (id === `${this.namespace}.info.log`) {
@@ -1101,7 +944,7 @@ class Alarm extends utils.Adapter {
             return;
         }
         if (this.idsShortsInput.includes(id)) {
-            this.shortcutsInside(id, state.val);
+            await this.shortcutsInside(id, state.val);
             return;
         }
         if (
@@ -1149,19 +992,7 @@ class Alarm extends utils.Adapter {
                     say = `${say} ${name}`;
                 }
                 this.sayIt(say, SAY_PHRASE.changes_night);
-            } else if (this.inside) {
-                let say = this.config.text_changes;
-                if (this.optLog) {
-                    this.log.info(`${this.config.log_warn} ${name}`);
-                }
-                if (this.config.send_notification_changes) {
-                    this.messages(`${this.config.log_warn} ${name}`);
-                }
-                if (this.config.opt_say_names) {
-                    say = `${say} ${name}`;
-                }
-                this.sayIt(say, SAY_PHRASE.changes);
-            } else if (this.activated) {
+            } else {
                 let say = this.config.text_changes;
                 if (this.optLog) {
                     this.log.info(`${this.config.log_warn} ${name}`);
@@ -1461,19 +1292,36 @@ class Alarm extends utils.Adapter {
         });
     }
 
+    private getTable(table: TableName): (CircuitRow | OtherAlarmRow | ZoneRow)[] | undefined {
+        const tables: Record<string, (CircuitRow | OtherAlarmRow | ZoneRow)[]> = {
+            main: this.config.circuits,
+            one: this.config.one,
+            two: this.config.two,
+            zone_one: this.config.zone_one,
+            zone_two: this.config.zone_two,
+            zone_three: this.config.zone_three,
+        };
+        return tables[table];
+    }
+
+    private getTableStates(table: TableName): Record<string, ioBroker.StateValue> | undefined {
+        const states: Record<string, Record<string, ioBroker.StateValue>> = {
+            main: this.states,
+            one: this.oneStates,
+            two: this.twoStates,
+            zone_one: this.zoneOneStates,
+            zone_two: this.zoneTwoStates,
+            zone_three: this.zoneThreeStates,
+        };
+        return states[table];
+    }
+
     private isSilent(id: string, indoor?: boolean): boolean {
-        if (indoor) {
-            const temp = this.config.circuits.findIndex(obj => {
-                const reg = new RegExp(id);
-                return reg.test(obj.name_id);
-            });
-            return this.config.circuits[temp].delay_inside;
+        const circuit = this.config.circuits.find(obj => matchId(id, obj.name_id));
+        if (!circuit) {
+            return false;
         }
-        const temp = this.config.circuits.findIndex(obj => {
-            const reg = new RegExp(id);
-            return reg.test(obj.name_id);
-        });
-        return this.config.circuits[temp].delay;
+        return indoor ? circuit.delay_inside : circuit.delay;
     }
 
     private timeMode(value: string): number {
@@ -1712,19 +1560,11 @@ class Alarm extends utils.Adapter {
                 await this.setStateAsync('zone.three', false, true);
             }
         });
-        if (this.isAlarm) {
-            await this.setStateAsync('status.enableable', false, true);
-        }
-        if (this.config.opt_warning && this.isAlarm) {
-            await this.setStateAsync('status.enableable', true, true);
-        }
-        if (!this.isAlarm) {
-            await this.setStateAsync('status.enableable', true, true);
-        }
+        await this.setStateAsync('status.enableable', !this.isAlarm || this.config.opt_warning, true);
     }
 
     private async checkMyPassword(pass: ioBroker.StateValue, id: string): Promise<boolean> {
-        if (pass == this.config.password) {
+        if (pass === this.config.password) {
             this.log.debug(`Password accept`);
             try {
                 await this.setStateAsync('info.wrong_password', false, true);
@@ -1737,11 +1577,11 @@ class Alarm extends utils.Adapter {
         return false;
     }
 
-    private isTrue(id: string, state: ioBroker.State, other: string): boolean {
+    private isTrue(id: string, state: ioBroker.State, table: TableName): boolean {
         let test = false;
-        if (!this.search(id, other) && state.val) {
+        if (!this.search(id, table) && state.val) {
             test = true;
-        } else if (this.search(id, other) && !state.val) {
+        } else if (this.search(id, table) && !state.val) {
             test = true;
         }
         return test;
@@ -1804,32 +1644,14 @@ class Alarm extends utils.Adapter {
      * @param table - Config table name: `'main'`, `'one'`, `'two'`, `'zone_one'`, `'zone_two'`, or `'zone_three'`
      * @returns `true` if the circuit has inverted logic enabled
      */
-    private search(id: string, table: string): boolean {
-        if (typeof table === 'undefined' || table === null) {
-            this.log.warn(`Issue in function search, please report this the developer!`);
-            return;
+    private search(id: string, table: TableName): boolean {
+        const tableObj = this.getTable(table);
+        if (!tableObj) {
+            this.log.warn(`Issue in function search, unknown table: ${table}`);
+            return false;
         }
-        let tableObj: CircuitRow[] | OtherAlarmRow[] | ZoneRow[];
-        if (table === 'main') {
-            tableObj = this.config.circuits;
-        } else if (table === 'one') {
-            tableObj = this.config.one;
-        } else if (table === 'two') {
-            tableObj = this.config.two;
-        } else if (table === 'zone_one') {
-            tableObj = this.config.zone_one;
-        } else if (table === 'zone_two') {
-            tableObj = this.config.zone_two;
-        } else if (table === 'zone_three') {
-            tableObj = this.config.zone_three;
-        } else {
-            this.log.warn(`Issue in function search, please report this the developer!`);
-        }
-        const obj = tableObj.find(obj => {
-            const reg = new RegExp(id);
-            return reg.test(obj.name_id);
-        });
-        return obj?.negativ;
+        const obj = tableObj.find(obj => matchId(id, obj.name_id));
+        return obj?.negativ ?? false;
     }
 
     /**
@@ -1842,26 +1664,14 @@ class Alarm extends utils.Adapter {
      * @param table - Config table name used to resolve inverted logic
      * @param callback - Called with the evaluation result and list of triggered IDs
      */
-    private check(arr: string[], table: string, callback: (val: boolean, ids: string[]) => void | Promise<void>): void {
-        if (typeof table === 'undefined' || table === null) {
-            this.log.warn(`Issue in function check, please report this the developer!`);
-            return;
-        }
-        let tempStates: Record<string, ioBroker.StateValue>;
-        if (table === 'main') {
-            tempStates = this.states;
-        } else if (table === 'one') {
-            tempStates = this.oneStates;
-        } else if (table === 'two') {
-            tempStates = this.twoStates;
-        } else if (table === 'zone_one') {
-            tempStates = this.zoneOneStates;
-        } else if (table === 'zone_two') {
-            tempStates = this.zoneTwoStates;
-        } else if (table === 'zone_three') {
-            tempStates = this.zoneThreeStates;
-        } else {
-            this.log.warn(`Issue in function check, please report this the developer!`);
+    private check(
+        arr: string[],
+        table: TableName,
+        callback: (val: boolean, ids: string[]) => void | Promise<void>,
+    ): void {
+        const tempStates = this.getTableStates(table);
+        if (!tempStates) {
+            this.log.warn(`Issue in function check, unknown table: ${table}`);
             return;
         }
         const tempArr: string[] = [];
@@ -1891,39 +1701,20 @@ class Alarm extends utils.Adapter {
      * @param table - Config table name; defaults to `'main'` (circuits)
      * @returns Comma-separated name string for arrays, or a single name string
      */
-    private getName(ids: string | string[], table?: string): string {
-        const name: string[] = [];
-        let tableObj: CircuitRow[] | OtherAlarmRow[] | ZoneRow[];
-        if (table === 'main') {
-            tableObj = this.config.circuits;
-        } else if (table === 'one') {
-            tableObj = this.config.one;
-        } else if (table === 'two') {
-            tableObj = this.config.two;
-        } else if (table === 'zone_one') {
-            tableObj = this.config.zone_one;
-        } else if (table === 'zone_two') {
-            tableObj = this.config.zone_two;
-        } else if (table === 'zone_three') {
-            tableObj = this.config.zone_three;
-        } else {
-            tableObj = this.config.circuits;
-        }
+    private getName(ids: string | string[], table: TableName = 'main'): string {
+        const tableObj = this.getTable(table);
         if (Array.isArray(ids)) {
+            const names: string[] = [];
             ids.forEach(id => {
-                const temp = tableObj.findIndex(obj => {
-                    const reg = new RegExp(id);
-                    return reg.test(obj.name_id);
-                });
-                name.push(tableObj[temp].name);
+                const obj = tableObj.find(obj => matchId(id, obj.name_id));
+                if (obj) {
+                    names.push(obj.name);
+                }
             });
-            return name.join();
+            return names.join();
         }
-        const obj = tableObj.find(obj => {
-            const reg = new RegExp(ids);
-            return reg.test(obj.name_id);
-        });
-        return obj.name;
+        const obj = tableObj.find(obj => matchId(ids, obj.name_id));
+        return obj?.name ?? '';
     }
 
     /**
@@ -1936,39 +1727,20 @@ class Alarm extends utils.Adapter {
      * @param table - Config table name; defaults to `'main'` (circuits)
      * @returns HTML-formatted name string with `<br>` separators
      */
-    private getNameHtml(ids: string | string[], table?: string): string {
-        const name: string[] = [];
-        let tableObj: CircuitRow[] | OtherAlarmRow[] | ZoneRow[];
-        if (table === 'main') {
-            tableObj = this.config.circuits;
-        } else if (table === 'one') {
-            tableObj = this.config.one;
-        } else if (table === 'two') {
-            tableObj = this.config.two;
-        } else if (table === 'zone_one') {
-            tableObj = this.config.zone_one;
-        } else if (table === 'zone_two') {
-            tableObj = this.config.zone_two;
-        } else if (table === 'zone_three') {
-            tableObj = this.config.zone_three;
-        } else {
-            tableObj = this.config.circuits;
-        }
+    private getNameHtml(ids: string | string[], table: TableName = 'main'): string {
+        const tableObj = this.getTable(table);
         if (Array.isArray(ids)) {
+            const names: string[] = [];
             ids.forEach(id => {
-                const item = tableObj.find(obj => {
-                    const reg = new RegExp(id);
-                    return reg.test(obj.name_id);
-                });
-                name.push(item.name);
+                const obj = tableObj.find(obj => matchId(id, obj.name_id));
+                if (obj) {
+                    names.push(obj.name);
+                }
             });
-            return name.join('<br>');
+            return names.join('<br>');
         }
-        const obj = tableObj.find(obj => {
-            const reg = new RegExp(ids);
-            return reg.test(obj.name_id);
-        });
-        return obj?.name;
+        const obj = tableObj.find(obj => matchId(ids, obj.name_id));
+        return obj?.name ?? '';
     }
 
     /**
@@ -1989,22 +1761,12 @@ class Alarm extends utils.Adapter {
     }
 
     /**
-     * Wrapper for {@link getStateValueAsync} used during sequential state fetching.
-     *
-     * @param id - Full state ID to read
-     * @returns The state value, or `null` if the state is unavailable
-     */
-    private async getStatesDelay(id: string): Promise<ioBroker.StateValue | null> {
-        return await this.getStateValueAsync(id);
-    }
-
-    /**
      * Fetches and caches the current values of all main circuit states.
      * Populates the `states` map with `{stateId: value}` entries for all `cleanIds`.
      */
     private async fetchStates(): Promise<void> {
         for (const id of this.cleanIds) {
-            this.states[id] = await this.getStatesDelay(id);
+            this.states[id] = await this.getStateValueAsync(id);
         }
         this.log.debug(JSON.stringify(this.states));
     }
@@ -2021,7 +1783,7 @@ class Alarm extends utils.Adapter {
                 }
             });
             for (const id of this.oneIds) {
-                this.oneStates[id] = await this.getStatesDelay(id);
+                this.oneStates[id] = await this.getStateValueAsync(id);
             }
         }
         if (this.config.two) {
@@ -2031,7 +1793,7 @@ class Alarm extends utils.Adapter {
                 }
             });
             for (const id of this.twoIds) {
-                this.twoStates[id] = await this.getStatesDelay(id);
+                this.twoStates[id] = await this.getStateValueAsync(id);
             }
         }
         this.log.debug(`other alarm are one: ${JSON.stringify(this.oneStates)} two: ${JSON.stringify(this.twoStates)}`);
@@ -2049,7 +1811,7 @@ class Alarm extends utils.Adapter {
                 }
             });
             for (const id of this.zoneOneIds) {
-                this.zoneOneStates[id] = await this.getStatesDelay(id);
+                this.zoneOneStates[id] = await this.getStateValueAsync(id);
             }
         }
         if (this.config.zone_two) {
@@ -2059,7 +1821,7 @@ class Alarm extends utils.Adapter {
                 }
             });
             for (const id of this.zoneTwoIds) {
-                this.zoneTwoStates[id] = await this.getStatesDelay(id);
+                this.zoneTwoStates[id] = await this.getStateValueAsync(id);
             }
         }
         if (this.config.zone_three) {
@@ -2069,7 +1831,7 @@ class Alarm extends utils.Adapter {
                 }
             });
             for (const id of this.zoneThreeIds) {
-                this.zoneThreeStates[id] = await this.getStatesDelay(id);
+                this.zoneThreeStates[id] = await this.getStateValueAsync(id);
             }
         }
         this.log.debug(
@@ -2087,7 +1849,7 @@ class Alarm extends utils.Adapter {
      * @param _state - State object of the triggering leave circuit
      */
     private async leaving(_id: string, _state: ioBroker.State): Promise<void> {
-        this.log.info(`Leaving state triggerd`);
+        this.log.info(`Leaving state triggered`);
         if (this.timer) {
             clearInterval(this.timer);
             this.timer = null;
@@ -2198,12 +1960,12 @@ class Alarm extends utils.Adapter {
      * @param id - The external state ID that changed
      * @param val - The current value of the external state
      */
-    private shortcutsInside(id: string, val: ioBroker.StateValue): void {
-        const change = this.isChanged(id, val);
-        this.shortsIn.forEach(async ele => {
+    private async shortcutsInside(id: string, val: ioBroker.StateValue): Promise<void> {
+        const changed = this.isChanged(id, val);
+        for (const ele of this.shortsIn) {
             if (ele.name_id == id) {
                 if (ele.value === val || this.bools(ele.value) == val) {
-                    if (ele.trigger_val === 'any' || change) {
+                    if (ele.trigger_val === 'any' || changed) {
                         this.log.debug(`Input shortcut changed: ${ele.name_id}`);
                         try {
                             await this.setStateAsync(ele.select_id, true, true);
@@ -2213,7 +1975,7 @@ class Alarm extends utils.Adapter {
                     }
                 }
             }
-        });
+        }
     }
 
     /**
