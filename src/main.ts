@@ -173,73 +173,141 @@ function matchId(pattern: string, stateId: string): boolean {
 class Alarm extends utils.Adapter {
     declare config: AlarmAdapterConfig;
 
+    /** Toggle flag for blinking the silent alarm flash indicator on/off at intervals */
     private silentI = false;
+    /** Toggle flag for blinking the alarm siren indicator on/off at intervals */
     private alarmI = false;
+    /** All unique state IDs to subscribe to (union of alarm, inside, notification, and leave IDs) */
     private cleanIds: string[] = [];
+    /** State IDs of circuits in "sharp" (fully armed) alarm mode */
     private alarmIds: string[] = [];
+    /** State IDs of circuits in "sharp inside" (perimeter) alarm mode */
     private insideIds: string[] = [];
+    /** State IDs of circuits in notification mode (including night rest) */
     private notificationIds: string[] = [];
+    /** State IDs of circuits that detect leaving during the activation countdown */
     private leaveIds: string[] = [];
+    /** State IDs for other alarm type 1 (e.g., fire) circuits */
     private oneIds: string[] = [];
+    /** State IDs for other alarm type 2 (e.g., water) circuits */
     private twoIds: string[] = [];
+    /** Cached state values for other alarm type 1 circuits */
     private oneStates: Record<string, ioBroker.StateValue> = {};
+    /** Cached state values for other alarm type 2 circuits */
     private twoStates: Record<string, ioBroker.StateValue> = {};
+    /** State IDs for zone 1 circuits */
     private zoneOneIds: string[] = [];
+    /** State IDs for zone 2 circuits */
     private zoneTwoIds: string[] = [];
+    /** State IDs for zone 3 circuits */
     private zoneThreeIds: string[] = [];
+    /** Cached state values for zone 1 circuits */
     private zoneOneStates: Record<string, ioBroker.StateValue> = {};
+    /** Cached state values for zone 2 circuits */
     private zoneTwoStates: Record<string, ioBroker.StateValue> = {};
+    /** Cached state values for zone 3 circuits */
     private zoneThreeStates: Record<string, ioBroker.StateValue> = {};
+    /** Cached state values for main alarm circuits */
     private states: Record<string, ioBroker.StateValue> = {};
+    /** Notification adapter instance names to send alarm messages to (e.g., telegram, email) */
     private sendInstances: string[] = [];
+    /** Buffer of all alarm log entries separated by `<br>` for the `info.log_today` state */
     private logEntries: string | string[] = '';
+    /** Number of times the alarm speech/siren repeats before stopping */
     private alarmRepeat!: number;
+    /** Whether any circuit is configured in "sharp" alarm mode */
     private isAlarm = false;
+    /** Whether any circuit is configured in "sharp inside" mode */
     private isInside = false;
+    /** Whether any circuit is configured in notification mode */
     private isNotification = false;
+    /** Whether the panic button has been pressed */
     private isPanic = false;
+    /** State IDs of configured input shortcuts for external alarm control */
     private idsShortsInput: string[] = [];
+    /** Comma-separated names of currently triggered sharp alarm circuits */
     private namesAlarm: string | undefined;
+    /** Comma-separated names of currently triggered sharp-inside circuits */
     private namesInside: string | undefined;
+    /** Comma-separated names of currently triggered notification circuits */
     private namesNotification: string | undefined;
+    /** Comma-separated names of currently triggered other alarm type 1 circuits */
     private namesOne: string | undefined;
+    /** Comma-separated names of currently triggered other alarm type 2 circuits */
     private namesTwo: string | undefined;
+    /** Comma-separated names of currently triggered zone 1 circuits */
     private namesZoneOne: string | undefined;
+    /** Comma-separated names of currently triggered zone 2 circuits */
     private namesZoneTwo: string | undefined;
+    /** Comma-separated names of currently triggered zone 3 circuits */
     private namesZoneThree: string | undefined;
+    /** Map of state IDs to their previous values for detecting actual value changes */
     private changeIds: Record<string, ioBroker.StateValue> = {};
+    /** Whether presence simulation is enabled */
     private optPresence: ioBroker.StateValue = false;
+    /** Whether zone 1 monitoring is enabled */
     private optOne: ioBroker.StateValue = true;
+    /** Whether zone 2 monitoring is enabled */
     private optTwo: ioBroker.StateValue = true;
+    /** Whether zone 3 monitoring is enabled */
     private optThree: ioBroker.StateValue = true;
+    /** Whether the alarm system is currently fully armed (sharp) */
     private activated: ioBroker.StateValue = false;
+    /** Whether night rest mode is currently active */
     private nightRest: ioBroker.StateValue = false;
+    /** Whether "sharp inside" (perimeter) mode is currently active */
     private inside: ioBroker.StateValue = false;
+    /** Whether a burglary alarm is currently in progress */
     private burgle = false;
+    /** Activation countdown interval (ticks every second during arming delay) */
     private timer: ReturnType<typeof setInterval> | null = null;
+    /** Delay timer for speech output to the sayit adapter */
     private speechTimeout: ReturnType<typeof setTimeout> | null = null;
+    /** Timeout for the silent alarm duration before auto-reset */
     private silentTimer: ReturnType<typeof setTimeout> | null = null;
+    /** Timeout for the inside siren duration before auto-reset */
     private sirenInsideTimer: ReturnType<typeof setTimeout> | null = null;
+    /** Timeout to auto-clear the notification_circuit_changes state */
     private timerNotificationChanges: ReturnType<typeof setTimeout> | null = null;
+    /** Timeout for the main siren duration before auto-reset */
     private sirenTimer: ReturnType<typeof setTimeout> | null = null;
+    /** Interval for blinking the silent alarm flash indicator */
     private silentInterval: ReturnType<typeof setInterval> | null = null;
+    /** Interval for counting down the silent alarm delay */
     private silentCountdown: ReturnType<typeof setInterval> | null = null;
+    /** Interval for blinking the alarm siren/flash indicator */
     private alarmInterval: ReturnType<typeof setInterval> | null = null;
+    /** Interval for repeating alarm speech announcements */
     private textAlarmInterval: ReturnType<typeof setInterval> | null = null;
+    /** Interval for repeating notification-change speech announcements */
     private textChangesInterval: ReturnType<typeof setInterval> | null = null;
+    /** Whether to write alarm events to the ioBroker log */
     private optLog: boolean;
+    /** Configured input shortcut rows for external alarm control triggers */
     private shortsIn: ShortsInRow[];
+    /** Configured output shortcut rows for mapping alarm states to external actuators */
     private shorts: ShortsRow[];
+    /** Scheduled job for night rest start time */
     private scheduleFrom!: schedule.Job;
+    /** Scheduled job for night rest end time */
     private scheduleTo!: schedule.Job;
+    /** Scheduled job that resets the daily log at midnight */
     private scheduleReset!: schedule.Job;
+    /** Delay timer before starting presence simulation after activation */
     private presenceDelayTimer: ReturnType<typeof setTimeout> | null = null;
+    /** Whether the current time is past sunrise (used for presence light control) */
     private sunrise = false;
+    /** Whether the current time is past sunset (used for presence light control) */
     private sunset = false;
+    /** Interval that checks presence simulation state every 60 seconds */
     private presenceInterval: ReturnType<typeof setInterval> | undefined;
+    /** Map of device IDs to their presence simulation timer state */
     private presenceTimers: Record<string, PresenceTimer> = {};
+    /** Whether presence simulation is currently running */
     private presenceRun = false;
+    /** Today's calculated sunset time in HH:MM format from suncalc2 */
     private sunsetStr: string | undefined;
+    /** Today's calculated sunrise time in HH:MM format from suncalc2 */
     private sunriseStr: string | undefined;
 
     /**
@@ -322,6 +390,12 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Handles a wrong password attempt by setting the wrong_password flag,
+     * clearing the input state, logging the failure, and sending a notification.
+     *
+     * @param id - The state ID of the password input that was used
+     */
     private async handleWrongPassword(id: string): Promise<void> {
         try {
             await this.setStateAsync('info.wrong_password', true, true);
@@ -438,6 +512,16 @@ class Alarm extends utils.Adapter {
         this.checkDoubles();
     }
 
+    /**
+     * Arms the alarm system in "sharp" (fully armed) mode.
+     *
+     * If open alarm circuits exist and `opt_warning` is disabled, reports activation failure.
+     * Otherwise, deactivates inside/sleep modes, sets all armed states and HomeKit values,
+     * and announces the activation.
+     *
+     * @param _id - Optional state ID that triggered the activation
+     * @param _state - Optional state object of the trigger
+     */
     private async enableSystem(_id?: string, _state?: ioBroker.State): Promise<void> {
         if (this.activated || this.burgle) {
             return;
@@ -500,6 +584,12 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Disarms the alarm system from any active mode.
+     *
+     * Clears all timers and presence simulation. Depending on the current mode,
+     * deactivates sharp armed, ends inside mode, or ends night rest.
+     */
     private async disableSystem(): Promise<void> {
         this.burgle = false;
         this.clearAllTimers();
@@ -527,6 +617,18 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Handles a burglary event triggered by a circuit in armed or inside mode.
+     *
+     * In silent mode, starts a delayed escalation with flash blinking and countdown.
+     * In non-silent mode, immediately escalates to full alarm with sirens and speech.
+     * If a burglary is already in progress, only logs the additional trigger.
+     *
+     * @param id - State ID of the circuit that triggered the burglary
+     * @param _state - State object of the triggering circuit
+     * @param silent - Whether to use silent alarm mode (delayed escalation)
+     * @param indoor - Whether the trigger is from an inside (perimeter) circuit
+     */
     private async burglary(id: string, _state: ioBroker.State, silent: boolean, indoor?: boolean): Promise<void> {
         const name = this.getName(id);
         let say = this.config.text_alarm;
@@ -571,7 +673,7 @@ class Alarm extends utils.Adapter {
             let silentCountdownTime = (this.timeMode(this.config.time_silent_select) * this.config.time_silent) / 1000;
             this.silentCountdown = setInterval(async () => {
                 if (silentCountdownTime > 0) {
-                    silentCountdownTime = silentCountdownTime - 1;
+                    silentCountdownTime--;
                     await this.setStateAsync('status.silent_countdown', silentCountdownTime, true);
                 } else {
                     await this.setStateAsync('status.silent_countdown', null, true);
@@ -678,6 +780,12 @@ class Alarm extends utils.Adapter {
         await this.setStateAsync('homekit.CurrentState', HOMEKIT_STATE.alarm_triggered, true);
     }
 
+    /**
+     * Triggers a panic alarm (immediate burglary) via the panic button.
+     *
+     * Activates sirens, speech output, flash, and sets all burglar alarm states.
+     * Sends alarm notifications and repeats speech announcements.
+     */
     private async panic(): Promise<void> {
         let count = 0;
         this.isPanic = true;
@@ -727,6 +835,16 @@ class Alarm extends utils.Adapter {
         );
     }
 
+    /**
+     * Central state change dispatcher for all monitored and internal states.
+     *
+     * Updates cached state values, refreshes circuit lists, then routes the change
+     * to the appropriate handler: use.list commands, HomeKit targets, shortcut forwarding,
+     * password inputs, alarm/inside/notification triggers, zone changes, and more.
+     *
+     * @param id - Full state ID that changed
+     * @param state - New state object with the current value
+     */
     private async change(id: string, state: ioBroker.State): Promise<void> {
         let isChanged = false;
         if (id in this.states && this.states[id] !== state.val) {
@@ -849,13 +967,25 @@ class Alarm extends utils.Adapter {
             return;
         }
         const SHORTCUT_FORWARD_STATES: Set<string> = new Set([
-            'status.sleep', 'status.gets_activated', 'status.state_list',
-            'status.sharp_inside_activated', 'status.silent_alarm', 'status.alarm_flash',
-            'status.enableable', 'status.silent_flash', 'status.deactivated',
-            'status.burglar_alarm', 'status.siren', 'status.activation_failed',
-            'status.activated_with_warnings', 'status.activation_countdown',
-            'status.state', 'status.siren_inside', 'info.notification_circuit_changes',
-            'other_alarms.one_changes', 'other_alarms.two_changes',
+            'status.sleep',
+            'status.gets_activated',
+            'status.state_list',
+            'status.sharp_inside_activated',
+            'status.silent_alarm',
+            'status.alarm_flash',
+            'status.enableable',
+            'status.silent_flash',
+            'status.deactivated',
+            'status.burglar_alarm',
+            'status.siren',
+            'status.activation_failed',
+            'status.activated_with_warnings',
+            'status.activation_countdown',
+            'status.state',
+            'status.siren_inside',
+            'info.notification_circuit_changes',
+            'other_alarms.one_changes',
+            'other_alarms.two_changes',
         ]);
         const localId = id.startsWith(`${this.namespace}.`) ? id.slice(this.namespace.length + 1) : '';
         if (SHORTCUT_FORWARD_STATES.has(localId)) {
@@ -1081,6 +1211,12 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Subscribes to all monitored foreign states and internal adapter states.
+     *
+     * Registers subscriptions for main circuits, input shortcuts, other alarm types,
+     * zones, and all internal `use.*`, `status.*`, `presence.*`, `zone.*`, and HomeKit states.
+     */
     private setSubs(): void {
         this.cleanIds.forEach(ele => {
             if (ele) {
@@ -1150,6 +1286,14 @@ class Alarm extends utils.Adapter {
         this.subscribeStates('homekit.TargetState');
     }
 
+    /**
+     * Sends a notification message to all configured messaging instances.
+     *
+     * For Telegram instances with special parameters enabled, sends with user/chatID.
+     * For other instances (email, Pushover, etc.), sends the plain message.
+     *
+     * @param content - The notification message text to send
+     */
     private messages(content: string): void {
         if (this.sendInstances.length) {
             const reg = new RegExp('telegram');
@@ -1167,6 +1311,13 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Sends a text-to-speech message to a sayit adapter instance after an optional delay.
+     *
+     * @param id - The sayit state ID to write the speech text to
+     * @param message - The text message to speak
+     * @param time - Delay in seconds before sending the speech command
+     */
     private speechOutput(id: string, message: string, time: number | string): void {
         let delay: number;
         time = parseInt(time as string);
@@ -1186,6 +1337,15 @@ class Alarm extends utils.Adapter {
         }, delay * 1000);
     }
 
+    /**
+     * Dispatches a speech message to all enabled sayit instances for a given phrase type.
+     *
+     * Skips speech output entirely during night rest when `opt_night_silent` is enabled.
+     * Only sends to instances that have the corresponding phrase option enabled.
+     *
+     * @param message - The text to speak
+     * @param optVal - The phrase type index from {@link SAY_PHRASE} that determines which option flag to check
+     */
     private sayIt(message: string, optVal: number): void {
         const ttsInstance = this.config.sayit;
         if (this.nightRest && this.config.opt_night_silent) {
@@ -1205,6 +1365,15 @@ class Alarm extends utils.Adapter {
         });
     }
 
+    /**
+     * Checks whether the zone associated with a state ID is currently enabled.
+     *
+     * Returns `false` if the ID belongs to a disabled zone, `true` otherwise
+     * (including for IDs that don't belong to any zone).
+     *
+     * @param id - The state ID to check zone membership for
+     * @returns `true` if the zone is enabled or the ID is not zone-specific
+     */
     private zone(id: string): boolean {
         if (id === `${this.namespace}.zone.one`) {
             return !!this.optOne;
@@ -1218,6 +1387,10 @@ class Alarm extends utils.Adapter {
         return true;
     }
 
+    /**
+     * Activates the siren state and sets a timeout to automatically deactivate it
+     * after the configured alarm duration.
+     */
     private async alarmSiren(): Promise<void> {
         await this.setStateAsync('status.siren', true, true);
         this.sirenTimer = setTimeout(
@@ -1232,6 +1405,10 @@ class Alarm extends utils.Adapter {
         );
     }
 
+    /**
+     * Starts the alarm flash indicator blinking at the configured frequency.
+     * Toggles the `status.alarm_flash` state on/off at each interval tick.
+     */
     private alarmFlash(): void {
         if (this.config.alarm_flash > 0) {
             this.alarmInterval = setInterval(async () => {
@@ -1246,6 +1423,11 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Resets all alarm status states to their deactivated/default values.
+     * Sets deactivated flag, clears sirens, flash, burglar alarm, and silent alarm states,
+     * and updates HomeKit and use.list to disarmed.
+     */
     private async disableStates(): Promise<void> {
         await this.setStateAsync('status.deactivated', true, true);
         await this.setStateAsync('status.state', STATUS_STATE.deactivated, true);
@@ -1262,6 +1444,10 @@ class Alarm extends utils.Adapter {
         await this.setStateAsync('status.silent_alarm', false, true);
     }
 
+    /**
+     * Warns about state IDs that are used in both the main circuits and other alarm/zone tables.
+     * Duplicate usage can cause unpredictable behavior.
+     */
     private checkDoubles(): void {
         this.cleanIds.forEach(ele => {
             this.oneIds.forEach(item => {
@@ -1292,6 +1478,12 @@ class Alarm extends utils.Adapter {
         });
     }
 
+    /**
+     * Returns the config array for the given table name.
+     *
+     * @param table - Table identifier to look up
+     * @returns The corresponding config array, or `undefined` if the table name is unknown
+     */
     private getTable(table: TableName): (CircuitRow | OtherAlarmRow | ZoneRow)[] | undefined {
         const tables: Record<string, (CircuitRow | OtherAlarmRow | ZoneRow)[]> = {
             main: this.config.circuits,
@@ -1304,6 +1496,12 @@ class Alarm extends utils.Adapter {
         return tables[table];
     }
 
+    /**
+     * Returns the cached state map for the given table name.
+     *
+     * @param table - Table identifier to look up
+     * @returns The corresponding state cache, or `undefined` if the table name is unknown
+     */
     private getTableStates(table: TableName): Record<string, ioBroker.StateValue> | undefined {
         const states: Record<string, Record<string, ioBroker.StateValue>> = {
             main: this.states,
@@ -1316,6 +1514,13 @@ class Alarm extends utils.Adapter {
         return states[table];
     }
 
+    /**
+     * Checks whether a circuit is configured for silent (delayed) alarm.
+     *
+     * @param id - The state ID of the circuit to check
+     * @param indoor - If `true`, checks the inside-delay flag; otherwise checks the main delay flag
+     * @returns `true` if the circuit uses silent alarm mode
+     */
     private isSilent(id: string, indoor?: boolean): boolean {
         const circuit = this.config.circuits.find(obj => matchId(id, obj.name_id));
         if (!circuit) {
@@ -1324,6 +1529,12 @@ class Alarm extends utils.Adapter {
         return indoor ? circuit.delay_inside : circuit.delay;
     }
 
+    /**
+     * Converts a time unit string to its millisecond multiplier.
+     *
+     * @param value - Time unit: `'sec'` for seconds, `'min'` for minutes
+     * @returns Milliseconds per unit (1000 for seconds, 60000 for minutes)
+     */
     private timeMode(value: string): number {
         switch (value) {
             case 'sec':
@@ -1335,6 +1546,12 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Activates "sharp inside" (perimeter) alarm mode.
+     *
+     * Ends sleep mode, sets inside-armed states and HomeKit values.
+     * If inside circuits are open, announces warnings; otherwise announces clean activation.
+     */
     private async insideBegins(): Promise<void> {
         if (!this.inside && !this.burgle) {
             this.activated = false;
@@ -1374,6 +1591,15 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Deactivates "sharp inside" (perimeter) alarm mode.
+     *
+     * When `off` is `true`, performs full deactivation: clears timers, logs deactivation,
+     * sends notifications, announces via speech, and resets all states to disarmed.
+     * When `off` is falsy, only clears the inside flag (used when transitioning to another mode).
+     *
+     * @param off - If `true`, fully deactivate with logging and state reset
+     */
     private async insideEnds(off?: boolean): Promise<void> {
         if (this.inside) {
             this.inside = false;
@@ -1398,6 +1624,16 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Activates night rest mode.
+     *
+     * Prevents activation if a burglary is in progress. When triggered automatically
+     * by schedule (`auto=true`), also prevents activation if the system is already
+     * armed or in inside mode. Sets night rest states, HomeKit values, and announces
+     * warnings if notification circuits are open.
+     *
+     * @param auto - If `true`, the activation was triggered by the scheduled night rest timer
+     */
     private async sleepBegin(auto?: boolean): Promise<void> {
         if (this.nightRest || this.burgle) {
             return;
@@ -1437,6 +1673,15 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Deactivates night rest mode.
+     *
+     * When `off` is `true`, performs full deactivation: logs the end of night rest,
+     * announces via speech, and resets states to disarmed (unless inside mode is active).
+     * When `off` is falsy, only clears the nightRest flag (used when transitioning to another mode).
+     *
+     * @param off - If `true`, fully deactivate with logging and state reset
+     */
     private async sleepEnd(off?: boolean): Promise<void> {
         if (this.nightRest) {
             this.nightRest = false;
@@ -1457,6 +1702,13 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Re-evaluates all circuit lists to determine which circuits are currently triggered.
+     *
+     * Updates `isAlarm`, `isInside`, `isNotification` flags and their corresponding
+     * name strings. Publishes plain-text and HTML circuit lists to adapter states.
+     * Also updates zone states, other alarm lists, and the `enableable` flag.
+     */
     private async refreshLists(): Promise<void> {
         this.check(this.alarmIds, 'main', async (_val: boolean, ids: string[]) => {
             this.log.debug(`Alarm circuit list: ${ids.join(', ')}`);
@@ -1563,6 +1815,15 @@ class Alarm extends utils.Adapter {
         await this.setStateAsync('status.enableable', !this.isAlarm || this.config.opt_warning, true);
     }
 
+    /**
+     * Validates a password attempt against the configured alarm password.
+     *
+     * On success, clears the wrong_password flag and resets the input state.
+     *
+     * @param pass - The password value to check
+     * @param id - The state ID of the password input (cleared on success)
+     * @returns `true` if the password matches, `false` otherwise
+     */
     private async checkMyPassword(pass: ioBroker.StateValue, id: string): Promise<boolean> {
         if (pass === this.config.password) {
             this.log.debug(`Password accept`);
@@ -1577,6 +1838,19 @@ class Alarm extends utils.Adapter {
         return false;
     }
 
+    /**
+     * Determines whether a state change represents a "triggered" condition,
+     * accounting for the circuit's inverted (`negativ`) logic flag.
+     *
+     * Returns `true` when the state value and inversion flag indicate an active trigger:
+     * - Normal circuit (`negativ=false`): triggered when `state.val` is truthy
+     * - Inverted circuit (`negativ=true`): triggered when `state.val` is falsy
+     *
+     * @param id - The state ID to evaluate
+     * @param state - The current state object
+     * @param table - The config table to look up the inversion flag
+     * @returns `true` if the state represents a triggered condition
+     */
     private isTrue(id: string, state: ioBroker.State, table: TableName): boolean {
         let test = false;
         if (!this.search(id, table) && state.val) {
@@ -1587,6 +1861,13 @@ class Alarm extends utils.Adapter {
         return test;
     }
 
+    /**
+     * Splits a delimited string into a clean array of trimmed, non-empty tokens.
+     * Accepts commas, semicolons, and whitespace as delimiters.
+     *
+     * @param str - The delimited string to split
+     * @returns Array of trimmed non-empty tokens
+     */
     private splitArr(str: string): string[] {
         const tempArr = str.split(/[,;\s]+/);
         const cleanArr: string[] = [];
