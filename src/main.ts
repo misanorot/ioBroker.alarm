@@ -1,25 +1,39 @@
 import * as utils from '@iobroker/adapter-core';
 import * as schedule from 'node-schedule';
 import SunCalc from 'suncalc2';
-import type { AlarmAdapterConfig, CircuitRow, OtherAlarmRow, ShortsInRow, ShortsRow, ZoneRow } from './types';
+import type {
+    AlarmAdapterConfig,
+    CircuitRow,
+    OtherAlarmRow,
+    PresenceOption,
+    ShortsInRow,
+    ShortsRow,
+    ZoneRow,
+} from './types';
 
 type PresenceTimer = {
-    name_id: string;
+    nameID: string;
     name: string;
-    option_presence: string;
-    presence_time_from: string;
-    presence_time_to: string;
-    presence_length: number;
+    optionPresence: PresenceOption;
+    presenceTimeFrom: string;
+    presenceTimeTo: string;
+    presenceLength: number;
     presenceLengthTimer: null | NodeJS.Timeout;
     presenceDelayTimer: null | NodeJS.Timeout;
-    presence_delay: number;
-    presence_val_on: number | boolean | '1' | '0';
-    presence_val_off: number | boolean | '1' | '0';
-    presence_trigger_light: string;
-    presence_light_lux: number;
+    presenceDelay: number;
+    presenceValueON: number | boolean | '1' | '0';
+    presenceValueOff: number | boolean | '1' | '0';
+    presenceTriggerLight: string;
+    presenceLightLux: number;
     wasOn: boolean;
 };
 
+/**
+ * Home alarm system adapter for ioBroker.
+ *
+ * Implements a full-featured alarm system with zones, presence simulation,
+ * night rest mode, speech output, shortcut actions, and scheduled arming/disarming.
+ */
 class Alarm extends utils.Adapter {
     declare config: AlarmAdapterConfig;
 
@@ -92,6 +106,12 @@ class Alarm extends utils.Adapter {
     private sunsetStr: string | undefined;
     private sunriseStr: string | undefined;
 
+    /**
+     * Creates a new Alarm adapter instance.
+     * Registers event handlers for ready, stateChange, and unload lifecycle events.
+     *
+     * @param options - Partial adapter options forwarded to the base class
+     */
     public constructor(options: Partial<utils.AdapterOptions> = {}) {
         super({
             ...options,
@@ -102,21 +122,54 @@ class Alarm extends utils.Adapter {
         this.on('unload', cb => this.onUnload(cb));
     }
 
+    /**
+     * Cleanup handler called when the adapter is being stopped.
+     * Cancels all scheduled jobs, clears all timers/intervals, and stops presence simulation.
+     *
+     * @param callback - Callback to signal that cleanup is complete
+     */
     private onUnload(callback: () => void): void {
         try {
             this.log.info('cleaned everything up...');
             this.scheduleFrom.cancel();
             this.scheduleTo.cancel();
             this.scheduleReset.cancel();
-            clearInterval(this.timer);
-            clearTimeout(this.silentTimer);
-            clearTimeout(this.speechTimeout);
-            clearTimeout(this.sirenTimer);
-            clearInterval(this.silentInterval);
-            clearInterval(this.silentCountdown);
-            clearInterval(this.alarmInterval);
-            clearInterval(this.textAlarmInterval);
-            clearInterval(this.textChangesInterval);
+            if (this.timer) {
+                clearInterval(this.timer);
+                this.timer = null;
+            }
+            if (this.silentTimer) {
+                clearTimeout(this.silentTimer);
+                this.silentTimer = null;
+            }
+            if (this.speechTimeout) {
+                clearTimeout(this.speechTimeout);
+                this.speechTimeout = null;
+            }
+            if (this.sirenTimer) {
+                clearTimeout(this.sirenTimer);
+                this.sirenTimer = null;
+            }
+            if (this.silentInterval) {
+                clearInterval(this.silentInterval);
+                this.silentInterval = null;
+            }
+            if (this.silentCountdown) {
+                clearInterval(this.silentCountdown);
+                this.silentCountdown = null;
+            }
+            if (this.alarmInterval) {
+                clearInterval(this.alarmInterval);
+                this.alarmInterval = null;
+            }
+            if (this.textAlarmInterval) {
+                clearInterval(this.textAlarmInterval);
+                this.textAlarmInterval = null;
+            }
+            if (this.textChangesInterval) {
+                clearInterval(this.textChangesInterval);
+                this.textChangesInterval = null;
+            }
             this.clearAllPresenceTimer();
             callback();
         } catch (e) {
@@ -125,6 +178,13 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Handles ioBroker state change events.
+     * Delegates to {@link change} for processing or logs deletion of states.
+     *
+     * @param id - Full state ID that changed
+     * @param state - New state object, or null/undefined if the state was deleted
+     */
     private async onStateChange(id: string, state: ioBroker.State | null | undefined): Promise<void> {
         if (state) {
             await this.change(id, state);
@@ -133,6 +193,20 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Main initialization routine called when the adapter is ready.
+     *
+     * Performs the following steps:
+     * - Reads persisted alarm states (activated, presence, zones, night rest, inside)
+     * - Splits configured circuits into alarm/inside/notification/leave ID lists
+     * - Resolves messaging instances for notifications
+     * - Collects shortcut input IDs
+     * - Fetches current state values for all monitored circuits
+     * - Fetches other alarm and zone states
+     * - Sets up state subscriptions
+     * - Configures cron schedules for night rest and daily reset
+     * - Refreshes circuit lists and checks for duplicate state usage
+     */
     private async main(): Promise<void> {
         this.optLog = this.config.opt_log;
         this.shorts = this.config.shorts;
@@ -231,7 +305,7 @@ class Alarm extends utils.Adapter {
             if (this.config.opt_say_names) {
                 say = `${say} ${this.namesAlarm}`;
             }
-            this.sayit(say, 3);
+            this.sayIt(say, 3);
             return;
         }
         await this.insideEnds();
@@ -260,7 +334,7 @@ class Alarm extends utils.Adapter {
             if (this.optLog) {
                 this.log.info(`${this.config.log_act}`);
             }
-            this.sayit(this.config.text_activated, 1);
+            this.sayIt(this.config.text_activated, 1);
             if (this.config.send_activation) {
                 this.messages(`${this.config.log_act}`);
             }
@@ -269,13 +343,34 @@ class Alarm extends utils.Adapter {
 
     private async disableSystem(): Promise<void> {
         this.burgle = false;
-        clearTimeout(this.silentTimer);
-        clearTimeout(this.sirenTimer);
-        clearInterval(this.silentInterval);
-        clearInterval(this.silentCountdown);
-        clearInterval(this.alarmInterval);
-        clearInterval(this.textAlarmInterval);
-        clearInterval(this.textChangesInterval);
+        if (this.silentTimer) {
+            clearTimeout(this.silentTimer);
+            this.silentTimer = null;
+        }
+        if (this.sirenTimer) {
+            clearTimeout(this.sirenTimer);
+            this.sirenTimer = null;
+        }
+        if (this.silentInterval) {
+            clearInterval(this.silentInterval);
+            this.silentInterval = null;
+        }
+        if (this.silentCountdown) {
+            clearInterval(this.silentCountdown);
+            this.silentCountdown = null;
+        }
+        if (this.alarmInterval) {
+            clearInterval(this.alarmInterval);
+            this.alarmInterval = null;
+        }
+        if (this.textAlarmInterval) {
+            clearInterval(this.textAlarmInterval);
+            this.textAlarmInterval = null;
+        }
+        if (this.textChangesInterval) {
+            clearInterval(this.textChangesInterval);
+            this.textChangesInterval = null;
+        }
         this.clearAllPresenceTimer();
         this.silentTimer = null;
         this.sirenTimer = null;
@@ -287,7 +382,7 @@ class Alarm extends utils.Adapter {
         if (this.activated || this.isPanic) {
             this.isPanic = false;
             await this.setStateAsync('info.log', `${this.config.log_deact}`, true);
-            this.sayit(this.config.text_deactivated, 2);
+            this.sayIt(this.config.text_deactivated, 2);
             if (this.optLog) {
                 this.log.info(`${this.config.log_deact}`);
             }
@@ -349,15 +444,17 @@ class Alarm extends utils.Adapter {
                     }
                 }, this.config.silent_flash * 1000);
             }
-            let silentCountdownTime =
-                (this.timeMode(this.config.time_silent_select) * this.config.time_silent) / 1000;
+            let silentCountdownTime = (this.timeMode(this.config.time_silent_select) * this.config.time_silent) / 1000;
             this.silentCountdown = setInterval(async () => {
                 if (silentCountdownTime > 0) {
                     silentCountdownTime = silentCountdownTime - 1;
                     await this.setStateAsync('status.silent_countdown', silentCountdownTime, true);
                 } else {
                     await this.setStateAsync('status.silent_countdown', null, true);
-                    clearInterval(this.silentCountdown);
+                    if (this.silentCountdown) {
+                        clearInterval(this.silentCountdown);
+                        this.silentCountdown = null;
+                    }
                 }
             }, 1000);
             this.silentTimer = setTimeout(
@@ -366,16 +463,25 @@ class Alarm extends utils.Adapter {
                     if (this.config.send_alarm) {
                         this.messages(`${this.config.log_burgle} ${name}`);
                     }
-                    clearTimeout(this.silentTimer);
-                    clearInterval(this.silentInterval);
+                    if (this.silentTimer) {
+                        clearTimeout(this.silentTimer);
+                        this.silentTimer = null;
+                    }
+                    if (this.silentInterval) {
+                        clearInterval(this.silentInterval);
+                        this.silentInterval = null;
+                    }
                     this.clearAllPresenceTimer();
-                    this.sayit(say, 6);
+                    this.sayIt(say, 6);
                     this.textAlarmInterval = setInterval(() => {
                         if (count < this.alarmRepeat) {
-                            this.sayit(say, 6);
+                            this.sayIt(say, 6);
                             count++;
                         } else {
-                            clearInterval(this.textAlarmInterval);
+                            if (this.textAlarmInterval) {
+                                clearInterval(this.textAlarmInterval);
+                                this.textAlarmInterval = null;
+                            }
                         }
                     }, this.config.text_alarm_pause * 1000);
                     await this.setStateAsync('status.burglar_alarm', true, true);
@@ -384,6 +490,7 @@ class Alarm extends utils.Adapter {
                     await this.setStateAsync('status.siren_inside', true, true);
                     this.sirenInsideTimer = setTimeout(
                         async () => {
+                            this.sirenInsideTimer = null;
                             await this.setStateAsync('status.siren_inside', false, true);
                         },
                         this.timeMode(this.config.time_warning_select) * this.config.time_warning,
@@ -405,9 +512,18 @@ class Alarm extends utils.Adapter {
             );
         } else if (!silent) {
             this.burgle = true;
-            clearTimeout(this.silentTimer);
-            clearInterval(this.silentInterval);
-            clearInterval(this.silentCountdown);
+            if (this.silentTimer) {
+                clearTimeout(this.silentTimer);
+                this.silentTimer = null;
+            }
+            if (this.silentInterval) {
+                clearInterval(this.silentInterval);
+                this.silentInterval = null;
+            }
+            if (this.silentCountdown) {
+                clearInterval(this.silentCountdown);
+                this.silentCountdown = null;
+            }
             this.clearAllPresenceTimer();
             if (this.config.send_alarm_inside && indoor) {
                 this.messages(`${this.config.log_burgle} ${name}`);
@@ -415,13 +531,16 @@ class Alarm extends utils.Adapter {
             if (this.config.send_alarm && !indoor) {
                 this.messages(`${this.config.log_burgle} ${name}`);
             }
-            this.sayit(say, 6);
+            this.sayIt(say, 6);
             this.textAlarmInterval = setInterval(() => {
                 if (count < this.alarmRepeat) {
-                    this.sayit(say, 6);
+                    this.sayIt(say, 6);
                     count++;
                 } else {
-                    clearInterval(this.textAlarmInterval);
+                    if (this.textAlarmInterval) {
+                        clearInterval(this.textAlarmInterval);
+                        this.textAlarmInterval = null;
+                    }
                 }
             }, this.config.text_alarm_pause * 1000);
             await this.setStateAsync('status.burglar_alarm', true, true);
@@ -430,6 +549,7 @@ class Alarm extends utils.Adapter {
             await this.setStateAsync('status.siren_inside', true, true);
             this.sirenInsideTimer = setTimeout(
                 async () => {
+                    this.sirenInsideTimer = null;
                     await this.setStateAsync('status.siren_inside', false, true);
                 },
                 this.timeMode(this.config.time_warning_select) * this.config.time_warning,
@@ -449,7 +569,10 @@ class Alarm extends utils.Adapter {
             this.sirenTimer = setTimeout(
                 async () => {
                     await this.setStateAsync('status.siren', false, true);
-                    clearTimeout(this.sirenTimer);
+                    if (this.sirenTimer) {
+                        clearTimeout(this.sirenTimer);
+                        this.sirenTimer = null;
+                    }
                 },
                 this.timeMode(this.config.time_alarm_select) * this.config.time_alarm,
             );
@@ -466,13 +589,16 @@ class Alarm extends utils.Adapter {
         if (this.config.send_alarm) {
             this.messages(`${this.config.log_panic}`);
         }
-        this.sayit(this.config.text_alarm, 6);
+        this.sayIt(this.config.text_alarm, 6);
         this.textAlarmInterval = setInterval(() => {
             if (count < this.alarmRepeat) {
-                this.sayit(this.config.text_alarm, 6);
+                this.sayIt(this.config.text_alarm, 6);
                 count++;
             } else {
-                clearInterval(this.textAlarmInterval);
+                if (this.textAlarmInterval) {
+                    clearInterval(this.textAlarmInterval);
+                    this.textAlarmInterval = null;
+                }
             }
         }, this.config.text_alarm_pause * 1000);
 
@@ -495,6 +621,7 @@ class Alarm extends utils.Adapter {
         await this.setStateAsync('homekit.CurrentState', 4, true);
         this.sirenTimer = setTimeout(
             async () => {
+                this.sirenTimer = null;
                 await this.setStateAsync('status.siren', false, true);
             },
             this.timeMode(this.config.time_alarm_select) * this.config.time_alarm,
@@ -625,6 +752,7 @@ class Alarm extends utils.Adapter {
             if (this.optPresence) {
                 this.presenceDelayTimer = setTimeout(
                     () => {
+                        this.presenceDelayTimer = null;
                         void this.setAllPresenceTimer(() => {
                             this.presenceInterval = setInterval(async (): Promise<void> => {
                                 await this.checkPresence();
@@ -688,8 +816,14 @@ class Alarm extends utils.Adapter {
             return;
         }
         if (id === `${this.namespace}.use.quit_changes`) {
-            clearTimeout(this.sirenInsideTimer);
-            clearTimeout(this.timerNotificationChanges);
+            if (this.sirenInsideTimer) {
+                clearTimeout(this.sirenInsideTimer);
+                this.sirenInsideTimer = null;
+            }
+            if (this.timerNotificationChanges) {
+                clearTimeout(this.timerNotificationChanges);
+                this.timerNotificationChanges = null;
+            }
             await this.setStateAsync('status.activation_failed', false, true);
             await this.setStateAsync('status.siren_inside', false, true);
             await this.setStateAsync('info.notification_circuit_changes', false, true);
@@ -893,7 +1027,7 @@ class Alarm extends utils.Adapter {
                 if (this.config.opt_say_names) {
                     say = `${say} ${name}`;
                 }
-                this.sayit(say, 9);
+                this.sayIt(say, 9);
             } else if (this.inside) {
                 let say = this.config.text_changes;
                 if (this.optLog) {
@@ -905,7 +1039,7 @@ class Alarm extends utils.Adapter {
                 if (this.config.opt_say_names) {
                     say = `${say} ${name}`;
                 }
-                this.sayit(say, 5);
+                this.sayIt(say, 5);
             } else if (this.activated) {
                 let say = this.config.text_changes;
                 if (this.optLog) {
@@ -917,10 +1051,11 @@ class Alarm extends utils.Adapter {
                 if (this.config.opt_say_names) {
                     say = `${say} ${name}`;
                 }
-                this.sayit(say, 5);
+                this.sayIt(say, 5);
             }
             this.timerNotificationChanges = setTimeout(
                 async () => {
+                    this.timerNotificationChanges = null;
                     await this.setStateAsync('info.notification_circuit_changes', false, true);
                 },
                 this.timeMode(this.config.time_warning_select) * this.config.time_warning,
@@ -938,7 +1073,7 @@ class Alarm extends utils.Adapter {
             if (this.config.opt_say_names) {
                 say = `${say} ${name}`;
             }
-            this.sayit(say, 12);
+            this.sayIt(say, 12);
             await this.setStateAsync('other_alarms.one_changes', true, true);
         }
         if (this.twoIds.includes(id) && this.isTrue(id, state, 'two')) {
@@ -953,7 +1088,7 @@ class Alarm extends utils.Adapter {
             if (this.config.opt_say_names) {
                 say = `${say} ${name}`;
             }
-            this.sayit(say, 13);
+            this.sayIt(say, 13);
             await this.setStateAsync('other_alarms.two_changes', true, true);
         }
         if (this.zoneOneIds.includes(id) && this.isTrue(id, state, 'zone_one')) {
@@ -1090,6 +1225,7 @@ class Alarm extends utils.Adapter {
         }
         this.log.debug(`speech output instance: ${id}: ${message}, delay ${delay}s`);
         this.speechTimeout = setTimeout(() => {
+            this.speechTimeout = null;
             this.setForeignState(id, message, err => {
                 if (err) {
                     this.log.warn(err as unknown as string);
@@ -1098,7 +1234,7 @@ class Alarm extends utils.Adapter {
         }, delay * 1000);
     }
 
-    private sayit(message: string, optVal: number): void {
+    private sayIt(message: string, optVal: number): void {
         const ttsInstance = this.config.sayit;
         if (this.nightRest && this.config.opt_night_silent) {
             return;
@@ -1206,7 +1342,10 @@ class Alarm extends utils.Adapter {
         this.sirenTimer = setTimeout(
             async () => {
                 await this.setStateAsync('status.siren', false, true);
-                clearTimeout(this.sirenTimer);
+                if (this.sirenTimer) {
+                    clearTimeout(this.sirenTimer);
+                    this.sirenTimer = null;
+                }
             },
             this.timeMode(this.config.time_alarm_select) * this.config.time_alarm,
         );
@@ -1315,7 +1454,7 @@ class Alarm extends utils.Adapter {
                 if (this.config.opt_say_names) {
                     say = `${say} ${this.namesInside}`;
                 }
-                this.sayit(say, 4);
+                this.sayIt(say, 4);
             } else {
                 await this.setStateAsync('info.log', `${this.config.log_warn_act}`, true);
                 if (this.optLog) {
@@ -1324,7 +1463,7 @@ class Alarm extends utils.Adapter {
                 if (this.config.send_activation_inside) {
                     this.messages(`${this.config.log_warn_act}`);
                 }
-                this.sayit(this.config.text_warn_begin, 10);
+                this.sayIt(this.config.text_warn_begin, 10);
             }
             await this.setStateAsync('status.sharp_inside_activated', true, true);
             await this.setStateAsync('status.state', 'sharp inside', true);
@@ -1341,8 +1480,12 @@ class Alarm extends utils.Adapter {
         if (this.inside) {
             this.inside = false;
             if (off) {
-                clearTimeout(this.sirenInsideTimer);
-                clearTimeout(this.timerNotificationChanges);
+                if (this.sirenInsideTimer) {
+                    clearTimeout(this.sirenInsideTimer);
+                }
+                if (this.timerNotificationChanges) {
+                    clearTimeout(this.timerNotificationChanges);
+                }
                 await this.setStateAsync('info.log', `${this.config.log_warn_deact}`, true);
                 if (this.optLog) {
                     this.log.info(`${this.config.log_warn_deact}`);
@@ -1350,7 +1493,7 @@ class Alarm extends utils.Adapter {
                 if (this.config.send_activation_inside) {
                     this.messages(`${this.config.log_warn_deact}`);
                 }
-                this.sayit(this.config.text_warn_end, 0);
+                this.sayIt(this.config.text_warn_end, 0);
                 await this.setStateAsync('status.sharp_inside_activated', false, true);
                 await this.disableStates();
             }
@@ -1373,7 +1516,7 @@ class Alarm extends utils.Adapter {
         }
         await this.setStateAsync('info.log', `${this.config.log_sleep_b}`, true);
         if (!this.isNotification) {
-            this.sayit(this.config.text_nightrest_beginn, 7);
+            this.sayIt(this.config.text_nightrest_beginn, 7);
         }
         await this.setStateAsync('status.state', 'night rest', true);
         await this.setStateAsync('status.state_list', 4, true);
@@ -1392,7 +1535,7 @@ class Alarm extends utils.Adapter {
             if (this.config.opt_say_names) {
                 say = `${say} ${this.namesNotification}`;
             }
-            this.sayit(say, 4);
+            this.sayIt(say, 4);
         }
     }
 
@@ -1401,7 +1544,7 @@ class Alarm extends utils.Adapter {
             this.nightRest = false;
             if (off) {
                 await this.setStateAsync('info.log', `${this.config.log_sleep_e}`, true);
-                this.sayit(this.config.text_nightrest_end, 8);
+                this.sayIt(this.config.text_nightrest_end, 8);
                 if (this.optLog) {
                     this.log.info(`${this.config.log_sleep_e}`);
                 }
@@ -1565,6 +1708,14 @@ class Alarm extends utils.Adapter {
         return cleanArr;
     }
 
+    /**
+     * Distributes enabled circuit rows into their respective ID arrays.
+     *
+     * For each enabled circuit, pushes its ID into alarm, inside, notification,
+     * and/or leave arrays based on its configured flags.
+     *
+     * @param arr - Array of circuit configuration rows from adapter config
+     */
     private splitStates(arr: CircuitRow[]): void {
         arr.forEach(ele => {
             if (ele.enabled) {
@@ -1586,12 +1737,23 @@ class Alarm extends utils.Adapter {
         });
     }
 
+    /**
+     * Builds a de-duplicated list of all monitored circuit state IDs.
+     * Combines alarm, inside, notification, and leave IDs into `cleanIds`.
+     */
     private getIds(): void {
         let ids: string[] = [];
         ids = ids.concat(this.alarmIds, this.insideIds, this.notificationIds, this.leaveIds);
         this.cleanIds = Array.from(new Set(ids));
     }
 
+    /**
+     * Looks up the `negativ` (inverted logic) flag for a circuit in the specified config table.
+     *
+     * @param id - The state ID to search for
+     * @param table - Config table name: `'main'`, `'one'`, `'two'`, `'zone_one'`, `'zone_two'`, or `'zone_three'`
+     * @returns `true` if the circuit has inverted logic enabled
+     */
     private search(id: string, table: string): boolean {
         if (typeof table === 'undefined' || table === null) {
             this.log.warn(`Issue in function search, please report this the developer!`);
@@ -1620,6 +1782,16 @@ class Alarm extends utils.Adapter {
         return obj?.negativ;
     }
 
+    /**
+     * Evaluates which IDs from the given array are currently in a triggered state.
+     *
+     * Accounts for inverted logic via {@link search}. Calls the callback with
+     * `true` and the list of triggered IDs, or `false` with an empty list.
+     *
+     * @param arr - Array of state IDs to evaluate
+     * @param table - Config table name used to resolve inverted logic
+     * @param callback - Called with the evaluation result and list of triggered IDs
+     */
     private check(arr: string[], table: string, callback: (val: boolean, ids: string[]) => void | Promise<void>): void {
         if (typeof table === 'undefined' || table === null) {
             this.log.warn(`Issue in function check, please report this the developer!`);
@@ -1659,6 +1831,16 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Resolves human-readable names for one or more circuit state IDs.
+     *
+     * Looks up the `name` property from the appropriate config table.
+     * When given an array, returns comma-separated names; when given a single ID, returns that name.
+     *
+     * @param ids - Single state ID or array of state IDs to resolve
+     * @param table - Config table name; defaults to `'main'` (circuits)
+     * @returns Comma-separated name string for arrays, or a single name string
+     */
     private getName(ids: string | string[], table?: string): string {
         const name: string[] = [];
         let tableObj: CircuitRow[] | OtherAlarmRow[] | ZoneRow[];
@@ -1694,6 +1876,16 @@ class Alarm extends utils.Adapter {
         return obj.name;
     }
 
+    /**
+     * Resolves human-readable names for one or more circuit state IDs as HTML.
+     *
+     * Same as {@link getName} but joins multiple names with `<br>` line breaks
+     * for HTML display in the admin UI.
+     *
+     * @param ids - Single state ID or array of state IDs to resolve
+     * @param table - Config table name; defaults to `'main'` (circuits)
+     * @returns HTML-formatted name string with `<br>` separators
+     */
     private getNameHtml(ids: string | string[], table?: string): string {
         const name: string[] = [];
         let tableObj: CircuitRow[] | OtherAlarmRow[] | ZoneRow[];
@@ -1729,6 +1921,14 @@ class Alarm extends utils.Adapter {
         return obj?.name;
     }
 
+    /**
+     * Fetches the value of a foreign state by its ID.
+     *
+     * Logs an error if the state does not exist or its value is null/undefined.
+     *
+     * @param id - Full state ID to read
+     * @returns The state value, or `null` if the state is unavailable
+     */
     private async getStateValueAsync(id: string): Promise<ioBroker.StateValue | null> {
         const state = await this.getForeignStateAsync(id);
         if (!state || state.val === null || state.val === undefined) {
@@ -1738,10 +1938,20 @@ class Alarm extends utils.Adapter {
         return state.val;
     }
 
+    /**
+     * Wrapper for {@link getStateValueAsync} used during sequential state fetching.
+     *
+     * @param id - Full state ID to read
+     * @returns The state value, or `null` if the state is unavailable
+     */
     private async getStatesDelay(id: string): Promise<ioBroker.StateValue | null> {
         return await this.getStateValueAsync(id);
     }
 
+    /**
+     * Fetches and caches the current values of all main circuit states.
+     * Populates the `states` map with `{stateId: value}` entries for all `cleanIds`.
+     */
     private async fetchStates(): Promise<void> {
         for (const id of this.cleanIds) {
             this.states[id] = await this.getStatesDelay(id);
@@ -1749,6 +1959,10 @@ class Alarm extends utils.Adapter {
         this.log.debug(JSON.stringify(this.states));
     }
 
+    /**
+     * Fetches and caches the current values of "other alarm" states (one and two).
+     * Collects enabled IDs from config tables and populates `oneStates` and `twoStates`.
+     */
     private async getOtherStates(): Promise<void> {
         if (this.config.one) {
             this.config.one.forEach(ele => {
@@ -1770,11 +1984,13 @@ class Alarm extends utils.Adapter {
                 this.twoStates[id] = await this.getStatesDelay(id);
             }
         }
-        this.log.debug(
-            `other alarm are one: ${JSON.stringify(this.oneStates)} two: ${JSON.stringify(this.twoStates)}`,
-        );
+        this.log.debug(`other alarm are one: ${JSON.stringify(this.oneStates)} two: ${JSON.stringify(this.twoStates)}`);
     }
 
+    /**
+     * Fetches and caches the current values of zone states (one, two, and three).
+     * Collects enabled IDs from zone config tables and populates zone state maps.
+     */
     private async getZoneStates(): Promise<void> {
         if (this.config.zone_one) {
             this.config.zone_one.forEach(ele => {
@@ -1811,15 +2027,38 @@ class Alarm extends utils.Adapter {
         );
     }
 
+    /**
+     * Handles a "leaving" event that triggers immediate system activation.
+     *
+     * When a leave-circuit is triggered during countdown, cancels the countdown timer
+     * and immediately arms the system via {@link enableSystem}.
+     *
+     * @param _id - State ID of the leave circuit that was triggered
+     * @param _state - State object of the triggering leave circuit
+     */
     private async leaving(_id: string, _state: ioBroker.State): Promise<void> {
         this.log.info(`Leaving state triggerd`);
-        clearInterval(this.timer);
-        this.timer = null;
+        if (this.timer) {
+            clearInterval(this.timer);
+            this.timer = null;
+        }
         await this.setStateAsync('status.activation_countdown', null, true);
         await this.setStateAsync('status.gets_activated', false, true);
         await this.enableSystem();
     }
 
+    /**
+     * Manages the activation countdown or disables the system.
+     *
+     * When `count` is `true`: starts a countdown timer that decrements every second.
+     * If alarm circuits are open, sends warning notifications. After the countdown
+     * reaches zero, arms the system via {@link enableSystem}.
+     *
+     * When `count` is `false`: cancels any running countdown and calls {@link disableSystem}.
+     * If a countdown was active, announces the abort.
+     *
+     * @param count - `true` to start the activation countdown, `false` to cancel/disable
+     */
     private async countdown(count: boolean): Promise<void> {
         const time = this.timeMode(this.config.time_activate_select);
         let counter = (this.config.time_activate * time) / 1000;
@@ -1833,14 +2072,12 @@ class Alarm extends utils.Adapter {
                 if (this.config.opt_say_names) {
                     warnSay = `${warnSay} ${this.namesAlarm}`;
                 }
-                this.sayit(warnSay, 4);
+                this.sayIt(warnSay, 4);
             }
             if (this.isAlarm) {
-                setTimeout(() => {
-                    this.sayit(say, 11);
-                }, 5000);
+                setTimeout(() => this.sayIt(say, 11), 5000);
             } else {
-                this.sayit(say, 11);
+                this.sayIt(say, 11);
             }
             await this.setStateAsync('status.gets_activated', true, true);
             await this.setStateAsync('status.state', 'gets activated', true);
@@ -1850,8 +2087,10 @@ class Alarm extends utils.Adapter {
                     counter--;
                     await this.setStateAsync('status.activation_countdown', counter, true);
                 } else {
-                    clearInterval(this.timer);
-                    this.timer = null;
+                    if (this.timer) {
+                        clearInterval(this.timer);
+                        this.timer = null;
+                    }
                     await this.setStateAsync('status.activation_countdown', counter, true);
                     await this.setStateAsync('status.gets_activated', false, true);
                     await this.enableSystem();
@@ -1868,7 +2107,7 @@ class Alarm extends utils.Adapter {
                 await this.setStateAsync('status.activation_countdown', null, true);
                 await this.setStateAsync('status.gets_activated', false, true);
                 await this.setStateAsync('status.state_list', 7, true);
-                this.sayit(this.config.text_aborted, 14);
+                this.sayIt(this.config.text_aborted, 14);
                 if (this.optLog) {
                     this.log.info(`${this.config.log_aborted}`);
                 }
@@ -1877,6 +2116,15 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Converts a state value to its appropriate boolean or numeric type.
+     *
+     * Handles string `'true'`/`'false'` conversion to booleans and
+     * numeric strings to numbers.
+     *
+     * @param val - The state value to convert
+     * @returns Converted boolean or number value
+     */
     private bools(val: ioBroker.StateValue): boolean | number {
         switch (val) {
             case 'true':
@@ -1891,6 +2139,15 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Processes input shortcut triggers from external states.
+     *
+     * When a monitored external state matches a configured input shortcut's
+     * ID and value, sets the corresponding internal adapter state to `true`.
+     *
+     * @param id - The external state ID that changed
+     * @param val - The current value of the external state
+     */
     private shortcutsInside(id: string, val: ioBroker.StateValue): void {
         const change = this.isChanged(id, val);
         this.shortsIn.forEach(async ele => {
@@ -1909,6 +2166,12 @@ class Alarm extends utils.Adapter {
         });
     }
 
+    /**
+     * Extracts the state IDs from enabled input shortcut rows.
+     *
+     * @param ids - Array of input shortcut configuration rows
+     * @returns Array of state IDs for all enabled input shortcuts
+     */
     private getShortIds(ids: ShortsInRow[]): string[] {
         const idsArr = ids || [];
         const tempIds: string[] = [];
@@ -1920,6 +2183,17 @@ class Alarm extends utils.Adapter {
         return tempIds;
     }
 
+    /**
+     * Processes output shortcut triggers when internal adapter states change.
+     *
+     * When an internal state matches a configured shortcut's trigger, sets
+     * the corresponding external foreign state to the configured value.
+     * For `status.state_list`, translates numeric values to string identifiers
+     * before matching. Shortcuts are executed with a 250ms stagger between each.
+     *
+     * @param id - The internal adapter state ID that changed (without namespace prefix)
+     * @param val - The current value of the changed state
+     */
     private shortcuts(id: string, val: ioBroker.StateValue): void {
         const change = this.isChanged(id, val);
         let setVal = val;
@@ -1959,7 +2233,7 @@ class Alarm extends utils.Adapter {
         }
         if (this.shorts && change) {
             this.shorts.forEach((ele, i) => {
-                if (ele.enabled && ele.select_id == id && this.bools(ele.trigger_val) === setVal) {
+                if (ele.enabled && ele.select_id === id && this.bools(ele.trigger_val) === setVal) {
                     setTimeout(() => {
                         this.setForeignState(ele.name_id, this.bools(ele.value), err => {
                             if (err) {
@@ -1972,6 +2246,15 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Tracks whether a state value has actually changed compared to the last known value.
+     *
+     * Used by shortcuts to prevent re-triggering on duplicate values.
+     *
+     * @param id - The state ID to track
+     * @param val - The current value to compare against the stored value
+     * @returns `true` if the value differs from the stored value, `false` otherwise
+     */
     private isChanged(id: string, val: ioBroker.StateValue): boolean {
         if (this.changeIds[id] === val) {
             this.log.debug(`No changes inside shortcuts! ${id}`);
@@ -1981,11 +2264,23 @@ class Alarm extends utils.Adapter {
         return true;
     }
 
+    /**
+     * Returns the current time as a zero-padded `HH:MM` string.
+     *
+     * @returns Formatted time string
+     */
     private timeStamp(): string {
         const date = new Date();
         return `${`0${date.getHours()}`.slice(-2)}:${`0${date.getMinutes()}`.slice(-2)}`;
     }
 
+    /**
+     * Appends a timestamped log entry to the `info.log_today` state.
+     *
+     * New entries are prepended to the existing HTML-formatted log (separated by `<br>`).
+     *
+     * @param content - The log message text to record
+     */
     private async logging(content: string): Promise<void> {
         const state = await this.getStateAsync('info.log_today').catch(e => this.log.warn(e));
         if (!state) {
@@ -1999,6 +2294,15 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Initializes all presence simulation timers from the adapter configuration.
+     *
+     * Fetches astronomical data (sunrise/sunset), builds a `presenceTimers` map
+     * for each enabled presence entry with randomized durations and delays,
+     * then invokes the callback to start periodic presence checks.
+     *
+     * @param callback - Called after all timers are initialized (typically starts the check interval)
+     */
     private async setAllPresenceTimer(callback: () => void): Promise<void> {
         if (this.config.presence) {
             await this.getAstro();
@@ -2006,30 +2310,28 @@ class Alarm extends utils.Adapter {
             this.presenceTimers = {};
             this.config.presence.forEach(ele => {
                 if (ele.enabled && ele.name_id !== '') {
-                    const tempObj: PresenceTimer = {
-                        name_id: ele.name_id,
+                    this.presenceTimers[ele.name_id] = {
+                        nameID: ele.name_id,
                         name: ele.name,
-                        presence_time_from: ele.presence_time_from,
-                        presence_time_to: ele.presence_time_to,
-                        option_presence: ele.option_presence,
-                        presence_length: this.getTimeLength(
+                        presenceTimeFrom: ele.presence_time_from,
+                        presenceTimeTo: ele.presence_time_to,
+                        optionPresence: ele.option_presence,
+                        presenceLength: this.getTimeLength(
                             ele.presence_length * this.timeMode(ele.presence_length_select),
                             ele.presence_length_shuffle,
                         ),
                         presenceLengthTimer: null,
-                        presence_delay: this.getTimeLength(
+                        presenceDelay: this.getTimeLength(
                             ele.presence_delay * this.timeMode(ele.presence_delay_select),
                             ele.presence_delay_shuffle,
                         ),
                         presenceDelayTimer: null,
-                        presence_val_on: this.getValType(ele.presence_val_on),
-                        presence_val_off: this.getValType(ele.presence_val_off),
-                        presence_trigger_light: ele.presence_trigger_light,
-                        presence_light_lux: ele.presence_light_lux,
+                        presenceValueON: this.getValType(ele.presence_val_on),
+                        presenceValueOff: this.getValType(ele.presence_val_off),
+                        presenceTriggerLight: ele.presence_trigger_light,
+                        presenceLightLux: ele.presence_light_lux,
                         wasOn: false,
                     };
-
-                    this.presenceTimers[ele.name_id] = tempObj;
                 } else if (!ele.enabled) {
                     this.log.debug(`Presence state not used but configured: ${ele.name_id}`);
                 } else if (ele.name_id !== '') {
@@ -2042,18 +2344,47 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Stops all presence simulation timers and intervals.
+     * Clears the periodic check interval, delay timer, and all per-device
+     * length and delay timers.
+     */
     private clearAllPresenceTimer(): void {
         this.presenceRun = false;
-        clearTimeout(this.presenceDelayTimer);
-        clearInterval(this.presenceInterval);
+        if (this.presenceDelayTimer) {
+            clearTimeout(this.presenceDelayTimer);
+            this.presenceDelayTimer = null;
+        }
+        if (this.presenceInterval) {
+            clearInterval(this.presenceInterval);
+            this.presenceInterval = null;
+        }
         for (const item in this.presenceTimers) {
             if (Object.prototype.hasOwnProperty.call(this.presenceTimers, item)) {
-                clearTimeout(this.presenceTimers[item].presenceLengthTimer);
-                clearTimeout(this.presenceTimers[item].presenceDelayTimer);
+                if (this.presenceTimers[item].presenceLengthTimer) {
+                    clearTimeout(this.presenceTimers[item].presenceLengthTimer);
+                    this.presenceTimers[item].presenceLengthTimer = null;
+                }
+                if (this.presenceTimers[item].presenceDelayTimer) {
+                    clearTimeout(this.presenceTimers[item].presenceDelayTimer);
+                    this.presenceTimers[item].presenceDelayTimer = null;
+                }
             }
         }
     }
 
+    /**
+     * Evaluates all presence timers and triggers device switching based on their mode.
+     *
+     * Only runs when the system is armed and not in "sharp inside" mode.
+     * Supports four trigger modes:
+     * - `'time'` – activates when the current time is within the configured range
+     * - `'sunrise'` – activates during the sunrise window
+     * - `'sunset'` – activates during the sunset window
+     * - `'light'` – activates when the light sensor value falls below the configured lux threshold
+     *
+     * Each device is switched ON after a random delay, then switched OFF after a random duration.
+     */
     private async checkPresence(): Promise<void> {
         if (!this.activated || this.inside) {
             return;
@@ -2065,138 +2396,155 @@ class Alarm extends utils.Adapter {
                 continue;
             }
             const pt = this.presenceTimers[item];
-            switch (pt.option_presence) {
+            switch (pt.optionPresence) {
                 case 'time':
-                    if (pt.presence_time_from == '' || pt.presence_time_to == '') {
+                    if (pt.presenceTimeFrom == '' || pt.presenceTimeTo == '') {
                         this.log.warn(
-                            `Please check the times when configuring attendance: ${pt.name} -- ${pt.name_id} `,
+                            `Please check the times when configuring attendance: ${pt.name} -- ${pt.nameID} `,
                         );
                         return;
                     }
-                    if (this.timeInRange(pt.presence_time_from, pt.presence_time_to) && !pt.wasOn) {
+                    if (this.timeInRange(pt.presenceTimeFrom, pt.presenceTimeTo) && !pt.wasOn) {
                         this.log.debug(
-                            `Delay for: ${pt.name} -- ${pt.name_id}  starts ${pt.presence_delay}ms, because time is in range.`,
+                            `Delay for: ${pt.name} -- ${pt.nameID}  starts ${pt.presenceDelay}ms, because time is in range.`,
                         );
                         pt.wasOn = true;
                         pt.presenceDelayTimer = setTimeout(() => {
+                            pt.presenceDelayTimer = null;
                             this.log.debug(
-                                `Delay for: ${pt.name} -- ${pt.name_id}  ends and switch ON ${pt.presence_length}ms.`,
+                                `Delay for: ${pt.name} -- ${pt.nameID}  ends and switch ON ${pt.presenceLength}ms.`,
                             );
-                            this.setForeignState(pt.name_id, this.bools(pt.presence_val_on), err => {
+                            this.setForeignState(pt.nameID, this.bools(pt.presenceValueON), err => {
                                 if (err) {
                                     this.log.warn(`Cannot set state: ${err}`);
                                 }
                             });
                             pt.presenceLengthTimer = setTimeout(() => {
-                                this.log.debug(`Switch ON for: ${pt.name} -- ${pt.name_id}  ends and switch OFF.`);
-                                this.setForeignState(pt.name_id, this.bools(pt.presence_val_off), err => {
+                                pt.presenceLengthTimer = null;
+                                this.log.debug(`Switch ON for: ${pt.name} -- ${pt.nameID}  ends and switch OFF.`);
+                                this.setForeignState(pt.nameID, this.bools(pt.presenceValueOff), err => {
                                     if (err) {
                                         this.log.warn(`Cannot set state: ${err}`);
                                     }
                                 });
-                            }, pt.presence_length);
-                        }, pt.presence_delay);
+                            }, pt.presenceLength);
+                        }, pt.presenceDelay);
                     } else {
-                        this.log.debug(`${pt.name} -- ${pt.name_id}  was ON or is not in time range`);
+                        this.log.debug(`${pt.name} -- ${pt.nameID}  was ON or is not in time range`);
                     }
                     break;
                 case 'sunrise':
                     if (this.sunrise && !pt.wasOn) {
                         this.log.debug(
-                            `Delay for: ${pt.name} -- ${pt.name_id}  starts ${pt.presence_delay}ms, by sunrise`,
+                            `Delay for: ${pt.name} -- ${pt.nameID}  starts ${pt.presenceDelay}ms, by sunrise`,
                         );
                         pt.wasOn = true;
                         pt.presenceDelayTimer = setTimeout(() => {
+                            pt.presenceDelayTimer = null;
                             this.log.debug(
-                                `Delay for: ${pt.name} -- ${pt.name_id}  ends and switch ON ${pt.presence_length}ms.`,
+                                `Delay for: ${pt.name} -- ${pt.nameID}  ends and switch ON ${pt.presenceLength}ms.`,
                             );
-                            this.setForeignState(pt.name_id, this.bools(pt.presence_val_on), err => {
+                            this.setForeignState(pt.nameID, this.bools(pt.presenceValueON), err => {
                                 if (err) {
                                     this.log.warn(`Cannot set state: ${err}`);
                                 }
                             });
                             pt.presenceLengthTimer = setTimeout(() => {
-                                this.log.debug(`Switch ON for: ${pt.name} -- ${pt.name_id}  ends and switch OFF.`);
-                                this.setForeignState(pt.name_id, this.bools(pt.presence_val_off), err => {
+                                pt.presenceLengthTimer = null;
+                                this.log.debug(`Switch ON for: ${pt.name} -- ${pt.nameID}  ends and switch OFF.`);
+                                this.setForeignState(pt.nameID, this.bools(pt.presenceValueOff), err => {
                                     if (err) {
                                         this.log.warn(`Cannot set state: ${err}`);
                                     }
                                 });
-                            }, pt.presence_length);
-                        }, pt.presence_delay);
+                            }, pt.presenceLength);
+                        }, pt.presenceDelay);
                     } else {
-                        this.log.debug(`${pt.name} -- ${pt.name_id}  was ON or is no sunrise`);
+                        this.log.debug(`${pt.name} -- ${pt.nameID}  was ON or is no sunrise`);
                     }
                     break;
                 case 'sunset':
                     if (this.sunset && !pt.wasOn) {
                         this.log.debug(
-                            `Delay for: ${pt.name} -- ${pt.name_id}  starts ${pt.presence_delay}ms, by sunset`,
+                            `Delay for: ${pt.name} -- ${pt.nameID}  starts ${pt.presenceDelay}ms, by sunset`,
                         );
                         pt.wasOn = true;
                         pt.presenceDelayTimer = setTimeout(() => {
+                            pt.presenceDelayTimer = null;
                             this.log.debug(
-                                `Delay for: ${pt.name} -- ${pt.name_id}  ends and switch ON ${pt.presence_length}ms.`,
+                                `Delay for: ${pt.name} -- ${pt.nameID}  ends and switch ON ${pt.presenceLength}ms.`,
                             );
-                            this.setForeignState(pt.name_id, this.bools(pt.presence_val_on), err => {
+                            this.setForeignState(pt.nameID, this.bools(pt.presenceValueON), err => {
                                 if (err) {
                                     this.log.warn(`Cannot set state: ${err}`);
                                 }
                             });
                             pt.presenceLengthTimer = setTimeout(() => {
-                                this.log.debug(`Switch ON for: ${pt.name} -- ${pt.name_id}  ends and switch OFF.`);
-                                this.setForeignState(pt.name_id, this.bools(pt.presence_val_off), err => {
+                                pt.presenceLengthTimer = null;
+                                this.log.debug(`Switch ON for: ${pt.name} -- ${pt.nameID}  ends and switch OFF.`);
+                                this.setForeignState(pt.nameID, this.bools(pt.presenceValueOff), err => {
                                     if (err) {
                                         this.log.warn(`Cannot set state: ${err}`);
                                     }
                                 });
-                            }, pt.presence_length);
-                        }, pt.presence_delay);
+                            }, pt.presenceLength);
+                        }, pt.presenceDelay);
                     } else {
-                        this.log.debug(`${pt.name} -- ${pt.name_id}  was ON or is no sunset`);
+                        this.log.debug(`${pt.name} -- ${pt.nameID}  was ON or is no sunset`);
                     }
                     break;
                 case 'light': {
-                    const lightVal = await this.getForeignStateAsync(pt.presence_trigger_light).catch(e => {
-                        this.log.warn(`Check your light ID ${pt.name} -- ${pt.name_id}  in presence config! +++ ${e}`);
+                    const lightVal = await this.getForeignStateAsync(pt.presenceTriggerLight).catch(e => {
+                        this.log.warn(`Check your light ID ${pt.name} -- ${pt.nameID}  in presence config! +++ ${e}`);
                         return undefined;
                     });
-                    if (lightVal && (lightVal.val as number) < pt.presence_light_lux && !pt.wasOn) {
+                    if (lightVal && (lightVal.val as number) < pt.presenceLightLux && !pt.wasOn) {
                         this.log.debug(
-                            `Delay for: ${pt.name} -- ${pt.name_id}  starts ${pt.presence_delay}ms, because light value is not under the limit.`,
+                            `Delay for: ${pt.name} -- ${pt.nameID}  starts ${pt.presenceDelay}ms, because light value is not under the limit.`,
                         );
                         pt.wasOn = true;
                         pt.presenceDelayTimer = setTimeout(() => {
+                            pt.presenceDelayTimer = null;
                             this.log.debug(
-                                `Delay for: ${pt.name} -- ${pt.name_id}  ends and switch ON ${pt.presence_length}ms.`,
+                                `Delay for: ${pt.name} -- ${pt.nameID}  ends and switch ON ${pt.presenceLength}ms.`,
                             );
-                            this.setForeignState(pt.name_id, this.bools(pt.presence_val_on), err => {
+                            this.setForeignState(pt.nameID, this.bools(pt.presenceValueON), err => {
                                 if (err) {
                                     this.log.warn(`Cannot set state: ${err}`);
                                 }
                             });
                             pt.presenceLengthTimer = setTimeout(() => {
-                                this.log.debug(`Switch ON for: ${pt.name} -- ${pt.name_id}  ends and switch OFF.`);
-                                this.setForeignState(pt.name_id, this.bools(pt.presence_val_off), err => {
+                                pt.presenceLengthTimer = null;
+                                this.log.debug(`Switch ON for: ${pt.name} -- ${pt.nameID}  ends and switch OFF.`);
+                                this.setForeignState(pt.nameID, this.bools(pt.presenceValueOff), err => {
                                     if (err) {
                                         this.log.warn(`Cannot set state: ${err}`);
                                     }
                                 });
-                            }, pt.presence_length);
-                        }, pt.presence_delay);
+                            }, pt.presenceLength);
+                        }, pt.presenceDelay);
                     } else {
-                        this.log.debug(`${pt.name} -- ${pt.name_id}  was ON or light value is not under the limit.`);
+                        this.log.debug(`${pt.name} -- ${pt.nameID}  was ON or light value is not under the limit.`);
                     }
                     break;
                 }
                 default:
                     this.log.warn(
-                        `Please check presence configuration for: ${pt.name} -- ${pt.name_id} , value: ${pt.option_presence}`,
+                        `Please check presence configuration for: ${pt.name} -- ${pt.nameID} , value: ${pt.optionPresence as string}`,
                     );
             }
         }
     }
 
+    /**
+     * Converts a string value to its appropriate typed representation for presence device control.
+     *
+     * Handles `'true'`/`'false'` → boolean, `'1'`/`'0'` → string literals,
+     * numeric strings → numbers.
+     *
+     * @param val - The string value to convert
+     * @returns Typed value: boolean, string `'1'`/`'0'`, or number
+     */
     private getValType(val: string): number | boolean | '1' | '0' {
         switch (val) {
             case 'true':
@@ -2215,6 +2563,10 @@ class Alarm extends utils.Adapter {
         return Number(val);
     }
 
+    /**
+     * Fetches the system's geographic coordinates from ioBroker configuration
+     * and calculates sunrise/sunset times via {@link setSun}.
+     */
     private async getAstro(): Promise<void> {
         const obj = await this.getForeignObjectAsync('system.config');
         if (obj?.common?.longitude && obj.common.latitude) {
@@ -2227,6 +2579,12 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Calculates and stores today's sunrise and sunset times using SunCalc.
+     *
+     * @param longitude - Geographic longitude of the system location
+     * @param latitude - Geographic latitude of the system location
+     */
     private setSun(longitude: number, latitude: number): void {
         try {
             const times = SunCalc.getTimes(new Date(), latitude, longitude);
@@ -2241,16 +2599,37 @@ class Alarm extends utils.Adapter {
         }
     }
 
+    /**
+     * Calculates a randomized time duration for presence simulation.
+     *
+     * Multiplies the base duration by a random factor between 1 and `high` (inclusive)
+     * to produce variation in presence device switching times.
+     *
+     * @param durance - Base duration in milliseconds
+     * @param high - Upper bound of the random multiplier
+     * @returns Randomized duration in milliseconds
+     */
     private getTimeLength(durance: number, high: number): number {
         const low = 1;
         return durance * (Math.floor(Math.random() * (high - low + 1)) + low);
     }
 
+    /**
+     * Returns today's date at midnight (00:00:00) with no time component.
+     *
+     * @returns A Date object set to the start of today
+     */
     private currentDate(): Date {
         const d = new Date();
         return new Date(d.getFullYear(), d.getMonth(), d.getDate());
     }
 
+    /**
+     * Parses an `HH:MM` time string and returns a Date object for today at that time.
+     *
+     * @param strTime - Time string in `HH:MM` format
+     * @returns Date object set to today at the specified time
+     */
     private addTime(strTime: string): Date {
         const time = strTime.split(':');
         const d = this.currentDate();
@@ -2259,6 +2638,15 @@ class Alarm extends utils.Adapter {
         return d;
     }
 
+    /**
+     * Checks whether the current time falls within a given time range.
+     *
+     * Handles ranges that cross midnight (e.g., `22:00` to `06:00`).
+     *
+     * @param strLower - Start of the range in `HH:MM` format
+     * @param strUpper - End of the range in `HH:MM` format
+     * @returns `true` if the current time is within the specified range
+     */
     private timeInRange(strLower: string, strUpper: string): boolean {
         const now = new Date();
         strLower = strLower.toString();
@@ -2274,6 +2662,14 @@ class Alarm extends utils.Adapter {
         return inRange;
     }
 
+    /**
+     * Configures cron-based scheduled jobs using `node-schedule`.
+     *
+     * Sets up three schedules:
+     * - **Daily reset** (midnight): clears `info.log_today` and restarts presence timers
+     * - **Night rest start** (`night_from`): activates sleep mode
+     * - **Night rest end** (`night_to`): deactivates sleep mode and disarms if not armed/inside
+     */
     private setSchedules(): void {
         this.scheduleReset = schedule.scheduleJob({ hour: 0, minute: 0 }, async () => {
             await this.setStateAsync('info.log_today', '', true);
@@ -2317,6 +2713,11 @@ class Alarm extends utils.Adapter {
     }
 }
 
+/**
+ * Module entry point.
+ * When required as a module (by ioBroker), exports a factory function.
+ * When executed directly, creates a new Alarm adapter instance.
+ */
 if (require.main !== module) {
     module.exports = (options?: Partial<utils.AdapterOptions>): Alarm => new Alarm(options);
 } else {

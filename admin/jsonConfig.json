@@ -1,0 +1,1460 @@
+{
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "general": {
+            "type": "panel",
+            "label": "general",
+            "items": {
+                "_infoGeneral": {
+                    "type": "infoBox",
+                    "text": "info_general",
+                    "sm": 12
+                },
+                "_alarmHeader": {
+                    "type": "header",
+                    "text": "alarm",
+                    "size": 3,
+                    "newLine": true
+                },
+                "time_activate": {
+                    "type": "number",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "time_activate",
+                    "min": 0
+                },
+                "time_activate_select": {
+                    "type": "select",
+                    "sm": 4,
+                    "md": 2,
+                    "lg": 1,
+                    "noTranslation": true,
+                    "style": { "marginTop": "16px" },
+                    "options": [
+                        { "label": "sec", "value": "sec" },
+                        { "label": "min", "value": "min" }
+                    ]
+                },
+                "time_alarm": {
+                    "type": "number",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "time_alarm",
+                    "min": 0
+                },
+                "time_alarm_select": {
+                    "type": "select",
+                    "sm": 4,
+                    "md": 2,
+                    "lg": 1,
+                    "noTranslation": true,
+                    "style": { "marginTop": "16px" },
+                    "options": [
+                        { "label": "sec", "value": "sec" },
+                        { "label": "min", "value": "min" }
+                    ]
+                },
+                "alarm_flash": {
+                    "type": "number",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "alarm_flash",
+                    "min": 0
+                },
+
+                "_insideHeader": {
+                    "type": "header",
+                    "text": "inside",
+                    "size": 3,
+                    "newLine": true
+                },
+                "time_warning": {
+                    "type": "number",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "time_warning",
+                    "min": 0
+                },
+                "time_warning_select": {
+                    "type": "select",
+                    "sm": 4,
+                    "md": 2,
+                    "lg": 1,
+                    "noTranslation": true,
+                    "style": { "marginTop": "16px" },
+                    "options": [
+                        { "label": "sec", "value": "sec" },
+                        { "label": "min", "value": "min" }
+                    ]
+                },
+
+                "_generalHeader": {
+                    "type": "header",
+                    "text": "general_settings",
+                    "size": 3,
+                    "newLine": true
+                },
+                "night_from": {
+                    "type": "text",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "night_from"
+                },
+                "night_to": {
+                    "type": "text",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "night_to"
+                },
+                "password": {
+                    "type": "password",
+                    "sm": 12,
+                    "md": 4,
+                    "lg": 2,
+                    "label": "Password",
+                    "newLine": true
+                },
+                "time_silent": {
+                    "type": "number",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "time_silent",
+                    "min": 0,
+                    "newLine": true
+                },
+                "time_silent_select": {
+                    "type": "select",
+                    "sm": 4,
+                    "md": 2,
+                    "lg": 1,
+                    "noTranslation": true,
+                    "style": { "marginTop": "16px" },
+                    "options": [
+                        { "label": "sec", "value": "sec" },
+                        { "label": "min", "value": "min" }
+                    ]
+                },
+                "silent_flash": {
+                    "type": "number",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "silent_flash",
+                    "min": 0
+                },
+                "opt_log": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "opt_log",
+                    "newLine": true
+                },
+                "opt_warning": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "opt_warning"
+                },
+                "opt_siren": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "opt_siren"
+                },
+                "opt_leave": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "opt_leave"
+                }
+            }
+        },
+
+        "notifications": {
+            "type": "panel",
+            "label": "notifications",
+            "items": {
+                "_infoNotifications": {
+                    "type": "infoBox",
+                    "text": "info_notifications",
+                    "sm": 12
+                },
+                "_infoWords": {
+                    "type": "staticText",
+                    "text": "info_words",
+                    "sm": 12
+                },
+                "sendTo": {
+                    "type": "text",
+                    "sm": 12,
+                    "md": 8,
+                    "label": "sendTo_Chips",
+                    "newLine": true
+                },
+                "opt_telegram": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "opt_telegram",
+                    "newLine": true
+                },
+                "chatID": {
+                    "type": "text",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "chatID",
+                    "hidden": "!data.opt_telegram"
+                },
+                "user": {
+                    "type": "text",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "user",
+                    "hidden": "!data.opt_telegram"
+                },
+
+                "_alarmNotifHeader": {
+                    "type": "header",
+                    "text": "alarm",
+                    "size": 3,
+                    "newLine": true
+                },
+                "send_alarm": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "send_alarm"
+                },
+                "send_activation": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "send_activation"
+                },
+                "send_activated_with_warnings": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "send_activated_with_warnings"
+                },
+                "send_activation_warnings": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "send_activation_warnings"
+                },
+                "send_alarm_silent": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "send_alarm_silent"
+                },
+                "send_failed": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "send_failed"
+                },
+
+                "_insideNotifHeader": {
+                    "type": "header",
+                    "text": "inside",
+                    "size": 3,
+                    "newLine": true
+                },
+                "send_alarm_inside": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "send_alarm"
+                },
+                "send_activation_inside": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "send_activation"
+                },
+                "send_activation_warnings_inside": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "send_activation_warnings"
+                },
+                "send_alarm_silent_inside": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "send_alarm_silent"
+                },
+
+                "_notificationHeader": {
+                    "type": "header",
+                    "text": "notification",
+                    "size": 3,
+                    "newLine": true
+                },
+                "send_notification_changes": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "send_notification_changes"
+                },
+                "send_activation_warnings_night": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "send_activation_warnings_night"
+                },
+
+                "_otherNotifHeader": {
+                    "type": "header",
+                    "text": "other_alarms",
+                    "size": 3,
+                    "newLine": true
+                },
+                "send_one_changes": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "send_one_changes"
+                },
+                "send_two_changes": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "send_two_changes"
+                },
+
+                "_zonesNotifHeader": {
+                    "type": "header",
+                    "text": "zones",
+                    "size": 3,
+                    "newLine": true
+                },
+                "send_zone_one": {
+                    "type": "checkbox",
+                    "sm": 4,
+                    "md": 2,
+                    "label": "zone_one"
+                },
+                "send_zone_two": {
+                    "type": "checkbox",
+                    "sm": 4,
+                    "md": 2,
+                    "label": "zone_two"
+                },
+                "send_zone_three": {
+                    "type": "checkbox",
+                    "sm": 4,
+                    "md": 2,
+                    "label": "zone_three"
+                },
+
+                "_notifTextsHeader": {
+                    "type": "header",
+                    "text": "notification_texts",
+                    "size": 3,
+                    "newLine": true
+                },
+                "alarm": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "alarm"
+                },
+                "warning": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "inside"
+                },
+                "night": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "notification"
+                },
+                "changes_repeat": {
+                    "type": "text",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "changes_repeat"
+                }
+            }
+        },
+
+        "states": {
+            "type": "panel",
+            "label": "states",
+            "items": {
+                "_infoStates": {
+                    "type": "infoBox",
+                    "text": "info_states",
+                    "sm": 12
+                },
+                "_circuitsHeader": {
+                    "type": "header",
+                    "text": "circuits",
+                    "size": 3
+                },
+                "circuits": {
+                    "type": "table",
+                    "sm": 12,
+                    "newLine": true,
+                    "items": [
+                        {
+                            "type": "checkbox",
+                            "attr": "enabled",
+                            "title": "active",
+                            "width": "50px",
+                            "default": true
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "name_id",
+                            "title": "Object-ID",
+                            "filter": {
+                                "type": "state"
+                            }
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "negativ",
+                            "title": "negativ",
+                            "width": "80px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "alarm",
+                            "title": "alarm",
+                            "width": "80px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "delay",
+                            "title": "delay",
+                            "width": "80px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "leave",
+                            "title": "leave",
+                            "width": "80px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "warning",
+                            "title": "inside",
+                            "width": "80px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "delay_inside",
+                            "title": "delay_inside",
+                            "width": "80px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "night",
+                            "title": "notification",
+                            "width": "100px"
+                        }
+                    ]
+                }
+            }
+        },
+
+        "sayit": {
+            "type": "panel",
+            "label": "sayit",
+            "items": {
+                "_infoSayit": {
+                    "type": "infoBox",
+                    "text": "info_sayit",
+                    "sm": 12
+                },
+                "opt_say_names": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "opt_say_names"
+                },
+                "opt_night_silent": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "opt_night_silent"
+                },
+                "opt_say_night": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "opt_say_night"
+                },
+                "opt_say_warn": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "opt_say_warn"
+                },
+                "opt_say_changes": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "opt_say_changes"
+                },
+                "opt_say_warn_changes": {
+                    "type": "checkbox",
+                    "sm": 6,
+                    "md": 4,
+                    "label": "opt_say_warn_changes"
+                },
+
+                "_sayitTableDesc": {
+                    "type": "staticText",
+                    "text": "info_sayit_table",
+                    "sm": 12,
+                    "newLine": true,
+                    "style": { "fontSize": "smaller" }
+                },
+                "sayit": {
+                    "type": "table",
+                    "sm": 12,
+                    "newLine": true,
+                    "items": [
+                        {
+                            "type": "checkbox",
+                            "attr": "enabled",
+                            "title": "active",
+                            "width": "50px",
+                            "default": true
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "name_id",
+                            "title": "Object-ID",
+                            "filter": {
+                                "type": "state"
+                            }
+                        },
+                        {
+                            "type": "number",
+                            "attr": "speech_delay",
+                            "title": "speech_delay",
+                            "width": "70px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_one",
+                            "title": { "en": "1" },
+                            "width": "40px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_two",
+                            "title": { "en": "2" },
+                            "width": "40px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_aborted",
+                            "title": { "en": "x" },
+                            "width": "40px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_three",
+                            "title": { "en": "3" },
+                            "width": "40px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_four",
+                            "title": { "en": "4" },
+                            "width": "40px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_five",
+                            "title": { "en": "5" },
+                            "width": "40px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_six",
+                            "title": { "en": "6" },
+                            "width": "40px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_seven",
+                            "title": { "en": "7" },
+                            "width": "40px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_eigth",
+                            "title": { "en": "8" },
+                            "width": "40px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_nine",
+                            "title": { "en": "9" },
+                            "width": "40px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_nine_plus",
+                            "title": { "en": "9+" },
+                            "width": "40px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_zero",
+                            "title": { "en": "0" },
+                            "width": "40px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_count",
+                            "title": { "en": "time" },
+                            "width": "50px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_fire",
+                            "title": { "en": "one" },
+                            "width": "50px"
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "opt_say_water",
+                            "title": { "en": "two" },
+                            "width": "50px"
+                        }
+                    ]
+                },
+
+                "_phrasesHeader": {
+                    "type": "header",
+                    "text": { "en": "Speech phrases", "de": "Sprachausgabe Sätze" },
+                    "size": 4,
+                    "newLine": true
+                },
+                "text_activated": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "text_activated"
+                },
+                "text_deactivated": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "text_deactivated"
+                },
+                "text_aborted": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "text_aborted"
+                },
+                "text_failed": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "text_failed"
+                },
+                "text_warning": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "text_warning"
+                },
+                "text_changes": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "text_changes"
+                },
+                "text_alarm": {
+                    "type": "text",
+                    "sm": 8,
+                    "label": "text_alarm"
+                },
+                "alarm_repeat": {
+                    "type": "select",
+                    "sm": 2,
+                    "label": "alarm_repeat",
+                    "options": [
+                        { "label": "1x", "value": "1" },
+                        { "label": "2x", "value": "2" },
+                        { "label": "3x", "value": "3" },
+                        { "label": "4x", "value": "4" },
+                        { "label": "5x", "value": "5" },
+                        { "label": "6x", "value": "6" },
+                        { "label": "7x", "value": "7" },
+                        { "label": "8x", "value": "8" },
+                        { "label": "9x", "value": "9" },
+                        { "label": "10x", "value": "10" },
+                        { "label": "15x", "value": "15" },
+                        { "label": "20x", "value": "20" }
+                    ],
+                    "noTranslation": true
+                },
+                "text_alarm_pause": {
+                    "type": "number",
+                    "sm": 2,
+                    "label": "text_alarm_pause",
+                    "min": 0
+                },
+                "text_nightrest_beginn": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "text_nightrest_beginn"
+                },
+                "text_nightrest_end": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "text_nightrest_end"
+                },
+                "text_changes_night": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "text_changes_night"
+                },
+                "text_warn_begin": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "text_warn_begin"
+                },
+                "text_warn_end": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "text_warn_end"
+                },
+                "text_countdown": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "text_countdown"
+                },
+                "text_one": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "text_one"
+                },
+                "text_two": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "text_two"
+                }
+            }
+        },
+
+        "shortcuts": {
+            "type": "panel",
+            "label": "shortcuts",
+            "items": {
+                "_infoShortcuts": {
+                    "type": "infoBox",
+                    "text": "info_shortcuts",
+                    "sm": 12
+                },
+                "_important": {
+                    "type": "staticText",
+                    "text": "important",
+                    "style": { "color": "red" },
+                    "sm": 12
+                },
+                "_outputHeader": {
+                    "type": "header",
+                    "text": "output",
+                    "size": 4,
+                    "newLine": true
+                },
+                "shorts": {
+                    "type": "table",
+                    "sm": 12,
+                    "newLine": true,
+                    "items": [
+                        {
+                            "type": "checkbox",
+                            "attr": "enabled",
+                            "title": "active",
+                            "width": "50px",
+                            "default": true
+                        },
+                        {
+                            "type": "select",
+                            "attr": "select_id",
+                            "title": "Name",
+                            "options": [
+                                { "label": "status.state_list", "value": "status.state_list" },
+                                { "label": "status.activated", "value": "status.activated" },
+                                { "label": "status.gets_activated", "value": "status.gets_activated" },
+                                { "label": "status.deactivated", "value": "status.deactivated" },
+                                { "label": "status.burglar_alarm", "value": "status.burglar_alarm" },
+                                { "label": "status.silent_alarm", "value": "status.silent_alarm" },
+                                { "label": "status.siren", "value": "status.siren" },
+                                { "label": "status.activation_failed", "value": "status.activation_failed" },
+                                { "label": "status.sleep", "value": "status.sleep" },
+                                { "label": "status.activated_with_warnings", "value": "status.activated_with_warnings" },
+                                { "label": "status.enableable", "value": "status.enableable" },
+                                { "label": "status.sharp_inside_activated", "value": "status.sharp_inside_activated" },
+                                { "label": "status.siren_inside", "value": "status.siren_inside" },
+                                { "label": "info.notification_circuit_changes", "value": "info.notification_circuit_changes" },
+                                { "label": "status.alarm_flash", "value": "status.alarm_flash" },
+                                { "label": "status.silent_flash", "value": "status.silent_flash" },
+                                { "label": "other_alarms.one_changes", "value": "other_alarms.one_changes" },
+                                { "label": "other_alarms.two_changes", "value": "other_alarms.two_changes" }
+                            ],
+                            "default": "status.state_list",
+                            "noTranslation": true
+                        },
+                        {
+                            "type": "select",
+                            "attr": "trigger_val",
+                            "title": "Trigger",
+                            "options": [
+                                { "label": " ", "value": "" },
+                                { "label": "true", "value": "true" },
+                                { "label": "false", "value": "false" },
+                                { "label": "deactivated", "value": "deactivated" },
+                                { "label": "sharp", "value": "sharp" },
+                                { "label": "sharp_inside", "value": "sharp_inside" },
+                                { "label": "burglary", "value": "burglary" },
+                                { "label": "night_rest", "value": "night_rest" },
+                                { "label": "gets_activated", "value": "gets_activated" },
+                                { "label": "activation_failed", "value": "activation_failed" },
+                                { "label": "activation_aborted", "value": "activation_aborted" },
+                                { "label": "silent_alarm", "value": "silent_alarm" }
+                            ],
+                            "default": "",
+                            "noTranslation": true
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "name_id",
+                            "title": "Object-ID",
+                            "filter": {
+                                "type": "state"
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "attr": "value",
+                            "title": "values"
+                        }
+                    ]
+                },
+
+                "_inputHeader": {
+                    "type": "header",
+                    "text": "input",
+                    "size": 4,
+                    "newLine": true
+                },
+                "shorts_in": {
+                    "type": "table",
+                    "sm": 12,
+                    "newLine": true,
+                    "items": [
+                        {
+                            "type": "checkbox",
+                            "attr": "enabled",
+                            "title": "active",
+                            "width": "50px",
+                            "default": true
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "name_id",
+                            "title": "Object-ID",
+                            "filter": {
+                                "type": "state"
+                            }
+                        },
+                        {
+                            "type": "select",
+                            "attr": "trigger_val",
+                            "title": "trigger_mode",
+                            "options": [
+                                { "label": "any", "value": "any" },
+                                { "label": "ne", "value": "ne" }
+                            ],
+                            "default": "any",
+                            "noTranslation": true,
+                            "width": "80px"
+                        },
+                        {
+                            "type": "text",
+                            "attr": "value",
+                            "title": "trigger_values"
+                        },
+                        {
+                            "type": "select",
+                            "attr": "select_id",
+                            "title": "Name",
+                            "options": [
+                                { "label": "use.activate_nightrest", "value": "use.activate_nightrest" },
+                                { "label": "use.activate_sharp_inside", "value": "use.activate_sharp_inside" },
+                                { "label": "use.disable", "value": "use.disable" },
+                                { "label": "use.enable", "value": "use.enable" },
+                                { "label": "use.enable_with_delay", "value": "use.enable_with_delay" },
+                                { "label": "use.panic", "value": "use.panic" },
+                                { "label": "use.quit_changes", "value": "use.quit_changes" }
+                            ],
+                            "default": "use.activate_nightrest",
+                            "noTranslation": true
+                        }
+                    ]
+                }
+            }
+        },
+
+        "words": {
+            "type": "panel",
+            "label": "words",
+            "items": {
+                "_infoWordsTab": {
+                    "type": "infoBox",
+                    "text": "info_words_tab",
+                    "sm": 12
+                },
+                "log_pass": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_pass"
+                },
+                "log_act_not": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_act_not"
+                },
+                "log_act": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_act"
+                },
+                "log_act_notice": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_act_notice"
+                },
+                "log_act_warn": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_act_warn"
+                },
+                "log_deact": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_deact"
+                },
+                "log_aborted": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_aborted"
+                },
+                "log_warn_act": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_warn_act"
+                },
+                "log_warn_deact": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_warn_deact"
+                },
+                "log_burgle": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_burgle"
+                },
+                "log_panic": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_panic"
+                },
+                "log_warn": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_warn"
+                },
+                "log_night": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_night"
+                },
+                "log_sleep_b": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_sleep_b"
+                },
+                "log_sleep_e": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_sleep_e"
+                },
+                "log_warn_b_w": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_warn_b_w"
+                },
+                "log_nights_b_w": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_nights_b_w"
+                },
+                "log_one": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_one"
+                },
+                "log_two": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_two"
+                },
+                "log_zone_one": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_zone_one"
+                },
+                "log_zone_two": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_zone_two"
+                },
+                "log_zone_three": {
+                    "type": "text",
+                    "sm": 12,
+                    "label": "log_zone_three"
+                }
+            }
+        },
+
+        "other_alarms": {
+            "type": "panel",
+            "label": "other_alarms",
+            "items": {
+                "_infoOtherAlarms": {
+                    "type": "infoBox",
+                    "text": "info_other_alarms",
+                    "sm": 12
+                },
+                "_please": {
+                    "type": "staticText",
+                    "text": "please",
+                    "style": { "color": "red" },
+                    "sm": 12
+                },
+                "one_name": {
+                    "type": "text",
+                    "sm": 6,
+                    "md": 4,
+                    "label": { "en": "Name type 1", "de": "Name Typ 1" },
+                    "newLine": true
+                },
+                "one": {
+                    "type": "table",
+                    "sm": 12,
+                    "newLine": true,
+                    "items": [
+                        {
+                            "type": "checkbox",
+                            "attr": "enabled",
+                            "title": "active",
+                            "width": "50px",
+                            "default": true
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "name_id",
+                            "title": "Object-ID",
+                            "filter": {
+                                "type": "state"
+                            }
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "negativ",
+                            "title": "negativ",
+                            "width": "80px"
+                        }
+                    ]
+                },
+                "_divider": {
+                    "type": "divider",
+                    "newLine": true
+                },
+                "two_name": {
+                    "type": "text",
+                    "sm": 6,
+                    "md": 4,
+                    "label": { "en": "Name type 2", "de": "Name Typ 2" },
+                    "newLine": true
+                },
+                "two": {
+                    "type": "table",
+                    "sm": 12,
+                    "newLine": true,
+                    "items": [
+                        {
+                            "type": "checkbox",
+                            "attr": "enabled",
+                            "title": "active",
+                            "width": "50px",
+                            "default": true
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "name_id",
+                            "title": "Object-ID",
+                            "filter": {
+                                "type": "state"
+                            }
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "negativ",
+                            "title": "negativ",
+                            "width": "80px"
+                        }
+                    ]
+                }
+            }
+        },
+
+        "zones": {
+            "type": "panel",
+            "label": "zones",
+            "items": {
+                "_infoZones": {
+                    "type": "infoBox",
+                    "text": "info_zones",
+                    "sm": 12
+                },
+                "_zoneOneHeader": {
+                    "type": "header",
+                    "text": "zone_one",
+                    "size": 4
+                },
+                "zone_one": {
+                    "type": "table",
+                    "sm": 12,
+                    "newLine": true,
+                    "items": [
+                        {
+                            "type": "checkbox",
+                            "attr": "enabled",
+                            "title": "active",
+                            "width": "50px",
+                            "default": true
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "name_id",
+                            "title": "Object-ID",
+                            "filter": {
+                                "type": "state"
+                            }
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "negativ",
+                            "title": "negativ",
+                            "width": "80px"
+                        }
+                    ]
+                },
+
+                "_zoneTwoHeader": {
+                    "type": "header",
+                    "text": "zone_two",
+                    "size": 4,
+                    "newLine": true
+                },
+                "zone_two": {
+                    "type": "table",
+                    "sm": 12,
+                    "newLine": true,
+                    "items": [
+                        {
+                            "type": "checkbox",
+                            "attr": "enabled",
+                            "title": "active",
+                            "width": "50px",
+                            "default": true
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "name_id",
+                            "title": "Object-ID",
+                            "filter": {
+                                "type": "state"
+                            }
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "negativ",
+                            "title": "negativ",
+                            "width": "80px"
+                        }
+                    ]
+                },
+
+                "_zoneThreeHeader": {
+                    "type": "header",
+                    "text": "zone_three",
+                    "size": 4,
+                    "newLine": true
+                },
+                "zone_three": {
+                    "type": "table",
+                    "sm": 12,
+                    "newLine": true,
+                    "items": [
+                        {
+                            "type": "checkbox",
+                            "attr": "enabled",
+                            "title": "active",
+                            "width": "50px",
+                            "default": true
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "name_id",
+                            "title": "Object-ID",
+                            "filter": {
+                                "type": "state"
+                            }
+                        },
+                        {
+                            "type": "checkbox",
+                            "attr": "negativ",
+                            "title": "negativ",
+                            "width": "80px"
+                        }
+                    ]
+                }
+            }
+        },
+
+        "presence": {
+            "type": "panel",
+            "label": "presence",
+            "items": {
+                "_infoPresence": {
+                    "type": "infoBox",
+                    "text": "info_presence",
+                    "sm": 12
+                },
+                "_presenceDesc": {
+                    "type": "staticText",
+                    "text": "presence_description",
+                    "sm": 12
+                },
+                "presence_activate_delay": {
+                    "type": "number",
+                    "sm": 6,
+                    "md": 3,
+                    "lg": 2,
+                    "label": "presence_activate_delay",
+                    "min": 0
+                },
+                "presence_activate_delay_select": {
+                    "type": "select",
+                    "sm": 4,
+                    "md": 2,
+                    "lg": 1,
+                    "noTranslation": true,
+                    "style": { "marginTop": "16px" },
+                    "options": [
+                        { "label": "sec", "value": "sec" },
+                        { "label": "min", "value": "min" }
+                    ]
+                },
+                "presence": {
+                    "type": "table",
+                    "sm": 12,
+                    "newLine": true,
+                    "items": [
+                        {
+                            "type": "checkbox",
+                            "attr": "enabled",
+                            "title": "active",
+                            "width": "50px",
+                            "default": true
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name"
+                        },
+                        {
+                            "type": "objectId",
+                            "attr": "name_id",
+                            "title": "Object-ID",
+                            "filter": {
+                                "type": "state"
+                            }
+                        },
+                        {
+                            "type": "select",
+                            "attr": "option_presence",
+                            "title": "option_presence",
+                            "options": [
+                                { "label": "time", "value": "time" },
+                                { "label": "sunrise", "value": "sunrise" },
+                                { "label": "sunset", "value": "sunset" },
+                                { "label": "light", "value": "light" }
+                            ],
+                            "noTranslation": true,
+                            "width": "100px"
+                        },
+                        {
+                            "type": "text",
+                            "attr": "presence_time_from",
+                            "title": "presence_time_from",
+                            "width": "80px"
+                        },
+                        {
+                            "type": "text",
+                            "attr": "presence_time_to",
+                            "title": "presence_time_to",
+                            "width": "80px"
+                        },
+                        {
+                            "type": "number",
+                            "attr": "presence_length",
+                            "title": "presence_length",
+                            "width": "70px"
+                        },
+                        {
+                            "type": "select",
+                            "attr": "presence_length_select",
+                            "title": "presence_length_select",
+                            "style": { "marginTop": "16px" },
+                            "options": [
+                                { "label": "sec", "value": "sec" },
+                                { "label": "min", "value": "min" }
+                            ],
+                            "default": "sec",
+                            "noTranslation": true,
+                            "width": "70px"
+                        },
+                        {
+                            "type": "number",
+                            "attr": "presence_length_shuffle",
+                            "title": "presence_length_shuffle",
+                            "width": "70px"
+                        },
+                        {
+                            "type": "number",
+                            "attr": "presence_delay",
+                            "title": "presence_delay",
+                            "width": "70px"
+                        },
+                        {
+                            "type": "select",
+                            "attr": "presence_delay_select",
+                            "title": "presence_delay_select",
+                            "style": { "marginTop": "16px" },
+                            "options": [
+                                { "label": "sec", "value": "sec" },
+                                { "label": "min", "value": "min" }
+                            ],
+                            "default": "sec",
+                            "noTranslation": true,
+                            "width": "70px"
+                        },
+                        {
+                            "type": "number",
+                            "attr": "presence_delay_shuffle",
+                            "title": "presence_delay_shuffle",
+                            "width": "70px"
+                        },
+                        {
+                            "type": "text",
+                            "attr": "presence_val_on",
+                            "title": "presence_val_on",
+                            "width": "70px"
+                        },
+                        {
+                            "type": "text",
+                            "attr": "presence_val_off",
+                            "title": "presence_val_off",
+                            "width": "70px"
+                        },
+                        {
+                            "type": "text",
+                            "attr": "presence_trigger_light",
+                            "title": "presence_trigger_light",
+                            "width": "100px"
+                        },
+                        {
+                            "type": "number",
+                            "attr": "presence_light_lux",
+                            "title": "presence_light_lux",
+                            "width": "70px"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
