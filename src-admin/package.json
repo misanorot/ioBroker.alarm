@@ -1,0 +1,41 @@
+{
+    "name": "iobroker-admin-component-alarm",
+    "private": true,
+    "version": "3.8.2",
+    "scripts": {
+        "start": "vite",
+        "build": "vite build"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.1",
+        "@iobroker/adapter-react-v5": "8.0.21",
+        "@iobroker/json-config": "8.1.11",
+        "@module-federation/runtime": "^2.0.1",
+        "@module-federation/vite": "^1.11.0",
+        "@mui/icons-material": "^6.5.0",
+        "@mui/material": "^6.5.0",
+        "@originjs/vite-plugin-federation": "^1.4.1",
+        "@types/react": "^18.3.28",
+        "@types/react-dom": "^18.3.7",
+        "@vitejs/plugin-react": "^5.1.4",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "vite": "7.3.1",
+        "vite-plugin-commonjs": "^0.10.4",
+        "vite-tsconfig-paths": "^6.1.1"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
+}

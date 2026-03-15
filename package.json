@@ -50,7 +50,7 @@
   ],
   "scripts": {
     "prebuild": "rimraf build",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json && node tasks",
     "watch": "tsc -p tsconfig.build.json --watch",
     "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
     "test:package": "mocha test/package --exit",
@@ -59,7 +59,9 @@
     "check": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint -c eslint.config.mjs .",
     "translate": "translate-adapter",
-    "release": "release-script"
+    "release": "release-script",
+    "npm": "npm i && cd src-admin && npm i -f",
+    "update-packages": "npx -y npm-check-updates --upgrade && cd src-admin && npx -y npm-check-updates --upgrade"
   },
   "bugs": {
     "url": "https://github.com/misanorot/ioBroker.alarm/issues"

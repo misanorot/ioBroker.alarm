@@ -2513,7 +2513,7 @@ class Alarm extends utils.Adapter {
             const pt = this.presenceTimers[item];
             switch (pt.optionPresence) {
                 case 'time':
-                    if (pt.presenceTimeFrom == '' || pt.presenceTimeTo == '') {
+                    if (!pt.presenceTimeFrom || !pt.presenceTimeTo) {
                         this.log.warn(
                             `Please check the times when configuring attendance: ${pt.name} -- ${pt.nameID} `,
                         );

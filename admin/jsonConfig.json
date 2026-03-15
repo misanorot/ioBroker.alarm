@@ -1430,152 +1430,15 @@
                         { "label": "min", "value": "min" }
                     ]
                 },
-                "presence": {
-                    "type": "table",
+                "_presenceTable": {
+                    "type": "custom",
+                    "url": "custom/customComponents.js",
+                    "name": "ConfigCustomAlarmSet/Components/PresenceTableComponent",
+                    "bundlerType": "module",
+                    "component": "",
                     "sm": 12,
                     "newLine": true,
-                    "useCardFor": ["xs" , "sm" , "md" , "lg"],
-                    "items": [
-                        {
-                            "type": "checkbox",
-                            "attr": "enabled",
-                            "title": "active",
-                            "tooltip": "tt_enabled",
-                            "width": "50px",
-                            "default": true
-                        },
-                        {
-                            "type": "text",
-                            "attr": "name",
-                            "title": "Name",
-                            "tooltip": "tt_name"
-                        },
-                        {
-                            "type": "objectId",
-                            "attr": "name_id",
-                            "title": "Object-ID",
-                            "tooltip": "tt_name_id",
-                            "filter": {
-                                "type": "state"
-                            }
-                        },
-                        {
-                            "type": "select",
-                            "attr": "option_presence",
-                            "title": "option_presence",
-                            "tooltip": "tt_presence_mode",
-                            "options": [
-                                { "label": "time", "value": "time" },
-                                { "label": "sunrise", "value": "sunrise" },
-                                { "label": "sunset", "value": "sunset" },
-                                { "label": "light", "value": "light" }
-                            ],
-                            "noTranslation": true,
-                            "width": "100px"
-                        },
-                        {
-                            "type": "timePicker",
-                            "attr": "presence_time_from",
-                            "title": "presence_time_from",
-                            "tooltip": "tt_presence_time_from",
-                            "width": "80px",
-                            "views": ["hours", "minutes"],
-                            "format": "HH:mm"
-                        },
-                        {
-                            "type": "timePicker",
-                            "attr": "presence_time_to",
-                            "title": "presence_time_to",
-                            "tooltip": "tt_presence_time_to",
-                            "views": ["hours", "minutes"],
-                            "format": "HH:mm",
-                            "width": "80px"
-                        },
-                        {
-                            "type": "number",
-                            "attr": "presence_length",
-                            "title": "presence_length",
-                            "tooltip": "tt_presence_length",
-                            "width": "70px"
-                        },
-                        {
-                            "type": "select",
-                            "attr": "presence_length_select",
-                            "title": "presence_length_select",
-                            "tooltip": "tt_presence_length_unit",
-                            "style": { "marginTop": "16px" },
-                            "options": [
-                                { "label": "sec", "value": "sec" },
-                                { "label": "min", "value": "min" }
-                            ],
-                            "default": "sec",
-                            "noTranslation": true,
-                            "width": "70px"
-                        },
-                        {
-                            "type": "number",
-                            "attr": "presence_length_shuffle",
-                            "title": "presence_length_shuffle",
-                            "tooltip": "tt_presence_length_shuffle",
-                            "width": "70px"
-                        },
-                        {
-                            "type": "number",
-                            "attr": "presence_delay",
-                            "title": "presence_delay",
-                            "tooltip": "tt_presence_delay",
-                            "width": "70px"
-                        },
-                        {
-                            "type": "select",
-                            "attr": "presence_delay_select",
-                            "title": "presence_delay_select",
-                            "tooltip": "tt_presence_delay_unit",
-                            "style": { "marginTop": "16px" },
-                            "options": [
-                                { "label": "sec", "value": "sec" },
-                                { "label": "min", "value": "min" }
-                            ],
-                            "default": "sec",
-                            "noTranslation": true,
-                            "width": "70px"
-                        },
-                        {
-                            "type": "number",
-                            "attr": "presence_delay_shuffle",
-                            "title": "presence_delay_shuffle",
-                            "tooltip": "tt_presence_delay_shuffle",
-                            "width": "70px"
-                        },
-                        {
-                            "type": "text",
-                            "attr": "presence_val_on",
-                            "title": "presence_val_on",
-                            "tooltip": "tt_presence_val_on",
-                            "width": "70px"
-                        },
-                        {
-                            "type": "text",
-                            "attr": "presence_val_off",
-                            "title": "presence_val_off",
-                            "tooltip": "tt_presence_val_off",
-                            "width": "70px"
-                        },
-                        {
-                            "type": "text",
-                            "attr": "presence_trigger_light",
-                            "title": "presence_trigger_light",
-                            "tooltip": "tt_presence_trigger_light",
-                            "width": "100px"
-                        },
-                        {
-                            "type": "number",
-                            "attr": "presence_light_lux",
-                            "title": "presence_light_lux",
-                            "tooltip": "tt_presence_light_lux",
-                            "width": "70px"
-                        }
-                    ]
+                    "i18n": true
                 }
             }
         }
