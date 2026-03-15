@@ -120,18 +120,22 @@
                     "newLine": true
                 },
                 "night_from": {
-                    "type": "text",
+                    "type": "timePicker",
                     "sm": 6,
                     "md": 3,
                     "lg": 2,
-                    "label": "night_from"
+                    "label": "night_from",
+                    "views": ["hours", "minutes"],
+                    "format": "HH:mm"
                 },
                 "night_to": {
-                    "type": "text",
+                    "type": "timePicker",
                     "sm": 6,
                     "md": 3,
                     "lg": 2,
-                    "label": "night_to"
+                    "views": ["hours", "minutes"],
+                    "label": "night_to",
+                    "format": "HH:mm"
                 },
                 "password": {
                     "type": "password",
@@ -1430,6 +1434,7 @@
                     "type": "table",
                     "sm": 12,
                     "newLine": true,
+                    "useCardFor": ["xs" , "sm" , "md" , "lg"],
                     "items": [
                         {
                             "type": "checkbox",
@@ -1469,17 +1474,21 @@
                             "width": "100px"
                         },
                         {
-                            "type": "text",
+                            "type": "timePicker",
                             "attr": "presence_time_from",
                             "title": "presence_time_from",
                             "tooltip": "tt_presence_time_from",
-                            "width": "80px"
+                            "width": "80px",
+                            "views": ["hours", "minutes"],
+                            "format": "HH:mm"
                         },
                         {
-                            "type": "text",
+                            "type": "timePicker",
                             "attr": "presence_time_to",
                             "title": "presence_time_to",
                             "tooltip": "tt_presence_time_to",
+                            "views": ["hours", "minutes"],
+                            "format": "HH:mm",
                             "width": "80px"
                         },
                         {
