@@ -29,7 +29,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 3.7.7 (2026-03-15)
 * (misanorot) update packages
 
 ### 3.7.6 (2025-10-26)
@@ -43,9 +43,6 @@
 
 ### 3.7.0 (2025-05-03)
 * (misanorot) node 20 require
-
-### 3.6.8 (2025-01-08)
-* (misanorot) protect password
 
 ## License
 MIT License

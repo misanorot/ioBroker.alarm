@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "3.7.6",
+    "version": "3.7.7",
     "news": {
+      "3.7.7": {
+        "en": "update packages",
+        "de": "update-pakete",
+        "ru": "обновление пакетов",
+        "pt": "atualizar pacotes",
+        "nl": "pakketten bijwerken",
+        "fr": "mettre à jour les paquets",
+        "it": "pacchetti di aggiornamento",
+        "es": "actualizar paquetes",
+        "pl": "aktualizacja pakietów",
+        "uk": "оновлення пакетів",
+        "zh-cn": "更新软件包"
+      },
       "3.7.6": {
         "en": "update npm progress",
         "de": "aktualisierung npm fortschritt",
@@ -80,19 +93,6 @@
         "pl": "ESlint 9 # 267",
         "uk": "ESlint 9 #267",
         "zh-cn": "ESlint 9 # 267 (英语)"
-      },
-      "3.6.5": {
-        "en": "fixed Firefox scrolling issue #266",
-        "de": "fix Firefox Scrolling Ausgabe #266",
-        "ru": "#266",
-        "pt": "corrigido o problema de rolagem do Firefox #266",
-        "nl": "vast Firefox scrollen probleem #266",
-        "fr": "correction Firefox défilement problème #266",
-        "it": "risolto Firefox problema di scorrimento #266",
-        "es": "edición fija de desplazamiento de Firefox #266",
-        "pl": "stały problem przewijania Firefox # 266",
-        "uk": "виправлено помилку Firefox #266",
-        "zh-cn": "固定 Firefox 滚动问题# 266"
       }
     },
     "titleLang": {
