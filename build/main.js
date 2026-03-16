@@ -270,8 +270,6 @@ class Alarm extends utils.Adapter {
     sunriseStr;
     /** Active repeat-write intervals keyed by shortcut index, for continuous value writing */
     shortcutRepeatIntervals = new Map();
-    /** The list of all subscriptions to avoid double subscribes */
-    subscribes;
     /**
      * Creates a new Alarm adapter instance.
      * Registers event handlers for ready, stateChange, and unload lifecycle events.
@@ -421,7 +419,7 @@ class Alarm extends utils.Adapter {
             await this.setStateAsync('status.activated', false, true);
         }
         else {
-            this.activated = stateA.val;
+            this.activated = !!stateA.val;
         }
         const stateP = await this.getStateAsync('presence.on_off').catch(e => this.log.warn(e));
         if (!stateP) {
@@ -807,7 +805,7 @@ class Alarm extends utils.Adapter {
      * Central state change dispatcher for all monitored and internal states.
      *
      * Updates cached state values, refreshes circuit lists, then routes the change
-     * to the appropriate handler: use.list commands, HomeKit targets, shortcut forwarding,
+     * to the appropriate handler: "use.list" commands, HomeKit targets, shortcut forwarding,
      * password inputs, alarm/inside/notification triggers, zone changes, and more.
      *
      * @param id - Full state ID that changed
@@ -930,7 +928,7 @@ class Alarm extends utils.Adapter {
             return;
         }
         if (id === `${this.namespace}.status.activated`) {
-            this.activated = state.val;
+            this.activated = !!state.val;
             this.shortcuts('status.activated', state.val);
             if (this.optPresence) {
                 this.presenceDelayTimer = setTimeout(() => {
@@ -1061,7 +1059,7 @@ class Alarm extends utils.Adapter {
                 return;
             }
             if (await this.checkMyPassword(state.val, 'use.toggle_with_delay_and_password')) {
-                await this.countdown(this.activated ? false : true);
+                await this.countdown(!this.activated);
                 return;
             }
             await this.handleWrongPassword(id);
@@ -1434,7 +1432,7 @@ class Alarm extends utils.Adapter {
     /**
      * Resets all alarm status states to their deactivated/default values.
      * Sets deactivated flag, clears sirens, flash, burglar alarm, and silent alarm states,
-     * and updates HomeKit and use.list to disarmed.
+     * and updates HomeKit and "use.list" to disarmed.
      */
     async disableStates() {
         await this.setStateAsync('status.deactivated', true, true);
@@ -2293,53 +2291,51 @@ class Alarm extends utils.Adapter {
                 this.log.warn(`Wrong list state at shortcuts: ${val}`);
             }
         }
-        if (this.shorts) {
-            this.shorts.forEach((ele, i) => {
-                if (!ele.enabled || ele.select_id !== id) {
-                    return;
-                }
-                const isMatch = this.bools(ele.trigger_val) === setVal && (change || ele.retrigger);
-                if (!isMatch && this.shortcutRepeatIntervals.has(i)) {
+        this.shorts?.forEach((ele, i) => {
+            if (!ele.enabled || ele.select_id !== id) {
+                return;
+            }
+            const isMatch = this.bools(ele.trigger_val) === setVal && (change || ele.retrigger);
+            if (!isMatch && this.shortcutRepeatIntervals.has(i)) {
+                clearInterval(this.shortcutRepeatIntervals.get(i));
+                this.shortcutRepeatIntervals.delete(i);
+                this.log.debug(`Repeat write cancelled for shortcut ${i}: ${ele.name_id}`);
+            }
+            if (isMatch) {
+                // Cancel running repeat interval before restarting
+                if (this.shortcutRepeatIntervals.has(i)) {
                     clearInterval(this.shortcutRepeatIntervals.get(i));
                     this.shortcutRepeatIntervals.delete(i);
-                    this.log.debug(`Repeat write cancelled for shortcut ${i}: ${ele.name_id}`);
                 }
-                if (isMatch) {
-                    // Cancel running repeat interval before restarting
-                    if (this.shortcutRepeatIntervals.has(i)) {
-                        clearInterval(this.shortcutRepeatIntervals.get(i));
-                        this.shortcutRepeatIntervals.delete(i);
-                    }
-                    const writeValue = this.bools(ele.value);
-                    setTimeout(() => {
+                const writeValue = this.bools(ele.value);
+                setTimeout(() => {
+                    this.setForeignState(ele.name_id, writeValue, err => {
+                        if (err) {
+                            this.log.warn(`Cannot set state: ${err}`);
+                        }
+                    });
+                }, i * 250);
+                if (ele.repeat_write > 0) {
+                    let remaining = ele.repeat_write - 1;
+                    const interval = setInterval(() => {
+                        if (remaining <= 0) {
+                            clearInterval(this.shortcutRepeatIntervals.get(i));
+                            this.shortcutRepeatIntervals.delete(i);
+                            this.log.debug(`Repeat write finished for shortcut ${i}: ${ele.name_id}`);
+                            return;
+                        }
+                        remaining--;
                         this.setForeignState(ele.name_id, writeValue, err => {
                             if (err) {
                                 this.log.warn(`Cannot set state: ${err}`);
                             }
                         });
-                    }, i * 250);
-                    if (ele.repeat_write > 0) {
-                        let remaining = ele.repeat_write - 1;
-                        const interval = setInterval(() => {
-                            if (remaining <= 0) {
-                                clearInterval(this.shortcutRepeatIntervals.get(i));
-                                this.shortcutRepeatIntervals.delete(i);
-                                this.log.debug(`Repeat write finished for shortcut ${i}: ${ele.name_id}`);
-                                return;
-                            }
-                            remaining--;
-                            this.setForeignState(ele.name_id, writeValue, err => {
-                                if (err) {
-                                    this.log.warn(`Cannot set state: ${err}`);
-                                }
-                            });
-                        }, 1000);
-                        this.shortcutRepeatIntervals.set(i, interval);
-                        this.log.debug(`Started repeat write for shortcut ${i}: ${ele.name_id}, ${ele.repeat_write}s`);
-                    }
+                    }, 1000);
+                    this.shortcutRepeatIntervals.set(i, interval);
+                    this.log.debug(`Started repeat write for shortcut ${i}: ${ele.name_id}, ${ele.repeat_write}s`);
                 }
-            });
-        }
+            }
+        });
     }
     /**
      * Tracks whether a state value has actually changed compared to the last known value.

@@ -2356,53 +2356,51 @@ class Alarm extends utils.Adapter {
                 this.log.warn(`Wrong list state at shortcuts: ${val}`);
             }
         }
-        if (this.shorts) {
-            this.shorts.forEach((ele, i) => {
-                if (!ele.enabled || ele.select_id !== id) {
-                    return;
-                }
-                const isMatch = this.bools(ele.trigger_val) === setVal && (change || ele.retrigger);
-                if (!isMatch && this.shortcutRepeatIntervals.has(i)) {
+        this.shorts?.forEach((ele, i) => {
+            if (!ele.enabled || ele.select_id !== id) {
+                return;
+            }
+            const isMatch = this.bools(ele.trigger_val) === setVal && (change || ele.retrigger);
+            if (!isMatch && this.shortcutRepeatIntervals.has(i)) {
+                clearInterval(this.shortcutRepeatIntervals.get(i));
+                this.shortcutRepeatIntervals.delete(i);
+                this.log.debug(`Repeat write cancelled for shortcut ${i}: ${ele.name_id}`);
+            }
+            if (isMatch) {
+                // Cancel running repeat interval before restarting
+                if (this.shortcutRepeatIntervals.has(i)) {
                     clearInterval(this.shortcutRepeatIntervals.get(i));
                     this.shortcutRepeatIntervals.delete(i);
-                    this.log.debug(`Repeat write cancelled for shortcut ${i}: ${ele.name_id}`);
                 }
-                if (isMatch) {
-                    // Cancel running repeat interval before restarting
-                    if (this.shortcutRepeatIntervals.has(i)) {
-                        clearInterval(this.shortcutRepeatIntervals.get(i));
-                        this.shortcutRepeatIntervals.delete(i);
-                    }
-                    const writeValue = this.bools(ele.value);
-                    setTimeout(() => {
+                const writeValue = this.bools(ele.value);
+                setTimeout(() => {
+                    this.setForeignState(ele.name_id, writeValue, err => {
+                        if (err) {
+                            this.log.warn(`Cannot set state: ${err}`);
+                        }
+                    });
+                }, i * 250);
+                if (ele.repeat_write > 0) {
+                    let remaining = ele.repeat_write - 1;
+                    const interval = setInterval(() => {
+                        if (remaining <= 0) {
+                            clearInterval(this.shortcutRepeatIntervals.get(i));
+                            this.shortcutRepeatIntervals.delete(i);
+                            this.log.debug(`Repeat write finished for shortcut ${i}: ${ele.name_id}`);
+                            return;
+                        }
+                        remaining--;
                         this.setForeignState(ele.name_id, writeValue, err => {
                             if (err) {
                                 this.log.warn(`Cannot set state: ${err}`);
                             }
                         });
-                    }, i * 250);
-                    if (ele.repeat_write > 0) {
-                        let remaining = ele.repeat_write - 1;
-                        const interval = setInterval(() => {
-                            if (remaining <= 0) {
-                                clearInterval(this.shortcutRepeatIntervals.get(i));
-                                this.shortcutRepeatIntervals.delete(i);
-                                this.log.debug(`Repeat write finished for shortcut ${i}: ${ele.name_id}`);
-                                return;
-                            }
-                            remaining--;
-                            this.setForeignState(ele.name_id, writeValue, err => {
-                                if (err) {
-                                    this.log.warn(`Cannot set state: ${err}`);
-                                }
-                            });
-                        }, 1000);
-                        this.shortcutRepeatIntervals.set(i, interval);
-                        this.log.debug(`Started repeat write for shortcut ${i}: ${ele.name_id}, ${ele.repeat_write}s`);
-                    }
+                    }, 1000);
+                    this.shortcutRepeatIntervals.set(i, interval);
+                    this.log.debug(`Started repeat write for shortcut ${i}: ${ele.name_id}, ${ele.repeat_write}s`);
                 }
-            });
-        }
+            }
+        });
     }
 
     /**
