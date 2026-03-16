@@ -259,6 +259,8 @@ class Alarm extends utils.Adapter {
     private inside: ioBroker.StateValue = false;
     /** Whether a burglary alarm is currently in progress */
     private burgle = false;
+    /** Tracks recent triggers from delayed-mode circuits: circuit ID → timestamp (ms) */
+    private delayedTriggers: Map<string, number> = new Map();
     /** Activation countdown interval (ticks every second during arming delay) */
     private timer: ReturnType<typeof setInterval> | null = null;
     /** Delay timer for speech output to the sayit adapter */
@@ -605,6 +607,7 @@ class Alarm extends utils.Adapter {
      */
     private async disableSystem(): Promise<void> {
         this.burgle = false;
+        this.delayedTriggers.clear();
         this.clearAllTimers();
         this.clearAllPresenceTimer();
         if (this.activated || this.isPanic) {
@@ -1132,14 +1135,22 @@ class Alarm extends utils.Adapter {
             if (!this.zone(id)) {
                 return;
             }
-            await this.burglary(id, state, this.isSilent(id));
+            if (this.isDelayedTrigger(id)) {
+                await this.handleDelayedTrigger(id, state, this.isSilent(id));
+            } else {
+                await this.burglary(id, state, this.isSilent(id));
+            }
             return;
         }
         if (this.insideIds.includes(id) && this.inside && this.isTrue(id, state, 'main')) {
             if (!this.zone(id)) {
                 return;
             }
-            await this.burglary(id, state, this.isSilent(id, true), true);
+            if (this.isDelayedTrigger(id)) {
+                await this.handleDelayedTrigger(id, state, this.isSilent(id, true), true);
+            } else {
+                await this.burglary(id, state, this.isSilent(id, true), true);
+            }
         }
         if (this.notificationIds.includes(id) && this.isTrue(id, state, 'main')) {
             if (!this.zone(id)) {
@@ -1584,6 +1595,63 @@ class Alarm extends utils.Adapter {
             return false;
         }
         return indoor ? circuit.delay_inside : circuit.delay;
+    }
+
+    /**
+     * Checks if a circuit uses delayed trigger mode.
+     *
+     * @param id - The state ID of the circuit
+     * @returns `true` if the circuit is configured as 'delayed'
+     */
+    private isDelayedTrigger(id: string): boolean {
+        const circuit = this.config.circuits.find(obj => matchId(id, obj.name_id));
+        return circuit?.trigger_mode === 'delayed';
+    }
+
+    /**
+     * Handles a delayed trigger event. Records the trigger and checks
+     * if the configured threshold of unique delayed sensors within the
+     * time window has been met.
+     *
+     * @param id - The state ID of the triggered circuit
+     * @param state - The state object
+     * @param silent - Whether to use silent alarm mode
+     * @param indoor - Whether this is a sharp-inside trigger
+     * @returns `true` if the threshold was met and burglary was triggered
+     */
+    private async handleDelayedTrigger(
+        id: string,
+        state: ioBroker.State,
+        silent: boolean,
+        indoor?: boolean,
+    ): Promise<boolean> {
+        const now = Date.now();
+        const windowMs = (this.config.delayed_trigger_time || 2) * 60_000;
+        const threshold = this.config.delayed_trigger_count || 3;
+
+        // Record this trigger
+        this.delayedTriggers.set(id, now);
+
+        // Remove expired entries
+        for (const [triggerId, timestamp] of this.delayedTriggers) {
+            if (now - timestamp > windowMs) {
+                this.delayedTriggers.delete(triggerId);
+            }
+        }
+
+        const count = this.delayedTriggers.size;
+        const name = this.getName(id);
+        this.log.info(
+            `Delayed trigger from "${name}" (${id}): ${count}/${threshold} within ${this.config.delayed_trigger_time || 2} min`,
+        );
+
+        if (count >= threshold) {
+            this.delayedTriggers.clear();
+            await this.burglary(id, state, silent, indoor);
+            return true;
+        }
+
+        return false;
     }
 
     /**

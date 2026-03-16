@@ -146,7 +146,7 @@
     "connectionType": "local",
     "dataSource": "poll",
     "adminUI": {
-      "config": "materialize"
+      "config": "json"
     },
     "dependencies": [
       {
@@ -178,6 +178,8 @@
     "presence": [],
     "presence_activate_delay": 0,
     "presence_activate_delay_select": "sec",
+    "delayed_trigger_count": 3,
+    "delayed_trigger_time": 2,
     "time_activate": 10,
     "time_alarm": 60,
     "time_silent": 0,

@@ -59,6 +59,9 @@ type TimeUnit = 'sec' | 'min';
 /** Presence activation mode: time-based window, sunrise/sunset-based, or light-sensor-based. */
 type PresenceOption = 'time' | 'sunrise' | 'sunset' | 'light';
 
+/** Trigger mode for alarm circuits: direct (immediate) or delayed (requires confirmation from multiple sensors). */
+type TriggerMode = 'direct' | 'delayed';
+
 /**
  * A row in the alarm circuits table.
  * Each circuit represents a monitored sensor/state that participates in the alarm system.
@@ -84,6 +87,8 @@ export interface CircuitRow {
     delay_inside: boolean;
     /** Whether this circuit belongs to the notification (night rest) group. */
     night: boolean;
+    /** Trigger mode: 'direct' triggers alarm immediately, 'delayed' requires multiple sensors within a time window. */
+    trigger_mode: TriggerMode;
 }
 
 /**
@@ -296,6 +301,13 @@ export interface AlarmAdapterConfig {
     alarm_flash: number;
     /** Flash light frequency in seconds during a silent alarm (0 = disabled). */
     silent_flash: number;
+
+    // ── Delayed trigger ────────────────────────────────────────────────────
+
+    /** Number of unique delayed-mode circuits that must trigger within the time window to raise an alarm. */
+    delayed_trigger_count: number;
+    /** Time window (in minutes) for counting delayed-mode circuit triggers. */
+    delayed_trigger_time: number;
 
     // ── Presence ────────────────────────────────────────────────────────────
 
