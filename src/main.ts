@@ -463,7 +463,7 @@ class Alarm extends utils.Adapter {
             this.activated = false;
             await this.setStateAsync('status.activated', false, true);
         } else {
-            this.activated = stateA.val;
+            this.activated = !!stateA.val;
         }
         const stateP = await this.getStateAsync('presence.on_off').catch(e => this.log.warn(e));
         if (!stateP) {
@@ -683,7 +683,7 @@ class Alarm extends utils.Adapter {
                     }
                 }, this.config.silent_flash * 1000);
             }
-            let silentCountdownTime = (this.timeMode(this.config.time_silent_select) * this.config.time_silent) / 1000;
+            let silentCountdownTime = (Alarm.timeMode(this.config.time_silent_select) * this.config.time_silent) / 1000;
             this.silentCountdown = setInterval(async () => {
                 if (silentCountdownTime > 0) {
                     silentCountdownTime--;
@@ -713,7 +713,7 @@ class Alarm extends utils.Adapter {
                     this.clearAllPresenceTimer();
                     await this.escalateBurglary(say, indoor);
                 },
-                this.timeMode(this.config.time_silent_select) * this.config.time_silent,
+                Alarm.timeMode(this.config.time_silent_select) * this.config.time_silent,
             );
         } else if (!silent) {
             this.burgle = true;
@@ -745,7 +745,7 @@ class Alarm extends utils.Adapter {
                         this.sirenTimer = null;
                     }
                 },
-                this.timeMode(this.config.time_alarm_select) * this.config.time_alarm,
+                Alarm.timeMode(this.config.time_alarm_select) * this.config.time_alarm,
             );
         }
     }
@@ -777,7 +777,7 @@ class Alarm extends utils.Adapter {
                 this.sirenInsideTimer = null;
                 await this.setStateAsync('status.siren_inside', false, true);
             },
-            this.timeMode(this.config.time_warning_select) * this.config.time_warning,
+            Alarm.timeMode(this.config.time_warning_select) * this.config.time_warning,
         );
         if (this.config.opt_siren && indoor) {
             await this.alarmSiren();
@@ -844,7 +844,7 @@ class Alarm extends utils.Adapter {
                 this.sirenTimer = null;
                 await this.setStateAsync('status.siren', false, true);
             },
-            this.timeMode(this.config.time_alarm_select) * this.config.time_alarm,
+            Alarm.timeMode(this.config.time_alarm_select) * this.config.time_alarm,
         );
     }
 
@@ -852,7 +852,7 @@ class Alarm extends utils.Adapter {
      * Central state change dispatcher for all monitored and internal states.
      *
      * Updates cached state values, refreshes circuit lists, then routes the change
-     * to the appropriate handler: use.list commands, HomeKit targets, shortcut forwarding,
+     * to the appropriate handler: "use.list" commands, HomeKit targets, shortcut forwarding,
      * password inputs, alarm/inside/notification triggers, zone changes, and more.
      *
      * @param id - Full state ID that changed
@@ -860,40 +860,68 @@ class Alarm extends utils.Adapter {
      */
     private async change(id: string, state: ioBroker.State): Promise<void> {
         let isChanged = false;
-        if (id in this.states && this.states[id] !== state.val) {
-            isChanged = true;
-            this.states[id] = state.val;
-            this.log.debug(`Inside states, state change: ${id} val: ${state.val}`);
+        let processed = false;
+        if (id in this.states) {
+            if (this.states[id] !== state.val) {
+                isChanged = true;
+                this.states[id] = state.val;
+                this.log.debug(`Inside states, state change: ${id} val: ${state.val}`);
+            } else {
+                processed = true;
+            }
         }
-        if (id in this.oneStates && this.oneStates[id] !== state.val) {
-            isChanged = true;
-            this.oneStates[id] = state.val;
-            this.log.debug(`Inside one, state change: ${id} val: ${state.val}`);
+        if (id in this.oneStates) {
+            if (this.oneStates[id] !== state.val) {
+                isChanged = true;
+                this.oneStates[id] = state.val;
+                this.log.debug(`Inside one, state change: ${id} val: ${state.val}`);
+            } else {
+                processed = true;
+            }
         }
-        if (id in this.twoStates && this.twoStates[id] !== state.val) {
-            isChanged = true;
-            this.twoStates[id] = state.val;
-            this.log.debug(`Inside two, state change: ${id} val: ${state.val}`);
+        if (id in this.twoStates) {
+            if (this.twoStates[id] !== state.val) {
+                isChanged = true;
+                this.twoStates[id] = state.val;
+                this.log.debug(`Inside two, state change: ${id} val: ${state.val}`);
+            } else {
+                processed = true;
+            }
         }
-        if (id in this.zoneOneStates && this.zoneOneStates[id] !== state.val) {
-            isChanged = true;
-            this.zoneOneStates[id] = state.val;
-            this.log.debug(`Inside zone_one, state change: ${id} val: ${state.val}`);
+        if (id in this.zoneOneStates) {
+            if (this.zoneOneStates[id] !== state.val) {
+                isChanged = true;
+                this.zoneOneStates[id] = state.val;
+                this.log.debug(`Inside zone_one, state change: ${id} val: ${state.val}`);
+            } else {
+                processed = true;
+            }
         }
-        if (id in this.zoneTwoStates && this.zoneTwoStates[id] !== state.val) {
-            isChanged = true;
-            this.zoneTwoStates[id] = state.val;
-            this.log.debug(`Inside zone_two, state change: ${id} val: ${state.val}`);
+        if (id in this.zoneTwoStates) {
+            if (this.zoneTwoStates[id] !== state.val) {
+                isChanged = true;
+                this.zoneTwoStates[id] = state.val;
+                this.log.debug(`Inside zone_two, state change: ${id} val: ${state.val}`);
+            } else {
+                processed = true;
+            }
         }
-        if (id in this.zoneThreeStates && this.zoneThreeStates[id] !== state.val) {
-            isChanged = true;
-            this.zoneThreeStates[id] = state.val;
-            this.log.debug(`Inside zone_three, state change: ${id} val: ${state.val}`);
+        if (id in this.zoneThreeStates) {
+            if (this.zoneThreeStates[id] !== state.val) {
+                isChanged = true;
+                this.zoneThreeStates[id] = state.val;
+                this.log.debug(`Inside zone_three, state change: ${id} val: ${state.val}`);
+            } else {
+                processed = true;
+            }
         }
-        if (!isChanged) {
+        if (isChanged) {
+            await this.refreshLists();
+        }
+
+        if (processed) {
             return;
         }
-        await this.refreshLists();
 
         if (id === `${this.namespace}.use.list`) {
             switch (state.val) {
@@ -943,7 +971,7 @@ class Alarm extends utils.Adapter {
             return;
         }
         if (id === `${this.namespace}.status.activated`) {
-            this.activated = state.val;
+            this.activated = !!state.val;
             this.shortcuts('status.activated', state.val);
             if (this.optPresence) {
                 this.presenceDelayTimer = setTimeout(
@@ -955,7 +983,7 @@ class Alarm extends utils.Adapter {
                             }, 60000);
                         });
                     },
-                    this.timeMode(this.config.presence_activate_delay_select) * this.config.presence_activate_delay,
+                    Alarm.timeMode(this.config.presence_activate_delay_select) * this.config.presence_activate_delay,
                 );
             }
             return;
@@ -1076,7 +1104,7 @@ class Alarm extends utils.Adapter {
                 return;
             }
             if (await this.checkMyPassword(state.val, 'use.toggle_with_delay_and_password')) {
-                await this.countdown(this.activated ? false : true);
+                await this.countdown(!this.activated);
                 return;
             }
             await this.handleWrongPassword(id);
@@ -1153,7 +1181,7 @@ class Alarm extends utils.Adapter {
                     this.timerNotificationChanges = null;
                     await this.setStateAsync('info.notification_circuit_changes', false, true);
                 },
-                this.timeMode(this.config.time_warning_select) * this.config.time_warning,
+                Alarm.timeMode(this.config.time_warning_select) * this.config.time_warning,
             );
         }
         if (this.oneIds.includes(id) && this.isTrue(id, state, 'one')) {
@@ -1231,10 +1259,13 @@ class Alarm extends utils.Adapter {
      * zones, and all internal `use.*`, `status.*`, `presence.*`, `zone.*`, and HomeKit states.
      */
     private setSubs(): void {
+        const subscribes: string[] = [];
         this.cleanIds.forEach(ele => {
             if (ele) {
                 this.log.debug(`SUBSCRIPTION for: ${ele}`);
-                this.subscribeForeignStates(ele);
+                if (!subscribes.includes(ele)) {
+                    subscribes.push(ele);
+                }
             } else {
                 this.log.debug(`NO SUBSCRIPTION for monitoring circuits`);
             }
@@ -1242,7 +1273,9 @@ class Alarm extends utils.Adapter {
         this.idsShortsInput.forEach(ele => {
             if (ele) {
                 this.log.debug(`SUBSCRIPTION for input shortcuts: ${ele}`);
-                this.subscribeForeignStates(ele);
+                if (!subscribes.includes(ele)) {
+                    subscribes.push(ele);
+                }
             } else {
                 this.log.debug(`NO SUBSCRIPTION for input shortcuts`);
             }
@@ -1250,7 +1283,9 @@ class Alarm extends utils.Adapter {
         this.oneIds.forEach(ele => {
             if (ele) {
                 this.log.debug(`SUBSCRIPTION for other alarm one: ${ele}`);
-                this.subscribeForeignStates(ele);
+                if (!subscribes.includes(ele)) {
+                    subscribes.push(ele);
+                }
             } else {
                 this.log.debug(`NO SUBSCRIPTION for other alarm one`);
             }
@@ -1258,7 +1293,9 @@ class Alarm extends utils.Adapter {
         this.twoIds.forEach(ele => {
             if (ele) {
                 this.log.debug(`SUBSCRIPTION for other alarm two: ${ele}`);
-                this.subscribeForeignStates(ele);
+                if (!subscribes.includes(ele)) {
+                    subscribes.push(ele);
+                }
             } else {
                 this.log.debug(`NO SUBSCRIPTION for other alarm two`);
             }
@@ -1266,7 +1303,9 @@ class Alarm extends utils.Adapter {
         this.zoneOneIds.forEach(ele => {
             if (ele) {
                 this.log.debug(`SUBSCRIPTION for zone_one: ${ele}`);
-                this.subscribeForeignStates(ele);
+                if (!subscribes.includes(ele)) {
+                    subscribes.push(ele);
+                }
             } else {
                 this.log.debug(`NO SUBSCRIPTION for zone_one`);
             }
@@ -1274,7 +1313,9 @@ class Alarm extends utils.Adapter {
         this.zoneTwoIds.forEach(ele => {
             if (ele) {
                 this.log.debug(`SUBSCRIPTION for zone_two: ${ele}`);
-                this.subscribeForeignStates(ele);
+                if (!subscribes.includes(ele)) {
+                    subscribes.push(ele);
+                }
             } else {
                 this.log.debug(`NO SUBSCRIPTION for zone_two`);
             }
@@ -1282,11 +1323,14 @@ class Alarm extends utils.Adapter {
         this.zoneThreeIds.forEach(ele => {
             if (ele) {
                 this.log.debug(`SUBSCRIPTION for zone_three: ${ele}`);
-                this.subscribeForeignStates(ele);
+                if (!subscribes.includes(ele)) {
+                    subscribes.push(ele);
+                }
             } else {
                 this.log.debug(`NO SUBSCRIPTION for zone_three`);
             }
         });
+        this.subscribeForeignStates(subscribes);
         this.subscribeStates('info.log');
         this.subscribeStates('status.siren_inside');
         this.subscribeStates('info.notification_circuit_changes');
@@ -1414,7 +1458,7 @@ class Alarm extends utils.Adapter {
                     this.sirenTimer = null;
                 }
             },
-            this.timeMode(this.config.time_alarm_select) * this.config.time_alarm,
+            Alarm.timeMode(this.config.time_alarm_select) * this.config.time_alarm,
         );
     }
 
@@ -1439,7 +1483,7 @@ class Alarm extends utils.Adapter {
     /**
      * Resets all alarm status states to their deactivated/default values.
      * Sets deactivated flag, clears sirens, flash, burglar alarm, and silent alarm states,
-     * and updates HomeKit and use.list to disarmed.
+     * and updates HomeKit and "use.list" to disarmed.
      */
     private async disableStates(): Promise<void> {
         await this.setStateAsync('status.deactivated', true, true);
@@ -1548,7 +1592,7 @@ class Alarm extends utils.Adapter {
      * @param value - Time unit: `'sec'` for seconds, `'min'` for minutes
      * @returns Milliseconds per unit (1000 for seconds, 60000 for minutes)
      */
-    private timeMode(value: string): number {
+    static timeMode(value: string): number {
         switch (value) {
             case 'sec':
                 return 1000;
@@ -2166,8 +2210,8 @@ class Alarm extends utils.Adapter {
      * @param count - `true` to start the activation countdown, `false` to cancel/disable
      */
     private async countdown(count: boolean): Promise<void> {
-        const time = this.timeMode(this.config.time_activate_select);
-        let counter = (this.config.time_activate * time) / 1000;
+        const timeFactor = Alarm.timeMode(this.config.time_activate_select);
+        let counter = (this.config.time_activate * timeFactor) / 1000;
         if (count && !this.timer && !this.activated) {
             const say = `${this.config.time_activate} ${this.config.text_countdown}`;
             if (this.isAlarm) {
@@ -2432,12 +2476,12 @@ class Alarm extends utils.Adapter {
                         presenceTimeTo: ele.presence_time_to,
                         optionPresence: ele.option_presence,
                         presenceLength: this.getTimeLength(
-                            ele.presence_length * this.timeMode(ele.presence_length_select),
+                            ele.presence_length * Alarm.timeMode(ele.presence_length_select),
                             ele.presence_length_shuffle,
                         ),
                         presenceLengthTimer: null,
                         presenceDelay: this.getTimeLength(
-                            ele.presence_delay * this.timeMode(ele.presence_delay_select),
+                            ele.presence_delay * Alarm.timeMode(ele.presence_delay_select),
                             ele.presence_delay_shuffle,
                         ),
                         presenceDelayTimer: null,
