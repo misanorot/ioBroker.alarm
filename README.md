@@ -36,6 +36,9 @@
 * (@GermanBluefox) Added option repeat writing of state values
 * (@GermanBluefox) Added option to retrigger the alarm if already triggered
 
+### 3.7.7 (2026-03-15)
+* (misanorot) update packages
+
 ### 3.7.6 (2025-10-26)
 * (misanorot) update npm progress
 
@@ -47,9 +50,6 @@
 
 ### 3.7.0 (2025-05-03)
 * (misanorot) node 20 require
-
-### 3.6.8 (2025-01-08)
-* (misanorot) protect password
 
 ## License
 MIT License
