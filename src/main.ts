@@ -760,6 +760,10 @@ class Alarm extends utils.Adapter {
     /**
      * Shared burglary escalation: activates speech, sirens, flash, and alarm states.
      * Called by both silent (after delay) and non-silent burglary paths.
+     *
+     * @param say Text to pronounce
+     * @param indoor Is this is indoor alarm or not
+     * @returns none
      */
     private async escalateBurglary(say: string, indoor?: boolean): Promise<void> {
         let count = 0;
