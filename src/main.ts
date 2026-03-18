@@ -155,6 +155,10 @@ type TableName = 'main' | 'one' | 'two' | 'zone_one' | 'zone_two' | 'zone_three'
  * Matches a pattern against a state ID.
  * If the pattern contains `*`, it is converted to a RegExp (with `.` escaped and `*` → `.*`).
  * Otherwise, performs a direct string comparison.
+ *
+ * @param pattern State ID or pattern with `*` wildcard
+ * @param stateId State ID to compare
+ * @returns if stateId is equal with pattern
  */
 function matchId(pattern: string, stateId: string): boolean {
     if (pattern.includes('*')) {
