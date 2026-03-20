@@ -476,19 +476,23 @@
                             "default": true
                         },
                         {
-                            "type": "text",
-                            "attr": "name",
-                            "title": "Name",
-                            "tooltip": "tt_name"
-                        },
-                        {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
                             "tooltip": "tt_name_id",
+                            "fillOnSelect": "common.name=>name(X)",
                             "filter": {
                                 "type": "state"
                             }
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name",
+                            "tooltip": "tt_name",
+                            "validator": "!!data.name",
+                            "validatorErrorText": "May not be empty",
+                            "validatorNoSaveOnError": true
                         },
                         {
                             "type": "checkbox",
@@ -623,19 +627,23 @@
                             "default": true
                         },
                         {
-                            "type": "text",
-                            "attr": "name",
-                            "title": "Name",
-                            "tooltip": "tt_name"
-                        },
-                        {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
                             "tooltip": "tt_name_id",
+                            "fillOnSelect": "common.name=>name(X)",
                             "filter": {
                                 "type": "state"
                             }
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name",
+                            "tooltip": "tt_name",
+                            "validator": "!!data.name",
+                            "validatorErrorText": "May not be empty",
+                            "validatorNoSaveOnError": true
                         },
                         {
                             "type": "number",
@@ -902,24 +910,96 @@
                             "title": "Name",
                             "tooltip": "tt_short_select",
                             "options": [
-                                { "label": "status.state_list", "value": "status.state_list", "description": "desc_select_state_list" },
-                                { "label": "status.activated", "value": "status.activated", "description": "desc_select_activated" },
-                                { "label": "status.gets_activated", "value": "status.gets_activated", "description": "desc_select_gets_activated" },
-                                { "label": "status.deactivated", "value": "status.deactivated", "description": "desc_select_deactivated" },
-                                { "label": "status.burglar_alarm", "value": "status.burglar_alarm", "description": "desc_select_burglar_alarm" },
-                                { "label": "status.silent_alarm", "value": "status.silent_alarm", "description": "desc_select_silent_alarm" },
-                                { "label": "status.siren", "value": "status.siren", "description": "desc_select_siren" },
-                                { "label": "status.activation_failed", "value": "status.activation_failed", "description": "desc_select_activation_failed" },
-                                { "label": "status.sleep", "value": "status.sleep", "description": "desc_select_sleep" },
-                                { "label": "status.activated_with_warnings", "value": "status.activated_with_warnings", "description": "desc_select_activated_with_warnings" },
-                                { "label": "status.enableable", "value": "status.enableable", "description": "desc_select_enableable" },
-                                { "label": "status.sharp_inside_activated", "value": "status.sharp_inside_activated", "description": "desc_select_sharp_inside_activated" },
-                                { "label": "status.siren_inside", "value": "status.siren_inside", "description": "desc_select_siren_inside" },
-                                { "label": "info.notification_circuit_changes", "value": "info.notification_circuit_changes", "description": "desc_select_notification_changes" },
-                                { "label": "status.alarm_flash", "value": "status.alarm_flash", "description": "desc_select_alarm_flash" },
-                                { "label": "status.silent_flash", "value": "status.silent_flash", "description": "desc_select_silent_flash" },
-                                { "label": "other_alarms.one_changes", "value": "other_alarms.one_changes", "description": "desc_select_one_changes" },
-                                { "label": "other_alarms.two_changes", "value": "other_alarms.two_changes", "description": "desc_select_two_changes" }
+                                {
+                                    "label": "status.state_list",
+                                    "value": "status.state_list",
+                                    "description": "desc_select_state_list"
+                                },
+                                {
+                                    "label": "status.activated",
+                                    "value": "status.activated",
+                                    "description": "desc_select_activated"
+                                },
+                                {
+                                    "label": "status.gets_activated",
+                                    "value": "status.gets_activated",
+                                    "description": "desc_select_gets_activated"
+                                },
+                                {
+                                    "label": "status.deactivated",
+                                    "value": "status.deactivated",
+                                    "description": "desc_select_deactivated"
+                                },
+                                {
+                                    "label": "status.burglar_alarm",
+                                    "value": "status.burglar_alarm",
+                                    "description": "desc_select_burglar_alarm"
+                                },
+                                {
+                                    "label": "status.silent_alarm",
+                                    "value": "status.silent_alarm",
+                                    "description": "desc_select_silent_alarm"
+                                },
+                                {
+                                    "label": "status.siren",
+                                    "value": "status.siren",
+                                    "description": "desc_select_siren"
+                                },
+                                {
+                                    "label": "status.activation_failed",
+                                    "value": "status.activation_failed",
+                                    "description": "desc_select_activation_failed"
+                                },
+                                {
+                                    "label": "status.sleep",
+                                    "value": "status.sleep",
+                                    "description": "desc_select_sleep"
+                                },
+                                {
+                                    "label": "status.activated_with_warnings",
+                                    "value": "status.activated_with_warnings",
+                                    "description": "desc_select_activated_with_warnings"
+                                },
+                                {
+                                    "label": "status.enableable",
+                                    "value": "status.enableable",
+                                    "description": "desc_select_enableable"
+                                },
+                                {
+                                    "label": "status.sharp_inside_activated",
+                                    "value": "status.sharp_inside_activated",
+                                    "description": "desc_select_sharp_inside_activated"
+                                },
+                                {
+                                    "label": "status.siren_inside",
+                                    "value": "status.siren_inside",
+                                    "description": "desc_select_siren_inside"
+                                },
+                                {
+                                    "label": "info.notification_circuit_changes",
+                                    "value": "info.notification_circuit_changes",
+                                    "description": "desc_select_notification_changes"
+                                },
+                                {
+                                    "label": "status.alarm_flash",
+                                    "value": "status.alarm_flash",
+                                    "description": "desc_select_alarm_flash"
+                                },
+                                {
+                                    "label": "status.silent_flash",
+                                    "value": "status.silent_flash",
+                                    "description": "desc_select_silent_flash"
+                                },
+                                {
+                                    "label": "other_alarms.one_changes",
+                                    "value": "other_alarms.one_changes",
+                                    "description": "desc_select_one_changes"
+                                },
+                                {
+                                    "label": "other_alarms.two_changes",
+                                    "value": "other_alarms.two_changes",
+                                    "description": "desc_select_two_changes"
+                                }
                             ],
                             "default": "status.state_list",
                             "noTranslation": true
@@ -931,35 +1011,94 @@
                             "tooltip": "tt_short_trigger",
                             "options": [
                                 { "label": "--", "value": "" },
-                                { "label": "true", "value": "true", "hidden": "data.select_id === 'status.state_list'", "description": "desc_trigger_true" },
-                                { "label": "false", "value": "false", "hidden": "data.select_id === 'status.state_list'", "description": "desc_trigger_false" },
-                                { "label": "deactivated", "value": "deactivated", "hidden": "data.select_id !== 'status.state_list'", "description": "desc_trigger_deactivated" },
-                                { "label": "sharp", "value": "sharp", "hidden": "data.select_id !== 'status.state_list'", "description": "desc_trigger_sharp" },
-                                { "label": "sharp_inside", "value": "sharp_inside", "hidden": "data.select_id !== 'status.state_list'", "description": "desc_trigger_sharp_inside" },
-                                { "label": "burglary", "value": "burglary", "hidden": "data.select_id !== 'status.state_list'", "description": "desc_trigger_burglary" },
-                                { "label": "night_rest", "value": "night_rest", "hidden": "data.select_id !== 'status.state_list'", "description": "desc_trigger_night_rest" },
-                                { "label": "gets_activated", "value": "gets_activated", "hidden": "data.select_id !== 'status.state_list'", "description": "desc_trigger_gets_activated" },
-                                { "label": "activation_failed", "value": "activation_failed", "hidden": "data.select_id !== 'status.state_list'", "description": "desc_trigger_activation_failed" },
-                                { "label": "activation_aborted", "value": "activation_aborted", "hidden": "data.select_id !== 'status.state_list'", "description": "desc_trigger_activation_aborted" },
-                                { "label": "silent_alarm", "value": "silent_alarm", "hidden": "data.select_id !== 'status.state_list'", "description": "desc_trigger_silent_alarm" }
+                                {
+                                    "label": "true",
+                                    "value": "true",
+                                    "hidden": "data.select_id === 'status.state_list'",
+                                    "description": "desc_trigger_true"
+                                },
+                                {
+                                    "label": "false",
+                                    "value": "false",
+                                    "hidden": "data.select_id === 'status.state_list'",
+                                    "description": "desc_trigger_false"
+                                },
+                                {
+                                    "label": "deactivated",
+                                    "value": "deactivated",
+                                    "hidden": "data.select_id !== 'status.state_list'",
+                                    "description": "desc_trigger_deactivated"
+                                },
+                                {
+                                    "label": "sharp",
+                                    "value": "sharp",
+                                    "hidden": "data.select_id !== 'status.state_list'",
+                                    "description": "desc_trigger_sharp"
+                                },
+                                {
+                                    "label": "sharp_inside",
+                                    "value": "sharp_inside",
+                                    "hidden": "data.select_id !== 'status.state_list'",
+                                    "description": "desc_trigger_sharp_inside"
+                                },
+                                {
+                                    "label": "burglary",
+                                    "value": "burglary",
+                                    "hidden": "data.select_id !== 'status.state_list'",
+                                    "description": "desc_trigger_burglary"
+                                },
+                                {
+                                    "label": "night_rest",
+                                    "value": "night_rest",
+                                    "hidden": "data.select_id !== 'status.state_list'",
+                                    "description": "desc_trigger_night_rest"
+                                },
+                                {
+                                    "label": "gets_activated",
+                                    "value": "gets_activated",
+                                    "hidden": "data.select_id !== 'status.state_list'",
+                                    "description": "desc_trigger_gets_activated"
+                                },
+                                {
+                                    "label": "activation_failed",
+                                    "value": "activation_failed",
+                                    "hidden": "data.select_id !== 'status.state_list'",
+                                    "description": "desc_trigger_activation_failed"
+                                },
+                                {
+                                    "label": "activation_aborted",
+                                    "value": "activation_aborted",
+                                    "hidden": "data.select_id !== 'status.state_list'",
+                                    "description": "desc_trigger_activation_aborted"
+                                },
+                                {
+                                    "label": "silent_alarm",
+                                    "value": "silent_alarm",
+                                    "hidden": "data.select_id !== 'status.state_list'",
+                                    "description": "desc_trigger_silent_alarm"
+                                }
                             ],
                             "default": "",
                             "noTranslation": true
-                        },
-                        {
-                            "type": "text",
-                            "attr": "name",
-                            "title": "Name",
-                            "tooltip": "tt_name"
                         },
                         {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
                             "tooltip": "tt_short_name_id",
+                            "fillOnSelect": "common.name=>name(X)",
                             "filter": {
                                 "type": "state"
                             }
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name",
+                            "tooltip": "tt_name",
+                            "validator": "!!data.name",
+                            "validatorErrorText": "May not be empty",
+                            "validatorNoSaveOnError": true
                         },
                         {
                             "type": "text",
@@ -1007,19 +1146,23 @@
                             "default": true
                         },
                         {
-                            "type": "text",
-                            "attr": "name",
-                            "title": "Name",
-                            "tooltip": "tt_name"
-                        },
-                        {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
                             "tooltip": "tt_shortin_name_id",
+                            "fillOnSelect": "common.name=>name(X)",
                             "filter": {
                                 "type": "state"
                             }
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name",
+                            "tooltip": "tt_name",
+                            "validator": "!!data.name",
+                            "validatorErrorText": "May not be empty",
+                            "validatorNoSaveOnError": true
                         },
                         {
                             "type": "select",
@@ -1046,13 +1189,29 @@
                             "title": "Name",
                             "tooltip": "tt_shortin_select",
                             "options": [
-                                { "label": "use.activate_nightrest", "value": "use.activate_nightrest", "description": "desc_use_activate_nightrest" },
-                                { "label": "use.activate_sharp_inside", "value": "use.activate_sharp_inside", "description": "desc_use_activate_sharp_inside" },
+                                {
+                                    "label": "use.activate_nightrest",
+                                    "value": "use.activate_nightrest",
+                                    "description": "desc_use_activate_nightrest"
+                                },
+                                {
+                                    "label": "use.activate_sharp_inside",
+                                    "value": "use.activate_sharp_inside",
+                                    "description": "desc_use_activate_sharp_inside"
+                                },
                                 { "label": "use.disable", "value": "use.disable", "description": "desc_use_disable" },
                                 { "label": "use.enable", "value": "use.enable", "description": "desc_use_enable" },
-                                { "label": "use.enable_with_delay", "value": "use.enable_with_delay", "description": "desc_use_enable_with_delay" },
+                                {
+                                    "label": "use.enable_with_delay",
+                                    "value": "use.enable_with_delay",
+                                    "description": "desc_use_enable_with_delay"
+                                },
                                 { "label": "use.panic", "value": "use.panic", "description": "desc_use_panic" },
-                                { "label": "use.quit_changes", "value": "use.quit_changes", "description": "desc_use_quit_changes" }
+                                {
+                                    "label": "use.quit_changes",
+                                    "value": "use.quit_changes",
+                                    "description": "desc_use_quit_changes"
+                                }
                             ],
                             "default": "use.activate_nightrest",
                             "noTranslation": true
@@ -1223,13 +1382,17 @@
                             "type": "text",
                             "attr": "name",
                             "title": "Name",
-                            "tooltip": "tt_name"
+                            "tooltip": "tt_name",
+                            "validator": "!!data.name",
+                            "validatorErrorText": "May not be empty",
+                            "validatorNoSaveOnError": true
                         },
                         {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
                             "tooltip": "tt_name_id",
+                            "fillOnSelect": "common.name=>name(X)",
                             "filter": {
                                 "type": "state"
                             }
@@ -1268,19 +1431,23 @@
                             "default": true
                         },
                         {
-                            "type": "text",
-                            "attr": "name",
-                            "title": "Name",
-                            "tooltip": "tt_name"
-                        },
-                        {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
                             "tooltip": "tt_name_id",
+                            "fillOnSelect": "common.name=>name(X)",
                             "filter": {
                                 "type": "state"
                             }
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name",
+                            "tooltip": "tt_name",
+                            "validator": "!!data.name",
+                            "validatorErrorText": "May not be empty",
+                            "validatorNoSaveOnError": true
                         },
                         {
                             "type": "checkbox",
@@ -1322,19 +1489,23 @@
                             "default": true
                         },
                         {
-                            "type": "text",
-                            "attr": "name",
-                            "title": "Name",
-                            "tooltip": "tt_name"
-                        },
-                        {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
                             "tooltip": "tt_name_id",
+                            "fillOnSelect": "common.name=>name(X)",
                             "filter": {
                                 "type": "state"
                             }
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name",
+                            "tooltip": "tt_name",
+                            "validator": "!!data.name",
+                            "validatorErrorText": "May not be empty",
+                            "validatorNoSaveOnError": true
                         },
                         {
                             "type": "checkbox",
@@ -1369,13 +1540,17 @@
                             "type": "text",
                             "attr": "name",
                             "title": "Name",
-                            "tooltip": "tt_name"
+                            "tooltip": "tt_name",
+                            "validator": "!!data.name",
+                            "validatorErrorText": "May not be empty",
+                            "validatorNoSaveOnError": true
                         },
                         {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
                             "tooltip": "tt_name_id",
+                            "fillOnSelect": "common.name=>name(X)",
                             "filter": {
                                 "type": "state"
                             }
@@ -1410,19 +1585,23 @@
                             "default": true
                         },
                         {
-                            "type": "text",
-                            "attr": "name",
-                            "title": "Name",
-                            "tooltip": "tt_name"
-                        },
-                        {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
                             "tooltip": "tt_name_id",
+                            "fillOnSelect": "common.name=>name(X)",
                             "filter": {
                                 "type": "state"
                             }
+                        },
+                        {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name",
+                            "tooltip": "tt_name",
+                            "validator": "!!data.name",
+                            "validatorErrorText": "May not be empty",
+                            "validatorNoSaveOnError": true
                         },
                         {
                             "type": "checkbox",
