@@ -29,7 +29,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### 4.0.0 (2026-03-22)
+### **WORK IN PROGRESS**
 * (@GermanBluefox) Adapter was migrated to TypeScript
 * (@GermanBluefox) GUI was migrated to JsonConfig
 * (@GermanBluefox) Refactor code and remove duplicated methods
