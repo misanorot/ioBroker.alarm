@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "alarm",
-    "version": "4.0.0",
+    "version": "3.7.7",
     "news": {
       "3.7.7": {
         "en": "update packages",
