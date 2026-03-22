@@ -1,37 +1,44 @@
 // Root tsconfig to set the settings and power editor support for all TS files
 {
-	// To update the compilation target, install a different version of @tsconfig/node... and reference it here
-	// https://github.com/tsconfig/bases#node-16-tsconfigjson
-	"extends": "@tsconfig/node16/tsconfig.json",
+	"compileOnSave": true,
 	"compilerOptions": {
-		// do not compile anything, this file is just to configure type checking
+		// do not compile anything; this file is just to configure type checking
+		// the compilation is configured in tsconfig.build.json
 		"noEmit": true,
 
-		// check JS files
+		// check JS files, but do not compile them => tsconfig.build.json
 		"allowJs": true,
 		"checkJs": true,
 
-		// This is necessary for the automatic typing of the adapter config
+		"skipLibCheck": true, // Don't report errors in 3rd party definitions
+		"noEmitOnError": true,
+		"outDir": "./build/",
+		"removeComments": false,
+		"module": "Node16",
+		"moduleResolution": "node16",
+		"esModuleInterop": true,
+		// this is necessary for the automatic typing of the adapter config
 		"resolveJsonModule": true,
 
-		// If you want to disable the stricter type checks (not recommended), uncomment the following line
-		// "strict": false,
-		// And enable some of those features for more fine-grained control
+		// Set this to false if you want to disable the very strict rules (not recommended)
+		"strict": false,
+		"noImplicitAny": false,
+		// Or enable some of those features for more fine-grained control
 		// "strictNullChecks": true,
 		// "strictPropertyInitialization": true,
 		// "strictBindCallApply": true,
-		"noImplicitAny": false,
+		// "noImplicitAny": true,
 		// "noUnusedLocals": true,
 		// "noUnusedParameters": true,
-		"useUnknownInCatchVariables": false,
 
+		// Consider targeting es2022 or higher if you only support Node.js 12+
+		"target": "es2022",
+
+		"sourceMap": true,
+		"inlineSourceMap": false,
+		"useUnknownInCatchVariables": false,
+		"types": ["@iobroker/types", "mocha"]
 	},
-	"include": [
-		"**/*.js",
-		"**/*.d.ts"
-	],
-	"exclude": [
-		"node_modules/**",
-		"widgets/**"
-	]
+	"include": ["src/**/*.ts", "test/**/*.ts"],
+	"exclude": ["build/**", "node_modules/**", "src-admin/**"]
 }

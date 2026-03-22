@@ -55,8 +55,37 @@ Hier werden die Einstellungen wie die Zeiten der Nachtruhe, Sirenezeit, Stiller-
 * **8:** Protokollieren -> Bei Anwahl werden diverse Meldungen in der Info Log Liste mitgeschrieben
 * **9:** Zustände ignorieren -> Sollte bei Aktivierung z.B. ein Fenster des Alarmkreises offen sein, wird dies ignoriert und die Anlage wird mit Warnungen aktiviert
 * **10:** Bei Anwahl wird die Aussensirene auch bei auslösen des scharf innen Alarmes ausgelöst
-* **11:** Bei Anwahl wird die Alarmanlage vor Ablauf des Countdowns aktiviert, wenn der entsprechende Kontakt betätigt wird (muss im Tab Überwachung angewählt sein) 
+* **11:** Bei Anwahl wird die Alarmanlage vor Ablauf des Countdowns aktiviert, wenn der entsprechende Kontakt betätigt wird (muss im Tab Überwachung angewählt sein)
 
+#### Verzögertes Auslösen
+
+Sensoren mit dem Auslösemodus "Verzögert" (z.B. Bewegungsmelder, IP-Kameras) lösen nicht sofort einen Alarm aus. Stattdessen wird ein Alarm erst ausgelöst, wenn eine konfigurierbare Anzahl **unterschiedlicher** verzögerter Sensoren innerhalb eines bestimmten Zeitfensters aktiviert wurden. Dies reduziert Fehlalarme durch unzuverlässige Sensoren erheblich und erhält gleichzeitig die Sicherheit.
+
+**Konfiguration:**
+
+* **Anzahl Sensoren:** Wie viele unterschiedliche verzögerte Sensoren auslösen müssen, um einen Alarm auszulösen (Standard: 3)
+* **Zeitfenster (min):** Das Zeitfenster in Minuten, in dem die Sensoren auslösen müssen (Standard: 2)
+
+**Funktionsweise:**
+
+1. Ein verzögerter Sensor löst aus und wird mit einem Zeitstempel gespeichert.
+2. Einträge, die älter als das konfigurierte Zeitfenster sind, werden automatisch entfernt.
+3. Wenn die Anzahl der einzigartigen verzögerten Sensoren, die innerhalb des Zeitfensters ausgelöst haben, den konfigurierten Schwellwert erreicht, wird ein vollständiger Alarm ausgelöst.
+4. Bei Deaktivierung der Alarmanlage werden alle gespeicherten verzögerten Auslösungen gelöscht.
+
+**Beispiel:** Bei Standardeinstellungen (3 Sensoren, 2 Minuten) wird der Alarm ausgelöst, wenn 3 verschiedene Bewegungsmelder innerhalb von 2 Minuten eine Bewegung feststellen. Ein einzelner Bewegungsmelder, der 3-mal auslöst, erfüllt den Schwellwert **nicht** — es müssen 3 **verschiedene** Sensoren sein.
+
+**Anwendungsfälle:**
+
+| Sensortyp | Empfohlener Modus | Begründung |
+|---|---|---|
+| Tür-/Fensterkontakte | Direkt | Sehr zuverlässig, sofortige Reaktion erforderlich |
+| Glasbruchmelder | Direkt | Sehr zuverlässig, sofortige Reaktion erforderlich |
+| Bewegungsmelder | Verzögert | Können Fehlalarme auslösen |
+| Präsenzsensoren | Verzögert | Können Fehlalarme auslösen |
+| IP-Kameras | Verzögert | Können Fehlalarme auslösen |
+
+Jeder Kreis kann im Tab Überwachung individuell konfiguriert werden, indem die Spalte "Auslösemodus" auf "Direkt" oder "Verzögert" gesetzt wird.
 
 ----------------------------------------------------------------------------------------------------------------------
 
@@ -94,6 +123,7 @@ Der Alarmkreis hat die Priorität „hoch" und hat bei aktivierter Anlage (schar
 * **7:** * [Scharf innen Kreis](#scharf-intern-kreis)
 * **8:** Bei Anwahl wird der stille Alarm auch bei scharf innen ausgelöst
 * **9:** * [Meldekreis](#meldekreis)
+* **10:** Auslösemodus — "Direkt" löst den Alarm sofort aus, "Verzögert" erfordert die Bestätigung durch mehrere Sensoren innerhalb eines Zeitfensters (siehe [Verzögertes Auslösen](#verzögertes-auslösen))
 
 
 Die Kreise werden folgendermaßen überwacht:
