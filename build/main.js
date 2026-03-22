@@ -117,6 +117,10 @@ const SAY_PHRASE_OPTIONS = {
  * Matches a pattern against a state ID.
  * If the pattern contains `*`, it is converted to a RegExp (with `.` escaped and `*` → `.*`).
  * Otherwise, performs a direct string comparison.
+ *
+ * @param pattern State ID or pattern with `*` wildcard
+ * @param stateId State ID to compare
+ * @returns if stateId is equal with pattern
  */
 function matchId(pattern, stateId) {
     if (pattern.includes('*')) {
@@ -716,6 +720,10 @@ class Alarm extends utils.Adapter {
     /**
      * Shared burglary escalation: activates speech, sirens, flash, and alarm states.
      * Called by both silent (after delay) and non-silent burglary paths.
+     *
+     * @param say Text to pronounce
+     * @param indoor Is this is indoor alarm or not
+     * @returns none
      */
     async escalateBurglary(say, indoor) {
         let count = 0;
