@@ -9,11 +9,10 @@
                 "_paypal": {
                     "type": "staticImage",
                     "sm": 4,
-                    "md": 1,
+                    "md": 2,
                     "src": "https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif",
                     "href": "https://www.paypal.com/donate?hosted_button_id=BXTYTYW3D5MRU",
                     "label": "PayPal",
-                    "icon": "payment",
                     "button": true,
                     "variant": "outlined",
                     "newLine": true
@@ -21,19 +20,19 @@
                 "_donat": {
                     "type": "staticText",
                     "sm": 8,
-                    "md": 11,
+                    "md": 10,
                     "label": "donat",
                     "style": { "fontSize": "small", "opacity": 0.7 }
                 },
 
                 "_infoGeneral": {
                     "type": "infoBox",
-                    "text": "info_general",
+                    "label": "info_general",
                     "sm": 12
                 },
                 "_alarmHeader": {
                     "type": "header",
-                    "text": "alarm",
+                    "label": "alarm",
                     "size": 3,
                     "newLine": true
                 },
@@ -88,7 +87,7 @@
 
                 "_insideHeader": {
                     "type": "header",
-                    "text": "inside",
+                    "label": "inside",
                     "size": 3,
                     "newLine": true
                 },
@@ -115,7 +114,7 @@
 
                 "_generalHeader": {
                     "type": "header",
-                    "text": "general_settings",
+                    "label": "general_settings",
                     "size": 3,
                     "newLine": true
                 },
@@ -176,13 +175,13 @@
                 },
                 "_delayedTriggerHeader": {
                     "type": "header",
-                    "text": "delayed_trigger_header",
+                    "label": "delayed_trigger_header",
                     "size": 3,
                     "newLine": true
                 },
                 "_delayedTriggerInfo": {
                     "type": "staticText",
-                    "text": "delayed_trigger_info",
+                    "label": "delayed_trigger_info",
                     "sm": 12
                 },
                 "delayed_trigger_count": {
@@ -240,12 +239,12 @@
             "items": {
                 "_infoNotifications": {
                     "type": "infoBox",
-                    "text": "info_notifications",
+                    "label": "info_notifications",
                     "sm": 12
                 },
                 "_infoWords": {
                     "type": "staticText",
-                    "text": "info_words",
+                    "label": "info_words",
                     "sm": 12
                 },
                 "sendTo": {
@@ -282,7 +281,7 @@
 
                 "_alarmNotifHeader": {
                     "type": "header",
-                    "text": "alarm",
+                    "label": "alarm",
                     "size": 3,
                     "newLine": true
                 },
@@ -325,7 +324,7 @@
 
                 "_insideNotifHeader": {
                     "type": "header",
-                    "text": "inside",
+                    "label": "inside",
                     "size": 3,
                     "newLine": true
                 },
@@ -356,7 +355,7 @@
 
                 "_notificationHeader": {
                     "type": "header",
-                    "text": "notification",
+                    "label": "notification",
                     "size": 3,
                     "newLine": true
                 },
@@ -375,7 +374,7 @@
 
                 "_otherNotifHeader": {
                     "type": "header",
-                    "text": "other_alarms",
+                    "label": "other_alarms",
                     "size": 3,
                     "newLine": true
                 },
@@ -394,7 +393,7 @@
 
                 "_zonesNotifHeader": {
                     "type": "header",
-                    "text": "zones",
+                    "label": "zones",
                     "size": 3,
                     "newLine": true
                 },
@@ -419,7 +418,7 @@
 
                 "_notifTextsHeader": {
                     "type": "header",
-                    "text": "notification_texts",
+                    "label": "notification_texts",
                     "size": 3,
                     "newLine": true
                 },
@@ -454,12 +453,12 @@
             "items": {
                 "_infoStates": {
                     "type": "infoBox",
-                    "text": "info_states",
+                    "label": "info_states",
                     "sm": 12
                 },
                 "_circuitsHeader": {
                     "type": "header",
-                    "text": "circuits",
+                    "label": "circuits",
                     "size": 3
                 },
                 "circuits": {
@@ -566,7 +565,7 @@
             "items": {
                 "_infoSayit": {
                     "type": "infoBox",
-                    "text": "info_sayit",
+                    "label": "info_sayit",
                     "sm": 12
                 },
                 "opt_say_names": {
@@ -608,7 +607,7 @@
 
                 "_sayitTableDesc": {
                     "type": "staticText",
-                    "text": "info_sayit_table",
+                    "label": "info_sayit_table",
                     "sm": 12,
                     "newLine": true,
                     "style": { "fontSize": "smaller" }
@@ -762,7 +761,7 @@
 
                 "_phrasesHeader": {
                     "type": "header",
-                    "text": { "en": "Speech phrases", "de": "Sprachausgabe Sätze" },
+                    "label": { "en": "Speech phrases", "de": "Sprachausgabe Sätze" },
                     "size": 4,
                     "newLine": true
                 },
@@ -876,18 +875,18 @@
             "items": {
                 "_infoShortcuts": {
                     "type": "infoBox",
-                    "text": "info_shortcuts",
+                    "label": "info_shortcuts",
                     "sm": 12
                 },
                 "_important": {
                     "type": "staticText",
-                    "text": "important",
+                    "label": "important",
                     "style": { "color": "red" },
                     "sm": 12
                 },
                 "_outputHeader": {
                     "type": "header",
-                    "text": "output",
+                    "label": "output",
                     "size": 4,
                     "newLine": true
                 },
@@ -1128,7 +1127,7 @@
 
                 "_inputHeader": {
                     "type": "header",
-                    "text": "input",
+                    "label": "input",
                     "size": 4,
                     "newLine": true
                 },
@@ -1227,7 +1226,7 @@
             "items": {
                 "_infoWordsTab": {
                     "type": "infoBox",
-                    "text": "info_words_tab",
+                    "label": "info_words_tab",
                     "sm": 12
                 },
                 "log_pass": {
@@ -1349,12 +1348,12 @@
             "items": {
                 "_infoOtherAlarms": {
                     "type": "infoBox",
-                    "text": "info_other_alarms",
+                    "label": "info_other_alarms",
                     "sm": 12
                 },
                 "_please": {
                     "type": "staticText",
-                    "text": "please",
+                    "label": "please",
                     "style": { "color": "red" },
                     "sm": 12
                 },
@@ -1467,12 +1466,12 @@
             "items": {
                 "_infoZones": {
                     "type": "infoBox",
-                    "text": "info_zones",
+                    "label": "info_zones",
                     "sm": 12
                 },
                 "_zoneOneHeader": {
                     "type": "header",
-                    "text": "zone_one",
+                    "label": "zone_one",
                     "size": 4
                 },
                 "zone_one": {
@@ -1519,7 +1518,7 @@
 
                 "_zoneTwoHeader": {
                     "type": "header",
-                    "text": "zone_two",
+                    "label": "zone_two",
                     "size": 4,
                     "newLine": true
                 },
@@ -1567,7 +1566,7 @@
 
                 "_zoneThreeHeader": {
                     "type": "header",
-                    "text": "zone_three",
+                    "label": "zone_three",
                     "size": 4,
                     "newLine": true
                 },
@@ -1621,12 +1620,12 @@
             "items": {
                 "_infoPresence": {
                     "type": "infoBox",
-                    "text": "info_presence",
+                    "label": "info_presence",
                     "sm": 12
                 },
                 "_presenceDesc": {
                     "type": "staticText",
-                    "text": "presence_description",
+                    "label": "presence_description",
                     "sm": 12
                 },
                 "presence_activate_delay": {
