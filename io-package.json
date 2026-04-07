@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "news": {
+      "4.0.1": {
+        "en": "fixed little GUI issue at zone tab",
+        "de": "feste kleine GUI Ausgabe auf Zone Tab",
+        "ru": "фиксированная небольшая проблема GUI на вкладке Zone",
+        "pt": "pequeno problema GUI fixo na aba zona",
+        "nl": "vaste kleine GUI probleem op zone tab",
+        "fr": "correction de petit problème d'interface graphique à l'onglet zone",
+        "it": "numero di GUI fisso nella scheda zona",
+        "es": "pequeño número de GUI fijo en la pestaña de zona",
+        "pl": "stałe małe wydanie GUI w zakładce strefy",
+        "uk": "виправлено проблему GUI у вкладці зони",
+        "zh-cn": "在分区标签上固定小的图形界面发行"
+      },
       "4.0.0": {
         "en": "Adapter was migrated to TypeScript\nGUI was migrated to JsonConfig\nRefactor code and remove duplicated methods\nAdded option repeat writing of state values\nAdded option to retrigger the alarm if already triggered",
         "de": "Adapter wurde auf TypeScript migriert\nGUI wurde nach JsonConfig migriert\nRefactor-Code und entfernen Sie doppelte Methoden\nHinzugefügt Option wiederholen Schreiben von Zustandswerten\nOption hinzugefügt, um den Alarm zurückzurufen, wenn bereits ausgelöst",
@@ -80,19 +93,6 @@
         "pl": "węzeł 20 wymaga",
         "uk": "вузол 20 потрібно",
         "zh-cn": "节点 20 需要"
-      },
-      "3.6.8": {
-        "en": "protect password",
-        "de": "schützen passwort",
-        "ru": "защитить пароль",
-        "pt": "proteger a senha",
-        "nl": "wachtwoord beschermen",
-        "fr": "protéger le mot de passe",
-        "it": "proteggere la password",
-        "es": "proteger contraseña",
-        "pl": "ochrona hasła",
-        "uk": "захист пароля",
-        "zh-cn": "保护密码"
       }
     },
     "titleLang": {
