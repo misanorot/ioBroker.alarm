@@ -9,11 +9,10 @@
                 "_paypal": {
                     "type": "staticImage",
                     "sm": 4,
-                    "md": 1,
+                    "md": 2,
                     "src": "https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif",
                     "href": "https://www.paypal.com/donate?hosted_button_id=BXTYTYW3D5MRU",
                     "label": "PayPal",
-                    "icon": "payment",
                     "button": true,
                     "variant": "outlined",
                     "newLine": true
@@ -21,19 +20,19 @@
                 "_donat": {
                     "type": "staticText",
                     "sm": 8,
-                    "md": 11,
+                    "md": 10,
                     "label": "donat",
                     "style": { "fontSize": "small", "opacity": 0.7 }
                 },
 
                 "_infoGeneral": {
                     "type": "infoBox",
-                    "text": "info_general",
+                    "label": "info_general",
                     "sm": 12
                 },
                 "_alarmHeader": {
                     "type": "header",
-                    "text": "alarm",
+                    "label": "alarm",
                     "size": 3,
                     "newLine": true
                 },
@@ -88,7 +87,7 @@
 
                 "_insideHeader": {
                     "type": "header",
-                    "text": "inside",
+                    "label": "inside",
                     "size": 3,
                     "newLine": true
                 },
@@ -115,7 +114,7 @@
 
                 "_generalHeader": {
                     "type": "header",
-                    "text": "general_settings",
+                    "label": "general_settings",
                     "size": 3,
                     "newLine": true
                 },
@@ -176,13 +175,13 @@
                 },
                 "_delayedTriggerHeader": {
                     "type": "header",
-                    "text": "delayed_trigger_header",
+                    "label": "delayed_trigger_header",
                     "size": 3,
                     "newLine": true
                 },
                 "_delayedTriggerInfo": {
                     "type": "staticText",
-                    "text": "delayed_trigger_info",
+                    "label": "delayed_trigger_info",
                     "sm": 12
                 },
                 "delayed_trigger_count": {
@@ -240,16 +239,16 @@
             "items": {
                 "_infoNotifications": {
                     "type": "infoBox",
-                    "text": "info_notifications",
+                    "label": "info_notifications",
                     "sm": 12
                 },
                 "_infoWords": {
                     "type": "staticText",
-                    "text": "info_words",
+                    "label": "info_words",
                     "sm": 12
                 },
                 "sendTo": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "md": 8,
                     "label": "sendTo_Chips",
@@ -264,7 +263,7 @@
                     "newLine": true
                 },
                 "chatID": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 6,
                     "md": 3,
                     "lg": 2,
@@ -272,7 +271,7 @@
                     "hidden": "!data.opt_telegram"
                 },
                 "user": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 6,
                     "md": 3,
                     "lg": 2,
@@ -282,7 +281,7 @@
 
                 "_alarmNotifHeader": {
                     "type": "header",
-                    "text": "alarm",
+                    "label": "alarm",
                     "size": 3,
                     "newLine": true
                 },
@@ -325,7 +324,7 @@
 
                 "_insideNotifHeader": {
                     "type": "header",
-                    "text": "inside",
+                    "label": "inside",
                     "size": 3,
                     "newLine": true
                 },
@@ -356,7 +355,7 @@
 
                 "_notificationHeader": {
                     "type": "header",
-                    "text": "notification",
+                    "label": "notification",
                     "size": 3,
                     "newLine": true
                 },
@@ -375,7 +374,7 @@
 
                 "_otherNotifHeader": {
                     "type": "header",
-                    "text": "other_alarms",
+                    "label": "other_alarms",
                     "size": 3,
                     "newLine": true
                 },
@@ -394,7 +393,7 @@
 
                 "_zonesNotifHeader": {
                     "type": "header",
-                    "text": "zones",
+                    "label": "zones",
                     "size": 3,
                     "newLine": true
                 },
@@ -419,27 +418,27 @@
 
                 "_notifTextsHeader": {
                     "type": "header",
-                    "text": "notification_texts",
+                    "label": "notification_texts",
                     "size": 3,
                     "newLine": true
                 },
                 "alarm": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "alarm"
                 },
                 "warning": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "inside"
                 },
                 "night": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "notification"
                 },
                 "changes_repeat": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 6,
                     "md": 3,
                     "lg": 2,
@@ -454,12 +453,12 @@
             "items": {
                 "_infoStates": {
                     "type": "infoBox",
-                    "text": "info_states",
+                    "label": "info_states",
                     "sm": 12
                 },
                 "_circuitsHeader": {
                     "type": "header",
-                    "text": "circuits",
+                    "label": "circuits",
                     "size": 3
                 },
                 "circuits": {
@@ -486,7 +485,7 @@
                             }
                         },
                         {
-                            "type": "text",
+                            "type": "label",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -566,7 +565,7 @@
             "items": {
                 "_infoSayit": {
                     "type": "infoBox",
-                    "text": "info_sayit",
+                    "label": "info_sayit",
                     "sm": 12
                 },
                 "opt_say_names": {
@@ -608,7 +607,7 @@
 
                 "_sayitTableDesc": {
                     "type": "staticText",
-                    "text": "info_sayit_table",
+                    "label": "info_sayit_table",
                     "sm": 12,
                     "newLine": true,
                     "style": { "fontSize": "smaller" }
@@ -637,7 +636,7 @@
                             }
                         },
                         {
-                            "type": "text",
+                            "type": "label",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -762,42 +761,42 @@
 
                 "_phrasesHeader": {
                     "type": "header",
-                    "text": { "en": "Speech phrases", "de": "Sprachausgabe Sätze" },
+                    "label": { "en": "Speech phrases", "de": "Sprachausgabe Sätze" },
                     "size": 4,
                     "newLine": true
                 },
                 "text_activated": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "text_activated"
                 },
                 "text_deactivated": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "text_deactivated"
                 },
                 "text_aborted": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "text_aborted"
                 },
                 "text_failed": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "text_failed"
                 },
                 "text_warning": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "text_warning"
                 },
                 "text_changes": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "text_changes"
                 },
                 "text_alarm": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 8,
                     "label": "text_alarm"
                 },
@@ -828,42 +827,42 @@
                     "min": 0
                 },
                 "text_nightrest_beginn": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "text_nightrest_beginn"
                 },
                 "text_nightrest_end": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "text_nightrest_end"
                 },
                 "text_changes_night": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "text_changes_night"
                 },
                 "text_warn_begin": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "text_warn_begin"
                 },
                 "text_warn_end": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "text_warn_end"
                 },
                 "text_countdown": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "text_countdown"
                 },
                 "text_one": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "text_one"
                 },
                 "text_two": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "text_two"
                 }
@@ -876,18 +875,18 @@
             "items": {
                 "_infoShortcuts": {
                     "type": "infoBox",
-                    "text": "info_shortcuts",
+                    "label": "info_shortcuts",
                     "sm": 12
                 },
                 "_important": {
                     "type": "staticText",
-                    "text": "important",
+                    "label": "important",
                     "style": { "color": "red" },
                     "sm": 12
                 },
                 "_outputHeader": {
                     "type": "header",
-                    "text": "output",
+                    "label": "output",
                     "size": 4,
                     "newLine": true
                 },
@@ -1092,7 +1091,7 @@
                             }
                         },
                         {
-                            "type": "text",
+                            "type": "label",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -1101,7 +1100,7 @@
                             "validatorNoSaveOnError": true
                         },
                         {
-                            "type": "text",
+                            "type": "label",
                             "attr": "value",
                             "title": "values",
                             "tooltip": "tt_short_value"
@@ -1128,7 +1127,7 @@
 
                 "_inputHeader": {
                     "type": "header",
-                    "text": "input",
+                    "label": "input",
                     "size": 4,
                     "newLine": true
                 },
@@ -1156,7 +1155,7 @@
                             }
                         },
                         {
-                            "type": "text",
+                            "type": "label",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -1178,7 +1177,7 @@
                             "width": "80px"
                         },
                         {
-                            "type": "text",
+                            "type": "label",
                             "attr": "value",
                             "title": "trigger_values",
                             "tooltip": "tt_shortin_value"
@@ -1227,116 +1226,116 @@
             "items": {
                 "_infoWordsTab": {
                     "type": "infoBox",
-                    "text": "info_words_tab",
+                    "label": "info_words_tab",
                     "sm": 12
                 },
                 "log_pass": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_pass"
                 },
                 "log_act_not": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_act_not"
                 },
                 "log_act": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_act"
                 },
                 "log_act_notice": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_act_notice"
                 },
                 "log_act_warn": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_act_warn"
                 },
                 "log_deact": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_deact"
                 },
                 "log_aborted": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_aborted"
                 },
                 "log_warn_act": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_warn_act"
                 },
                 "log_warn_deact": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_warn_deact"
                 },
                 "log_burgle": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_burgle"
                 },
                 "log_panic": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_panic"
                 },
                 "log_warn": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_warn"
                 },
                 "log_night": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_night"
                 },
                 "log_sleep_b": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_sleep_b"
                 },
                 "log_sleep_e": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_sleep_e"
                 },
                 "log_warn_b_w": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_warn_b_w"
                 },
                 "log_nights_b_w": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_nights_b_w"
                 },
                 "log_one": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_one"
                 },
                 "log_two": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_two"
                 },
                 "log_zone_one": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_zone_one"
                 },
                 "log_zone_two": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_zone_two"
                 },
                 "log_zone_three": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 12,
                     "label": "log_zone_three"
                 }
@@ -1349,17 +1348,17 @@
             "items": {
                 "_infoOtherAlarms": {
                     "type": "infoBox",
-                    "text": "info_other_alarms",
+                    "label": "info_other_alarms",
                     "sm": 12
                 },
                 "_please": {
                     "type": "staticText",
-                    "text": "please",
+                    "label": "please",
                     "style": { "color": "red" },
                     "sm": 12
                 },
                 "one_name": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 6,
                     "md": 4,
                     "label": { "en": "Name type 1", "de": "Name Typ 1" },
@@ -1379,7 +1378,7 @@
                             "default": true
                         },
                         {
-                            "type": "text",
+                            "type": "label",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -1411,7 +1410,7 @@
                     "newLine": true
                 },
                 "two_name": {
-                    "type": "text",
+                    "type": "label",
                     "sm": 6,
                     "md": 4,
                     "label": { "en": "Name type 2", "de": "Name Typ 2" },
@@ -1441,7 +1440,7 @@
                             }
                         },
                         {
-                            "type": "text",
+                            "type": "label",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -1467,12 +1466,12 @@
             "items": {
                 "_infoZones": {
                     "type": "infoBox",
-                    "text": "info_zones",
+                    "label": "info_zones",
                     "sm": 12
                 },
                 "_zoneOneHeader": {
                     "type": "header",
-                    "text": "zone_one",
+                    "label": "zone_one",
                     "size": 4
                 },
                 "zone_one": {
@@ -1499,7 +1498,7 @@
                             }
                         },
                         {
-                            "type": "text",
+                            "type": "label",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -1519,7 +1518,7 @@
 
                 "_zoneTwoHeader": {
                     "type": "header",
-                    "text": "zone_two",
+                    "label": "zone_two",
                     "size": 4,
                     "newLine": true
                 },
@@ -1537,7 +1536,7 @@
                             "default": true
                         },
                         {
-                            "type": "text",
+                            "type": "label",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -1567,7 +1566,7 @@
 
                 "_zoneThreeHeader": {
                     "type": "header",
-                    "text": "zone_three",
+                    "label": "zone_three",
                     "size": 4,
                     "newLine": true
                 },
@@ -1595,7 +1594,7 @@
                             }
                         },
                         {
-                            "type": "text",
+                            "type": "label",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -1621,12 +1620,12 @@
             "items": {
                 "_infoPresence": {
                     "type": "infoBox",
-                    "text": "info_presence",
+                    "label": "info_presence",
                     "sm": 12
                 },
                 "_presenceDesc": {
                     "type": "staticText",
-                    "text": "presence_description",
+                    "label": "presence_description",
                     "sm": 12
                 },
                 "presence_activate_delay": {
