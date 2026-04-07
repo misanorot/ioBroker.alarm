@@ -248,7 +248,7 @@
                     "sm": 12
                 },
                 "sendTo": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "md": 8,
                     "label": "sendTo_Chips",
@@ -263,7 +263,7 @@
                     "newLine": true
                 },
                 "chatID": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 6,
                     "md": 3,
                     "lg": 2,
@@ -271,7 +271,7 @@
                     "hidden": "!data.opt_telegram"
                 },
                 "user": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 6,
                     "md": 3,
                     "lg": 2,
@@ -423,22 +423,22 @@
                     "newLine": true
                 },
                 "alarm": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "alarm"
                 },
                 "warning": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "inside"
                 },
                 "night": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "notification"
                 },
                 "changes_repeat": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 6,
                     "md": 3,
                     "lg": 2,
@@ -485,7 +485,7 @@
                             }
                         },
                         {
-                            "type": "label",
+                            "type": "text",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -636,7 +636,7 @@
                             }
                         },
                         {
-                            "type": "label",
+                            "type": "text",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -766,37 +766,37 @@
                     "newLine": true
                 },
                 "text_activated": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "text_activated"
                 },
                 "text_deactivated": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "text_deactivated"
                 },
                 "text_aborted": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "text_aborted"
                 },
                 "text_failed": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "text_failed"
                 },
                 "text_warning": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "text_warning"
                 },
                 "text_changes": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "text_changes"
                 },
                 "text_alarm": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 8,
                     "label": "text_alarm"
                 },
@@ -827,42 +827,42 @@
                     "min": 0
                 },
                 "text_nightrest_beginn": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "text_nightrest_beginn"
                 },
                 "text_nightrest_end": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "text_nightrest_end"
                 },
                 "text_changes_night": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "text_changes_night"
                 },
                 "text_warn_begin": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "text_warn_begin"
                 },
                 "text_warn_end": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "text_warn_end"
                 },
                 "text_countdown": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "text_countdown"
                 },
                 "text_one": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "text_one"
                 },
                 "text_two": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "text_two"
                 }
@@ -1091,7 +1091,7 @@
                             }
                         },
                         {
-                            "type": "label",
+                            "type": "text",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -1100,7 +1100,7 @@
                             "validatorNoSaveOnError": true
                         },
                         {
-                            "type": "label",
+                            "type": "text",
                             "attr": "value",
                             "title": "values",
                             "tooltip": "tt_short_value"
@@ -1155,7 +1155,7 @@
                             }
                         },
                         {
-                            "type": "label",
+                            "type": "text",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -1177,7 +1177,7 @@
                             "width": "80px"
                         },
                         {
-                            "type": "label",
+                            "type": "text",
                             "attr": "value",
                             "title": "trigger_values",
                             "tooltip": "tt_shortin_value"
@@ -1230,112 +1230,112 @@
                     "sm": 12
                 },
                 "log_pass": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_pass"
                 },
                 "log_act_not": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_act_not"
                 },
                 "log_act": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_act"
                 },
                 "log_act_notice": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_act_notice"
                 },
                 "log_act_warn": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_act_warn"
                 },
                 "log_deact": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_deact"
                 },
                 "log_aborted": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_aborted"
                 },
                 "log_warn_act": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_warn_act"
                 },
                 "log_warn_deact": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_warn_deact"
                 },
                 "log_burgle": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_burgle"
                 },
                 "log_panic": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_panic"
                 },
                 "log_warn": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_warn"
                 },
                 "log_night": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_night"
                 },
                 "log_sleep_b": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_sleep_b"
                 },
                 "log_sleep_e": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_sleep_e"
                 },
                 "log_warn_b_w": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_warn_b_w"
                 },
                 "log_nights_b_w": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_nights_b_w"
                 },
                 "log_one": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_one"
                 },
                 "log_two": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_two"
                 },
                 "log_zone_one": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_zone_one"
                 },
                 "log_zone_two": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_zone_two"
                 },
                 "log_zone_three": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 12,
                     "label": "log_zone_three"
                 }
@@ -1358,7 +1358,7 @@
                     "sm": 12
                 },
                 "one_name": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 6,
                     "md": 4,
                     "label": { "en": "Name type 1", "de": "Name Typ 1" },
@@ -1378,7 +1378,7 @@
                             "default": true
                         },
                         {
-                            "type": "label",
+                            "type": "text",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -1410,7 +1410,7 @@
                     "newLine": true
                 },
                 "two_name": {
-                    "type": "label",
+                    "type": "text",
                     "sm": 6,
                     "md": 4,
                     "label": { "en": "Name type 2", "de": "Name Typ 2" },
@@ -1440,7 +1440,7 @@
                             }
                         },
                         {
-                            "type": "label",
+                            "type": "text",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -1498,7 +1498,7 @@
                             }
                         },
                         {
-                            "type": "label",
+                            "type": "text",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -1536,7 +1536,7 @@
                             "default": true
                         },
                         {
-                            "type": "label",
+                            "type": "text",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
@@ -1594,7 +1594,7 @@
                             }
                         },
                         {
-                            "type": "label",
+                            "type": "text",
                             "attr": "name",
                             "title": "Name",
                             "tooltip": "tt_name",
