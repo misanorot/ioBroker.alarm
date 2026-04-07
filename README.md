@@ -29,6 +29,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (@GermanBluefox) fixed #368
+
 ### 4.0.1 (2026-04-07)
 * (misanorot) fixed little GUI issue at zone tab
 
