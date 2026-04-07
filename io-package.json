@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "4.0.1",
+    "version": "4.0.2",
     "news": {
+      "4.0.2": {
+        "en": "fixed #368",
+        "de": "#368",
+        "ru": "фиксированный #368",
+        "pt": "fixo # 368",
+        "nl": "vast #368",
+        "fr": "fixe n° 368",
+        "it": "fisso #368",
+        "es": "fijo #368",
+        "pl": "stałe # 368",
+        "uk": "фіксована #368",
+        "zh-cn": "368号固定"
+      },
       "4.0.1": {
         "en": "fixed little GUI issue at zone tab",
         "de": "feste kleine GUI Ausgabe auf Zone Tab",
@@ -80,19 +93,6 @@
         "pl": "aktualizacja pakietów",
         "uk": "оновлення пакетів",
         "zh-cn": "更新软件包"
-      },
-      "3.7.0": {
-        "en": "node 20 require",
-        "de": "knoten 20 erfordern",
-        "ru": "узел 20 требует",
-        "pt": "node 20 exigir",
-        "nl": "node 20 nodig",
-        "fr": "noeud 20 nécessaire",
-        "it": "nodo 20 richiedono",
-        "es": "nodo 20",
-        "pl": "węzeł 20 wymaga",
-        "uk": "вузол 20 потрібно",
-        "zh-cn": "节点 20 需要"
       }
     },
     "titleLang": {

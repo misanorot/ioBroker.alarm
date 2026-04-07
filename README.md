@@ -29,7 +29,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 4.0.2 (2026-04-07)
 * (@GermanBluefox) fixed #368
 
 ### 4.0.1 (2026-04-07)
@@ -47,9 +47,6 @@
 
 ### 3.7.6 (2025-10-26)
 * (misanorot) update npm progress
-
-### 3.7.5 (2025-10-12)
-* (misanorot) update packages
 
 ## License
 MIT License

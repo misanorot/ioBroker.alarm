@@ -138,6 +138,9 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 3.7.5 (2025-10-12)
+* (misanorot) update packages
+
 ## 3.7.4 (2025-08-17)
 * (misanorot) update packages
 
