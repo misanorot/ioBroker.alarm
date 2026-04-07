@@ -29,6 +29,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (misanorot) fixed little GUI issue at zone tab 
+
 ### 4.0.0 (2026-03-22)
 * (@GermanBluefox) Adapter was migrated to TypeScript
 * (@GermanBluefox) GUI was migrated to JsonConfig

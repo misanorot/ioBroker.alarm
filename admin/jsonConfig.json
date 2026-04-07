@@ -1537,15 +1537,6 @@
                             "default": true
                         },
                         {
-                            "type": "text",
-                            "attr": "name",
-                            "title": "Name",
-                            "tooltip": "tt_name",
-                            "validator": "!!data.name",
-                            "validatorErrorText": "May not be empty",
-                            "validatorNoSaveOnError": true
-                        },
-                        {
                             "type": "objectId",
                             "attr": "name_id",
                             "title": "Object-ID",
@@ -1554,6 +1545,15 @@
                             "filter": {
                                 "type": "state"
                             }
+                        },
+                                                {
+                            "type": "text",
+                            "attr": "name",
+                            "title": "Name",
+                            "tooltip": "tt_name",
+                            "validator": "!!data.name",
+                            "validatorErrorText": "May not be empty",
+                            "validatorNoSaveOnError": true
                         },
                         {
                             "type": "checkbox",
