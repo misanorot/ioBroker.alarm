@@ -14,7 +14,6 @@
                     "href": "https://www.paypal.com/donate?hosted_button_id=BXTYTYW3D5MRU",
                     "label": "PayPal",
                     "button": true,
-                    "variant": "outlined",
                     "newLine": true
                 },
                 "_donat": {
@@ -32,7 +31,7 @@
                 },
                 "_alarmHeader": {
                     "type": "header",
-                    "label": "alarm",
+                    "text": "alarm",
                     "size": 3,
                     "newLine": true
                 },
@@ -87,7 +86,7 @@
 
                 "_insideHeader": {
                     "type": "header",
-                    "label": "inside",
+                    "text": "inside",
                     "size": 3,
                     "newLine": true
                 },
@@ -114,7 +113,7 @@
 
                 "_generalHeader": {
                     "type": "header",
-                    "label": "general_settings",
+                    "text": "general_settings",
                     "size": 3,
                     "newLine": true
                 },
@@ -175,7 +174,7 @@
                 },
                 "_delayedTriggerHeader": {
                     "type": "header",
-                    "label": "delayed_trigger_header",
+                    "text": "delayed_trigger_header",
                     "size": 3,
                     "newLine": true
                 },
@@ -281,7 +280,7 @@
 
                 "_alarmNotifHeader": {
                     "type": "header",
-                    "label": "alarm",
+                    "text": "alarm",
                     "size": 3,
                     "newLine": true
                 },
@@ -324,7 +323,7 @@
 
                 "_insideNotifHeader": {
                     "type": "header",
-                    "label": "inside",
+                    "text": "inside",
                     "size": 3,
                     "newLine": true
                 },
@@ -355,7 +354,7 @@
 
                 "_notificationHeader": {
                     "type": "header",
-                    "label": "notification",
+                    "text": "notification",
                     "size": 3,
                     "newLine": true
                 },
@@ -374,7 +373,7 @@
 
                 "_otherNotifHeader": {
                     "type": "header",
-                    "label": "other_alarms",
+                    "text": "other_alarms",
                     "size": 3,
                     "newLine": true
                 },
@@ -393,7 +392,7 @@
 
                 "_zonesNotifHeader": {
                     "type": "header",
-                    "label": "zones",
+                    "text": "zones",
                     "size": 3,
                     "newLine": true
                 },
@@ -418,7 +417,7 @@
 
                 "_notifTextsHeader": {
                     "type": "header",
-                    "label": "notification_texts",
+                    "text": "notification_texts",
                     "size": 3,
                     "newLine": true
                 },
@@ -458,7 +457,7 @@
                 },
                 "_circuitsHeader": {
                     "type": "header",
-                    "label": "circuits",
+                    "text": "circuits",
                     "size": 3
                 },
                 "circuits": {
@@ -480,9 +479,7 @@
                             "title": "Object-ID",
                             "tooltip": "tt_name_id",
                             "fillOnSelect": "common.name=>name(X)",
-                            "filter": {
-                                "type": "state"
-                            }
+                            "filter": true
                         },
                         {
                             "type": "text",
@@ -631,9 +628,7 @@
                             "title": "Object-ID",
                             "tooltip": "tt_name_id",
                             "fillOnSelect": "common.name=>name(X)",
-                            "filter": {
-                                "type": "state"
-                            }
+                            "filter": true
                         },
                         {
                             "type": "text",
@@ -761,7 +756,7 @@
 
                 "_phrasesHeader": {
                     "type": "header",
-                    "label": { "en": "Speech phrases", "de": "Sprachausgabe Sätze" },
+                    "text": "Speech phrases",
                     "size": 4,
                     "newLine": true
                 },
@@ -886,7 +881,7 @@
                 },
                 "_outputHeader": {
                     "type": "header",
-                    "label": "output",
+                    "text": "output",
                     "size": 4,
                     "newLine": true
                 },
@@ -1086,9 +1081,7 @@
                             "title": "Object-ID",
                             "tooltip": "tt_short_name_id",
                             "fillOnSelect": "common.name=>name(X)",
-                            "filter": {
-                                "type": "state"
-                            }
+                            "filter": true
                         },
                         {
                             "type": "text",
@@ -1150,9 +1143,7 @@
                             "title": "Object-ID",
                             "tooltip": "tt_shortin_name_id",
                             "fillOnSelect": "common.name=>name(X)",
-                            "filter": {
-                                "type": "state"
-                            }
+                            "filter": true
                         },
                         {
                             "type": "text",
@@ -1361,7 +1352,7 @@
                     "type": "text",
                     "sm": 6,
                     "md": 4,
-                    "label": { "en": "Name type 1", "de": "Name Typ 1" },
+                    "label": "Name type 1",
                     "newLine": true
                 },
                 "one": {
@@ -1392,9 +1383,7 @@
                             "title": "Object-ID",
                             "tooltip": "tt_name_id",
                             "fillOnSelect": "common.name=>name(X)",
-                            "filter": {
-                                "type": "state"
-                            }
+                            "filter": true
                         },
                         {
                             "type": "checkbox",
@@ -1413,7 +1402,7 @@
                     "type": "text",
                     "sm": 6,
                     "md": 4,
-                    "label": { "en": "Name type 2", "de": "Name Typ 2" },
+                    "label": "Name type 2",
                     "newLine": true
                 },
                 "two": {
@@ -1435,9 +1424,7 @@
                             "title": "Object-ID",
                             "tooltip": "tt_name_id",
                             "fillOnSelect": "common.name=>name(X)",
-                            "filter": {
-                                "type": "state"
-                            }
+                            "filter": true
                         },
                         {
                             "type": "text",
@@ -1493,9 +1480,7 @@
                             "title": "Object-ID",
                             "tooltip": "tt_name_id",
                             "fillOnSelect": "common.name=>name(X)",
-                            "filter": {
-                                "type": "state"
-                            }
+                            "filter": true
                         },
                         {
                             "type": "text",
@@ -1518,7 +1503,7 @@
 
                 "_zoneTwoHeader": {
                     "type": "header",
-                    "label": "zone_two",
+                    "text": "zone_two",
                     "size": 4,
                     "newLine": true
                 },
@@ -1541,9 +1526,7 @@
                             "title": "Object-ID",
                             "tooltip": "tt_name_id",
                             "fillOnSelect": "common.name=>name(X)",
-                            "filter": {
-                                "type": "state"
-                            }
+                            "filter": true
                         },
                                                 {
                             "type": "text",
@@ -1566,7 +1549,7 @@
 
                 "_zoneThreeHeader": {
                     "type": "header",
-                    "label": "zone_three",
+                    "text": "zone_three",
                     "size": 4,
                     "newLine": true
                 },
@@ -1589,9 +1572,7 @@
                             "title": "Object-ID",
                             "tooltip": "tt_name_id",
                             "fillOnSelect": "common.name=>name(X)",
-                            "filter": {
-                                "type": "state"
-                            }
+                            "filter": true
                         },
                         {
                             "type": "text",
@@ -1653,7 +1634,6 @@
                     "url": "custom/customComponents.js",
                     "name": "ConfigCustomAlarmSet/Components/PresenceTableComponent",
                     "bundlerType": "module",
-                    "component": "",
                     "sm": 12,
                     "newLine": true,
                     "i18n": true
