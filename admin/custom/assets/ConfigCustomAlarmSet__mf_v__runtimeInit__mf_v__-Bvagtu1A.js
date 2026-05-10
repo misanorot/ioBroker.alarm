@@ -1,1 +1,0 @@
-const _="__mf_init____mf__virtual/ConfigCustomAlarmSet__mf_v__runtimeInit__mf_v__.js__";if(!globalThis[_]){let i,t;const e=new Promise((m,o)=>{i=m,t=o});globalThis[_]={initPromise:e,initResolve:i,initReject:t}}var l=globalThis[_];export{l as C};
