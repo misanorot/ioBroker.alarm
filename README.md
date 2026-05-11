@@ -30,6 +30,7 @@
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
+* (@misanorot) fixed checker issues
 - (copilot) Adapter requires node.js >= 22 now
 * (@GermanBluefox) fixed json config issues
 * (@GermanBluefox) packages were updated
