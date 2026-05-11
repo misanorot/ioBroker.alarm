@@ -29,7 +29,7 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 4.0.3 (2026-05-11)
 * (@misanorot) fixed checker issues
 - (copilot) Adapter requires node.js >= 22 now
 * (@GermanBluefox) fixed json config issues
@@ -50,11 +50,6 @@
 
 ### 3.7.7 (2026-03-15)
 * (misanorot) update packages
-
-### 3.7.6 (2025-10-26)
-* (misanorot) update npm progress
-
-[Older changelogs can be found there](CHANGELOG_OLD.md)
 
 ## License
 MIT License

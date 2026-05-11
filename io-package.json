@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "4.0.2",
+    "version": "4.0.3",
     "news": {
+      "4.0.3": {
+        "en": "fixed checker issues\nAdapter requires node.js >= 22 now\nfixed json config issues\npackages were updated",
+        "de": "fix check-probleme\nAdapter benötigt node.js >= 22 jetzt\nfeste json config probleme\npakete wurden aktualisiert",
+        "ru": "фиксированные проблемы с проверкой\nАдаптер требует node.js >= 22 сейчас\nпроблемы с конфигурацией json\nпакеты были обновлены",
+        "pt": "problemas com o verificador fixo\nAdaptador requer nod.js >= 22 agora\nproblemas de configuração do json corrigidos\nos pacotes foram atualizados",
+        "nl": "vaste controleproblemen\nVoor de adapter zijn node.js < 22 nu nodig\nvaste json configuratie problemen\npakketten werden bijgewerkt",
+        "fr": "problèmes de vérification corrigés\nAdaptateur nécessite node.js >= 22 maintenant\nproblèmes de configuration de json corrigés\nles paquets ont été mis à jour",
+        "it": "problemi di scacchi fissi\nAdattatore richiede node.js >= 22 ora\nproblemi di configurazione di json fissi\ni pacchetti sono stati aggiornati",
+        "es": "cuestiones de comprobación fija\nAdaptador requiere node.js ю= 22 ahora\nfija json config problemas\nse actualizaron los paquetes",
+        "pl": "stałe problemy z kontrolerem\nAdapter wymaga node.js > = 22\nstałe problemy konfiguracyjne json\nopakowania zostały zaktualizowane",
+        "uk": "виправлені питання перевірки\nАдаптер вимагає node.js >= 22 тепер\nвиправлені проблеми json config\nбуло оновлено",
+        "zh-cn": "固定检查器问题\n适配器需要节点.js 现在22\n固定 json 配置问题\n软件包已更新"
+      },
       "4.0.2": {
         "en": "fixed #368",
         "de": "#368",
@@ -69,19 +82,6 @@
         "zh-cn": "更新 npm 进度"
       },
       "3.7.5": {
-        "en": "update packages",
-        "de": "update-pakete",
-        "ru": "обновление пакетов",
-        "pt": "atualizar pacotes",
-        "nl": "pakketten bijwerken",
-        "fr": "mettre à jour les paquets",
-        "it": "pacchetti di aggiornamento",
-        "es": "actualizar paquetes",
-        "pl": "aktualizacja pakietów",
-        "uk": "оновлення пакетів",
-        "zh-cn": "更新软件包"
-      },
-      "3.7.4": {
         "en": "update packages",
         "de": "update-pakete",
         "ru": "обновление пакетов",
