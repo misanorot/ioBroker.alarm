@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "4.0.3",
+    "version": "4.0.4",
     "news": {
+      "4.0.4": {
+        "en": "fixed little JSON Ui issues",
+        "de": "kleine JSON Ui Probleme",
+        "ru": "небольшие проблемы JSON Ui",
+        "pt": "fixa pequenos problemas JSON Ui",
+        "nl": "vaste kleine JSON Ui problemen",
+        "fr": "correction des petits problèmes JSON Ui",
+        "it": "piccolo JSON Ui problemi",
+        "es": "pequeños problemas JSON Ui",
+        "pl": "naprawione małe problemy JSON Ui",
+        "uk": "виправлено мало питань JSON Ui",
+        "zh-cn": "固定的小JSON Ui问题"
+      },
       "4.0.3": {
         "en": "fixed checker issues\nAdapter requires node.js >= 22 now\nfixed json config issues\npackages were updated",
         "de": "fix check-probleme\nAdapter benötigt node.js >= 22 jetzt\nfeste json config probleme\npakete wurden aktualisiert",
@@ -80,19 +93,6 @@
         "pl": "aktualizacja postępu npm",
         "uk": "оновлення npm прогрес",
         "zh-cn": "更新 npm 进度"
-      },
-      "3.7.5": {
-        "en": "update packages",
-        "de": "update-pakete",
-        "ru": "обновление пакетов",
-        "pt": "atualizar pacotes",
-        "nl": "pakketten bijwerken",
-        "fr": "mettre à jour les paquets",
-        "it": "pacchetti di aggiornamento",
-        "es": "actualizar paquetes",
-        "pl": "aktualizacja pakietów",
-        "uk": "оновлення пакетів",
-        "zh-cn": "更新软件包"
       }
     },
     "titleLang": {

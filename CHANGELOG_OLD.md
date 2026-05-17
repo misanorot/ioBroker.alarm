@@ -138,6 +138,9 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 3.7.7 (2026-03-15)
+* (misanorot) update packages
+
 ## 3.7.6 (2025-10-26)
 * (misanorot) update npm progress
 
