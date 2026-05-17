@@ -1,4 +1,26 @@
-{"i18n": true,"type": "tabs","items": {"general": {"type": "panel","label": "general","items": {"_paypal": {"type": "staticImage","xs": 12,"sm": 4,"md": 2,"lg": 2,"xl": 2,"src": "https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif","href": "https://www.paypal.com/donate?hosted_button_id=BXTYTYW3D5MRU","newLine": true},"_donat": {"type": "staticText","xs": 12,"sm": 12,"md": 10,"lg": 10,"xl": 10,"text": "donat","style": { "fontSize": "small", "opacity": 0.7 }},            "_infoGeneral": {
+{"i18n": true,"type": "tabs","items": {"general": {"type": "panel","label": "general","items": {
+            "_paypal": {
+                "type": "staticImage",
+                "xs": 1,
+                "sm": 1,
+                "md": 1,
+                "lg": 1,
+                "xl": 1,
+                "src": "https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif",
+                "href": "https://www.paypal.com/donate?hosted_button_id=BXTYTYW3D5MRU",
+                "newLine": true
+            },
+            "_donat": {
+                "type": "staticText",
+                "xs": 12,
+                "sm": 12,
+                "md": 10,
+                "lg": 10,
+                "xl": 10,
+                "text": "donat",
+                "style": { "fontSize": "small", "opacity": 0.7 }
+            },            
+            "_infoGeneral": {
                 "type": "infoBox",
                 "text": "info_general",
                 "xs": 12,

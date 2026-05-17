@@ -29,6 +29,9 @@
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (@misanorot) fixed little JSON Ui issues
+
 ### 4.0.3 (2026-05-11)
 * (@misanorot) fixed checker issues
 - (copilot) Adapter requires node.js >= 22 now
