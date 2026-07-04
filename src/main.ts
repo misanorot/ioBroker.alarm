@@ -139,8 +139,8 @@ type PresenceTimer = {
     presenceTimeFrom: string;
     presenceTimeTo: string;
     presenceLength: number;
-    presenceLengthTimer: null | NodeJS.Timeout;
-    presenceDelayTimer: null | NodeJS.Timeout;
+    presenceLengthTimer: null | ioBroker.Timeout;
+    presenceDelayTimer: null | ioBroker.Timeout;
     presenceDelay: number;
     presenceValueON: number | boolean | '1' | '0';
     presenceValueOff: number | boolean | '1' | '0';
@@ -266,27 +266,27 @@ class Alarm extends utils.Adapter {
     /** Tracks recent triggers from delayed-mode circuits: circuit ID → timestamp (ms) */
     private delayedTriggers: Map<string, number> = new Map();
     /** Activation countdown interval (ticks every second during arming delay) */
-    private timer: ReturnType<typeof setInterval> | null = null;
+    private timer: ioBroker.Interval | null = null;
     /** Delay timer for speech output to the sayit adapter */
-    private speechTimeout: ReturnType<typeof setTimeout> | null = null;
+    private speechTimeout: ioBroker.Timeout | null = null;
     /** Timeout for the silent alarm duration before auto-reset */
-    private silentTimer: ReturnType<typeof setTimeout> | null = null;
+    private silentTimer: ioBroker.Timeout | null = null;
     /** Timeout for the inside siren duration before auto-reset */
-    private sirenInsideTimer: ReturnType<typeof setTimeout> | null = null;
+    private sirenInsideTimer: ioBroker.Timeout | null = null;
     /** Timeout to auto-clear the notification_circuit_changes state */
-    private timerNotificationChanges: ReturnType<typeof setTimeout> | null = null;
+    private timerNotificationChanges: ioBroker.Timeout | null = null;
     /** Timeout for the main siren duration before auto-reset */
-    private sirenTimer: ReturnType<typeof setTimeout> | null = null;
+    private sirenTimer: ioBroker.Timeout | null = null;
     /** Interval for blinking the silent alarm flash indicator */
-    private silentInterval: ReturnType<typeof setInterval> | null = null;
+    private silentInterval: ioBroker.Interval | null = null;
     /** Interval for counting down the silent alarm delay */
-    private silentCountdown: ReturnType<typeof setInterval> | null = null;
+    private silentCountdown: ioBroker.Interval | null = null;
     /** Interval for blinking the alarm siren/flash indicator */
-    private alarmInterval: ReturnType<typeof setInterval> | null = null;
+    private alarmInterval: ioBroker.Interval | null = null;
     /** Interval for repeating alarm speech announcements */
-    private textAlarmInterval: ReturnType<typeof setInterval> | null = null;
+    private textAlarmInterval: ioBroker.Interval | null = null;
     /** Interval for repeating notification-change speech announcements */
-    private textChangesInterval: ReturnType<typeof setInterval> | null = null;
+    private textChangesInterval: ioBroker.Interval | null = null;
     /** Whether to write alarm events to the ioBroker log */
     private optLog: boolean;
     /** Configured input shortcut rows for external alarm control triggers */
@@ -300,13 +300,13 @@ class Alarm extends utils.Adapter {
     /** Scheduled job that resets the daily log at midnight */
     private scheduleReset!: schedule.Job;
     /** Delay timer before starting presence simulation after activation */
-    private presenceDelayTimer: ReturnType<typeof setTimeout> | null = null;
+    private presenceDelayTimer: ioBroker.Timeout | null = null;
     /** Whether the current time is past sunrise (used for presence light control) */
     private sunrise = false;
     /** Whether the current time is past sunset (used for presence light control) */
     private sunset = false;
     /** Interval that checks presence simulation state every 60 seconds */
-    private presenceInterval: ReturnType<typeof setInterval> | undefined;
+    private presenceInterval: ioBroker.Interval | undefined;
     /** Map of device IDs to their presence simulation timer state */
     private presenceTimers: Record<string, PresenceTimer> = {};
     /** Whether presence simulation is currently running */
@@ -316,7 +316,7 @@ class Alarm extends utils.Adapter {
     /** Today's calculated sunrise time in HH:MM format from suncalc2 */
     private sunriseStr: string | undefined;
     /** Active repeat-write intervals keyed by shortcut index, for continuous value writing */
-    private shortcutRepeatIntervals: Map<number, ReturnType<typeof setInterval>> = new Map();
+    private shortcutRepeatIntervals: Map<number, ioBroker.Interval> = new Map();
 
     /**
      * Creates a new Alarm adapter instance.
@@ -365,35 +365,35 @@ class Alarm extends utils.Adapter {
      */
     private clearAllTimers(): void {
         if (this.timer) {
-            clearInterval(this.timer);
+            this.clearInterval(this.timer);
             this.timer = null;
         }
         if (this.silentTimer) {
-            clearTimeout(this.silentTimer);
+            this.clearTimeout(this.silentTimer);
             this.silentTimer = null;
         }
         if (this.sirenTimer) {
-            clearTimeout(this.sirenTimer);
+            this.clearTimeout(this.sirenTimer);
             this.sirenTimer = null;
         }
         if (this.silentInterval) {
-            clearInterval(this.silentInterval);
+            this.clearInterval(this.silentInterval);
             this.silentInterval = null;
         }
         if (this.silentCountdown) {
-            clearInterval(this.silentCountdown);
+            this.clearInterval(this.silentCountdown);
             this.silentCountdown = null;
         }
         if (this.alarmInterval) {
-            clearInterval(this.alarmInterval);
+            this.clearInterval(this.alarmInterval);
             this.alarmInterval = null;
         }
         if (this.textAlarmInterval) {
-            clearInterval(this.textAlarmInterval);
+            this.clearInterval(this.textAlarmInterval);
             this.textAlarmInterval = null;
         }
         if (this.textChangesInterval) {
-            clearInterval(this.textChangesInterval);
+            this.clearInterval(this.textChangesInterval);
             this.textChangesInterval = null;
         }
         this.clearShortcutRepeatIntervals();

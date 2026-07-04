@@ -10,10 +10,10 @@
     "devDependencies": {
         "@emotion/react": "^11.14.0",
         "@emotion/styled": "^11.14.1",
-        "@iobroker/adapter-react-v5": "^8.2.2",
-        "@iobroker/json-config": "^8.3.8",
-        "@module-federation/runtime": "^2.3.2",
-        "@module-federation/vite": "^1.14.3",
+        "@iobroker/adapter-react-v5": "8.2.13",
+        "@iobroker/json-config": "8.4.13",
+        "@module-federation/runtime": "2.3.3",
+        "@module-federation/vite": "1.14.5",
         "@mui/icons-material": "^6.5.0",
         "@mui/material": "^6.5.0",
         "@originjs/vite-plugin-federation": "^1.4.1",
@@ -22,7 +22,7 @@
         "@vitejs/plugin-react": "^5.2.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "vite": "^8.0.16",
+        "vite": "7.3.2",
         "vite-plugin-commonjs": "^0.10.4",
         "vite-tsconfig-paths": "^6.1.1"
     },

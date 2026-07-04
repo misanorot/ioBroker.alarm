@@ -322,35 +322,35 @@ class Alarm extends utils.Adapter {
      */
     clearAllTimers() {
         if (this.timer) {
-            clearInterval(this.timer);
+            this.clearInterval(this.timer);
             this.timer = null;
         }
         if (this.silentTimer) {
-            clearTimeout(this.silentTimer);
+            this.clearTimeout(this.silentTimer);
             this.silentTimer = null;
         }
         if (this.sirenTimer) {
-            clearTimeout(this.sirenTimer);
+            this.clearTimeout(this.sirenTimer);
             this.sirenTimer = null;
         }
         if (this.silentInterval) {
-            clearInterval(this.silentInterval);
+            this.clearInterval(this.silentInterval);
             this.silentInterval = null;
         }
         if (this.silentCountdown) {
-            clearInterval(this.silentCountdown);
+            this.clearInterval(this.silentCountdown);
             this.silentCountdown = null;
         }
         if (this.alarmInterval) {
-            clearInterval(this.alarmInterval);
+            this.clearInterval(this.alarmInterval);
             this.alarmInterval = null;
         }
         if (this.textAlarmInterval) {
-            clearInterval(this.textAlarmInterval);
+            this.clearInterval(this.textAlarmInterval);
             this.textAlarmInterval = null;
         }
         if (this.textChangesInterval) {
-            clearInterval(this.textChangesInterval);
+            this.clearInterval(this.textChangesInterval);
             this.textChangesInterval = null;
         }
         this.clearShortcutRepeatIntervals();
@@ -644,7 +644,7 @@ class Alarm extends utils.Adapter {
                 this.messages(`${this.config.log_burgle} ${name}`);
             }
             if (this.config.silent_flash > 0) {
-                this.silentInterval = setInterval(async () => {
+                this.silentInterval = this.setInterval(async () => {
                     if (this.silentI) {
                         await this.setStateAsync('status.silent_flash', true, true);
                         this.silentI = false;
@@ -656,7 +656,7 @@ class Alarm extends utils.Adapter {
                 }, this.config.silent_flash * 1000);
             }
             let silentCountdownTime = (Alarm.timeMode(this.config.time_silent_select) * this.config.time_silent) / 1000;
-            this.silentCountdown = setInterval(async () => {
+            this.silentCountdown = this.setInterval(async () => {
                 if (silentCountdownTime > 0) {
                     silentCountdownTime--;
                     await this.setStateAsync('status.silent_countdown', silentCountdownTime, true);
@@ -669,7 +669,7 @@ class Alarm extends utils.Adapter {
                     }
                 }
             }, 1000);
-            this.silentTimer = setTimeout(async () => {
+            this.silentTimer = this.setTimeout(async () => {
                 this.burgle = true;
                 if (this.config.send_alarm) {
                     this.messages(`${this.config.log_burgle} ${name}`);
@@ -708,7 +708,7 @@ class Alarm extends utils.Adapter {
                 this.messages(`${this.config.log_burgle} ${name}`);
             }
             await this.escalateBurglary(say, indoor);
-            this.sirenTimer = setTimeout(async () => {
+            this.sirenTimer = this.setTimeout(async () => {
                 await this.setStateAsync('status.siren', false, true);
                 if (this.sirenTimer) {
                     clearTimeout(this.sirenTimer);
@@ -728,7 +728,7 @@ class Alarm extends utils.Adapter {
     async escalateBurglary(say, indoor) {
         let count = 0;
         this.sayIt(say, SAY_PHRASE.alarm);
-        this.textAlarmInterval = setInterval(() => {
+        this.textAlarmInterval = this.setInterval(() => {
             if (count < this.alarmRepeat) {
                 this.sayIt(say, SAY_PHRASE.alarm);
                 count++;
@@ -744,7 +744,7 @@ class Alarm extends utils.Adapter {
         await this.setStateAsync('status.silent_alarm', false, true);
         await this.setStateAsync('status.silent_flash', false, true);
         await this.setStateAsync('status.siren_inside', true, true);
-        this.sirenInsideTimer = setTimeout(async () => {
+        this.sirenInsideTimer = this.setTimeout(async () => {
             this.sirenInsideTimer = null;
             await this.setStateAsync('status.siren_inside', false, true);
         }, Alarm.timeMode(this.config.time_warning_select) * this.config.time_warning);
@@ -778,7 +778,7 @@ class Alarm extends utils.Adapter {
             this.messages(`${this.config.log_panic}`);
         }
         this.sayIt(this.config.text_alarm, SAY_PHRASE.alarm);
-        this.textAlarmInterval = setInterval(() => {
+        this.textAlarmInterval = this.setInterval(() => {
             if (count < this.alarmRepeat) {
                 this.sayIt(this.config.text_alarm, SAY_PHRASE.alarm);
                 count++;
@@ -792,7 +792,7 @@ class Alarm extends utils.Adapter {
         }, this.config.text_alarm_pause * 1000);
         await this.setStateAsync('status.burglar_alarm', true, true);
         if (this.config.alarm_flash > 0) {
-            this.alarmInterval = setInterval(async () => {
+            this.alarmInterval = this.setInterval(async () => {
                 if (this.alarmI) {
                     await this.setStateAsync('status.alarm_flash', true, true);
                     this.alarmI = false;
@@ -807,7 +807,7 @@ class Alarm extends utils.Adapter {
         await this.setStateAsync('status.state', STATUS_STATE.burgle, true);
         await this.setStateAsync('status.state_list', STATE_LIST.burglary, true);
         await this.setStateAsync('homekit.CurrentState', HOMEKIT_STATE.alarm_triggered, true);
-        this.sirenTimer = setTimeout(async () => {
+        this.sirenTimer = this.setTimeout(async () => {
             this.sirenTimer = null;
             await this.setStateAsync('status.siren', false, true);
         }, Alarm.timeMode(this.config.time_alarm_select) * this.config.time_alarm);
@@ -942,10 +942,10 @@ class Alarm extends utils.Adapter {
             this.activated = !!state.val;
             this.shortcuts('status.activated', state.val);
             if (this.optPresence) {
-                this.presenceDelayTimer = setTimeout(() => {
+                this.presenceDelayTimer = this.setTimeout(() => {
                     this.presenceDelayTimer = null;
                     void this.setAllPresenceTimer(() => {
-                        this.presenceInterval = setInterval(async () => {
+                        this.presenceInterval = this.setInterval(async () => {
                             await this.checkPresence();
                         }, 60000);
                     });
@@ -1151,7 +1151,7 @@ class Alarm extends utils.Adapter {
                 }
                 this.sayIt(say, SAY_PHRASE.changes);
             }
-            this.timerNotificationChanges = setTimeout(async () => {
+            this.timerNotificationChanges = this.setTimeout(async () => {
                 this.timerNotificationChanges = null;
                 await this.setStateAsync('info.notification_circuit_changes', false, true);
             }, Alarm.timeMode(this.config.time_warning_select) * this.config.time_warning);
@@ -1360,7 +1360,7 @@ class Alarm extends utils.Adapter {
             delay = 0;
         }
         this.log.debug(`speech output instance: ${id}: ${message}, delay ${delay}s`);
-        this.speechTimeout = setTimeout(() => {
+        this.speechTimeout = this.setTimeout(() => {
             this.speechTimeout = null;
             this.setForeignState(id, message, err => {
                 if (err) {
@@ -1424,7 +1424,7 @@ class Alarm extends utils.Adapter {
      */
     async alarmSiren() {
         await this.setStateAsync('status.siren', true, true);
-        this.sirenTimer = setTimeout(async () => {
+        this.sirenTimer = this.setTimeout(async () => {
             await this.setStateAsync('status.siren', false, true);
             if (this.sirenTimer) {
                 clearTimeout(this.sirenTimer);
@@ -1438,7 +1438,7 @@ class Alarm extends utils.Adapter {
      */
     alarmFlash() {
         if (this.config.alarm_flash > 0) {
-            this.alarmInterval = setInterval(async () => {
+            this.alarmInterval = this.setInterval(async () => {
                 if (this.alarmI) {
                     await this.setStateAsync('status.alarm_flash', true, true);
                     this.alarmI = false;
@@ -2221,7 +2221,7 @@ class Alarm extends utils.Adapter {
                 this.sayIt(warnSay, SAY_PHRASE.warnings);
             }
             if (this.isAlarm) {
-                setTimeout(() => this.sayIt(say, SAY_PHRASE.countdown), 5000);
+                this.setTimeout(() => this.sayIt(say, SAY_PHRASE.countdown), 5000);
             }
             else {
                 this.sayIt(say, SAY_PHRASE.countdown);
@@ -2229,7 +2229,7 @@ class Alarm extends utils.Adapter {
             await this.setStateAsync('status.gets_activated', true, true);
             await this.setStateAsync('status.state', STATUS_STATE.gets_activated, true);
             await this.setStateAsync('status.state_list', STATE_LIST.gets_activated, true);
-            this.timer = setInterval(async () => {
+            this.timer = this.setInterval(async () => {
                 if (counter > 0) {
                     counter--;
                     await this.setStateAsync('status.activation_countdown', counter, true);
@@ -2372,7 +2372,7 @@ class Alarm extends utils.Adapter {
                     this.shortcutRepeatIntervals.delete(i);
                 }
                 const writeValue = this.bools(ele.value);
-                setTimeout(() => {
+                this.setTimeout(() => {
                     this.setForeignState(ele.name_id, writeValue, err => {
                         if (err) {
                             this.log.warn(`Cannot set state: ${err}`);
@@ -2381,7 +2381,7 @@ class Alarm extends utils.Adapter {
                 }, i * 250);
                 if (ele.repeat_write > 0) {
                     let remaining = ele.repeat_write - 1;
-                    const interval = setInterval(() => {
+                    const interval = this.setInterval(() => {
                         if (remaining <= 0) {
                             clearInterval(this.shortcutRepeatIntervals.get(i));
                             this.shortcutRepeatIntervals.delete(i);
@@ -2553,7 +2553,7 @@ class Alarm extends utils.Adapter {
                     if (this.timeInRange(pt.presenceTimeFrom, pt.presenceTimeTo) && !pt.wasOn) {
                         this.log.debug(`Delay for: ${pt.name} -- ${pt.nameID}  starts ${pt.presenceDelay}ms, because time is in range.`);
                         pt.wasOn = true;
-                        pt.presenceDelayTimer = setTimeout(() => {
+                        pt.presenceDelayTimer = this.setTimeout(() => {
                             pt.presenceDelayTimer = null;
                             this.log.debug(`Delay for: ${pt.name} -- ${pt.nameID}  ends and switch ON ${pt.presenceLength}ms.`);
                             this.setForeignState(pt.nameID, this.bools(pt.presenceValueON), err => {
@@ -2561,7 +2561,7 @@ class Alarm extends utils.Adapter {
                                     this.log.warn(`Cannot set state: ${err}`);
                                 }
                             });
-                            pt.presenceLengthTimer = setTimeout(() => {
+                            pt.presenceLengthTimer = this.setTimeout(() => {
                                 pt.presenceLengthTimer = null;
                                 this.log.debug(`Switch ON for: ${pt.name} -- ${pt.nameID}  ends and switch OFF.`);
                                 this.setForeignState(pt.nameID, this.bools(pt.presenceValueOff), err => {
@@ -2580,7 +2580,7 @@ class Alarm extends utils.Adapter {
                     if (this.sunrise && !pt.wasOn) {
                         this.log.debug(`Delay for: ${pt.name} -- ${pt.nameID}  starts ${pt.presenceDelay}ms, by sunrise`);
                         pt.wasOn = true;
-                        pt.presenceDelayTimer = setTimeout(() => {
+                        pt.presenceDelayTimer = this.setTimeout(() => {
                             pt.presenceDelayTimer = null;
                             this.log.debug(`Delay for: ${pt.name} -- ${pt.nameID}  ends and switch ON ${pt.presenceLength}ms.`);
                             this.setForeignState(pt.nameID, this.bools(pt.presenceValueON), err => {
@@ -2588,7 +2588,7 @@ class Alarm extends utils.Adapter {
                                     this.log.warn(`Cannot set state: ${err}`);
                                 }
                             });
-                            pt.presenceLengthTimer = setTimeout(() => {
+                            pt.presenceLengthTimer = this.setTimeout(() => {
                                 pt.presenceLengthTimer = null;
                                 this.log.debug(`Switch ON for: ${pt.name} -- ${pt.nameID}  ends and switch OFF.`);
                                 this.setForeignState(pt.nameID, this.bools(pt.presenceValueOff), err => {
@@ -2607,7 +2607,7 @@ class Alarm extends utils.Adapter {
                     if (this.sunset && !pt.wasOn) {
                         this.log.debug(`Delay for: ${pt.name} -- ${pt.nameID}  starts ${pt.presenceDelay}ms, by sunset`);
                         pt.wasOn = true;
-                        pt.presenceDelayTimer = setTimeout(() => {
+                        pt.presenceDelayTimer = this.setTimeout(() => {
                             pt.presenceDelayTimer = null;
                             this.log.debug(`Delay for: ${pt.name} -- ${pt.nameID}  ends and switch ON ${pt.presenceLength}ms.`);
                             this.setForeignState(pt.nameID, this.bools(pt.presenceValueON), err => {
@@ -2615,7 +2615,7 @@ class Alarm extends utils.Adapter {
                                     this.log.warn(`Cannot set state: ${err}`);
                                 }
                             });
-                            pt.presenceLengthTimer = setTimeout(() => {
+                            pt.presenceLengthTimer = this.setTimeout(() => {
                                 pt.presenceLengthTimer = null;
                                 this.log.debug(`Switch ON for: ${pt.name} -- ${pt.nameID}  ends and switch OFF.`);
                                 this.setForeignState(pt.nameID, this.bools(pt.presenceValueOff), err => {
@@ -2638,7 +2638,7 @@ class Alarm extends utils.Adapter {
                     if (lightVal && lightVal.val < pt.presenceLightLux && !pt.wasOn) {
                         this.log.debug(`Delay for: ${pt.name} -- ${pt.nameID}  starts ${pt.presenceDelay}ms, because light value is not under the limit.`);
                         pt.wasOn = true;
-                        pt.presenceDelayTimer = setTimeout(() => {
+                        pt.presenceDelayTimer = this.setTimeout(() => {
                             pt.presenceDelayTimer = null;
                             this.log.debug(`Delay for: ${pt.name} -- ${pt.nameID}  ends and switch ON ${pt.presenceLength}ms.`);
                             this.setForeignState(pt.nameID, this.bools(pt.presenceValueON), err => {
@@ -2646,7 +2646,7 @@ class Alarm extends utils.Adapter {
                                     this.log.warn(`Cannot set state: ${err}`);
                                 }
                             });
-                            pt.presenceLengthTimer = setTimeout(() => {
+                            pt.presenceLengthTimer = this.setTimeout(() => {
                                 pt.presenceLengthTimer = null;
                                 this.log.debug(`Switch ON for: ${pt.name} -- ${pt.nameID}  ends and switch OFF.`);
                                 this.setForeignState(pt.nameID, this.bools(pt.presenceValueOff), err => {
@@ -2803,7 +2803,7 @@ class Alarm extends utils.Adapter {
             if (this.optPresence && this.activated && this.presenceRun) {
                 await this.setAllPresenceTimer(() => {
                     this.log.debug(`Restart presence timers for a new day!`);
-                    this.presenceInterval = setInterval(async () => {
+                    this.presenceInterval = this.setInterval(async () => {
                         await this.checkPresence();
                     }, 60000);
                 });

@@ -6,7 +6,6 @@
         "noEmit": false,
         "declaration": true,
         "outDir": "build",
-        "rootDir": "src",
         "sourceMap": true,
         "types": ["@iobroker/types"]
     },
