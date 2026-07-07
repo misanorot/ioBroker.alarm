@@ -27,7 +27,7 @@ This adapter allows you to set up a home alarm system without extensive programm
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 4.0.6 (2026-07-07)
 * (@GermanBluefox) Packages were updated
 * (@GermanBluefox) Some compiler errors were fixed
 
@@ -45,9 +45,6 @@ This adapter allows you to set up a home alarm system without extensive programm
 
 ### 4.0.2 (2026-04-07)
 * (@GermanBluefox) fixed #368
-
-### 4.0.1 (2026-04-07)
-* (misanorot) fixed little GUI issue at zone tab
 
 [Older changes](CHANGELOG_OLD.md)
 

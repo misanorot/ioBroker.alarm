@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "4.0.5",
+    "version": "4.0.6",
     "news": {
+      "4.0.6": {
+        "en": "Packages were updated\nSome compiler errors were fixed",
+        "de": "Die Pakete wurden aktualisiert\nEinige Compilerfehler wurden behoben.",
+        "ru": "Пакеты обновлены\nБыли исправлены некоторые ошибки компиляции.",
+        "pt": "Os pacotes foram atualizados.\nAlguns erros de compilação foram corrigidos.",
+        "nl": "Pakketten zijn bijgewerkt\nEnkele compilerfouten zijn verholpen.",
+        "fr": "Les paquets ont été mis à jour\nCertaines erreurs du compilateur ont été corrigées.",
+        "it": "I pacchetti sono stati aggiornati\nSono stati corretti alcuni errori di compilazione.",
+        "es": "Los paquetes se actualizaron.\nSe corrigieron algunos errores del compilador.",
+        "pl": "Pakiety zostały zaktualizowane\nNaprawiono niektóre błędy kompilatora",
+        "uk": "Пакети оновлено\nДеякі помилки компілятора було виправлено",
+        "zh-cn": "软件包已更新\n修复了一些编译器错误。"
+      },
       "4.0.5": {
         "en": "fixed checker issues",
         "de": "Probleme mit der Prüfroutine behoben",
@@ -80,19 +93,6 @@
         "pl": "Adapter został przeniesiony do TypeScript\nGUI został przeniesiony do JsonConfig\nKod reaktor i usunąć powielone metody\nDodano opcję powtarzania zapisu wartości stanu\nDodano opcję ponownego uruchomienia alarmu, jeśli został uruchomiony",
         "uk": "Адаптер був мігрований до TypeScript\nGUI був мігрований в JsonConfig\nРефакторний код і видалення дублікатів\nДодано повторне написання значень стану\nДодана можливість перерозподілити сигналізацію, якщо вже запущено",
         "zh-cn": "适配器已迁移到类型脚本\nGUI 已迁移到 JsonConfig\n重构代码并删除重复的方法\n添加的选项重复写入状态值\n如果已经触发, 则添加可重新触发提醒的选项"
-      },
-      "3.7.7": {
-        "en": "update packages",
-        "de": "update-pakete",
-        "ru": "обновление пакетов",
-        "pt": "atualizar pacotes",
-        "nl": "pakketten bijwerken",
-        "fr": "mettre à jour les paquets",
-        "it": "pacchetti di aggiornamento",
-        "es": "actualizar paquetes",
-        "pl": "aktualizacja pakietów",
-        "uk": "оновлення пакетів",
-        "zh-cn": "更新软件包"
       }
     },
     "titleLang": {

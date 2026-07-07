@@ -138,6 +138,9 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 4.0.1 (2026-04-07)
+* (misanorot) fixed little GUI issue at zone tab
+
 ## 4.0.0 (2026-03-22)
 * (@GermanBluefox) Adapter was migrated to TypeScript
 * (@GermanBluefox) GUI was migrated to JsonConfig
