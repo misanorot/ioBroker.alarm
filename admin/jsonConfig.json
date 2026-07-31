@@ -2010,6 +2010,7 @@
                     "type": "custom",
                     "url": "custom/customComponents.js",
                     "name": "ConfigCustomAlarmSet/Components/PresenceTableComponent",
+                    "guiApi": 2,
                     "bundlerType": "module",
                     "xs": 12,
                     "sm": 12,

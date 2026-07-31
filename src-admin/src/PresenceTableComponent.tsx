@@ -35,7 +35,7 @@ import {
     Close,
     MoreHoriz,
 } from '@mui/icons-material';
-import { I18n, DialogSelectID } from '@iobroker/adapter-react-v5';
+import { I18n, DialogSelectID } from '@iobroker/gui-components';
 import { ConfigGeneric, type ConfigGenericProps, type ConfigGenericState } from '@iobroker/json-config';
 import type { PresenceOption, PresenceRow, TimeUnit } from './types';
 
