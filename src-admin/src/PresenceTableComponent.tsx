@@ -326,7 +326,7 @@ export default class PresenceTableComponent extends ConfigGeneric<ConfigGenericP
                             <Select
                                 variant="standard"
                                 value={editRow.option_presence}
-                                onChange={e => this.setEditField('option_presence', e.target.value as PresenceOption)}
+                                onChange={e => this.setEditField('option_presence', e.target.value)}
                             >
                                 <MenuItem value="time">time</MenuItem>
                                 <MenuItem value="sunrise">sunrise</MenuItem>
@@ -383,7 +383,7 @@ export default class PresenceTableComponent extends ConfigGeneric<ConfigGenericP
                                 <Select
                                     value={editRow.presence_length_select}
                                     onChange={e =>
-                                        this.setEditField('presence_length_select', e.target.value as TimeUnit)
+                                        this.setEditField('presence_length_select', e.target.value)
                                     }
                                 >
                                     <MenuItem value="sec">sec</MenuItem>
@@ -427,7 +427,7 @@ export default class PresenceTableComponent extends ConfigGeneric<ConfigGenericP
                                 <Select
                                     value={editRow.presence_delay_select}
                                     onChange={e =>
-                                        this.setEditField('presence_delay_select', e.target.value as TimeUnit)
+                                        this.setEditField('presence_delay_select', e.target.value)
                                     }
                                 >
                                     <MenuItem value="sec">sec</MenuItem>
