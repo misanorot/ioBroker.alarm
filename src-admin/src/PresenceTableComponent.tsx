@@ -37,7 +37,7 @@ import {
 } from '@mui/icons-material';
 import { I18n, DialogSelectID } from '@iobroker/gui-components';
 import { ConfigGeneric, type ConfigGenericProps, type ConfigGenericState } from '@iobroker/json-config';
-import type { PresenceOption, PresenceRow, TimeUnit } from './types';
+import type { PresenceRow } from './types';
 
 const DEFAULT_PRESENCE_ROW: PresenceRow = {
     enabled: true,
@@ -382,9 +382,7 @@ export default class PresenceTableComponent extends ConfigGeneric<ConfigGenericP
                             >
                                 <Select
                                     value={editRow.presence_length_select}
-                                    onChange={e =>
-                                        this.setEditField('presence_length_select', e.target.value)
-                                    }
+                                    onChange={e => this.setEditField('presence_length_select', e.target.value)}
                                 >
                                     <MenuItem value="sec">sec</MenuItem>
                                     <MenuItem value="min">min</MenuItem>
@@ -426,9 +424,7 @@ export default class PresenceTableComponent extends ConfigGeneric<ConfigGenericP
                             >
                                 <Select
                                     value={editRow.presence_delay_select}
-                                    onChange={e =>
-                                        this.setEditField('presence_delay_select', e.target.value)
-                                    }
+                                    onChange={e => this.setEditField('presence_delay_select', e.target.value)}
                                 >
                                     <MenuItem value="sec">sec</MenuItem>
                                     <MenuItem value="min">min</MenuItem>
