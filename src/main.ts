@@ -419,7 +419,7 @@ class Alarm extends utils.Adapter {
         try {
             await this.setStateAsync('info.wrong_password', true, true);
         } catch (err) {
-            this.log.error(err as unknown as string);
+            this.log.error(err);
         }
         await this.setStateAsync(id, '', true);
         if (this.optLog) {
@@ -1963,7 +1963,7 @@ class Alarm extends utils.Adapter {
             try {
                 await this.setStateAsync('info.wrong_password', false, true);
             } catch (err) {
-                this.log.error(err as unknown as string);
+                this.log.error(err);
             }
             await this.setStateAsync(id, '', true);
             return true;
