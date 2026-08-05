@@ -138,6 +138,9 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 4.0.2 (2026-04-07)
+* (@GermanBluefox) fixed #368
+
 ## 4.0.1 (2026-04-07)
 * (misanorot) fixed little GUI issue at zone tab
 

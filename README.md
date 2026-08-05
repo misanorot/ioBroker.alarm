@@ -27,7 +27,7 @@ This adapter allows you to set up a home alarm system without extensive programm
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 4.1.0 (2026-08-05)
 * (@GermanBluefox) Migrated to admin 8
 * (@misanorot) fixed checker #427
 
@@ -46,9 +46,6 @@ This adapter allows you to set up a home alarm system without extensive programm
 - (copilot) Adapter requires node.js >= 22 now
 * (@GermanBluefox) fixed JSON config issues
 * (@GermanBluefox) packages were updated
-
-### 4.0.2 (2026-04-07)
-* (@GermanBluefox) fixed #368
 
 [Older changes](CHANGELOG_OLD.md)
 

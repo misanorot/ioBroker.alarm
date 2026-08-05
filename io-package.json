@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "4.0.6",
+    "version": "4.1.0",
     "news": {
+      "4.1.0": {
+        "en": "Migrated to admin 8\nfixed checker #427",
+        "de": "Migriert zu Admin 8\nFehlercode #427 behoben",
+        "ru": "Перенесено на административный интерфейс 8.\nисправленный проверяющий #427",
+        "pt": "Migrado para admin 8\nverificador corrigido #427",
+        "nl": "Overgezet naar beheerder 8\ngecorrigeerde controle #427",
+        "fr": "Migré vers l'administrateur 8\nvérificateur corrigé n° 427",
+        "it": "Migrato ad admin 8\nControllore corretto n. 427",
+        "es": "Migrado a admin 8\nCorregido el verificador n.° 427",
+        "pl": "Przeniesiono do administratora 8\nstały kontroler #427",
+        "uk": "Перенесено до адміністратора 8\nвиправлена шашка №427",
+        "zh-cn": "已迁移至 admin 8\n修复检查器 #427"
+      },
       "4.0.6": {
         "en": "Packages were updated\nSome compiler errors were fixed",
         "de": "Die Pakete wurden aktualisiert\nEinige Compilerfehler wurden behoben.",
@@ -80,19 +93,6 @@
         "pl": "stałe małe wydanie GUI w zakładce strefy",
         "uk": "виправлено проблему GUI у вкладці зони",
         "zh-cn": "在分区标签上固定小的图形界面发行"
-      },
-      "4.0.0": {
-        "en": "Adapter was migrated to TypeScript\nGUI was migrated to JsonConfig\nRefactor code and remove duplicated methods\nAdded option repeat writing of state values\nAdded option to retrigger the alarm if already triggered",
-        "de": "Adapter wurde auf TypeScript migriert\nGUI wurde nach JsonConfig migriert\nRefactor-Code und entfernen Sie doppelte Methoden\nHinzugefügt Option wiederholen Schreiben von Zustandswerten\nOption hinzugefügt, um den Alarm zurückzurufen, wenn bereits ausgelöst",
-        "ru": "Адаптер был перенесен в TypeScript\nGUI был перенесен в JsonConfig\nРефакторный код и удаление дублированных методов\nДобавлен вариант повторного написания государственных ценностей\nДобавлена опция перезапуска будильника, если он уже сработал",
-        "pt": "O adaptador foi migrado para TypeScript\nGUI foi migrada para JsonConfig\nRefactor código e remover métodos duplicados\nAdicionada opção repetir a escrita dos valores de estado\nAdicionada opção para religar o alarme se já tiver sido disparado",
-        "nl": "Adapter is gemigreerd naar TypeScript\nGUI is gemigreerd naar JsonConfig\nRefactorcode en verwijder gedupliceerde methoden\nToegevoegd optie herhalen schrijven van statuswaarden\nToegevoegde optie om het alarm te hertriggeren indien reeds geactiveerd",
-        "fr": "L'adaptateur a été migré vers TypeScript\nGUI a été transféré à JsonConfig\nRefactor code et supprimer les méthodes dupliquées\nAjout de l'option répéter l'écriture des valeurs d'état\nAjout d'une option pour déclencher l'alarme si elle est déjà déclenchée",
-        "it": "L'adattatore è stato migrato a TypeScript\nGUI è stata migrata a JsonConfig\nCodice Refactor e rimuovere i metodi duplicati\nAggiunta opzione ripetizione scrittura dei valori di stato\nAggiunta opzione per ripristinare l'allarme se già attivato",
-        "es": "Adaptador fue migrado a TipoScript\nGUI was migrated to JsonConfig\nRefactor code and remove duplicated methods\nAñadido opción repetir escritura de los valores estatales\nOpción adicional para reactivar la alarma si ya se activa",
-        "pl": "Adapter został przeniesiony do TypeScript\nGUI został przeniesiony do JsonConfig\nKod reaktor i usunąć powielone metody\nDodano opcję powtarzania zapisu wartości stanu\nDodano opcję ponownego uruchomienia alarmu, jeśli został uruchomiony",
-        "uk": "Адаптер був мігрований до TypeScript\nGUI був мігрований в JsonConfig\nРефакторний код і видалення дублікатів\nДодано повторне написання значень стану\nДодана можливість перерозподілити сигналізацію, якщо вже запущено",
-        "zh-cn": "适配器已迁移到类型脚本\nGUI 已迁移到 JsonConfig\n重构代码并删除重复的方法\n添加的选项重复写入状态值\n如果已经触发, 则添加可重新触发提醒的选项"
       }
     },
     "titleLang": {
