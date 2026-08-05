@@ -29,6 +29,7 @@ This adapter allows you to set up a home alarm system without extensive programm
 -->
 ### **WORK IN PROGRESS**
 * (@GermanBluefox) Migrated to admin 8
+* (@misanorot) fixed checker #427
 
 ### 4.0.6 (2026-07-07)
 * (@GermanBluefox) Packages were updated
