@@ -27,7 +27,7 @@ This adapter allows you to set up a home alarm system without extensive programm
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### 4.1.0 (2026-08-05)
+### **WORK IN PROGRESS**
 * (@GermanBluefox) Migrated to admin 8
 * (@misanorot) fixed checker #427
 
