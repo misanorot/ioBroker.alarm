@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "5.0.0",
+    "version": "5.0.1",
     "news": {
+      "5.0.1": {
+        "en": "update",
+        "de": "aktualisierung",
+        "ru": "обновление",
+        "pt": "atualizar",
+        "nl": "bijwerken",
+        "fr": "mise à jour",
+        "it": "aggiornamento",
+        "es": "actualización",
+        "pl": "aktualizacja",
+        "uk": "оновлення",
+        "zh-cn": "更新"
+      },
       "5.0.0": {
         "en": "Migrated to admin 8\nfixed checker #427",
         "de": "Migriert zu Admin 8\nFehlercode #427 behoben",
@@ -80,19 +93,6 @@
         "pl": "stałe # 368",
         "uk": "фіксована #368",
         "zh-cn": "368号固定"
-      },
-      "4.0.1": {
-        "en": "fixed little GUI issue at zone tab",
-        "de": "feste kleine GUI Ausgabe auf Zone Tab",
-        "ru": "фиксированная небольшая проблема GUI на вкладке Zone",
-        "pt": "pequeno problema GUI fixo na aba zona",
-        "nl": "vaste kleine GUI probleem op zone tab",
-        "fr": "correction de petit problème d'interface graphique à l'onglet zone",
-        "it": "numero di GUI fisso nella scheda zona",
-        "es": "pequeño número de GUI fijo en la pestaña de zona",
-        "pl": "stałe małe wydanie GUI w zakładce strefy",
-        "uk": "виправлено проблему GUI у вкладці зони",
-        "zh-cn": "在分区标签上固定小的图形界面发行"
       }
     },
     "titleLang": {
