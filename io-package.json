@@ -1,21 +1,8 @@
 {
   "common": {
     "name": "alarm",
-    "version": "5.0.0",
+    "version": "4.0.6",
     "news": {
-      "5.0.0": {
-        "en": "Migrated to admin 8\nfixed checker #427",
-        "de": "Migriert zu Admin 8\nFehlercode #427 behoben",
-        "ru": "Перенесено на админку 8\nисправленный проверяющий #427",
-        "pt": "Migrado para admin 8\nverificador corrigido #427",
-        "nl": "Overgezet naar beheerder 8\ngecorrigeerde controle #427",
-        "fr": "Migré vers l'administrateur 8\nvérificateur corrigé n° 427",
-        "it": "Migrato ad admin 8\nControllore corretto n. 427",
-        "es": "Migrado a admin 8\nCorregido el verificador n.° 427",
-        "pl": "Przeniesiono do administratora 8\nstały kontroler #427",
-        "uk": "Перенесено до адміністратора 8\nвиправлена шашка №427",
-        "zh-cn": "已迁移至 admin 8\n修复检查器 #427"
-      },
       "4.0.6": {
         "en": "Packages were updated\nSome compiler errors were fixed",
         "de": "Die Pakete wurden aktualisiert\nEinige Compilerfehler wurden behoben.",
