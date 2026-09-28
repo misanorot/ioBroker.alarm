@@ -1217,6 +1217,8 @@ class Alarm extends utils.Adapter {
             }
             this.sayIt(say, SAY_PHRASE.fire);
             await this.setStateAsync('other_alarms.one_changes', true, true);
+        } else {
+            await this.setStateAsync('other_alarms.one_changes', false, true);
         }
         if (this.twoIds.includes(id) && this.isTrue(id, state, 'two')) {
             const name = this.getName(id, 'two');
@@ -1232,6 +1234,8 @@ class Alarm extends utils.Adapter {
             }
             this.sayIt(say, SAY_PHRASE.water);
             await this.setStateAsync('other_alarms.two_changes', true, true);
+        } else {
+            await this.setStateAsync('other_alarms.two_changes', false, true);
         }
         if (this.zoneOneIds.includes(id) && this.isTrue(id, state, 'zone_one')) {
             if (!this.optOne) {

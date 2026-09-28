@@ -26,11 +26,11 @@ const __mfImport = (src) =>
 
 
 (async () => {
-  const __mfHostInit = await __mfImport("./hostInit-BejXULoI.js");
+  const __mfHostInit = await __mfImport("./hostInit-AmEE3TAa.js");
   await __mfHostInit.__tla;
   const { initHost } = __mfHostInit;
   await initHost();
   if (__mfModuleCache.pendingShareLoads) {
     await Promise.all(__mfModuleCache.pendingShareLoads);
   }
-})().then(() => __mfImport("./index-CZeExfS9.js"));
+})().then(() => __mfImport("./index-CYknHQWZ.js"));
