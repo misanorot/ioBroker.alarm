@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "5.0.1",
+    "version": "5.0.2",
     "news": {
+      "5.0.2": {
+        "en": "fixed little issues at other alarms",
+        "de": "Probleme mit anderen Alarmen behoben",
+        "ru": "исправлены небольшие проблемы с другими аварийными сигналами",
+        "pt": "corrigiu erros em outros alarmes",
+        "nl": "kleine problemen opgelost bij andere alarmen",
+        "fr": "d'autres alarmes ont été corrigées",
+        "it": "risolti problemi con altri allarmi",
+        "es": "solucionó pequeños problemas en otras alarmas",
+        "pl": "naprawiono małe problemy w innych alarmach",
+        "uk": "виправлені невеликі проблеми при інших сигналах",
+        "zh-cn": "修复了其他警报器上的小问题"
+      },
       "5.0.1": {
         "en": "update",
         "de": "aktualisierung",
@@ -80,19 +93,6 @@
         "pl": "stałe problemy z kontrolerem\nAdapter wymaga node.js > = 22\nstałe problemy konfiguracyjne json\nopakowania zostały zaktualizowane",
         "uk": "виправлені питання перевірки\nАдаптер вимагає node.js >= 22 тепер\nвиправлені проблеми json config\nбуло оновлено",
         "zh-cn": "固定检查器问题\n适配器需要节点.js 现在22\n固定 json 配置问题\n软件包已更新"
-      },
-      "4.0.2": {
-        "en": "fixed #368",
-        "de": "#368",
-        "ru": "фиксированный #368",
-        "pt": "fixo # 368",
-        "nl": "vast #368",
-        "fr": "fixe n° 368",
-        "it": "fisso #368",
-        "es": "fijo #368",
-        "pl": "stałe # 368",
-        "uk": "фіксована #368",
-        "zh-cn": "368号固定"
       }
     },
     "titleLang": {

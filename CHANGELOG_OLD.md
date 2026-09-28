@@ -138,6 +138,9 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 4.0.4 (2026-05-17)
+* (@misanorot) fixed little JSON Ui issues
+
 ## 4.0.3 (2026-05-11)
 * (@misanorot) fixed checker issues
 - (copilot) Adapter requires node.js >= 22 now
