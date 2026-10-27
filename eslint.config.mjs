@@ -23,7 +23,7 @@ export default [
             'src-widgets/build/',
             'src-devices/node_modules/',
             'src-devices/build/',
-            // Built widget bundles, copied here by `node tasks --widgets` / `--devices`
+            // Built widget bundles, copied here by `tasks.ts --widgets` / `--devices`
             'widgets/',
             '**/adapter-config.d.ts'
         ]

@@ -9,7 +9,6 @@
         "skipLibCheck": true,
         "noEmitOnError": true,
         "outDir": "./build/",
-        "rootDir": "./src/",
         "removeComments": false,
         "module": "Node16",
         "moduleResolution": "node16",
@@ -23,6 +22,6 @@
         "useUnknownInCatchVariables": false,
         "types": ["@iobroker/types"]
     },
-    "include": ["src/**/*.ts", "test/**/*.ts"],
+    "include": ["src/**/*.ts", "test/**/*.ts", "tasks.ts"],
     "exclude": ["build/**", "node_modules/**", "src-admin/**"]
 }
