@@ -148,6 +148,56 @@
     "adminUI": {
       "config": "json"
     },
+    "visWidgets": {
+      "vis2AlarmWidgets": {
+        "i18n": "component",
+        "name": "vis2AlarmWidgets",
+        "url": "alarm/customWidgets.js",
+        "color": "#4dabf5",
+        "bundlerType": "module",
+        "label": "alarm_set_label",
+        "components": [
+          "AlarmPanel"
+        ]
+      }
+    },
+    "deviceWidgets": {
+      "components": [
+        {
+          "name": "AlarmPanelComponent",
+          "label": {
+            "en": "Alarm panel",
+            "de": "Alarm-Panel",
+            "ru": "Панель сигнализации",
+            "pt": "Painel de alarme",
+            "nl": "Alarmpaneel",
+            "fr": "Panneau d'alarme",
+            "it": "Pannello di allarme",
+            "es": "Panel de alarma",
+            "pl": "Panel alarmowy",
+            "uk": "Панель сигналізації",
+            "zh-cn": "报警面板"
+          },
+          "description": {
+            "en": "Modes, zones and state of an alarm instance; a small tile opens the full panel",
+            "de": "Modi, Zonen und Status einer Alarm-Instanz; eine kleine Kachel öffnet das ganze Panel",
+            "ru": "Режимы, зоны и состояние экземпляра alarm; маленькая плитка открывает всю панель",
+            "pt": "Modos, zonas e estado de uma instância de alarme; um mosaico pequeno abre o painel completo",
+            "nl": "Modi, zones en status van een alarm-instantie; een kleine tegel opent het hele paneel",
+            "fr": "Modes, zones et état d'une instance d'alarme ; une petite tuile ouvre le panneau complet",
+            "it": "Modalità, zone e stato di un'istanza di allarme; una piccola piastrella apre il pannello intero",
+            "es": "Modos, zonas y estado de una instancia de alarma; un mosaico pequeño abre el panel completo",
+            "pl": "Tryby, strefy i stan instancji alarmu; mały kafelek otwiera pełny panel",
+            "uk": "Режими, зони та стан екземпляра alarm; маленька плитка відкриває всю панель",
+            "zh-cn": "报警实例的模式、区域和状态；小磁贴可打开完整面板"
+          },
+          "icon": "alarm-panel.svg"
+        }
+      ]
+    },
+    "restartAdapters": [
+      "vis-2"
+    ],
     "dependencies": [
       {
         "js-controller": ">=6.0.11"

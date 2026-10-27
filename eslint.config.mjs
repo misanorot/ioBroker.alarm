@@ -19,6 +19,12 @@ export default [
             'src-admin/node_modules/',
             'src-admin/build/',
             'src-admin/.__mf__temp',
+            'src-widgets/node_modules/',
+            'src-widgets/build/',
+            'src-devices/node_modules/',
+            'src-devices/build/',
+            // Built widget bundles, copied here by `tasks.ts --widgets` / `--devices`
+            'widgets/',
             '**/adapter-config.d.ts'
         ]
     },

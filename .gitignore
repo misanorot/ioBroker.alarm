@@ -9,6 +9,11 @@ nbproject
 src-admin/build
 src-admin/.__mf__temp
 
+# Intermediate output of the widget builds; the deliverables are copied to
+# widgets/alarm and admin/dm-widgets and are committed
+src-widgets/build
+src-devices/build
+
 # npm package files
 iobroker.*.tgz
 

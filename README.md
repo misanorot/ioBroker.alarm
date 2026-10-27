@@ -28,6 +28,8 @@ This adapter allows you to set up a home alarm system without extensive programm
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
+* (@GermanBluefox) Added an alarm panel widget for vis-2 and for the devices adapter
+* (@GermanBluefox) States from the configuration whose object does not exist (e.g. of a deleted Echo) are no longer written, but reported once as a warning
 * (@GermanBluefox) States from the configuration whose object does not exist (e.g. of a deleted Echo) are no longer written, but reported once as a warning
 
 ### 5.0.2 (2026-09-28)
