@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "5.0.2",
+    "version": "5.1.0",
     "news": {
+      "5.1.0": {
+        "en": "Added an alarm panel widget for vis-2 and for the devices adapter\nStates from the configuration whose object does not exist (e.g. of a deleted Echo) are no longer written, but reported once as a warning",
+        "de": "Alarm-Widget für VIS-2 und Geräteadapter hinzugefügt\nStatus der Konfiguration, deren Objekt nicht existiert (z. B. eines gelöschten Echos), werden nicht mehr angezeigt.",
+        "ru": "Добавлен виджет панели сигнализации для vis-2 и адаптера устройств\nСостояния конфигурации, объект которых не существует (например, удаленного Echo), больше не записываются, но выводятся один раз в виде предупреждения",
+        "pt": "Adicionou um widget de alarme para vis-2 e adaptador\nEstados da configuração cujo objeto não existe (ex: um Echo excluído) não são mais gravados, mas relatados como aviso",
+        "nl": "Een widget voor het alarmpaneel toegevoegd voor vis-2 en voor de adapter van het apparaat\nStatussen uit de configuratie waarvan het object niet bestaat (bijvoorbeeld van een verwijderde echo) worden niet langer geschreven, maar één keer gerapporteerd als waarschuwing",
+        "fr": "Ajout d'un widget d'alarme pour Vis-2 et pour l'adaptateur\nLes états de la configuration dont l'objet n'existe pas (par exemple si un Echo a été supprimé) ne sont plus écrits, mais signalés une fois",
+        "it": "Aggiunto un widget di allarme per vis-2 e adattatore\nGli stati della configurazione il cui oggetto non esiste (ad es. di un Echo eliminato) non sono più scritti, ma avvisati",
+        "es": "Se ha añadido un widget de alarma para la vis-2 y el adaptador de dispositivos\nLos estados de la configuración cuyo objeto no existe (por ejemplo, de un Echo eliminado) ya no se escriben, sino que se muestran una vez como aviso",
+        "pl": "Dodano widżet panelu alarmowego dla vis-2 i adaptera urządzeń\nStany z konfiguracji, których obiekt nie istnieje (np. usuniętego Echa) nie są już zapisywane, ale zgłaszane raz jako ostrzeżenie",
+        "uk": "Додано віджет панелі сигналізації для vis-2 і адаптера пристроїв\nСтани з конфігурації, об'єкт яких не існує (наприклад, видаленого Echo) більше не записуються, а повідомляються один раз як попередження",
+        "zh-cn": "为 vis-2 和设备适配器添加了警报面板控件\n不再写入对象不存在的配置中的状态（例如已删除的 Echo），而是作为警告报告一次"
+      },
       "5.0.2": {
         "en": "fixed little issues at other alarms",
         "de": "Probleme mit anderen Alarmen behoben",
