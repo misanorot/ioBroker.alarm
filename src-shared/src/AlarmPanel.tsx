@@ -19,6 +19,9 @@
  * container query - so the same component fills a 2x2 tile of the devices app, a vis-2 widget of
  * any size and a dialog. Below roughly 310 px the four modes fall into two rows of two.
  *
+ * Inside a tile it also follows the height: a 1x1 tile keeps the state and two of the modes, a
+ * 2x½ strip only the four modes - see {@link SMALL_TILE} and {@link STRIP_TILE}.
+ *
  * ## Writing
  *
  * A mode is written to `use.list`, which is the adapter's command state; the panel does not set
@@ -81,6 +84,22 @@ const HIDE_WHEN_SHORT = {
     delay: { '@container alarmTile (max-height: 190px)': { display: 'none' } },
     zones: { '@container alarmTile (max-height: 225px)': { display: 'none' } },
 } as const;
+
+/**
+ * A 1x1 tile: narrow and short at once. A 2x2 tile is never under 240 px on either side, a 2x1
+ * never this narrow, so only the single cell matches.
+ *
+ * There is room for the state and two buttons - off and armed, the two a wall panel is mostly
+ * used for. The header goes too: its buttons would sit under the app's own settings button, and
+ * the shield of the state already says what the tile is.
+ */
+const SMALL_TILE = '@container alarmTile (max-width: 240px) and (max-height: 240px)';
+
+/** A 2x½ tile: a strip that holds one row of buttons and nothing above it. */
+const STRIP_TILE = '@container alarmTile (max-height: 110px)';
+
+/** The modes a 1x1 tile drops. Which of them is on, the state above the buttons still says. */
+const SECONDARY_MODES: readonly AlarmMode[] = ['inside', 'night'];
 
 /** What the hosts let the user choose about the panel. */
 export interface AlarmPanelSettings {
@@ -185,7 +204,11 @@ export function AlarmPanel({
             <Stack
                 direction="row"
                 spacing={0.5}
-                sx={{ alignItems: 'center' }}
+                sx={{
+                    alignItems: 'center',
+                    [SMALL_TILE]: { display: 'none' },
+                    [STRIP_TILE]: { display: 'none' },
+                }}
             >
                 <Typography
                     variant={dense ? 'subtitle1' : 'h6'}
@@ -258,6 +281,7 @@ export function AlarmPanel({
                     [`@container (max-width: ${dense ? 200 : 270}px)`]: {
                         gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
                     },
+                    [SMALL_TILE]: { gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' },
                     gap: 1,
                 }}
             >
@@ -268,6 +292,7 @@ export function AlarmPanel({
                         selected={model.mode === mode}
                         disabled={!!readOnly}
                         dense={dense}
+                        hideInSmallTile={SECONDARY_MODES.includes(mode)}
                         onClick={() => onMode(mode)}
                     />
                 ))}
@@ -341,7 +366,7 @@ function StatusAlert({ model, dense }: { model: AlarmModel; dense?: boolean }): 
     const countdown = model.countdown ?? model.silentCountdown;
 
     return (
-        <Box>
+        <Box sx={{ [STRIP_TILE]: { display: 'none' } }}>
             <Alert
                 severity={severity}
                 variant={severity === 'error' ? 'filled' : 'outlined'}
@@ -359,8 +384,12 @@ function StatusAlert({ model, dense }: { model: AlarmModel; dense?: boolean }): 
                 sx={{
                     py: dense ? 0 : 0.25,
                     alignItems: 'center',
-                    '& .MuiAlert-message': dense ? { py: 0.5 } : undefined,
-                    '& .MuiAlert-icon': dense ? { py: 0.5 } : undefined,
+                    // In a tile the state has to stay on one line: wrapped, it would push the
+                    // buttons out of a box that does not grow.
+                    '& .MuiAlert-message': dense
+                        ? { py: 0.5, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }
+                        : undefined,
+                    '& .MuiAlert-icon': dense ? { py: 0.5, mr: 1 } : undefined,
                     '& .MuiAlert-action': { py: 0, alignItems: 'center' },
                 }}
             >
@@ -383,12 +412,14 @@ function ModeButton({
     selected,
     disabled,
     dense,
+    hideInSmallTile,
     onClick,
 }: {
     mode: AlarmMode;
     selected: boolean;
     disabled: boolean;
     dense?: boolean;
+    hideInSmallTile?: boolean;
     onClick: () => void;
 }): React.JSX.Element {
     const Icon = MODE_ICON[mode];
@@ -401,6 +432,7 @@ function ModeButton({
             size={dense ? 'small' : 'medium'}
             onChange={onClick}
             sx={{
+                ...(hideInSmallTile ? { [SMALL_TILE]: { display: 'none' } } : {}),
                 flexDirection: 'column',
                 gap: dense ? 0.25 : 0.5,
                 py: dense ? 0.5 : 1.25,

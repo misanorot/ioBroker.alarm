@@ -95,6 +95,10 @@ export class AlarmPanelComponent extends WidgetGeneric<AlarmComponentState, Alar
                 items: {
                     // Replaces the app's own size field, which offers no 2x2: the panel needs that
                     // tile to show the modes and the zones side by side.
+                    //
+                    // The default has to be what the app renders when no size is stored: 1x1. The
+                    // dialog shows a schema default as if it were the value but does not count it
+                    // as a change, so any other default would show one size and save none.
                     size: {
                         type: 'select',
                         label: 'alarm_size',
@@ -104,7 +108,7 @@ export class AlarmPanelComponent extends WidgetGeneric<AlarmComponentState, Alar
                             { value: '2x0.5', label: '2×½' },
                             { value: '2x2', label: '2×2' },
                         ],
-                        default: '2x2',
+                        default: '1x1',
                         format: 'radio',
                         horizontal: true,
                         noTranslation: true,
@@ -196,6 +200,8 @@ export class AlarmPanelComponent extends WidgetGeneric<AlarmComponentState, Alar
     private renderTile(size: TileSize): React.JSX.Element {
         const accent = this.getAccentColor();
         const indicators = this.renderIndicators(this.renderSettingsButton());
+        // The 1x1 status tile lays out its own padding; the panel needs a margin in every size.
+        const bare = size === '1x1' && resolveContent(this.props.settings.content, size) === 'status';
 
         return (
             <Box
@@ -210,7 +216,7 @@ export class AlarmPanelComponent extends WidgetGeneric<AlarmComponentState, Alar
                         aspectRatio: ASPECT[size],
                         overflow: 'hidden',
                         ...(getTileStyles(theme, this.state.armed, accent) as object),
-                        padding: size === '1x1' ? 0 : 1,
+                        padding: bare ? 0 : 1,
                     })}
                 >
                     {/* Indicators and the settings button must not open the dialog underneath. */}
