@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "5.1.0",
+    "version": "5.1.1",
     "news": {
+      "5.1.1": {
+        "en": "Alarm panel: today's log is shown as a list instead of one line with visible `<br>`\nDevices tile: the size dialog no longer shows 2×2 while the tile is stored as 1×1; the panel adapts its buttons to 1×1 and 2×½ tiles",
+        "de": "<br>Alarmanlage: Das heutige Log wird als Liste und nicht als Zeile angezeigt\nGerätekachel: Der Größendialog zeigt bei 1×1 keine 2×2 mehr; das Panel passt seine Tasten an 1×1 und 2×½ Kacheln an",
+        "ru": "Панель сигнализации: сегодняшний журнал отображается в виде списка вместо одной строки с видимым «<br>`»\nПлитка устройств: в диалоговом окне размера больше не отображается 2 × 2, а фрагмент хранится в формате 1 × 1; панель адаптирует свои кнопки к плиткам размером 1 × 1 и 2 × ½",
+        "pt": "Painel de alarme: o log de hoje é uma lista em vez de uma linha com `<br>`\nQuadro de dispositivos: o diálogo de tamanho não mostra mais 2×2 enquanto o bloco é 1×1; o painel adapta seus botões a 1×1 e 2×½",
+        "nl": "Alarmpaneel: het logboek van vandaag wordt weergegeven als een lijst in plaats van als één regel met zichtbare `<br>`\nApparaattegel: in het dialoogvenster voor de grootte wordt niet langer 2×2 weergegeven terwijl de tegel is opgeslagen als 1×1; het paneel past de knoppen aan voor tegels van 1×1 en 2×½",
+        "fr": "<br>Panneau d'alarme : le journal du jour apparaît sous forme de liste au lieu d'une ligne\nTuile Appareils : la boîte de dialogue des tailles n'affiche plus 2 × 2 alors que la vignette est 1 × 1 ; le panneau adapte ses boutons aux cases 1 × 1 et 2 × ½",
+        "it": "<br>Pannello di allarme: il log di oggi è un elenco anziché una riga\nRiquadro Dispositivi: la finestra di dialogo delle dimensioni non mostra più 2×2 ma è 1×1; adatta i tasti a 1×1 e 2×½",
+        "es": "Panel de alarma: el registro de hoy se muestra como una lista en lugar de una línea <br>visible\nDispositivos: el cuadro de diálogo de tamaño ya no muestra 2 × 2 mientras el mosaico está guardado como 1 × 1; el panel adapta sus botones a 1 × 1 y 2 × ½",
+        "pl": "Panel alarmowy: dzisiejszy dziennik jest wyświetlany jako lista zamiast jednej linii z widocznymi <br>`\nPłytka urządzeń: okno dialogowe rozmiaru nie wyświetla już 2 × 2, podczas gdy płytka jest przechowywana jako 1 × 1; panel dostosowuje przyciski do płytek 1×1 i 2×½",
+        "uk": "Панель сигналізації: сьогоднішній журнал відображається як список замість одного рядка з видимим <br>`\nПлитка пристроїв: у діалоговому вікні розміру більше не відображається 2 × 2, коли плитка зберігається як 1 × 1; панель адаптує свої кнопки до 1 × 1 та 2 × ½ плиток",
+        "zh-cn": "警报面板：今天的日志显示为列表，而不是一行可见 <br>`\n设备图块：当图块存储为 1×1 时，大小对话框不再显示 2×2；面板将其按钮调整为 1×1 和 2×½ 图块"
+      },
       "5.1.0": {
         "en": "Added an alarm panel widget for vis-2 and for the devices adapter\nStates from the configuration whose object does not exist (e.g. of a deleted Echo) are no longer written, but reported once as a warning",
         "de": "Alarm-Widget für VIS-2 und Geräteadapter hinzugefügt\nStatus der Konfiguration, deren Objekt nicht existiert (z. B. eines gelöschten Echos), werden nicht mehr angezeigt.",
@@ -80,19 +93,6 @@
         "pl": "naprawione małe problemy JSON Ui",
         "uk": "виправлено мало питань JSON Ui",
         "zh-cn": "固定的小JSON Ui问题"
-      },
-      "4.0.3": {
-        "en": "fixed checker issues\nAdapter requires node.js >= 22 now\nfixed json config issues\npackages were updated",
-        "de": "fix check-probleme\nAdapter benötigt node.js >= 22 jetzt\nfeste json config probleme\npakete wurden aktualisiert",
-        "ru": "фиксированные проблемы с проверкой\nАдаптер требует node.js >= 22 сейчас\nпроблемы с конфигурацией json\nпакеты были обновлены",
-        "pt": "problemas com o verificador fixo\nAdaptador requer nod.js >= 22 agora\nproblemas de configuração do json corrigidos\nos pacotes foram atualizados",
-        "nl": "vaste controleproblemen\nVoor de adapter zijn node.js < 22 nu nodig\nvaste json configuratie problemen\npakketten werden bijgewerkt",
-        "fr": "problèmes de vérification corrigés\nAdaptateur nécessite node.js >= 22 maintenant\nproblèmes de configuration de json corrigés\nles paquets ont été mis à jour",
-        "it": "problemi di scacchi fissi\nAdattatore richiede node.js >= 22 ora\nproblemi di configurazione di json fissi\ni pacchetti sono stati aggiornati",
-        "es": "cuestiones de comprobación fija\nAdaptador requiere node.js ю= 22 ahora\nfija json config problemas\nse actualizaron los paquetes",
-        "pl": "stałe problemy z kontrolerem\nAdapter wymaga node.js > = 22\nstałe problemy konfiguracyjne json\nopakowania zostały zaktualizowane",
-        "uk": "виправлені питання перевірки\nАдаптер вимагає node.js >= 22 тепер\nвиправлені проблеми json config\nбуло оновлено",
-        "zh-cn": "固定检查器问题\n适配器需要节点.js 现在22\n固定 json 配置问题\n软件包已更新"
       }
     },
     "titleLang": {
