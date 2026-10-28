@@ -3,14 +3,14 @@
  *
  * What it adds to the four modes: the flags the adapter raises next to the plain state - a siren,
  * a silent alarm, an arming that failed - the presence simulation, the two commands that have no
- * mode of their own, and the last line of today's log.
+ * mode of their own, and today's log, newest entry first.
  *
  * A flag is only drawn while it is raised. A quiet system therefore shows one chip - whether it is
  * ready to be armed - and nothing else, and every further chip means something.
  */
 
 import type React from 'react';
-import { Button, Chip, Divider, FormControlLabel, Stack, Switch, Typography } from '@mui/material';
+import { Box, Button, Chip, Divider, FormControlLabel, Stack, Switch, Typography } from '@mui/material';
 import {
     CampaignOutlined,
     CheckCircleOutlined,
@@ -38,11 +38,7 @@ interface Flag {
 }
 
 export function Details({ model, disabled, dense, onWrite }: DetailsProps): React.JSX.Element {
-    const lastLog = model.log
-        .split('\n')
-        .map(line => line.trim())
-        .filter(line => !!line)
-        .pop();
+    const log = parseLog(model.log);
 
     const flags: Flag[] = [
         model.armable ? { key: 'alarm_ready', severity: 'success' } : { key: 'alarm_not_armable', severity: 'warning' },
@@ -131,16 +127,63 @@ export function Details({ model, disabled, dense, onWrite }: DetailsProps): Reac
                 </Button>
             </Stack>
 
-            {lastLog ? (
-                <Typography
-                    variant="caption"
-                    color="text.secondary"
+            {log.length ? (
+                <Box
+                    component="ul"
+                    sx={{
+                        m: 0,
+                        p: 0,
+                        listStyle: 'none',
+                        display: 'grid',
+                        gridTemplateColumns: 'auto minmax(0, 1fr)',
+                        columnGap: 1,
+                        rowGap: 0.25,
+                        alignContent: 'start',
+                        maxHeight: dense ? 96 : 160,
+                        overflowY: 'auto',
+                    }}
                 >
-                    {lastLog}
-                </Typography>
+                    {log.map((entry, i) => (
+                        <Box
+                            key={i}
+                            component="li"
+                            sx={{ display: 'contents' }}
+                        >
+                            <Typography
+                                variant="caption"
+                                color="text.secondary"
+                                sx={{ fontVariantNumeric: 'tabular-nums' }}
+                            >
+                                {entry.time}
+                            </Typography>
+                            <Typography variant="caption">{entry.text}</Typography>
+                        </Box>
+                    ))}
+                </Box>
             ) : null}
         </Stack>
     );
+}
+
+interface LogEntry {
+    time: string;
+    text: string;
+}
+
+/**
+ * Today's log as the adapter writes it - `HH:MM: text` lines joined by `<br>`, the newest first.
+ *
+ * @param log the value of `info.log_today`
+ */
+function parseLog(log: string): LogEntry[] {
+    return log
+        .split(/<br\s*\/?>|\n/i)
+        .map(line => line.trim())
+        .filter(line => !!line)
+        .map(line => {
+            const match = line.match(/^(\d{1,2}:\d{2}):\s*(.*)$/);
+            return match ? { time: match[1], text: match[2] } : { time: '', text: line };
+        });
 }
 
 /**
