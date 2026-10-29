@@ -162,7 +162,7 @@ export function AlarmPanel({
 
     const [circuitsOpen, setCircuitsOpen] = useState(false);
     const [passwordOpen, setPasswordOpen] = useState(false);
-    const [detailsOpen, setDetailsOpen] = useState(false);
+    const [detailsOpen, setDetailsOpen] = useRememberedFlag(`${instance}.detailsOpen`);
 
     // The adapter answers a correct password by disarming, not by telling the panel so.
     useEffect(() => {
@@ -356,6 +356,44 @@ export function AlarmPanel({
             />
         </Stack>
     );
+}
+
+/**
+ * A flag that outlives the panel: the browser keeps it, so a section the user unfolded is still
+ * unfolded after a change of page or a reload.
+ *
+ * Kept per instance, not per widget - two panels of the same alarm system in one browser share it.
+ * Where the browser keeps nothing (a private window, blocked site data), it is a plain state.
+ *
+ * @param key name of the flag, below the `alarm-panel.` prefix
+ */
+function useRememberedFlag(key: string): [boolean, (update: (old: boolean) => boolean) => void] {
+    const storageKey = `alarm-panel.${key}`;
+    const [value, setValue] = useState<boolean>(() => readFlag(storageKey));
+
+    // Another instance chosen in the settings brings its own flag along.
+    useEffect(() => setValue(readFlag(storageKey)), [storageKey]);
+
+    const update = (change: (old: boolean) => boolean): void =>
+        setValue(old => {
+            const next = change(old);
+            try {
+                window.localStorage.setItem(storageKey, next ? 'true' : 'false');
+            } catch {
+                // Nothing kept, nothing lost: the panel just forgets it on the next visit.
+            }
+            return next;
+        });
+
+    return [value, update];
+}
+
+function readFlag(storageKey: string): boolean {
+    try {
+        return window.localStorage.getItem(storageKey) === 'true';
+    } catch {
+        return false;
+    }
 }
 
 // What the system is doing, and how long it still takes. A burglary is the one thing the panel
