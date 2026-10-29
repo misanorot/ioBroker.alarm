@@ -138,6 +138,10 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 5.0.0 (2026-08-06)
+* (@GermanBluefox) Migrated to admin 8
+* (@misanorot) fixed checker #427
+
 ## 4.0.6 (2026-07-07)
 * (@GermanBluefox) Packages were updated
 * (@GermanBluefox) Some compiler errors were fixed

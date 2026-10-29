@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "5.1.1",
+    "version": "5.1.2",
     "news": {
+      "5.1.2": {
+        "en": "feat: panel remembers whether the details are unfolded",
+        "de": "Feat: Panel merkt sich, ob die Details offen sind",
+        "ru": "подвиг: панель запоминает, раскрыты ли детали",
+        "pt": "feat: o painel lembra se os detalhes são revelados",
+        "nl": "prestatie: het panel onthoudt of de gegevens zijn opengevouwen",
+        "fr": "exploit : le panneau mémorise si les détails sont dévoilés",
+        "it": "feat: il pannello ricorda se i dettagli sono spiegati",
+        "es": "hazaña: el panel recuerda si los detalles están desplegados",
+        "pl": "feat: panel pamięta, czy szczegóły są rozłożone",
+        "uk": "feat: панель пам'ятає, чи розгорнуті деталі",
+        "zh-cn": "feat: panel 会记住细节是否展开"
+      },
       "5.1.1": {
         "en": "Alarm panel: today's log is shown as a list instead of one line with visible `<br>`\nDevices tile: the size dialog no longer shows 2×2 while the tile is stored as 1×1; the panel adapts its buttons to 1×1 and 2×½ tiles",
         "de": "<br>Alarmanlage: Das heutige Log wird als Liste und nicht als Zeile angezeigt\nGerätekachel: Der Größendialog zeigt bei 1×1 keine 2×2 mehr; das Panel passt seine Tasten an 1×1 und 2×½ Kacheln an",
@@ -80,19 +93,6 @@
         "pl": "naprawiono problemy z kontrolerem",
         "uk": "виправлені проблеми з перевіркою",
         "zh-cn": "修复了检查器问题"
-      },
-      "4.0.4": {
-        "en": "fixed little JSON Ui issues",
-        "de": "kleine JSON Ui Probleme",
-        "ru": "небольшие проблемы JSON Ui",
-        "pt": "fixa pequenos problemas JSON Ui",
-        "nl": "vaste kleine JSON Ui problemen",
-        "fr": "correction des petits problèmes JSON Ui",
-        "it": "piccolo JSON Ui problemi",
-        "es": "pequeños problemas JSON Ui",
-        "pl": "naprawione małe problemy JSON Ui",
-        "uk": "виправлено мало питань JSON Ui",
-        "zh-cn": "固定的小JSON Ui问题"
       }
     },
     "titleLang": {
