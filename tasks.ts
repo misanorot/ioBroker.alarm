@@ -1,5 +1,10 @@
 import { deleteFoldersRecursive, buildReact, copyFiles, npmInstall } from '@iobroker/build-tools';
 
+// `buildReact` forks vite, and a fork inherits `process.execArgv` - here the loader of tsx. tsx then
+// compiles the ESM of `@module-federation/vite` to CommonJS, where `import.meta.resolve` does not
+// exist, and loading `vite.config.ts` fails. Vite must run on plain Node.
+process.execArgv.length = 0;
+
 function buildAdmin(): Promise<void> {
     return buildReact(`${__dirname}/src-admin/`, { rootDir: `${__dirname}/src-admin/`, vite: true });
 }
