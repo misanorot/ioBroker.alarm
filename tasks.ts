@@ -62,6 +62,25 @@ function copyDeviceFiles(): void {
     copyFiles(['src-devices/img/*'], 'admin/dm-widgets/');
 }
 
+// --- web component: src-webcomponents -> admin/webcomponents ------------------------------------
+
+/**
+ * `<iob-alarm-panel>` for every host that shows web components (vis-2, devices, Aura, admin): one module and its
+ * manifest, named by `common.webComponents`. The vite build writes the manifest and fails if it is not valid.
+ */
+function buildWebComponents(): Promise<void> {
+    return buildReact(`${__dirname}/src-webcomponents/`, { rootDir: `${__dirname}/src-webcomponents/`, vite: true });
+}
+
+function cleanWebComponents(): void {
+    deleteFoldersRecursive(`${__dirname}/admin/webcomponents`);
+    deleteFoldersRecursive(`${__dirname}/src-webcomponents/build`);
+}
+
+function copyWebComponentFiles(): void {
+    copyFiles(['src-webcomponents/build/*.js', 'src-webcomponents/build/*.json'], 'admin/webcomponents/');
+}
+
 if (process.argv.includes('--admin-0-clean')) {
     cleanAdmin();
 } else if (process.argv.includes('--admin-1-npm')) {
@@ -76,6 +95,15 @@ if (process.argv.includes('--admin-0-clean')) {
         .then(() => buildWidgets())
         .then(() => copyWidgetFiles())
         .catch((e: unknown) => console.error(e));
+} else if (process.argv.includes('--wc')) {
+    cleanWebComponents();
+    npmInstall(`${__dirname}/src-webcomponents/`)
+        .then(() => buildWebComponents())
+        .then(() => copyWebComponentFiles())
+        .catch((e: unknown) => {
+            console.error(e);
+            process.exit(1);
+        });
 } else if (process.argv.includes('--devices')) {
     cleanDevices();
     npmInstall(`${__dirname}/src-devices/`)

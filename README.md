@@ -27,6 +27,9 @@ This adapter allows you to set up a home alarm system without extensive programm
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (@GermanBluefox) Added the alarm panel as web component `<iob-alarm-panel>` for Aura and other hosts (`common.webComponents`)
+
 ### 5.1.2 (2026-10-29)
 * (@GermanBluefox) feat: panel remembers whether the details are unfolded
 

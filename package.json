@@ -54,9 +54,10 @@
   ],
   "scripts": {
     "prebuild": "rimraf build",
-    "build": "npm run build:backend && tsx tasks.ts && npm run build:widgets && npm run build:devices",
+    "build": "npm run build:backend && tsx tasks.ts && npm run build:widgets && npm run build:devices && npm run build:wc",
     "build:widgets": "tsx tasks.ts --widgets",
     "build:devices": "tsx tasks.ts --devices",
+    "build:wc": "tsx tasks.ts --wc",
     "build:backend": "tsc -p tsconfig.build.json",
     "watch": "tsc -p tsconfig.build.json --watch",
     "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
@@ -66,11 +67,13 @@
     "check": "tsc --noEmit -p tsconfig.json",
     "check:widgets": "npm --prefix src-widgets run typecheck",
     "check:devices": "npm --prefix src-devices run typecheck",
+    "check:wc": "npm --prefix src-webcomponents run typecheck",
     "lint": "eslint -c eslint.config.mjs .",
+    "lint:wc": "npm --prefix src-webcomponents run lint",
     "translate": "translate-adapter",
     "release": "release-script",
-    "npm": "npm i && cd src-admin && npm i -f && cd ../src-widgets && npm i && cd ../src-devices && npm i",
-    "update-packages": "npx -y npm-check-updates --upgrade && cd src-admin && npx -y npm-check-updates --upgrade && cd ../src-widgets && npx -y npm-check-updates --upgrade && cd ../src-devices && npx -y npm-check-updates --upgrade"
+    "npm": "npm i && cd src-admin && npm i -f && cd ../src-widgets && npm i && cd ../src-devices && npm i && cd ../src-webcomponents && npm i",
+    "update-packages": "npx -y npm-check-updates --upgrade && cd src-admin && npx -y npm-check-updates --upgrade && cd ../src-widgets && npx -y npm-check-updates --upgrade && cd ../src-devices && npx -y npm-check-updates --upgrade && cd ../src-webcomponents && npx -y npm-check-updates --upgrade"
   },
   "bugs": {
     "url": "https://github.com/misanorot/ioBroker.alarm/issues"

@@ -12,6 +12,7 @@ ioBroker.alarm is an ioBroker adapter implementing a home alarm system with zone
 - **Build backend only**: `npm run build:backend` (compiles TypeScript from `src/` to `build/` via `tsc -p tsconfig.build.json`)
 - **Build vis-2 widget**: `npm run build:widgets` (`src-widgets/` → `widgets/alarm/`)
 - **Build devices tile**: `npm run build:devices` (`src-devices/` → `admin/dm-widgets/`)
+- **Build web component**: `npm run build:wc` (`src-webcomponents/` → `admin/webcomponents/`); `npm run check:wc` and `npm run lint:wc` type-check and lint it with its own configs
 - **Watch**: `npm run watch` (incremental compilation)
 - **Type check**: `npm run check` (runs `tsc --noEmit` against `tsconfig.json`); `npm run check:widgets` and `npm run check:devices` do the same for the two widget projects
 - **Lint**: `npm run lint` (ESLint with `@iobroker/eslint-config`, flat config in `eslint.config.mjs`)
@@ -55,8 +56,15 @@ One panel, two hosts. The UI is written once and built twice:
   federation and hands its modules out on `window.__iobrokerShared__` instead, so
   `src-devices/hostShared.ts` redirects every import of React, MUI and gui-components to that
   global — a second React would break every hook of the panel.
-- `widgets/` and `admin/dm-widgets/` are build output but **are committed**, because they ship in
-  the npm package. The intermediate `src-*/build/` folders are git-ignored.
+- `src-webcomponents/` — The same panel as the web component `<iob-alarm-panel>`
+  (`@iobroker/web-components`) for every host that shows web components: Aura, admin, and vis-2 or
+  devices where they have no widget of the same name. Plain React and CSS, no MUI: React comes from
+  the host (`lib/esm/react-19.js`), and of `src-shared` only the pure `states.ts` and `ui.ts` are
+  compiled in, plus the words of `src-shared/i18n`, picked at build time. Its manifest is written by
+  the build (`vite.config.ts`, name and description from `common.deviceWidgets`) and checked; both
+  files go to `admin/webcomponents/`, declared under `common.webComponents`.
+- `widgets/`, `admin/dm-widgets/` and `admin/webcomponents/` are build output but **are committed**,
+  because they ship in the npm package. The intermediate `src-*/build/` folders are git-ignored.
 
 The panel is built from stock MUI components - `Alert`, `ToggleButton`, `Chip`, `Button`, `Switch`
 - with a `severity` or a palette `color`, and carries no colour, radius or elevation of its own. It

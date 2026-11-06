@@ -23,6 +23,8 @@ export default [
             'src-widgets/build/',
             'src-devices/node_modules/',
             'src-devices/build/',
+            // The web component has its own eslint config with the React rules: `npm run lint:wc`
+            'src-webcomponents/',
             // Built widget bundles, copied here by `tasks.ts --widgets` / `--devices`
             'widgets/',
             '**/adapter-config.d.ts'
