@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "5.1.2",
+    "version": "5.2.0",
     "news": {
+      "5.2.0": {
+        "en": "Added the alarm panel as web component `<iob-alarm-panel>` for Aura and other hosts (`common.webComponents`)",
+        "de": "Alarmpanel als Webkomponente <iob-alarm-panel>für Aura und andere Hosts hinzugefügt (`common.WebComponents`)",
+        "ru": "Добавлена панель сигнализации в качестве веб-компонента <iob-alarm-panel>`для Aura и других хостов (`Common.webcomponents`)",
+        "pt": "Adicionado o painel de alarme como componente web <iob-alarm-panel>`` para Aura e outros hosts",
+        "nl": "Het alarmpaneel toegevoegd als webcomponent `<iob-alarm-panel>` voor Aura en andere hosts (`Common.WebComponents`)",
+        "fr": "Ajout du panneau d'alarme en tant que composant Web <iob-alarm-panel>pour Aura et les autres hôtes (common.WebComponents`)",
+        "it": "Aggiunto il pannello di allarme come <iob-alarm-panel>componente web per Aura e altri host",
+        "es": "Añadió la alarma como componente web <iob-alarm-panel>`para Aura y otros hosts (`Common.WebComponents`)",
+        "pl": "Dodano panel alarmowy jako komponent sieciowy `<iob-alarm-panel>` dla Aura i innych hostów (`common.webcomponents`)",
+        "uk": "Додана панель сигналізації як веб-компонент `<iob-alarm-panel>` для Aura та інших хостів (`Common.WebComponents`)",
+        "zh-cn": "为 <iob-alarm-panel>Aura 和其他主机添加了警报面板作为 Web 组件 ``（`common.webComponents`）"
+      },
       "5.1.2": {
         "en": "feat: panel remembers whether the details are unfolded",
         "de": "Feat: Panel merkt sich, ob die Details offen sind",
@@ -80,19 +93,6 @@
         "pl": "Pakiety zostały zaktualizowane\nNaprawiono niektóre błędy kompilatora",
         "uk": "Пакети оновлено\nДеякі помилки компілятора було виправлено",
         "zh-cn": "软件包已更新\n修复了一些编译器错误。"
-      },
-      "4.0.5": {
-        "en": "fixed checker issues",
-        "de": "Probleme mit der Prüfroutine behoben",
-        "ru": "Исправлены ошибки проверки.",
-        "pt": "Problemas de verificação corrigidos",
-        "nl": "Problemen met de checker opgelost",
-        "fr": "Problèmes de vérification résolus",
-        "it": "problemi risolti del sistema di controllo",
-        "es": "Se corrigieron los problemas del verificador.",
-        "pl": "naprawiono problemy z kontrolerem",
-        "uk": "виправлені проблеми з перевіркою",
-        "zh-cn": "修复了检查器问题"
       }
     },
     "titleLang": {
