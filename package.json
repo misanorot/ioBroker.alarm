@@ -49,6 +49,7 @@
     "admin/",
     "build/",
     "widgets/",
+    "src-shared/i18n/",
     "io-package.json",
     "LICENSE"
   ],
