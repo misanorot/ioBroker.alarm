@@ -13,6 +13,8 @@ src-admin/.__mf__temp
 # widgets/alarm and admin/dm-widgets and are committed
 src-widgets/build
 src-devices/build
+# the same for the web component: its module and manifest are copied to admin/webcomponents
+src-webcomponents/build
 
 # npm package files
 iobroker.*.tgz

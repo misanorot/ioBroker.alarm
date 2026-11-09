@@ -195,6 +195,9 @@
         }
       ]
     },
+    "webComponents": [
+      "webcomponents/alarm-panel.json"
+    ],
     "restartAdapters": [
       "vis-2"
     ],
