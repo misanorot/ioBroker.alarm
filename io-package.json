@@ -196,7 +196,28 @@
       ]
     },
     "webComponents": [
-      "webcomponents/alarm-panel.json"
+      {
+        "manifest": "webcomponents/alarm-panel.json",
+        "tag": "iob-alarm-panel",
+        "name": {
+          "en": "Alarm panel",
+          "de": "Alarm-Panel",
+          "ru": "Панель сигнализации",
+          "pt": "Painel de alarme",
+          "nl": "Alarmpaneel",
+          "fr": "Panneau d'alarme",
+          "it": "Pannello di allarme",
+          "es": "Panel de alarma",
+          "pl": "Panel alarmowy",
+          "uk": "Панель сигналізації",
+          "zh-cn": "报警面板"
+        },
+        "icon": "../dm-widgets/alarm-panel.svg",
+        "size": {
+          "width": 360,
+          "height": 420
+        }
+      }
     ],
     "restartAdapters": [
       "vis-2"
