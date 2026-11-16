@@ -30,7 +30,9 @@ jobs:
         with:
           node-version: '24.x'
           # Uncomment the following line if your adapter cannot be installed using 'npm ci'
-          install-command: 'npm i && cd src-admin && npm i'
+          # The widget projects are installed too: the shared panel in src-shared is linted
+          # with type information, and its React and MUI types come from src-widgets.
+          install-command: 'npm i && cd src-admin && npm i && cd ../src-widgets && npm i && cd ../src-devices && npm i'
           lint: true
 
   # Runs adapter tests on all supported node versions and OSes
@@ -76,5 +78,5 @@ jobs:
       - uses: ioBroker/testing-action-deploy@v1
         with:
           node-version: '24.x'
-          install-command: 'npm i && cd src-admin && npm i'
+          install-command: 'npm i && cd src-admin && npm i && cd ../src-widgets && npm i && cd ../src-devices && npm i'
           github-token: ${{ secrets.GITHUB_TOKEN }}

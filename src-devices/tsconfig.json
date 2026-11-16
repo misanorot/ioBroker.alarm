@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "useDefineForClassFields": true,
+        "lib": ["DOM", "DOM.Iterable", "ESNext"],
+        "allowJs": false,
+        "skipLibCheck": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "strict": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
+        "types": ["vite/client", "@iobroker/types"],
+        "paths": {
+            "@alarm/*": ["../src-shared/src/*"],
+            "react": ["./node_modules/@types/react"],
+            "react/*": ["./node_modules/@types/react/*"],
+            "@mui/material": ["./node_modules/@mui/material"],
+            "@mui/material/*": ["./node_modules/@mui/material/*"],
+            "@mui/icons-material": ["./node_modules/@mui/icons-material"],
+            "@mui/icons-material/*": ["./node_modules/@mui/icons-material/*"],
+            "@iobroker/gui-components": ["./node_modules/@iobroker/gui-components"]
+        }
+    },
+    "include": ["src", "vite.config.ts", "hostShared.ts", "../src-shared/src/**/*.ts", "../src-shared/src/**/*.tsx"]
+}

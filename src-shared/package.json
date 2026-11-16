@@ -1,0 +1,15 @@
+{
+    "name": "iobroker.alarm-shared",
+    "version": "0.0.0",
+    "private": true,
+    "description": "Shared sources (hooks, icons, i18n) for the alarm frontends. Bundled at build time, not published.",
+    "type": "module",
+    "peerDependencies": {
+        "@mui/icons-material": "^9.5.0",
+        "react": "^19.3.1"
+    },
+    "devDependencies": {
+        "@mui/icons-material": "^9.5.0",
+        "react": "^19.3.1"
+    }
+}

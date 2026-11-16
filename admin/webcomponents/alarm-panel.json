@@ -1,0 +1,266 @@
+{
+    "$schema": "https://raw.githubusercontent.com/ioBroker/web-components/main/schemas/manifest.json",
+    "manifestVersion": 1,
+    "tag": "iob-alarm-panel",
+    "name": {
+        "en": "Alarm panel",
+        "de": "Alarm-Panel",
+        "ru": "Панель сигнализации",
+        "pt": "Painel de alarme",
+        "nl": "Alarmpaneel",
+        "fr": "Panneau d'alarme",
+        "it": "Pannello di allarme",
+        "es": "Panel de alarma",
+        "pl": "Panel alarmowy",
+        "uk": "Панель сигналізації",
+        "zh-cn": "报警面板"
+    },
+    "description": {
+        "en": "Modes, zones and state of an alarm instance; a small tile opens the full panel",
+        "de": "Modi, Zonen und Status einer Alarm-Instanz; eine kleine Kachel öffnet das ganze Panel",
+        "ru": "Режимы, зоны и состояние экземпляра alarm; маленькая плитка открывает всю панель",
+        "pt": "Modos, zonas e estado de uma instância de alarme; um mosaico pequeno abre o painel completo",
+        "nl": "Modi, zones en status van een alarm-instantie; een kleine tegel opent het hele paneel",
+        "fr": "Modes, zones et état d'une instance d'alarme ; une petite tuile ouvre le panneau complet",
+        "it": "Modalità, zone e stato di un'istanza di allarme; una piccola piastrella apre il pannello intero",
+        "es": "Modos, zonas y estado de una instancia de alarma; un mosaico pequeño abre el panel completo",
+        "pl": "Tryby, strefy i stan instancji alarmu; mały kafelek otwiera pełny panel",
+        "uk": "Режими, зони та стан екземпляра alarm; маленька плитка відкриває всю панель",
+        "zh-cn": "报警实例的模式、区域和状态；小磁贴可打开完整面板"
+    },
+    "icon": "../dm-widgets/alarm-panel.svg",
+    "module": "alarm-panel.js",
+    "size": {
+        "width": 360,
+        "height": 420
+    },
+    "settings": {
+        "type": "panel",
+        "items": {
+            "instance": {
+                "type": "instance",
+                "adapter": "alarm",
+                "label": {
+                    "en": "Alarm instance",
+                    "de": "Alarm-Instanz",
+                    "ru": "Экземпляр alarm",
+                    "pt": "Instância de alarme",
+                    "nl": "Alarm-instantie",
+                    "fr": "Instance d'alarme",
+                    "it": "Istanza di allarme",
+                    "es": "Instancia de alarma",
+                    "pl": "Instancja alarmu",
+                    "uk": "Екземпляр alarm",
+                    "zh-cn": "报警实例"
+                }
+            },
+            "panelTitle": {
+                "type": "text",
+                "label": {
+                    "en": "Title",
+                    "de": "Titel",
+                    "ru": "Заголовок",
+                    "pt": "Título",
+                    "nl": "Titel",
+                    "fr": "Titre",
+                    "it": "Titolo",
+                    "es": "Título",
+                    "pl": "Tytuł",
+                    "uk": "Заголовок",
+                    "zh-cn": "标题"
+                },
+                "help": {
+                    "en": "Leave empty for \"Alarm system\"",
+                    "de": "Leer lassen für „Alarmanlage“",
+                    "ru": "Оставьте пустым для «Сигнализация»",
+                    "pt": "Deixe vazio para \"Sistema de alarme\"",
+                    "nl": "Leeg laten voor \"Alarmsysteem\"",
+                    "fr": "Laisser vide pour « Système d'alarme »",
+                    "it": "Lasciare vuoto per \"Sistema di allarme\"",
+                    "es": "Dejar vacío para \"Sistema de alarma\"",
+                    "pl": "Pozostaw puste dla „System alarmowy”",
+                    "uk": "Залиште порожнім для «Сигналізація»",
+                    "zh-cn": "留空则显示“报警系统”"
+                }
+            },
+            "content": {
+                "type": "select",
+                "label": {
+                    "en": "Content",
+                    "de": "Inhalt",
+                    "ru": "Содержимое",
+                    "pt": "Conteúdo",
+                    "nl": "Inhoud",
+                    "fr": "Contenu",
+                    "it": "Contenuto",
+                    "es": "Contenido",
+                    "pl": "Zawartość",
+                    "uk": "Вміст",
+                    "zh-cn": "内容"
+                },
+                "default": "auto",
+                "options": [
+                    {
+                        "value": "auto",
+                        "label": {
+                            "en": "Automatic",
+                            "de": "Automatisch",
+                            "ru": "Автоматически",
+                            "pt": "Automático",
+                            "nl": "Automatisch",
+                            "fr": "Automatique",
+                            "it": "Automatico",
+                            "es": "Automático",
+                            "pl": "Automatycznie",
+                            "uk": "Автоматично",
+                            "zh-cn": "自动"
+                        }
+                    },
+                    {
+                        "value": "status",
+                        "label": {
+                            "en": "Status only",
+                            "de": "Nur Status",
+                            "ru": "Только состояние",
+                            "pt": "Apenas o estado",
+                            "nl": "Alleen status",
+                            "fr": "État seulement",
+                            "it": "Solo stato",
+                            "es": "Solo estado",
+                            "pl": "Tylko stan",
+                            "uk": "Лише стан",
+                            "zh-cn": "仅状态"
+                        }
+                    },
+                    {
+                        "value": "panel",
+                        "label": {
+                            "en": "Full panel",
+                            "de": "Ganzes Panel",
+                            "ru": "Полная панель",
+                            "pt": "Painel completo",
+                            "nl": "Volledig paneel",
+                            "fr": "Panneau complet",
+                            "it": "Pannello completo",
+                            "es": "Panel completo",
+                            "pl": "Pełny panel",
+                            "uk": "Повна панель",
+                            "zh-cn": "完整面板"
+                        }
+                    }
+                ]
+            },
+            "showZones": {
+                "type": "checkbox",
+                "label": {
+                    "en": "Show zones",
+                    "de": "Zonen anzeigen",
+                    "ru": "Показывать зоны",
+                    "pt": "Mostrar zonas",
+                    "nl": "Zones tonen",
+                    "fr": "Afficher les zones",
+                    "it": "Mostrare le zone",
+                    "es": "Mostrar zonas",
+                    "pl": "Pokaż strefy",
+                    "uk": "Показувати зони",
+                    "zh-cn": "显示区域"
+                },
+                "help": {
+                    "en": "Zones without a sensor are never shown",
+                    "de": "Zonen ohne Sensor werden nie angezeigt",
+                    "ru": "Зоны без датчика не показываются",
+                    "pt": "As zonas sem sensor nunca são mostradas",
+                    "nl": "Zones zonder sensor worden nooit getoond",
+                    "fr": "Les zones sans capteur ne sont jamais affichées",
+                    "it": "Le zone senza sensore non vengono mai mostrate",
+                    "es": "Las zonas sin sensor nunca se muestran",
+                    "pl": "Strefy bez czujnika nigdy nie są pokazywane",
+                    "uk": "Зони без датчика ніколи не показуються",
+                    "zh-cn": "没有传感器的区域始终不显示"
+                },
+                "default": true
+            },
+            "showDelay": {
+                "type": "checkbox",
+                "label": {
+                    "en": "Show \"with delay\"",
+                    "de": "„Mit Verzögerung“ anzeigen",
+                    "ru": "Показывать «С задержкой»",
+                    "pt": "Mostrar \"com atraso\"",
+                    "nl": "\"Met vertraging\" tonen",
+                    "fr": "Afficher « Avec délai »",
+                    "it": "Mostrare \"Con ritardo\"",
+                    "es": "Mostrar \"Con retardo\"",
+                    "pl": "Pokaż „Z opóźnieniem”",
+                    "uk": "Показувати «Із затримкою»",
+                    "zh-cn": "显示“延时布防”"
+                },
+                "default": true
+            },
+            "showCircuits": {
+                "type": "checkbox",
+                "label": {
+                    "en": "Circuits button",
+                    "de": "Meldekreis-Schaltfläche",
+                    "ru": "Кнопка контуров",
+                    "pt": "Botão dos circuitos",
+                    "nl": "Knop meldkringen",
+                    "fr": "Bouton des circuits",
+                    "it": "Pulsante circuiti",
+                    "es": "Botón de circuitos",
+                    "pl": "Przycisk obwodów",
+                    "uk": "Кнопка контурів",
+                    "zh-cn": "回路按钮"
+                },
+                "default": true
+            },
+            "showDetails": {
+                "type": "checkbox",
+                "label": {
+                    "en": "Details button",
+                    "de": "Details-Schaltfläche",
+                    "ru": "Кнопка подробностей",
+                    "pt": "Botão de detalhes",
+                    "nl": "Knop details",
+                    "fr": "Bouton des détails",
+                    "it": "Pulsante dettagli",
+                    "es": "Botón de detalles",
+                    "pl": "Przycisk szczegółów",
+                    "uk": "Кнопка деталей",
+                    "zh-cn": "详细信息按钮"
+                },
+                "default": true
+            },
+            "askPassword": {
+                "type": "checkbox",
+                "label": {
+                    "en": "Ask for the password to disarm",
+                    "de": "Passwort zum Deaktivieren abfragen",
+                    "ru": "Запрашивать пароль для снятия с охраны",
+                    "pt": "Pedir a palavra-passe para desativar",
+                    "nl": "Wachtwoord vragen bij deactiveren",
+                    "fr": "Demander le mot de passe pour désactiver",
+                    "it": "Chiedere la password per disattivare",
+                    "es": "Pedir la contraseña para desactivar",
+                    "pl": "Pytaj o hasło przy rozbrajaniu",
+                    "uk": "Запитувати пароль для зняття з охорони",
+                    "zh-cn": "撤防时要求输入密码"
+                },
+                "help": {
+                    "en": "The adapter checks it - set a password in the instance settings first",
+                    "de": "Der Adapter prüft es – zuerst ein Passwort in den Instanzeinstellungen setzen",
+                    "ru": "Проверяет адаптер — сначала задайте пароль в настройках экземпляра",
+                    "pt": "O adaptador verifica-a — defina primeiro uma palavra-passe nas definições da instância",
+                    "nl": "De adapter controleert het — stel eerst een wachtwoord in bij de instantie",
+                    "fr": "L'adaptateur le vérifie — définissez d'abord un mot de passe dans l'instance",
+                    "it": "L'adattatore la verifica — impostare prima una password nell'istanza",
+                    "es": "El adaptador la comprueba: defina antes una contraseña en la instancia",
+                    "pl": "Sprawdza je adapter — najpierw ustaw hasło w instancji",
+                    "uk": "Перевіряє адаптер — спочатку задайте пароль у налаштуваннях екземпляра",
+                    "zh-cn": "由适配器校验 — 请先在实例设置中设置密码"
+                },
+                "default": false
+            }
+        }
+    }
+}

@@ -228,6 +228,8 @@ class Alarm extends utils.Adapter {
     timer = null;
     /** Delay timer for speech output to the sayit adapter */
     speechTimeout = null;
+    /** Configured states without object, warned about once */
+    missingStates = new Set();
     /** Timeout for the silent alarm duration before auto-reset */
     silentTimer = null;
     /** Timeout for the inside siren duration before auto-reset */
@@ -1350,6 +1352,29 @@ class Alarm extends utils.Adapter {
         }
     }
     /**
+     * Writes a state from the configuration, if its object exists. Otherwise, e.g. for an Echo deleted in alexa2, the
+     * state would be created without object: nobody sees it, and nobody deletes it.
+     *
+     * @param id - The state ID from the configuration
+     * @param val - The value to write
+     */
+    async setConfiguredState(id, val) {
+        try {
+            if (!(await this.getForeignObjectAsync(id))) {
+                if (!this.missingStates.has(id)) {
+                    this.missingStates.add(id);
+                    this.log.warn(`State "${id}" from the configuration does not exist. Please check the configuration`);
+                }
+                return;
+            }
+            this.missingStates.delete(id);
+            await this.setForeignStateAsync(id, val);
+        }
+        catch (err) {
+            this.log.warn(`Cannot set state ${id}: ${err}`);
+        }
+    }
+    /**
      * Sends a text-to-speech message to a sayit adapter instance after an optional delay.
      *
      * @param id - The sayit state ID to write the speech text to
@@ -1368,11 +1393,7 @@ class Alarm extends utils.Adapter {
         this.log.debug(`speech output instance: ${id}: ${message}, delay ${delay}s`);
         this.speechTimeout = this.setTimeout(() => {
             this.speechTimeout = null;
-            this.setForeignState(id, message, err => {
-                if (err) {
-                    this.log.warn(err);
-                }
-            });
+            void this.setConfiguredState(id, message);
         }, delay * 1000);
     }
     /**
@@ -2379,11 +2400,7 @@ class Alarm extends utils.Adapter {
                 }
                 const writeValue = this.bools(ele.value);
                 this.setTimeout(() => {
-                    this.setForeignState(ele.name_id, writeValue, err => {
-                        if (err) {
-                            this.log.warn(`Cannot set state: ${err}`);
-                        }
-                    });
+                    void this.setConfiguredState(ele.name_id, writeValue);
                 }, i * 250);
                 if (ele.repeat_write > 0) {
                     let remaining = ele.repeat_write - 1;
@@ -2395,11 +2412,7 @@ class Alarm extends utils.Adapter {
                             return;
                         }
                         remaining--;
-                        this.setForeignState(ele.name_id, writeValue, err => {
-                            if (err) {
-                                this.log.warn(`Cannot set state: ${err}`);
-                            }
-                        });
+                        void this.setConfiguredState(ele.name_id, writeValue);
                     }, 1000);
                     this.shortcutRepeatIntervals.set(i, interval);
                     this.log.debug(`Started repeat write for shortcut ${i}: ${ele.name_id}, ${ele.repeat_write}s`);
@@ -2562,19 +2575,11 @@ class Alarm extends utils.Adapter {
                         pt.presenceDelayTimer = this.setTimeout(() => {
                             pt.presenceDelayTimer = null;
                             this.log.debug(`Delay for: ${pt.name} -- ${pt.nameID}  ends and switch ON ${pt.presenceLength}ms.`);
-                            this.setForeignState(pt.nameID, this.bools(pt.presenceValueON), err => {
-                                if (err) {
-                                    this.log.warn(`Cannot set state: ${err}`);
-                                }
-                            });
+                            void this.setConfiguredState(pt.nameID, this.bools(pt.presenceValueON));
                             pt.presenceLengthTimer = this.setTimeout(() => {
                                 pt.presenceLengthTimer = null;
                                 this.log.debug(`Switch ON for: ${pt.name} -- ${pt.nameID}  ends and switch OFF.`);
-                                this.setForeignState(pt.nameID, this.bools(pt.presenceValueOff), err => {
-                                    if (err) {
-                                        this.log.warn(`Cannot set state: ${err}`);
-                                    }
-                                });
+                                void this.setConfiguredState(pt.nameID, this.bools(pt.presenceValueOff));
                             }, pt.presenceLength);
                         }, pt.presenceDelay);
                     }
@@ -2589,19 +2594,11 @@ class Alarm extends utils.Adapter {
                         pt.presenceDelayTimer = this.setTimeout(() => {
                             pt.presenceDelayTimer = null;
                             this.log.debug(`Delay for: ${pt.name} -- ${pt.nameID}  ends and switch ON ${pt.presenceLength}ms.`);
-                            this.setForeignState(pt.nameID, this.bools(pt.presenceValueON), err => {
-                                if (err) {
-                                    this.log.warn(`Cannot set state: ${err}`);
-                                }
-                            });
+                            void this.setConfiguredState(pt.nameID, this.bools(pt.presenceValueON));
                             pt.presenceLengthTimer = this.setTimeout(() => {
                                 pt.presenceLengthTimer = null;
                                 this.log.debug(`Switch ON for: ${pt.name} -- ${pt.nameID}  ends and switch OFF.`);
-                                this.setForeignState(pt.nameID, this.bools(pt.presenceValueOff), err => {
-                                    if (err) {
-                                        this.log.warn(`Cannot set state: ${err}`);
-                                    }
-                                });
+                                void this.setConfiguredState(pt.nameID, this.bools(pt.presenceValueOff));
                             }, pt.presenceLength);
                         }, pt.presenceDelay);
                     }
@@ -2616,19 +2613,11 @@ class Alarm extends utils.Adapter {
                         pt.presenceDelayTimer = this.setTimeout(() => {
                             pt.presenceDelayTimer = null;
                             this.log.debug(`Delay for: ${pt.name} -- ${pt.nameID}  ends and switch ON ${pt.presenceLength}ms.`);
-                            this.setForeignState(pt.nameID, this.bools(pt.presenceValueON), err => {
-                                if (err) {
-                                    this.log.warn(`Cannot set state: ${err}`);
-                                }
-                            });
+                            void this.setConfiguredState(pt.nameID, this.bools(pt.presenceValueON));
                             pt.presenceLengthTimer = this.setTimeout(() => {
                                 pt.presenceLengthTimer = null;
                                 this.log.debug(`Switch ON for: ${pt.name} -- ${pt.nameID}  ends and switch OFF.`);
-                                this.setForeignState(pt.nameID, this.bools(pt.presenceValueOff), err => {
-                                    if (err) {
-                                        this.log.warn(`Cannot set state: ${err}`);
-                                    }
-                                });
+                                void this.setConfiguredState(pt.nameID, this.bools(pt.presenceValueOff));
                             }, pt.presenceLength);
                         }, pt.presenceDelay);
                     }
@@ -2647,19 +2636,11 @@ class Alarm extends utils.Adapter {
                         pt.presenceDelayTimer = this.setTimeout(() => {
                             pt.presenceDelayTimer = null;
                             this.log.debug(`Delay for: ${pt.name} -- ${pt.nameID}  ends and switch ON ${pt.presenceLength}ms.`);
-                            this.setForeignState(pt.nameID, this.bools(pt.presenceValueON), err => {
-                                if (err) {
-                                    this.log.warn(`Cannot set state: ${err}`);
-                                }
-                            });
+                            void this.setConfiguredState(pt.nameID, this.bools(pt.presenceValueON));
                             pt.presenceLengthTimer = this.setTimeout(() => {
                                 pt.presenceLengthTimer = null;
                                 this.log.debug(`Switch ON for: ${pt.name} -- ${pt.nameID}  ends and switch OFF.`);
-                                this.setForeignState(pt.nameID, this.bools(pt.presenceValueOff), err => {
-                                    if (err) {
-                                        this.log.warn(`Cannot set state: ${err}`);
-                                    }
-                                });
+                                void this.setConfiguredState(pt.nameID, this.bools(pt.presenceValueOff));
                             }, pt.presenceLength);
                         }, pt.presenceDelay);
                     }

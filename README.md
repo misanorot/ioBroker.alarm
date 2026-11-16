@@ -27,26 +27,30 @@ This adapter allows you to set up a home alarm system without extensive programm
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+* (@GermanBluefox) Added the short form of the web component manifests (tag, name, icon, size) to `common.webComponents`, so that hosts like Aura can list the components before the adapter is installed; the build writes it with `iob-web-components sync-io-package`
+
+### 5.2.0 (2026-11-09)
+* (@GermanBluefox) Added the alarm panel as web component `<iob-alarm-panel>` for Aura and other hosts (`common.webComponents`)
+
+### 5.1.2 (2026-10-29)
+* (@GermanBluefox) feat: panel remembers whether the details are unfolded
+
+### 5.1.1 (2026-10-28)
+* (@GermanBluefox) Alarm panel: today's log is shown as a list instead of one line with visible `<br>`
+* (@GermanBluefox) Devices tile: the size dialog no longer shows 2×2 while the tile is stored as 1×1; the panel adapts its buttons to 1×1 and 2×½ tiles
+
+### 5.1.0 (2026-10-27)
+* (@GermanBluefox) Added an alarm panel widget for vis-2 and for the devices adapter
+* (@GermanBluefox) States from the configuration whose object does not exist (e.g. of a deleted Echo) are no longer written, but reported once as a warning
+
 ### 5.0.2 (2026-09-28)
 * (@misanorot) fixed little issues at other alarms
-
-### 5.0.1 (2026-08-07)
-* (@misanorot) update
-
-### 5.0.0 (2026-08-06)
-* (@GermanBluefox) Migrated to admin 8
-* (@misanorot) fixed checker #427
-
-### 4.0.6 (2026-07-07)
-* (@GermanBluefox) Packages were updated
-* (@GermanBluefox) Some compiler errors were fixed
-
-### 4.0.5 (2026-06-23)
-* (@misanorot) fixed checker issues
 
 [Older changes](CHANGELOG_OLD.md)
 
 ## License
-MIT License
+[MIT License](LICENSE)
 
 Copyright (c) 2019-2026 misanorot <audi16v@gmx.de>

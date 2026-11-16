@@ -1,8 +1,60 @@
 {
   "common": {
     "name": "alarm",
-    "version": "5.0.2",
+    "version": "5.2.0",
     "news": {
+      "5.2.0": {
+        "en": "Added the alarm panel as web component `<iob-alarm-panel>` for Aura and other hosts (`common.webComponents`)",
+        "de": "Alarmpanel als Webkomponente <iob-alarm-panel>für Aura und andere Hosts hinzugefügt (`common.WebComponents`)",
+        "ru": "Добавлена панель сигнализации в качестве веб-компонента <iob-alarm-panel>`для Aura и других хостов (`Common.webcomponents`)",
+        "pt": "Adicionado o painel de alarme como componente web <iob-alarm-panel>`` para Aura e outros hosts",
+        "nl": "Het alarmpaneel toegevoegd als webcomponent `<iob-alarm-panel>` voor Aura en andere hosts (`Common.WebComponents`)",
+        "fr": "Ajout du panneau d'alarme en tant que composant Web <iob-alarm-panel>pour Aura et les autres hôtes (common.WebComponents`)",
+        "it": "Aggiunto il pannello di allarme come <iob-alarm-panel>componente web per Aura e altri host",
+        "es": "Añadió la alarma como componente web <iob-alarm-panel>`para Aura y otros hosts (`Common.WebComponents`)",
+        "pl": "Dodano panel alarmowy jako komponent sieciowy `<iob-alarm-panel>` dla Aura i innych hostów (`common.webcomponents`)",
+        "uk": "Додана панель сигналізації як веб-компонент `<iob-alarm-panel>` для Aura та інших хостів (`Common.WebComponents`)",
+        "zh-cn": "为 <iob-alarm-panel>Aura 和其他主机添加了警报面板作为 Web 组件 ``（`common.webComponents`）"
+      },
+      "5.1.2": {
+        "en": "feat: panel remembers whether the details are unfolded",
+        "de": "Feat: Panel merkt sich, ob die Details offen sind",
+        "ru": "подвиг: панель запоминает, раскрыты ли детали",
+        "pt": "feat: o painel lembra se os detalhes são revelados",
+        "nl": "prestatie: het panel onthoudt of de gegevens zijn opengevouwen",
+        "fr": "exploit : le panneau mémorise si les détails sont dévoilés",
+        "it": "feat: il pannello ricorda se i dettagli sono spiegati",
+        "es": "hazaña: el panel recuerda si los detalles están desplegados",
+        "pl": "feat: panel pamięta, czy szczegóły są rozłożone",
+        "uk": "feat: панель пам'ятає, чи розгорнуті деталі",
+        "zh-cn": "feat: panel 会记住细节是否展开"
+      },
+      "5.1.1": {
+        "en": "Alarm panel: today's log is shown as a list instead of one line with visible `<br>`\nDevices tile: the size dialog no longer shows 2×2 while the tile is stored as 1×1; the panel adapts its buttons to 1×1 and 2×½ tiles",
+        "de": "<br>Alarmanlage: Das heutige Log wird als Liste und nicht als Zeile angezeigt\nGerätekachel: Der Größendialog zeigt bei 1×1 keine 2×2 mehr; das Panel passt seine Tasten an 1×1 und 2×½ Kacheln an",
+        "ru": "Панель сигнализации: сегодняшний журнал отображается в виде списка вместо одной строки с видимым «<br>`»\nПлитка устройств: в диалоговом окне размера больше не отображается 2 × 2, а фрагмент хранится в формате 1 × 1; панель адаптирует свои кнопки к плиткам размером 1 × 1 и 2 × ½",
+        "pt": "Painel de alarme: o log de hoje é uma lista em vez de uma linha com `<br>`\nQuadro de dispositivos: o diálogo de tamanho não mostra mais 2×2 enquanto o bloco é 1×1; o painel adapta seus botões a 1×1 e 2×½",
+        "nl": "Alarmpaneel: het logboek van vandaag wordt weergegeven als een lijst in plaats van als één regel met zichtbare `<br>`\nApparaattegel: in het dialoogvenster voor de grootte wordt niet langer 2×2 weergegeven terwijl de tegel is opgeslagen als 1×1; het paneel past de knoppen aan voor tegels van 1×1 en 2×½",
+        "fr": "<br>Panneau d'alarme : le journal du jour apparaît sous forme de liste au lieu d'une ligne\nTuile Appareils : la boîte de dialogue des tailles n'affiche plus 2 × 2 alors que la vignette est 1 × 1 ; le panneau adapte ses boutons aux cases 1 × 1 et 2 × ½",
+        "it": "<br>Pannello di allarme: il log di oggi è un elenco anziché una riga\nRiquadro Dispositivi: la finestra di dialogo delle dimensioni non mostra più 2×2 ma è 1×1; adatta i tasti a 1×1 e 2×½",
+        "es": "Panel de alarma: el registro de hoy se muestra como una lista en lugar de una línea <br>visible\nDispositivos: el cuadro de diálogo de tamaño ya no muestra 2 × 2 mientras el mosaico está guardado como 1 × 1; el panel adapta sus botones a 1 × 1 y 2 × ½",
+        "pl": "Panel alarmowy: dzisiejszy dziennik jest wyświetlany jako lista zamiast jednej linii z widocznymi <br>`\nPłytka urządzeń: okno dialogowe rozmiaru nie wyświetla już 2 × 2, podczas gdy płytka jest przechowywana jako 1 × 1; panel dostosowuje przyciski do płytek 1×1 i 2×½",
+        "uk": "Панель сигналізації: сьогоднішній журнал відображається як список замість одного рядка з видимим <br>`\nПлитка пристроїв: у діалоговому вікні розміру більше не відображається 2 × 2, коли плитка зберігається як 1 × 1; панель адаптує свої кнопки до 1 × 1 та 2 × ½ плиток",
+        "zh-cn": "警报面板：今天的日志显示为列表，而不是一行可见 <br>`\n设备图块：当图块存储为 1×1 时，大小对话框不再显示 2×2；面板将其按钮调整为 1×1 和 2×½ 图块"
+      },
+      "5.1.0": {
+        "en": "Added an alarm panel widget for vis-2 and for the devices adapter\nStates from the configuration whose object does not exist (e.g. of a deleted Echo) are no longer written, but reported once as a warning",
+        "de": "Alarm-Widget für VIS-2 und Geräteadapter hinzugefügt\nStatus der Konfiguration, deren Objekt nicht existiert (z. B. eines gelöschten Echos), werden nicht mehr angezeigt.",
+        "ru": "Добавлен виджет панели сигнализации для vis-2 и адаптера устройств\nСостояния конфигурации, объект которых не существует (например, удаленного Echo), больше не записываются, но выводятся один раз в виде предупреждения",
+        "pt": "Adicionou um widget de alarme para vis-2 e adaptador\nEstados da configuração cujo objeto não existe (ex: um Echo excluído) não são mais gravados, mas relatados como aviso",
+        "nl": "Een widget voor het alarmpaneel toegevoegd voor vis-2 en voor de adapter van het apparaat\nStatussen uit de configuratie waarvan het object niet bestaat (bijvoorbeeld van een verwijderde echo) worden niet langer geschreven, maar één keer gerapporteerd als waarschuwing",
+        "fr": "Ajout d'un widget d'alarme pour Vis-2 et pour l'adaptateur\nLes états de la configuration dont l'objet n'existe pas (par exemple si un Echo a été supprimé) ne sont plus écrits, mais signalés une fois",
+        "it": "Aggiunto un widget di allarme per vis-2 e adattatore\nGli stati della configurazione il cui oggetto non esiste (ad es. di un Echo eliminato) non sono più scritti, ma avvisati",
+        "es": "Se ha añadido un widget de alarma para la vis-2 y el adaptador de dispositivos\nLos estados de la configuración cuyo objeto no existe (por ejemplo, de un Echo eliminado) ya no se escriben, sino que se muestran una vez como aviso",
+        "pl": "Dodano widżet panelu alarmowego dla vis-2 i adaptera urządzeń\nStany z konfiguracji, których obiekt nie istnieje (np. usuniętego Echa) nie są już zapisywane, ale zgłaszane raz jako ostrzeżenie",
+        "uk": "Додано віджет панелі сигналізації для vis-2 і адаптера пристроїв\nСтани з конфігурації, об'єкт яких не існує (наприклад, видаленого Echo) більше не записуються, а повідомляються один раз як попередження",
+        "zh-cn": "为 vis-2 和设备适配器添加了警报面板控件\n不再写入对象不存在的配置中的状态（例如已删除的 Echo），而是作为警告报告一次"
+      },
       "5.0.2": {
         "en": "fixed little issues at other alarms",
         "de": "Probleme mit anderen Alarmen behoben",
@@ -29,19 +81,6 @@
         "uk": "оновлення",
         "zh-cn": "更新"
       },
-      "5.0.0": {
-        "en": "Migrated to admin 8\nfixed checker #427",
-        "de": "Migriert zu Admin 8\nFehlercode #427 behoben",
-        "ru": "Перенесено на админку 8\nисправленный проверяющий #427",
-        "pt": "Migrado para admin 8\nverificador corrigido #427",
-        "nl": "Overgezet naar beheerder 8\ngecorrigeerde controle #427",
-        "fr": "Migré vers l'administrateur 8\nvérificateur corrigé n° 427",
-        "it": "Migrato ad admin 8\nControllore corretto n. 427",
-        "es": "Migrado a admin 8\nCorregido el verificador n.° 427",
-        "pl": "Przeniesiono do administratora 8\nstały kontroler #427",
-        "uk": "Перенесено до адміністратора 8\nвиправлена шашка №427",
-        "zh-cn": "已迁移至 admin 8\n修复检查器 #427"
-      },
       "4.0.6": {
         "en": "Packages were updated\nSome compiler errors were fixed",
         "de": "Die Pakete wurden aktualisiert\nEinige Compilerfehler wurden behoben.",
@@ -54,45 +93,6 @@
         "pl": "Pakiety zostały zaktualizowane\nNaprawiono niektóre błędy kompilatora",
         "uk": "Пакети оновлено\nДеякі помилки компілятора було виправлено",
         "zh-cn": "软件包已更新\n修复了一些编译器错误。"
-      },
-      "4.0.5": {
-        "en": "fixed checker issues",
-        "de": "Probleme mit der Prüfroutine behoben",
-        "ru": "Исправлены ошибки проверки.",
-        "pt": "Problemas de verificação corrigidos",
-        "nl": "Problemen met de checker opgelost",
-        "fr": "Problèmes de vérification résolus",
-        "it": "problemi risolti del sistema di controllo",
-        "es": "Se corrigieron los problemas del verificador.",
-        "pl": "naprawiono problemy z kontrolerem",
-        "uk": "виправлені проблеми з перевіркою",
-        "zh-cn": "修复了检查器问题"
-      },
-      "4.0.4": {
-        "en": "fixed little JSON Ui issues",
-        "de": "kleine JSON Ui Probleme",
-        "ru": "небольшие проблемы JSON Ui",
-        "pt": "fixa pequenos problemas JSON Ui",
-        "nl": "vaste kleine JSON Ui problemen",
-        "fr": "correction des petits problèmes JSON Ui",
-        "it": "piccolo JSON Ui problemi",
-        "es": "pequeños problemas JSON Ui",
-        "pl": "naprawione małe problemy JSON Ui",
-        "uk": "виправлено мало питань JSON Ui",
-        "zh-cn": "固定的小JSON Ui问题"
-      },
-      "4.0.3": {
-        "en": "fixed checker issues\nAdapter requires node.js >= 22 now\nfixed json config issues\npackages were updated",
-        "de": "fix check-probleme\nAdapter benötigt node.js >= 22 jetzt\nfeste json config probleme\npakete wurden aktualisiert",
-        "ru": "фиксированные проблемы с проверкой\nАдаптер требует node.js >= 22 сейчас\nпроблемы с конфигурацией json\nпакеты были обновлены",
-        "pt": "problemas com o verificador fixo\nAdaptador requer nod.js >= 22 agora\nproblemas de configuração do json corrigidos\nos pacotes foram atualizados",
-        "nl": "vaste controleproblemen\nVoor de adapter zijn node.js < 22 nu nodig\nvaste json configuratie problemen\npakketten werden bijgewerkt",
-        "fr": "problèmes de vérification corrigés\nAdaptateur nécessite node.js >= 22 maintenant\nproblèmes de configuration de json corrigés\nles paquets ont été mis à jour",
-        "it": "problemi di scacchi fissi\nAdattatore richiede node.js >= 22 ora\nproblemi di configurazione di json fissi\ni pacchetti sono stati aggiornati",
-        "es": "cuestiones de comprobación fija\nAdaptador requiere node.js ю= 22 ahora\nfija json config problemas\nse actualizaron los paquetes",
-        "pl": "stałe problemy z kontrolerem\nAdapter wymaga node.js > = 22\nstałe problemy konfiguracyjne json\nopakowania zostały zaktualizowane",
-        "uk": "виправлені питання перевірки\nАдаптер вимагає node.js >= 22 тепер\nвиправлені проблеми json config\nбуло оновлено",
-        "zh-cn": "固定检查器问题\n适配器需要节点.js 现在22\n固定 json 配置问题\n软件包已更新"
       }
     },
     "titleLang": {
@@ -148,6 +148,80 @@
     "adminUI": {
       "config": "json"
     },
+    "visWidgets": {
+      "vis2AlarmWidgets": {
+        "i18n": "component",
+        "name": "vis2AlarmWidgets",
+        "url": "alarm/customWidgets.js",
+        "color": "#4dabf5",
+        "bundlerType": "module",
+        "label": "alarm_set_label",
+        "components": [
+          "AlarmPanel"
+        ]
+      }
+    },
+    "deviceWidgets": {
+      "components": [
+        {
+          "name": "AlarmPanelComponent",
+          "label": {
+            "en": "Alarm panel",
+            "de": "Alarm-Panel",
+            "ru": "Панель сигнализации",
+            "pt": "Painel de alarme",
+            "nl": "Alarmpaneel",
+            "fr": "Panneau d'alarme",
+            "it": "Pannello di allarme",
+            "es": "Panel de alarma",
+            "pl": "Panel alarmowy",
+            "uk": "Панель сигналізації",
+            "zh-cn": "报警面板"
+          },
+          "description": {
+            "en": "Modes, zones and state of an alarm instance; a small tile opens the full panel",
+            "de": "Modi, Zonen und Status einer Alarm-Instanz; eine kleine Kachel öffnet das ganze Panel",
+            "ru": "Режимы, зоны и состояние экземпляра alarm; маленькая плитка открывает всю панель",
+            "pt": "Modos, zonas e estado de uma instância de alarme; um mosaico pequeno abre o painel completo",
+            "nl": "Modi, zones en status van een alarm-instantie; een kleine tegel opent het hele paneel",
+            "fr": "Modes, zones et état d'une instance d'alarme ; une petite tuile ouvre le panneau complet",
+            "it": "Modalità, zone e stato di un'istanza di allarme; una piccola piastrella apre il pannello intero",
+            "es": "Modos, zonas y estado de una instancia de alarma; un mosaico pequeño abre el panel completo",
+            "pl": "Tryby, strefy i stan instancji alarmu; mały kafelek otwiera pełny panel",
+            "uk": "Режими, зони та стан екземпляра alarm; маленька плитка відкриває всю панель",
+            "zh-cn": "报警实例的模式、区域和状态；小磁贴可打开完整面板"
+          },
+          "icon": "alarm-panel.svg"
+        }
+      ]
+    },
+    "webComponents": [
+      {
+        "manifest": "webcomponents/alarm-panel.json",
+        "tag": "iob-alarm-panel",
+        "name": {
+          "en": "Alarm panel",
+          "de": "Alarm-Panel",
+          "ru": "Панель сигнализации",
+          "pt": "Painel de alarme",
+          "nl": "Alarmpaneel",
+          "fr": "Panneau d'alarme",
+          "it": "Pannello di allarme",
+          "es": "Panel de alarma",
+          "pl": "Panel alarmowy",
+          "uk": "Панель сигналізації",
+          "zh-cn": "报警面板"
+        },
+        "icon": "../dm-widgets/alarm-panel.svg",
+        "size": {
+          "width": 360,
+          "height": 420
+        }
+      }
+    ],
+    "restartAdapters": [
+      "vis-2"
+    ],
     "dependencies": [
       {
         "js-controller": ">=6.0.11"
