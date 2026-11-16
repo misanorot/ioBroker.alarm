@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "alarm",
-    "version": "5.2.0",
+    "version": "5.2.1",
     "news": {
+      "5.2.1": {
+        "en": "Added the short form of the web component manifests (tag, name, icon, size) to `common.webComponents`, so that hosts like Aura can list the components before the adapter is installed; the build writes it with `iob-web-components sync-io-package`",
+        "de": "Die Kurzform der Webkomponenten-Manifeste (Tag, Name, Symbol, Größe) wurde zu `common.WebComponents` hinzugefügt, sodass Hosts wie Aura die Komponenten vor der Adapterinstallation auflisten können; der Build schreibt es mit `iob-web-components sync-io-package`",
+        "ru": "Добавлена краткая форма манифестов веб-компонентов (тег, имя, значок, размер) в `Common.webcomponents`, чтобы такие хосты, как Aura, могли перечислять компоненты до установки адаптера; сборка записывает его с помощью `iob-web-components sync-io-package`",
+        "pt": "A forma abreviada dos manifestos de componentes web (tag, nome, ícone, tamanho) foi adicionada a `common.webComponents` para que hosts como o Aura possam listar os componentes antes da instalação do adaptador; a compilação grava com `iob-web-components sync-io-package`",
+        "nl": "De korte vorm van de manifesten van de webcomponenten (tag, naam, pictogram, grootte) toegevoegd aan `Common.WebComponents`, zodat hosts zoals Aura de componenten kunnen opsommen voordat de adapter wordt geïnstalleerd; de build schrijft het met `iob-web-components sync-io-package`",
+        "fr": "Ajout de la forme abrégée des manifestes des composants Web (tag, nom, icône, taille) à « common.WebComponents », afin que des hôtes comme Aura puissent lister les composants avant d'installer l'adaptateur ; la version l'écrit avec « iob-web-components sync-io-package »",
+        "it": "Aggiunto l'abbreviazione dei manifest dei componenti web (tag, nome, icona, dimensione) a Common.WebComponents, in modo che host come Aura possano elencare i componenti prima di installare l'adattatore",
+        "es": "Ha añadido la forma abreviada de los manifiestos de componentes web (etiqueta, nombre, icono, tamaño) a `Common.WebComponents` para que hosts como Aura puedan enumerar los componentes antes de instalar el adaptador; la versión lo escribe con `iob-web-components sync-io-package`",
+        "pl": "Dodano krótką formę manifestów komponentów internetowych (tag, nazwa, ikona, rozmiar) do `common.webcomponents`, aby hosty takie jak Aura mogli wymienić komponenty przed zainstalowaniem adaptera; kompilacja zapisuje go za pomocą `iob-web-components sync-io-package`",
+        "uk": "Додано коротку форму маніфестів веб-компонента (тег, ім'я, піктограма, розмір) до `Common.WebComponents`, щоб такі хости, як Aura, могли перелічити компоненти до встановлення адаптера; збірка записує його за допомогою `iob-web-components sync-io-package`",
+        "zh-cn": "将 Web 组件清单（标签、名称、图标、大小）的简写形式添加到 `common.webComponents` 中，这样像 Aura 这样的主机就可以在安装适配器之前列出组件；该版本使用 `iob-web-components sync-io-package` 写入组件"
+      },
       "5.2.0": {
         "en": "Added the alarm panel as web component `<iob-alarm-panel>` for Aura and other hosts (`common.webComponents`)",
         "de": "Alarmpanel als Webkomponente <iob-alarm-panel>für Aura und andere Hosts hinzugefügt (`common.WebComponents`)",
@@ -80,19 +93,6 @@
         "pl": "aktualizacja",
         "uk": "оновлення",
         "zh-cn": "更新"
-      },
-      "4.0.6": {
-        "en": "Packages were updated\nSome compiler errors were fixed",
-        "de": "Die Pakete wurden aktualisiert\nEinige Compilerfehler wurden behoben.",
-        "ru": "Пакеты обновлены\nБыли исправлены некоторые ошибки компиляции.",
-        "pt": "Os pacotes foram atualizados.\nAlguns erros de compilação foram corrigidos.",
-        "nl": "Pakketten zijn bijgewerkt\nEnkele compilerfouten zijn verholpen.",
-        "fr": "Les paquets ont été mis à jour\nCertaines erreurs du compilateur ont été corrigées.",
-        "it": "I pacchetti sono stati aggiornati\nSono stati corretti alcuni errori di compilazione.",
-        "es": "Los paquetes se actualizaron.\nSe corrigieron algunos errores del compilador.",
-        "pl": "Pakiety zostały zaktualizowane\nNaprawiono niektóre błędy kompilatora",
-        "uk": "Пакети оновлено\nДеякі помилки компілятора було виправлено",
-        "zh-cn": "软件包已更新\n修复了一些编译器错误。"
       }
     },
     "titleLang": {

@@ -138,6 +138,9 @@
 
 #### 0.0.8 (03.02.2020)
 * (misanorot) initial release
+## 5.0.2 (2026-09-28)
+* (@misanorot) fixed little issues at other alarms
+
 ## 5.0.1 (2026-08-07)
 * (@misanorot) update
 
